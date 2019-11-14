@@ -6,7 +6,7 @@
   <meta name="author" content="Q" />
   
   
-  <title>归档: 2019 | Hexo</title>
+  <title>GitHub+hexo个人博客的搭建 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -40,7 +40,7 @@
     welcome: {"enable":false,"interval":30},
     start_time: "2019-11-14",
     passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "Q",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
@@ -158,48 +158,81 @@
 </nav>
 <div id="site-process"></div>
     <main>
-      <div class="timeline">
-  <h2 class="timeline-title">归档: 6篇</h2>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-11-14
+    </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    GitHub+hexo个人博客的搭建
+  </h1>
   
-    
-      <h3 class="timeline-subtitle">2019</h3>
-    
-    <div class="timeline-item">
-      <time>2019-11-14</time>
-      <a target="_self" href="/passages/GitHub+hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/">GitHub+hexo个人博客的搭建</a>
-    </div>
+  <article class="passage-article">
+    <h1 id="GitHub-hexo个人博客的搭建"><a href="#GitHub-hexo个人博客的搭建" class="headerlink" title="GitHub+hexo个人博客的搭建"></a>GitHub+hexo个人博客的搭建</h1><h3 id="github的注册和新建仓库"><a href="#github的注册和新建仓库" class="headerlink" title="github的注册和新建仓库"></a>github的注册和新建仓库</h3><p>注册好一个个人github账户，新建一个仓库。</p>
+<p>创建自己的仓库名（Repository name），注意，这里的仓库名的形式一定要为 <a href="http://username.git.io" target="_blank" rel="noopener">username.git.io</a> 的形式，username就是你的用户名 。</p>
+<h3 id="本地环境搭建"><a href="#本地环境搭建" class="headerlink" title="本地环境搭建"></a>本地环境搭建</h3><p> 在官网下载node.js 和 git 。</p>
+<h3 id="获取ssh并配置"><a href="#获取ssh并配置" class="headerlink" title="获取ssh并配置"></a>获取ssh并配置</h3><p>打开git bash，输入ssh-keygen -t rsa, 接着回车三下,如下所示则创建公私钥成功， 回车默认的是把公钥和私钥保存在默认的路径。</p>
+<p>运行下面两条指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+
+<p>这样就会在C盘用户目录下生成id_rsa和id_rsa.pub这两个文件，前者是私钥，后者是公钥，用记事本打开id_rsa.pub，复制其中的全部内容，添加到GitHub上，这样本地的id_rsa密钥就可以和GitHub上的id_rsa.pub公钥进行配对，授权成功。</p>
+<p>在GitHub点击右上角的头像打开setting，在SSH and GPGkey选项中点击New SSH key，把上述所说的id_rsa.pub中的内容全部复制到框框中，完成授权 </p>
+<h3 id="配置本地博客"><a href="#配置本地博客" class="headerlink" title="配置本地博客"></a>配置本地博客</h3><h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><p>新建一个文件夹（用来安装hexo，相当于新建一个文件夹安装java JDK），在git bash中进入这个文件夹下（在git bash中用cd 命令进入或者在该文件夹下右击点Git bash here ，两种方法效果一样）输入<strong>npm install -g hexo</strong>安装hexo即可（要耐心的等会），再输入<strong>npm install hexo –save</strong> （耐心的等一会），紧接着输入 <strong>hexo v</strong>  </p>
+<h4 id="初始化hexo"><a href="#初始化hexo" class="headerlink" title="初始化hexo"></a>初始化hexo</h4><p>什么是初始化hexo？就相当于新建一个hexo实例，新建一个文件夹，在这个文件夹下初始化hexo，用<strong>hexo init +文件夹路径</strong> 或者在该文件夹下打开git bash 进行执行<strong>hexo init</strong> 命令，比如我在一个叫tobinwang的文件夹里初始化了hexo，则这个文件夹下就生成了一个hexo站点所包含的所以文件</p>
+<p>3.3 部署到Github</p>
+<p><strong>两个概念：</strong></p>
+<p><strong>站点配置文件：</strong>初始化hexo那个文件夹下的_config.yml文件</p>
+<p><strong>主题配置文件：</strong>theme目录下每个主题文件夹中的_config.yml文件</p>
+<p>每个主题都有一个主题配置文件，但是一个站点只有一个站点配置文件</p>
+<p>打开站点配置文件先打开配置文档_config.yml，对它做如下修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https://github.com/xxx/xxxx.github.io.git</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样就配置好啦，接下来在git bash中把网站部署到github上。打开github，通过ssh登录github，既执行指令<strong>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></strong>  ，必须先登录才能部署，在本地预览的时候不需要这一步，接着执行三部曲</p>
+<ul>
+<li>hexo clean （清理缓存什么的，执行一下没坏处）</li>
+<li>hexo g （生成静态文件）</li>
+<li>hexo d （部署到github上，如果只是本地预览把这一步换为 hexo s）</li>
+</ul>
+<p>这样就完成了，在浏览器里输入库地址就能访问我们在github上搭建的博客了 ，比如我的库地址如上（斜杠后面的）<a href="http://tobinwang.github.io" target="_blank" rel="noopener">tobinwang.github.io</a></p>
+<p>如果在部署文件到github上时遇到下面这种情况，跟着它的提示照做就行了</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#GitHub-hexo个人博客的搭建"><span class="toc-text">GitHub+hexo个人博客的搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github的注册和新建仓库"><span class="toc-text">github的注册和新建仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地环境搭建"><span class="toc-text">本地环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取ssh并配置"><span class="toc-text">获取ssh并配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置本地博客"><span class="toc-text">配置本地博客</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装hexo"><span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化hexo"><span class="toc-text">初始化hexo</span></a></li></ol></li></ol></li></ol></li></ol>
+  </div>
+</aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-11-14</time>
-      <a target="_self" href="/passages/DAY1/">DAY1</a>
-    </div>
+    <aside class="passage-copyright">
+      <div>本文作者: Q</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://yoursite.com/passages/GitHub+hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-11-14</time>
-      <a target="_self" href="/passages/JAVA%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%88%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%EF%BC%89/">JAVA环境的搭建（第一次作业）</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-11-14</time>
-      <a target="_self" href="/passages/idea%E5%BF%AB%E6%8D%B7%E9%94%AE%E8%AE%BE%E7%BD%AEkeymap-win-mac/">idea快捷键设置keymap-win-mac</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-11-14</time>
-      <a target="_self" href="/passages/IDEA%20%E7%9A%84%E8%AE%BE%E7%BD%AE/">IDEA 的设置</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-11-14</time>
-      <a target="_self" href="/passages/hello-world/">Hello World</a>
-    </div>
   
 </div>
+
     </main>
     
     <div class="site-footer-wrapper">
@@ -311,12 +344,12 @@
     <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+    <a href="/passages/DAY1/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
