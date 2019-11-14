@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Q" />
+  
+  
+  <title>markdown使用说明 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="学习笔记,markdown," />
+  
+
+  
+  <meta name="description" content="一个初学者的博客">
+
+  
+
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+
+  
+    <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":null,"appkey":null,"comment":false,"count":false},
+    welcome: {"enable":true,"interval":30},
+    start_time: "2019-11-14",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "Q",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">自律</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | To be you want to be</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/Anonymity-0" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-11-11
+    </span>
+    
+      <span>
+        | <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa fa-bookmark"></i>学习笔记</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    markdown使用说明
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="markdown使用说明"><a href="#markdown使用说明" class="headerlink" title="markdown使用说明"></a>markdown使用说明</h1><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p> 输入1次# + space后，将生成1级标题。 快捷键：ctrl+1。<br> 输入2次# + space后，将生成2级标题。 快捷键：ctrl+2。<br> 以此类推，可以生成6级标题。</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><h5 id="html注释"><a href="#html注释" class="headerlink" title="html注释"></a>html注释</h5><!--我是注释。-->
+
+<!--
+我是多段
+注释
+-->
+
+<h5 id="hack方法"><a href="#hack方法" class="headerlink" title="hack方法"></a>hack方法</h5><p>其中[]中的内容可以自定义，如</p>
+<p> 注：但是这个注释在代码段中无效，只能在外部使用 。</p>
+<h3 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h3><p>[^+要注明的文本]</p>
+<p>例如： [^MarkDown] <a href="java是最好的语言.">^Java</a></p>
+<p>[^MarkDown]:Markdown 是一种轻量级标记语言。</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>&gt;+ space+引用内容，如</p>
+<blockquote>
+<p>今天不学习，明天变垃圾。</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>明天不学习，后天变垃圾。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>一直不学习，一直是垃圾。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>&gt;可以一直加下去，虽然好像没什么用。</p>
+<h3 id="文字内容"><a href="#文字内容" class="headerlink" title="文字内容"></a>文字内容</h3><h5 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h5><p>字体左右各一个*，表示斜体。效果：<em>这是斜体</em>    快捷键：<strong>ctrl+I</strong></p>
+<p>字体左右各两个*，表示粗体。效果: <strong>这是粗体</strong>    快捷键：<strong>ctrl+B</strong></p>
+<p>字体左右两边各三个*，表示粗体和斜体。 效果：<strong><em>这是粗体加斜体</em></strong></p>
+<h5 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h5><p>字体左右各两个~<del>，表示加删除线。 效果：</del>这是删除线~~    快捷键：<strong>alt+shift+5</strong></p>
+<h5 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h5><p>字体左边加&lt;u&gt;右边加&lt;/u&gt;，表示加下划线线。效果：<u>这是下划线</u></p>
+<h5 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h5><p>在一行中用三个以上的*、-、_来建立一个分隔线。效果：</p>
+<hr>
+<hr>
+<hr>
+<h5 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h5><p> 如需显示特定的符号，使用反斜杠转义特殊字符。 </p>
+<p>如：** 显示星号 **</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h5 id="单行代码"><a href="#单行代码" class="headerlink" title="单行代码"></a>单行代码</h5><p>语法：</p>
+<p>使用 `代码`表示单行行内代码。</p>
+<p>如： 让我们输出 <code>hello world！</code>。 </p>
+<h5 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h5><p>语法：</p>
+<p> 代码之间分别用三个反引号括起来，且两边的反引号单独占一行。</p>
+<p>``` + 语言<br>  代码<br>  代码<br>  代码<br>```</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"Hello World!"</span>);</span><br><span class="line">System.out.println(<span class="string">"I LOVE JAVA!"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><p> 使用 *，+，- 表示无序列表 ，如：</p>
+<ul>
+<li><p>无序列表项 一</p>
+</li>
+<li><p>无序列表项 二</p>
+</li>
+<li><p>无序列表项 三</p>
+</li>
+</ul>
+<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><p> 使用数字和点表示有序列表，如：</p>
+<ol>
+<li><p>有序列表 一</p>
+</li>
+<li><p>有序列表 二</p>
+</li>
+<li><p>有序列表 三</p>
+</li>
+</ol>
+<h5 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h5><p>在上一级和下一级之间敲三个空格即可，如：</p>
+<ul>
+<li>一级无序列表内容<ol>
+<li>二级有序列表一</li>
+</ol>
+</li>
+</ul>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>快捷键：<strong>ctrl+T</strong></p>
+<p>格式：</p>
+<p>|表头|表头|表头|</p>
+<p>|-|-|-|</p>
+<p>|内容|内容|内容|</p>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th align="center">姓名</th>
+<th align="center">爱好</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">我</td>
+<td align="center">睡觉</td>
+</tr>
+<tr>
+<td align="center">大佬</td>
+<td align="center">学习</td>
+</tr>
+</tbody></table>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>语法：![图片alt](图片地址 ‘’图片title’’)</p>
+<p>注：图片alt就是显示在图片下面的文字，相当于对图片内容的解释。<br>        图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</p>
+<p>示例：</p>
+<p><img src="https://sorry.xuty.tk/cache/0e8f9c279b26005365e30e1343cdb7c9.gif" alt="图片alt"></p>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>[链接名称](链接地址)<br>或者<br>&lt;链接地址&gt;</p>
+<p>例：<br><a href="www.baidu.com">百度</a><br>&lt;<a href="http://www.baidu.com&gt;" target="_blank" rel="noopener">www.baidu.com&gt;</a></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#markdown使用说明"><span class="toc-text">markdown使用说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标题"><span class="toc-text">标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注释"><span class="toc-text">注释</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#html注释"><span class="toc-text">html注释</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#hack方法"><span class="toc-text">hack方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚注"><span class="toc-text">脚注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用"><span class="toc-text">引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文字内容"><span class="toc-text">文字内容</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#字体"><span class="toc-text">字体</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#删除线"><span class="toc-text">删除线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#下划线"><span class="toc-text">下划线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#分割线"><span class="toc-text">分割线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#转义"><span class="toc-text">转义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#单行代码"><span class="toc-text">单行代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码块"><span class="toc-text">代码块</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表"><span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#无序列表"><span class="toc-text">无序列表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#有序列表"><span class="toc-text">有序列表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#列表嵌套"><span class="toc-text">列表嵌套</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表格"><span class="toc-text">表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片"><span class="toc-text">图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链接"><span class="toc-text">链接</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: Q</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://yoursite.com/passages/markdown%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/markdown/"><i class="fa fa-tags"></i>markdown</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://www.csdn.net/" target="_blank">CSDN</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://blog.csdn.net/weixin_45796289" target="_blank">我的csdn</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://www.icourse163.org/" target="_blank">中国大学mooc</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://www.gulixueyuan.com/my/course/39" target="_blank">谷粒学院</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">社区</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://www.zhihu.com/" target="_blank">知乎</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://segmentfault.com/" target="_blank">思否</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i>
+        <span id="busuanzi_container_site_pv">您是本站第 <span id="busuanzi_value_site_pv"></span> 位访客</span>
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 1030410643@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" target="_blank" rel="noopener" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/JAVA%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%88%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%EF%BC%89/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="false">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" target="_blank" rel="noopener" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+    <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" target="_blank" rel="noopener" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" target="_blank" rel="noopener" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
