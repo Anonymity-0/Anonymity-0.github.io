@@ -6,12 +6,12 @@
   <meta name="author" content="Q" />
   
   
-  <title>IDEA 的设置 | Hexo</title>
+  <title>1.注释 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="学习笔记,JAVA,IDEA," />
+    <meta name="keywords" content="Hexo, Theme-AD" />
   
 
   
@@ -162,12 +162,8 @@
   <div class="passage">
   <div class="passage-meta">
     <span>
-      <i class="fa fa-calendar"></i>2019-11-11
+      <i class="fa fa-calendar"></i>2019-12-09
     </span>
-    
-      <span>
-        | <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa fa-bookmark"></i>学习笔记</a>
-      </span>
     
     
       <span>
@@ -176,34 +172,75 @@
     
   </div>
   <h1 class="passage-title">
-    IDEA 的设置
+    1.注释
   </h1>
   
   <article class="passage-article">
-    <h1 id="IDEA-的设置"><a href="#IDEA-的设置" class="headerlink" title="IDEA 的设置"></a>IDEA 的设置</h1><p>算了太多了直接导出设置吧/(ㄒoㄒ)/~~大的编译器就是好，快捷设置就是多嘿嘿嘿</p>
-<p>已设置的快捷键：</p>
-<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><p>删除一行：<strong>ctrl+y</strong></p>
-<p>撤销：<strong>ctrl+z</strong>     恢复：<strong>ctrl+shift+Z</strong></p>
-<p>单行注释：<strong>ctrl+/ **    多行注释：</strong>ctrl+shift+/**</p>
-<p>剪切一行：<strong>ctrl+x</strong></p>
-<p>复制一行到下一行：<strong>ctrl+d</strong></p>
-<p>替换文本：<strong>ctrl+R</strong></p>
-<p>搜索内容：<strong>ctrl+F</strong></p>
-<p>搜索文件：<strong>ctrl+N</strong></p>
-<p>运行：<strong>F10</strong>    调试：<strong>F9</strong></p>
-<p>粘贴复制的五次内容：<strong>ctrl+shift+V</strong></p>
-<p>选择光标所在字符串：<strong>ctrl+W   向左向右继续选择：</strong>ctrl+shift+左右方向键**</p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>当前页面搜索：<strong>ctrl+F</strong></p>
-<p>全局搜索：<strong>ctrl+shift+F</strong></p>
-<p>当搜索到多条内容时，向下翻找：<strong>F3</strong>，向上翻找：<strong>shift+F3</strong></p>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>文件：<strong>ctrl+shift+N</strong></p>
-<p>java文件：<strong>ctrl+N</strong></p>
-<p>查询方法/接口被调用的地方：<strong>ctrl+alt+H</strong></p>
-<p>跳转到上一步操作位置:<strong>ctrl+alt+←</strong></p>
-<p>跳转到下一步操作位置：<strong>ctrl+alt+→</strong></p>
-<p>跳转到上此编辑的地方： <strong>ctrl+shift+backspace</strong></p>
-<p>使缩进的行挪动：<strong>shift+alt+↑/↓</strong></p>
-<p>批量修改变量名：<strong>ctrl+shift+z</strong>+J</p>
+    <blockquote>
+<p>title: “1.注释”<br>date: 2019-11-25<br>categories: 学习笔记<br>tags: </p>
+<ul>
+<li>JAVA</li>
+</ul>
+</blockquote>
+<h2 id="1-注释"><a href="#1-注释" class="headerlink" title="1.注释"></a>1.注释</h2><h4 id="常用dos命令"><a href="#常用dos命令" class="headerlink" title="常用dos命令"></a>常用dos命令</h4><p>dir ：列出当前目录下的文件以及文件夹</p>
+<p>md：创建目录</p>
+<p>rd：删除目录  只能删除空的</p>
+<p>cd：进入指定目录</p>
+<p>cd ..：退回到上一级目录</p>
+<p>cd\：返回到根目录</p>
+<p>del：删除文件   tip：del+*.格式 可以将目录下同一格式所有文件删除</p>
+<p>exit：退出dos命令行</p>
+<h4 id="输出简单程序hello-world"><a href="#输出简单程序hello-world" class="headerlink" title="输出简单程序hello world"></a>输出简单程序hello world</h4><p>总结：</p>
+<p>1.源文件以.java结尾。</p>
+<p>2.源文件中可以有多个class声明的类。</p>
+<p>3.类中可以有主方法（main（）方法），其格式是固定的：<strong>public static void main(String[ ] args){}</strong></p>
+<p>4.main()方法是程序的入口，方法内是程序的执行部分（有点像c语言的函数）</p>
+<p>5.一个源文件中只能有一个声明为public 的类，同时要求此类的类名与源文件名一致。</p>
+<p>6.每个语句都以；结束。</p>
+<p>7.执行程序：编译：javac.exe 编译完，生成诸多个.class字节码文件。 运行java.exe</p>
+<ol start="8">
+<li>println  输出后换行   print不换行。</li>
+</ol>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><h5 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h5><p>格式：</p>
+<p>//注释文字</p>
+<h5 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h5><p>格式：</p>
+<p>/*</p>
+<p>注释文字</p>
+<p>*/</p>
+<p>示例：</p>
+<p>/*</p>
+<p>这是</p>
+<p>好多行 </p>
+<p>好多行</p>
+<p>好多行</p>
+<p>……</p>
+<p>注释</p>
+<p>*/</p>
+<p>注：</p>
+<p><strong>1.对于单行和多行注释，被注释的文字不会被JVM解释执行。</strong></p>
+<p><strong>2.多行注释里不允许有多行注释嵌套，如：</strong></p>
+<p>/*</p>
+<p>/*</p>
+<p>不许嵌套</p>
+<p>*/</p>
+<p>*/</p>
+<h5 id="文档注释（java特有）"><a href="#文档注释（java特有）" class="headerlink" title="文档注释（java特有）"></a>文档注释（java特有）</h5><p>格式：</p>
+<p>/**</p>
+<p>*@author 指定java程序的作者</p>
+<p>*@version 指定源文件的版本</p>
+<p>*@param 方法的参数信息说明</p>
+<p>*/</p>
+<p>示例：</p>
+<p>/**这是我的第一个java程序</p>
+<p>@author  qjj</p>
+<p>@version v1.0</p>
+<p>*/</p>
+<p><strong>文档注释内容可以被javadoc所解析，生成一套以网页文件形式体现的该程序的说明文档。</strong></p>
+<p><strong>多注释，多注释，多注释，不然过两天自己都看不懂</strong></p>
+<h2 id="每日一考"><a href="#每日一考" class="headerlink" title="每日一考"></a>每日一考</h2><p>1.jdk jre JVM的关系</p>
+<p>2.为什么要配置环境变量</p>
+<p>3.常用的命令行操作有哪些</p>
+<p>4.</p>
 
   </article>
   <aside class="table-content" id="site-toc">
@@ -212,7 +249,7 @@
     <span>目录</span>
   </div>
   <div class="table-content-main">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDEA-的设置"><span class="toc-text">IDEA 的设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用"><span class="toc-text">常用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索"><span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-text">查询</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-注释"><span class="toc-text">1.注释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用dos命令"><span class="toc-text">常用dos命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出简单程序hello-world"><span class="toc-text">输出简单程序hello world</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注释"><span class="toc-text">注释</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#单行注释"><span class="toc-text">单行注释</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#多行注释"><span class="toc-text">多行注释</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#文档注释（java特有）"><span class="toc-text">文档注释（java特有）</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#每日一考"><span class="toc-text">每日一考</span></a></li></ol>
   </div>
 </aside>
   
@@ -221,7 +258,7 @@
       
         <div>
           原文链接: 
-          <a href="" target="_blank">http://yoursite.com/passages/IDEA%20%E7%9A%84%E8%AE%BE%E7%BD%AE/</a>
+          <a href="" target="_blank">http://yoursite.com/passages/1.%E6%B3%A8%E9%87%8A/</a>
         </div>
       
       <div>
@@ -229,14 +266,6 @@
       </div>
     </aside>
   
-  
-    <div class="passage-tags">
-     
-      <a href="/tags/JAVA/"><i class="fa fa-tags"></i>JAVA</a>
-     
-      <a href="/tags/IDEA/"><i class="fa fa-tags"></i>IDEA</a>
-    
-    </div>
   
 </div>
 
@@ -349,10 +378,10 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="/passages/GitHub+hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/" data-enable="true">
+    <a href="/passages/2.%E5%8F%98%E9%87%8F%E5%8F%8A%E6%A0%87%E8%AF%86%E7%AC%A6/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="/passages/JAVA%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%88%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%EF%BC%89/" data-enable="true">
+    <a href="/passages/8.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>

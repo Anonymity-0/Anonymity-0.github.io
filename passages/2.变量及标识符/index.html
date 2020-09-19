@@ -6,12 +6,12 @@
   <meta name="author" content="Q" />
   
   
-  <title>IDEA 的设置 | Hexo</title>
+  <title>2.变量及标识符 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="学习笔记,JAVA,IDEA," />
+    <meta name="keywords" content="Hexo, Theme-AD" />
   
 
   
@@ -162,12 +162,8 @@
   <div class="passage">
   <div class="passage-meta">
     <span>
-      <i class="fa fa-calendar"></i>2019-11-11
+      <i class="fa fa-calendar"></i>2019-12-09
     </span>
-    
-      <span>
-        | <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa fa-bookmark"></i>学习笔记</a>
-      </span>
     
     
       <span>
@@ -176,34 +172,148 @@
     
   </div>
   <h1 class="passage-title">
-    IDEA 的设置
+    2.变量及标识符
   </h1>
   
   <article class="passage-article">
-    <h1 id="IDEA-的设置"><a href="#IDEA-的设置" class="headerlink" title="IDEA 的设置"></a>IDEA 的设置</h1><p>算了太多了直接导出设置吧/(ㄒoㄒ)/~~大的编译器就是好，快捷设置就是多嘿嘿嘿</p>
-<p>已设置的快捷键：</p>
-<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><p>删除一行：<strong>ctrl+y</strong></p>
-<p>撤销：<strong>ctrl+z</strong>     恢复：<strong>ctrl+shift+Z</strong></p>
-<p>单行注释：<strong>ctrl+/ **    多行注释：</strong>ctrl+shift+/**</p>
-<p>剪切一行：<strong>ctrl+x</strong></p>
-<p>复制一行到下一行：<strong>ctrl+d</strong></p>
-<p>替换文本：<strong>ctrl+R</strong></p>
-<p>搜索内容：<strong>ctrl+F</strong></p>
-<p>搜索文件：<strong>ctrl+N</strong></p>
-<p>运行：<strong>F10</strong>    调试：<strong>F9</strong></p>
-<p>粘贴复制的五次内容：<strong>ctrl+shift+V</strong></p>
-<p>选择光标所在字符串：<strong>ctrl+W   向左向右继续选择：</strong>ctrl+shift+左右方向键**</p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>当前页面搜索：<strong>ctrl+F</strong></p>
-<p>全局搜索：<strong>ctrl+shift+F</strong></p>
-<p>当搜索到多条内容时，向下翻找：<strong>F3</strong>，向上翻找：<strong>shift+F3</strong></p>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>文件：<strong>ctrl+shift+N</strong></p>
-<p>java文件：<strong>ctrl+N</strong></p>
-<p>查询方法/接口被调用的地方：<strong>ctrl+alt+H</strong></p>
-<p>跳转到上一步操作位置:<strong>ctrl+alt+←</strong></p>
-<p>跳转到下一步操作位置：<strong>ctrl+alt+→</strong></p>
-<p>跳转到上此编辑的地方： <strong>ctrl+shift+backspace</strong></p>
-<p>使缩进的行挪动：<strong>shift+alt+↑/↓</strong></p>
-<p>批量修改变量名：<strong>ctrl+shift+z</strong>+J</p>
+    <blockquote>
+<p>title: “2.变量及标识符”<br>date: 2019-11-26<br>categories: 学习笔记<br>tags: </p>
+<ul>
+<li>JAVA</li>
+</ul>
+</blockquote>
+<h1 id="变量及标识符"><a href="#变量及标识符" class="headerlink" title="变量及标识符"></a>变量及标识符</h1><h3 id="关键字与保留字"><a href="#关键字与保留字" class="headerlink" title="关键字与保留字"></a>关键字与保留字</h3><h5 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h5><p>定义：被JAVA赋予了特殊含义，专门用作字符串的文字</p>
+<p>特点：字母全都是小写</p>
+<h5 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h5><p>定义：现有JAVA版本尚未使用，但以后可能会作为关键字，避免命名时使用</p>
+<p>如：goto，const</p>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><p>定义：Java对各种变量，方法和类等要素命名使用的字符序列成为标识符</p>
+<p>简单来说，凡是自己起名字的地方叫标识符。</p>
+<p>规则：</p>
+<p>1.由字母，数字，_或$组成</p>
+<p>2.数字不能开头</p>
+<p>3.不能只是关键字和保留字，但是能包含关键字和保留字</p>
+<p>4.严格区分大小写，长度无限制。</p>
+<p>5.不能包含空格</p>
+<h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><p>包名：多单词组成时所有字母都小写</p>
+<p>类名、接口名：多单词组成时，所有单词首字母大写 如：</p>
+<p>变量名、方法名：第一个单词首字母小写，第二个单词开始首字母大写</p>
+<p>常量名：所有字母大写，多单词时用下划线连接</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>概念：内存中的一个存储区域，该区域可以在同一类型范围内不断变化，该变量是程序中最基本的存储单元，包括变量类型，变量名，和存储的值。</p>
+<p>作用：在内存中保存数据。</p>
+<p>注意：</p>
+<ol>
+<li>Java中变量必须先声明后使用。</li>
+<li>变量只有在其作用域（其定义所在的一对{}内）内才有效。</li>
+<li>同一个作用域内，不能定义重名变量。</li>
+</ol>
+<p>Java语言支持的变量类型有：</p>
+<ul>
+<li>类变量：独立于方法之外的变量，用 static 修饰。</li>
+<li>实例变量：独立于方法之外的变量，不过没有 static 修饰。  </li>
+<li>局部变量：类的方法中的变量。</li>
+</ul>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><h4 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h4><h5 id="整形"><a href="#整形" class="headerlink" title="整形"></a>整形</h5><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储大小</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>1字节</td>
+<td>-128~127</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2字节</td>
+<td>-2¹⁵~2¹⁵-1</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4字节</td>
+<td>-2³¹~2³¹-1</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8字节</td>
+<td>-2⁶³~2⁶³-1</td>
+</tr>
+</tbody></table>
+<p>注：1.  java中整形变量默认为int，声明long型后要加l或L；</p>
+<h5 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h5><p>（带小数点的数据）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储大小</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float</td>
+<td>4字节</td>
+<td></td>
+</tr>
+<tr>
+<td>double</td>
+<td>8字节</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>注：</p>
+<ol>
+<li>float尾数可以精确到7位有效数字.</li>
+<li>java浮点型常量默认为double，声明float须后加f或F</li>
+<li>float存储大小比long小，但取值范围比long大</li>
+</ol>
+<h5 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h5><p>（表示通常意义上的字符）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储大小</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char</td>
+<td>1字节</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>注：</p>
+<ol>
+<li>定义char型‘ ’内只能有一个字符。</li>
+<li>java中允许转义字符‘\’将其后的字符转变为字符型常量。 如char c=‘\n’</li>
+<li>可以直接使用Unicode值表示字符型常量  。 如char c=’\u0043’ (C的Unicode码)</li>
+</ol>
+<h5 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h5><p>Boolean 只能取 false或true，常在条件判断或循环结构中使用。</p>
+<h5 id="基本数据类型之间的运算规则"><a href="#基本数据类型之间的运算规则" class="headerlink" title="基本数据类型之间的运算规则"></a>基本数据类型之间的运算规则</h5><p>前提：boolean型不参加运算。</p>
+<ol>
+<li><p>自动类型提升：当容量小的数据类型的变量与容量大的数据类型的变量做运算时，结果自动提升为容量大的数据类型。</p>
+<p>byte 、char、short→ int → long → float→ double</p>
+<p>注：当byte 、char、short三种变量做运算时，结果为int类型。</p>
+</li>
+</ol>
+<ol start="2">
+<li><p>强制类型转换：自动类型提升的逆运算。</p>
+<p>1.使用强转符：（）</p>
+<p>2.强制类型转换可能导致精度损失。</p>
+</li>
+<li><p>①整形常量默认为int型，浮点型常量默认为double型。</p>
+</li>
+</ol>
+<h4 id="引用数据类型（待补充）"><a href="#引用数据类型（待补充）" class="headerlink" title="引用数据类型（待补充）"></a>引用数据类型（待补充）</h4><p>类（class）</p>
+<p>接口（interface）</p>
+<p>数组（array[])</p>
+<h5 id="字符串类型（String）"><a href="#字符串类型（String）" class="headerlink" title="字符串类型（String）"></a>字符串类型（String）</h5><p>1.声明String变量时，使用一对“”</p>
+<p>2.String可以和8种基本数据类型变量做运算，只能是用+做连接运算。</p>
+<p>3.运算的结果仍然是String类型，+号前后只要出现string类型，这个+号及运算顺序在他后面的+号就都表示连接。</p>
+<p>4.常用方法：</p>
+<p>substring：从一个较大的字符串中提取一个字符</p>
+<p>int length（）：返回字符串的长度</p>
 
   </article>
   <aside class="table-content" id="site-toc">
@@ -212,7 +322,7 @@
     <span>目录</span>
   </div>
   <div class="table-content-main">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDEA-的设置"><span class="toc-text">IDEA 的设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用"><span class="toc-text">常用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索"><span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-text">查询</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#变量及标识符"><span class="toc-text">变量及标识符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字与保留字"><span class="toc-text">关键字与保留字</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#关键字"><span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#保留字"><span class="toc-text">保留字</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标识符"><span class="toc-text">标识符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命名规范"><span class="toc-text">命名规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本数据类型"><span class="toc-text">基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#整形"><span class="toc-text">整形</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#浮点型"><span class="toc-text">浮点型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#字符型"><span class="toc-text">字符型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#布尔型"><span class="toc-text">布尔型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#基本数据类型之间的运算规则"><span class="toc-text">基本数据类型之间的运算规则</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#引用数据类型（待补充）"><span class="toc-text">引用数据类型（待补充）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#字符串类型（String）"><span class="toc-text">字符串类型（String）</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
   </div>
 </aside>
   
@@ -221,7 +331,7 @@
       
         <div>
           原文链接: 
-          <a href="" target="_blank">http://yoursite.com/passages/IDEA%20%E7%9A%84%E8%AE%BE%E7%BD%AE/</a>
+          <a href="" target="_blank">http://yoursite.com/passages/2.%E5%8F%98%E9%87%8F%E5%8F%8A%E6%A0%87%E8%AF%86%E7%AC%A6/</a>
         </div>
       
       <div>
@@ -229,14 +339,6 @@
       </div>
     </aside>
   
-  
-    <div class="passage-tags">
-     
-      <a href="/tags/JAVA/"><i class="fa fa-tags"></i>JAVA</a>
-     
-      <a href="/tags/IDEA/"><i class="fa fa-tags"></i>IDEA</a>
-    
-    </div>
   
 </div>
 
@@ -349,10 +451,10 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="/passages/GitHub+hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/" data-enable="true">
+    <a href="/passages/3.%E8%BF%90%E7%AE%97%E7%AC%A6/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="/passages/JAVA%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%88%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%EF%BC%89/" data-enable="true">
+    <a href="/passages/1.%E6%B3%A8%E9%87%8A/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>

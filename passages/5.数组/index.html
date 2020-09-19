@@ -6,12 +6,12 @@
   <meta name="author" content="Q" />
   
   
-  <title>IDEA 的设置 | Hexo</title>
+  <title>5.数组 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="学习笔记,JAVA,IDEA," />
+    <meta name="keywords" content="Hexo, Theme-AD" />
   
 
   
@@ -162,12 +162,8 @@
   <div class="passage">
   <div class="passage-meta">
     <span>
-      <i class="fa fa-calendar"></i>2019-11-11
+      <i class="fa fa-calendar"></i>2019-12-09
     </span>
-    
-      <span>
-        | <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa fa-bookmark"></i>学习笔记</a>
-      </span>
     
     
       <span>
@@ -176,34 +172,51 @@
     
   </div>
   <h1 class="passage-title">
-    IDEA 的设置
+    5.数组
   </h1>
   
   <article class="passage-article">
-    <h1 id="IDEA-的设置"><a href="#IDEA-的设置" class="headerlink" title="IDEA 的设置"></a>IDEA 的设置</h1><p>算了太多了直接导出设置吧/(ㄒoㄒ)/~~大的编译器就是好，快捷设置就是多嘿嘿嘿</p>
-<p>已设置的快捷键：</p>
-<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><p>删除一行：<strong>ctrl+y</strong></p>
-<p>撤销：<strong>ctrl+z</strong>     恢复：<strong>ctrl+shift+Z</strong></p>
-<p>单行注释：<strong>ctrl+/ **    多行注释：</strong>ctrl+shift+/**</p>
-<p>剪切一行：<strong>ctrl+x</strong></p>
-<p>复制一行到下一行：<strong>ctrl+d</strong></p>
-<p>替换文本：<strong>ctrl+R</strong></p>
-<p>搜索内容：<strong>ctrl+F</strong></p>
-<p>搜索文件：<strong>ctrl+N</strong></p>
-<p>运行：<strong>F10</strong>    调试：<strong>F9</strong></p>
-<p>粘贴复制的五次内容：<strong>ctrl+shift+V</strong></p>
-<p>选择光标所在字符串：<strong>ctrl+W   向左向右继续选择：</strong>ctrl+shift+左右方向键**</p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>当前页面搜索：<strong>ctrl+F</strong></p>
-<p>全局搜索：<strong>ctrl+shift+F</strong></p>
-<p>当搜索到多条内容时，向下翻找：<strong>F3</strong>，向上翻找：<strong>shift+F3</strong></p>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>文件：<strong>ctrl+shift+N</strong></p>
-<p>java文件：<strong>ctrl+N</strong></p>
-<p>查询方法/接口被调用的地方：<strong>ctrl+alt+H</strong></p>
-<p>跳转到上一步操作位置:<strong>ctrl+alt+←</strong></p>
-<p>跳转到下一步操作位置：<strong>ctrl+alt+→</strong></p>
-<p>跳转到上此编辑的地方： <strong>ctrl+shift+backspace</strong></p>
-<p>使缩进的行挪动：<strong>shift+alt+↑/↓</strong></p>
-<p>批量修改变量名：<strong>ctrl+shift+z</strong>+J</p>
+    <blockquote>
+<p>title: “5.数组”<br>date: 2019-11-26<br>categories: 学习笔记<br>tags: </p>
+<ul>
+<li>JAVA</li>
+</ul>
+</blockquote>
+<h1 id="5-数组"><a href="#5-数组" class="headerlink" title="5.数组"></a>5.数组</h1><ol>
+<li>数组属于引用数据类型变量，数组的元素既可以是引用数据类型，又可以是基本数据类型</li>
+<li>创建数组对象会在内存中开辟一整块连续的空间</li>
+<li><strong>数组的长度一旦确定，就不能修改。</strong></li>
+</ol>
+<h3 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h3><h5 id="1-声明和初始化"><a href="#1-声明和初始化" class="headerlink" title="1.声明和初始化:"></a>1.声明和初始化:</h5><p>声明：数组元素类型 [] 数组名</p>
+<p>①静态初始化(数组的初始化和数组元素的赋值操作同时进行)</p>
+<p>如: int[]ids;</p>
+<p>​     ids= new int[]{1,2,3,4};</p>
+<p>②动态初始化（数组的初始化和数组元素的赋值分开进行）</p>
+<p>如：String[] names = new String[5];</p>
+<p>注：java的数组长度不要求是常量，new int[n]会创建一个长度为n的数组。</p>
+<h5 id="2-如何获取数组的长度"><a href="#2-如何获取数组的长度" class="headerlink" title="2.如何获取数组的长度"></a>2.如何获取数组的长度</h5><p>属性：length</p>
+<p>例如：ids.length。</p>
+<h5 id="3-遍历数组"><a href="#3-遍历数组" class="headerlink" title="3.遍历数组"></a>3.遍历数组</h5><p>for(int i = 0 ; i&lt; ids.length;i++){</p>
+<p>}</p>
+<h5 id="4-数组元素默认初始值"><a href="#4-数组元素默认初始值" class="headerlink" title="4.数组元素默认初始值"></a>4.数组元素默认初始值</h5><p>①数组元素是整型： 0；</p>
+<p>②数组元素是浮点型：0.0</p>
+<p>③数组元素是char型：0或’\u0000’，而非‘0‘</p>
+<p>④数组元素是boolean型：false</p>
+<p>⑤数组元素是引用数据类型：null</p>
+<h5 id="5-内存结构简单说明："><a href="#5-内存结构简单说明：" class="headerlink" title="5.内存结构简单说明："></a>5.内存结构简单说明：</h5><h3 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h3><h5 id="1-声明和初始化-1"><a href="#1-声明和初始化-1" class="headerlink" title="1.声明和初始化"></a>1.声明和初始化</h5><p>静态初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] arr = <span class="keyword">new</span> <span class="keyword">int</span> [][]&#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>动态初始化：</p>
+<p>前面的[]一定要填</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[][] arr = <span class="keyword">new</span> String [<span class="number">3</span>][<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">String[][] arr = <span class="keyword">new</span> String [<span class="number">3</span>][];</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-数组长度"><a href="#2-数组长度" class="headerlink" title="2.数组长度"></a>2.数组长度</h5><p>arr.length = 3</p>
+<p>arr[1].length= 2</p>
+<h5 id="3-数组元素默认初始化值"><a href="#3-数组元素默认初始化值" class="headerlink" title="3.数组元素默认初始化值"></a>3.数组元素默认初始化值</h5><p>外层为地址值（当内层未赋长度，外层为null）</p>
+<p>内层</p>
+<p>整型：0        浮点型：0.0    char：0  String ：null     boolean：    false</p>
 
   </article>
   <aside class="table-content" id="site-toc">
@@ -212,7 +225,7 @@
     <span>目录</span>
   </div>
   <div class="table-content-main">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDEA-的设置"><span class="toc-text">IDEA 的设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用"><span class="toc-text">常用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索"><span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-text">查询</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#5-数组"><span class="toc-text">5.数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一维数组"><span class="toc-text">一维数组</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-声明和初始化"><span class="toc-text">1.声明和初始化:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-如何获取数组的长度"><span class="toc-text">2.如何获取数组的长度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-遍历数组"><span class="toc-text">3.遍历数组</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-数组元素默认初始值"><span class="toc-text">4.数组元素默认初始值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-内存结构简单说明："><span class="toc-text">5.内存结构简单说明：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二维数组"><span class="toc-text">二维数组</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-声明和初始化-1"><span class="toc-text">1.声明和初始化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-数组长度"><span class="toc-text">2.数组长度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-数组元素默认初始化值"><span class="toc-text">3.数组元素默认初始化值</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
   </div>
 </aside>
   
@@ -221,7 +234,7 @@
       
         <div>
           原文链接: 
-          <a href="" target="_blank">http://yoursite.com/passages/IDEA%20%E7%9A%84%E8%AE%BE%E7%BD%AE/</a>
+          <a href="" target="_blank">http://yoursite.com/passages/5.%E6%95%B0%E7%BB%84/</a>
         </div>
       
       <div>
@@ -229,14 +242,6 @@
       </div>
     </aside>
   
-  
-    <div class="passage-tags">
-     
-      <a href="/tags/JAVA/"><i class="fa fa-tags"></i>JAVA</a>
-     
-      <a href="/tags/IDEA/"><i class="fa fa-tags"></i>IDEA</a>
-    
-    </div>
   
 </div>
 
@@ -349,10 +354,10 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="/passages/GitHub+hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/" data-enable="true">
+    <a href="/passages/6.%E6%95%B0%E7%BB%84%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="/passages/JAVA%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%88%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%EF%BC%89/" data-enable="true">
+    <a href="/passages/4.%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>

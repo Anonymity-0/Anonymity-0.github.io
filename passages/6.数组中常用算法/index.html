@@ -6,12 +6,12 @@
   <meta name="author" content="Q" />
   
   
-  <title>IDEA 的设置 | Hexo</title>
+  <title>6.数组中常用算法 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="学习笔记,JAVA,IDEA," />
+    <meta name="keywords" content="Hexo, Theme-AD" />
   
 
   
@@ -162,12 +162,8 @@
   <div class="passage">
   <div class="passage-meta">
     <span>
-      <i class="fa fa-calendar"></i>2019-11-11
+      <i class="fa fa-calendar"></i>2019-12-09
     </span>
-    
-      <span>
-        | <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa fa-bookmark"></i>学习笔记</a>
-      </span>
     
     
       <span>
@@ -176,34 +172,29 @@
     
   </div>
   <h1 class="passage-title">
-    IDEA 的设置
+    6.数组中常用算法
   </h1>
   
   <article class="passage-article">
-    <h1 id="IDEA-的设置"><a href="#IDEA-的设置" class="headerlink" title="IDEA 的设置"></a>IDEA 的设置</h1><p>算了太多了直接导出设置吧/(ㄒoㄒ)/~~大的编译器就是好，快捷设置就是多嘿嘿嘿</p>
-<p>已设置的快捷键：</p>
-<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><p>删除一行：<strong>ctrl+y</strong></p>
-<p>撤销：<strong>ctrl+z</strong>     恢复：<strong>ctrl+shift+Z</strong></p>
-<p>单行注释：<strong>ctrl+/ **    多行注释：</strong>ctrl+shift+/**</p>
-<p>剪切一行：<strong>ctrl+x</strong></p>
-<p>复制一行到下一行：<strong>ctrl+d</strong></p>
-<p>替换文本：<strong>ctrl+R</strong></p>
-<p>搜索内容：<strong>ctrl+F</strong></p>
-<p>搜索文件：<strong>ctrl+N</strong></p>
-<p>运行：<strong>F10</strong>    调试：<strong>F9</strong></p>
-<p>粘贴复制的五次内容：<strong>ctrl+shift+V</strong></p>
-<p>选择光标所在字符串：<strong>ctrl+W   向左向右继续选择：</strong>ctrl+shift+左右方向键**</p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>当前页面搜索：<strong>ctrl+F</strong></p>
-<p>全局搜索：<strong>ctrl+shift+F</strong></p>
-<p>当搜索到多条内容时，向下翻找：<strong>F3</strong>，向上翻找：<strong>shift+F3</strong></p>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>文件：<strong>ctrl+shift+N</strong></p>
-<p>java文件：<strong>ctrl+N</strong></p>
-<p>查询方法/接口被调用的地方：<strong>ctrl+alt+H</strong></p>
-<p>跳转到上一步操作位置:<strong>ctrl+alt+←</strong></p>
-<p>跳转到下一步操作位置：<strong>ctrl+alt+→</strong></p>
-<p>跳转到上此编辑的地方： <strong>ctrl+shift+backspace</strong></p>
-<p>使缩进的行挪动：<strong>shift+alt+↑/↓</strong></p>
-<p>批量修改变量名：<strong>ctrl+shift+z</strong>+J</p>
+    <blockquote>
+<p>title: “6.数组中常用算法”<br>date: 2019-11-25<br>categories: 学习笔记<br>tags: </p>
+<ul>
+<li>JAVA</li>
+</ul>
+</blockquote>
+<h1 id="数组中常用算法"><a href="#数组中常用算法" class="headerlink" title="数组中常用算法"></a>数组中常用算法</h1><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><h4 id="线性查找-："><a href="#线性查找-：" class="headerlink" title="线性查找 ："></a>线性查找 ：</h4><h4 id="二分法查找："><a href="#二分法查找：" class="headerlink" title="二分法查找："></a>二分法查找：</h4><p><strong>前提：有序数组</strong>。</p>
+<p>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int arry[] =new int []=&#123;1 ,2,3,4,5&#125;;</span><br><span class="line">int dest =5;</span><br><span class="line">int head=0//初始首索引</span><br><span class="line">int end=arry.length-1</span><br><span class="line"></span><br><span class="line">while(head&lt;=end）｛</span><br><span class="line">if(dest== arry[</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="衡量排序算法的优劣"><a href="#衡量排序算法的优劣" class="headerlink" title="衡量排序算法的优劣"></a>衡量排序算法的优劣</h4><h5 id="时间复杂性"><a href="#时间复杂性" class="headerlink" title="时间复杂性"></a>时间复杂性</h5><p>分析关键字的比较次数和记录的移动次数</p>
+<h5 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h5><p>分析排序算法总需要多少辅助内存</p>
+<h5 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h5><p>若两个a和b的关键字值相等，但排序后a和b的的先后次序保持不变，则乘该算法是稳定的。<br>排序算法分类：</p>
+<h5 id="内部排序和外部排序"><a href="#内部排序和外部排序" class="headerlink" title="内部排序和外部排序"></a>内部排序和外部排序</h5><h5 id="十种内部排序算法"><a href="#十种内部排序算法" class="headerlink" title="十种内部排序算法"></a>十种内部排序算法</h5><p>选择排序<br>直接选择排序、<em>堆排序<br>交换排序<br>*冒泡排序、快速排序</em><br>插入排序<br>直接插入排序、折半插入排序、shell排序<br>*归并排序<br>桶式排序<br>基数排序</p>
+<p>平均时间：快速排序最佳<br>如果n较小 ：直接插入 直接选择排序<br>如果文件初始状态基本有序：直接插入、冒泡、快速排序<br>如果n较大 快速排序、堆排序 归并排序</p>
 
   </article>
   <aside class="table-content" id="site-toc">
@@ -212,7 +203,7 @@
     <span>目录</span>
   </div>
   <div class="table-content-main">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IDEA-的设置"><span class="toc-text">IDEA 的设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用"><span class="toc-text">常用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索"><span class="toc-text">搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-text">查询</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数组中常用算法"><span class="toc-text">数组中常用算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查找"><span class="toc-text">查找</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性查找-："><span class="toc-text">线性查找 ：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分法查找："><span class="toc-text">二分法查找：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排序"><span class="toc-text">排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#衡量排序算法的优劣"><span class="toc-text">衡量排序算法的优劣</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#时间复杂性"><span class="toc-text">时间复杂性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#空间复杂度"><span class="toc-text">空间复杂度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#稳定性"><span class="toc-text">稳定性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#内部排序和外部排序"><span class="toc-text">内部排序和外部排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#十种内部排序算法"><span class="toc-text">十种内部排序算法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
   </div>
 </aside>
   
@@ -221,7 +212,7 @@
       
         <div>
           原文链接: 
-          <a href="" target="_blank">http://yoursite.com/passages/IDEA%20%E7%9A%84%E8%AE%BE%E7%BD%AE/</a>
+          <a href="" target="_blank">http://yoursite.com/passages/6.%E6%95%B0%E7%BB%84%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95/</a>
         </div>
       
       <div>
@@ -229,14 +220,6 @@
       </div>
     </aside>
   
-  
-    <div class="passage-tags">
-     
-      <a href="/tags/JAVA/"><i class="fa fa-tags"></i>JAVA</a>
-     
-      <a href="/tags/IDEA/"><i class="fa fa-tags"></i>IDEA</a>
-    
-    </div>
   
 </div>
 
@@ -349,10 +332,10 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="/passages/GitHub+hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA/" data-enable="true">
+    <a href="/passages/7.Arrays%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="/passages/JAVA%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%88%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A%EF%BC%89/" data-enable="true">
+    <a href="/passages/5.%E6%95%B0%E7%BB%84/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
