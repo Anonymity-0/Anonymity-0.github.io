@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='第一章 1. 如果你的网络服务器被黑客远程控制，列举3个可能被破坏的安全属性， 并解释理由。 机密性： 理由：远程控制服务器后，黑客可以在未被授权的情况下获取个人信息、数据库记录等数据，导致数据泄露和隐私侵犯。 完整性： 理由：黑客远程服务器后，可以篡改服务器上的数据或者程序文件，修改网站内容、更改配置文件、插入恶意代码等。 可用性： 理由：黑客可能通过远程控制服务器发动拒绝服务攻击或直接禁用服务器上的关键服务和功能，导致服务器无法正常运行。 不可抵赖性： 理由：黑客可以使用服务器的访问权限执行恶意操作如数据篡改。如果服务器没有足够的安全措施来记录这些操作并确保其不可抵赖性，那么黑客可能会否认曾经执行过这些操作，导致难以追踪和证明责任。
+2. 简述RFC2828安全服务的定义，例举Windows10系统的3种安全服务。
+RFC2828定义了安全服务为一种由系统提供的对系统资源进行特殊保护的处理或通信服务，安全服务通过安全机制来实现安全策略。ITU-T（即X.800）定义了五种服务：身份认证、访问控制、数据保密、数据完整性、不可否认。 Windows 10操作系统中的三种安全服务：
+认证服务：认证服务用于验证用户的身份，确保只有经过授权的用户能够访问系统或资源。在Windows 10中，用户必须提供正确的用户名和密码才能登录到系统。 访问控制服务：访问控制服务用于确定哪些用户或实体具有权限访问特定资源或执行特定操作，并确保未经授权的访问被拒绝。在Windows 10中，访问控制服务管理文件和文件夹的权限，以及系统资源的访问权限。 加密服务：加密服务用于将敏感数据转化为不可读的格式，以确保即使数据被未经授权的访问者获取，也无法理解其内容。只有具有正确密钥的用户才能解密数据。BitLocker是一个Windows 10中的工具，它可以加密整个硬盘或者某些部分，以保护数据免受丢失或盗取的威胁。 3 . 简述网络安全防护主要目标的“五不”。 1. 不泄露（Non-Disclosure）：确保网络中的敏感信息和数据不会泄露给未经授权的用户或系统。 2. 不破坏（Non-Destruction）：防止网络系统和数据被破坏、损坏或篡改。 3. 不拒绝（Non-Repudiation）：确保在网络交互中的各种操作和交易都可以被证明，不容易被否认。 4. 不中断（Non-Interruption）：确保网络服务的持续可用性，防止由于攻击、故障或其他原因导致的网络服务中断。 5. 不迟滞（Non-Delay）：保障网络通信的实时性，防止因网络拥塞、延迟或其他问题导致通信延迟。
+第三章 1. 在腾讯会议系统中，对称密码技术和公钥密码技术适合应用在哪几个阶段?说明理由。
+会话加密阶段：对称密码技术非常适合在会话加密阶段使用。一旦参与会议的用户建立了安全连接，可以使用对称加密算法来加密和解密数据通信。这是因为对称密码技术具有较高的加密和解密速度，使其非常适合对大量的音视频数据进行快速的加密和解密操作。
+登录时身份验证和密钥交换阶段：公钥密码技术通常用于安全地进行身份验证和密钥交换。在腾讯会议系统中，当用户首次登录时，可以使用公钥密码技术来验证其身份，并协商用于对称加密的会话密钥。
+2. 简述散列函数MD5的碰撞问题。既然MD5存在碰撞问题，为何http://mirrors.ustc.edu.cn/ubuntu-releases/16.04/ 仍然给出MD5值作为完整性验证的依据。 MD5的碰撞问题是指两个不同的输入数据在经过MD5算法处理后，得到了相同的散列值。这种情况被称为碰撞。 至于为什么仍然给出MD5值作为完整性验证的依据，可能是因为MD5是一个相对快速的散列函数，适用于快速验证大量文件的完整性。发行盘之后的系统安装和软件安装也有额外的安全验证程序。
+3. 简述用RSA公钥算法实现数字签名的过程。（这个问题回答的不好） 数字签名过程如下： 1. 发送者使用自己的私钥对消息进行加密，生成数字签名。 2. 发送者将消息和数字签名一起发送给接收者。 3. 接收者使用发送者的公钥对数字签名进行解密，得到消息的摘要。 4. 接收者使用相同的摘要算法对消息进行摘要处理，得到摘要。 5. 接收者比较两个摘要是否相同，如果相同，则说明消息没有被篡改过。
+4. 用PGP加密某个文件，如果接收该加密文件的用户为1个，加密文件的大小为24kB；如果接收该加密文件的用户 为10个，请问加密文件的大小是原来的10倍(240kB)吗？为什么？ 答：加密文件的大小不会是原来的10倍，由于对称密钥是相对较短的，每个接收者的非对称密钥通常很小。因此，无论接收者数量是1个还是10个，对称密钥密文的总大小都不会显著增加，而文件内容加密只需一次，因此文件大小仍然是原始文件大小（24kB）加上对称密钥密文的大小的总和，而不会变成原来的10倍。'>
+<title>网络安全作业1</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全作业1'>
+<meta property='og:description' content='第一章 1. 如果你的网络服务器被黑客远程控制，列举3个可能被破坏的安全属性， 并解释理由。 机密性： 理由：远程控制服务器后，黑客可以在未被授权的情况下获取个人信息、数据库记录等数据，导致数据泄露和隐私侵犯。 完整性： 理由：黑客远程服务器后，可以篡改服务器上的数据或者程序文件，修改网站内容、更改配置文件、插入恶意代码等。 可用性： 理由：黑客可能通过远程控制服务器发动拒绝服务攻击或直接禁用服务器上的关键服务和功能，导致服务器无法正常运行。 不可抵赖性： 理由：黑客可以使用服务器的访问权限执行恶意操作如数据篡改。如果服务器没有足够的安全措施来记录这些操作并确保其不可抵赖性，那么黑客可能会否认曾经执行过这些操作，导致难以追踪和证明责任。
+2. 简述RFC2828安全服务的定义，例举Windows10系统的3种安全服务。
+RFC2828定义了安全服务为一种由系统提供的对系统资源进行特殊保护的处理或通信服务，安全服务通过安全机制来实现安全策略。ITU-T（即X.800）定义了五种服务：身份认证、访问控制、数据保密、数据完整性、不可否认。 Windows 10操作系统中的三种安全服务：
+认证服务：认证服务用于验证用户的身份，确保只有经过授权的用户能够访问系统或资源。在Windows 10中，用户必须提供正确的用户名和密码才能登录到系统。 访问控制服务：访问控制服务用于确定哪些用户或实体具有权限访问特定资源或执行特定操作，并确保未经授权的访问被拒绝。在Windows 10中，访问控制服务管理文件和文件夹的权限，以及系统资源的访问权限。 加密服务：加密服务用于将敏感数据转化为不可读的格式，以确保即使数据被未经授权的访问者获取，也无法理解其内容。只有具有正确密钥的用户才能解密数据。BitLocker是一个Windows 10中的工具，它可以加密整个硬盘或者某些部分，以保护数据免受丢失或盗取的威胁。 3 . 简述网络安全防护主要目标的“五不”。 1. 不泄露（Non-Disclosure）：确保网络中的敏感信息和数据不会泄露给未经授权的用户或系统。 2. 不破坏（Non-Destruction）：防止网络系统和数据被破坏、损坏或篡改。 3. 不拒绝（Non-Repudiation）：确保在网络交互中的各种操作和交易都可以被证明，不容易被否认。 4. 不中断（Non-Interruption）：确保网络服务的持续可用性，防止由于攻击、故障或其他原因导致的网络服务中断。 5. 不迟滞（Non-Delay）：保障网络通信的实时性，防止因网络拥塞、延迟或其他问题导致通信延迟。
+第三章 1. 在腾讯会议系统中，对称密码技术和公钥密码技术适合应用在哪几个阶段?说明理由。
+会话加密阶段：对称密码技术非常适合在会话加密阶段使用。一旦参与会议的用户建立了安全连接，可以使用对称加密算法来加密和解密数据通信。这是因为对称密码技术具有较高的加密和解密速度，使其非常适合对大量的音视频数据进行快速的加密和解密操作。
+登录时身份验证和密钥交换阶段：公钥密码技术通常用于安全地进行身份验证和密钥交换。在腾讯会议系统中，当用户首次登录时，可以使用公钥密码技术来验证其身份，并协商用于对称加密的会话密钥。
+2. 简述散列函数MD5的碰撞问题。既然MD5存在碰撞问题，为何http://mirrors.ustc.edu.cn/ubuntu-releases/16.04/ 仍然给出MD5值作为完整性验证的依据。 MD5的碰撞问题是指两个不同的输入数据在经过MD5算法处理后，得到了相同的散列值。这种情况被称为碰撞。 至于为什么仍然给出MD5值作为完整性验证的依据，可能是因为MD5是一个相对快速的散列函数，适用于快速验证大量文件的完整性。发行盘之后的系统安装和软件安装也有额外的安全验证程序。
+3. 简述用RSA公钥算法实现数字签名的过程。（这个问题回答的不好） 数字签名过程如下： 1. 发送者使用自己的私钥对消息进行加密，生成数字签名。 2. 发送者将消息和数字签名一起发送给接收者。 3. 接收者使用发送者的公钥对数字签名进行解密，得到消息的摘要。 4. 接收者使用相同的摘要算法对消息进行摘要处理，得到摘要。 5. 接收者比较两个摘要是否相同，如果相同，则说明消息没有被篡改过。
+4. 用PGP加密某个文件，如果接收该加密文件的用户为1个，加密文件的大小为24kB；如果接收该加密文件的用户 为10个，请问加密文件的大小是原来的10倍(240kB)吗？为什么？ 答：加密文件的大小不会是原来的10倍，由于对称密钥是相对较短的，每个接收者的非对称密钥通常很小。因此，无论接收者数量是1个还是10个，对称密钥密文的总大小都不会显著增加，而文件内容加密只需一次，因此文件大小仍然是原始文件大小（24kB）加上对称密钥密文的大小的总和，而不会变成原来的10倍。'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-10-26T10:17:13&#43;08:00'/><meta property='article:modified_time' content='2023-10-26T10:17:13&#43;08:00'/>
+<meta name="twitter:title" content="网络安全作业1">
+<meta name="twitter:description" content="第一章 1. 如果你的网络服务器被黑客远程控制，列举3个可能被破坏的安全属性， 并解释理由。 机密性： 理由：远程控制服务器后，黑客可以在未被授权的情况下获取个人信息、数据库记录等数据，导致数据泄露和隐私侵犯。 完整性： 理由：黑客远程服务器后，可以篡改服务器上的数据或者程序文件，修改网站内容、更改配置文件、插入恶意代码等。 可用性： 理由：黑客可能通过远程控制服务器发动拒绝服务攻击或直接禁用服务器上的关键服务和功能，导致服务器无法正常运行。 不可抵赖性： 理由：黑客可以使用服务器的访问权限执行恶意操作如数据篡改。如果服务器没有足够的安全措施来记录这些操作并确保其不可抵赖性，那么黑客可能会否认曾经执行过这些操作，导致难以追踪和证明责任。
+2. 简述RFC2828安全服务的定义，例举Windows10系统的3种安全服务。
+RFC2828定义了安全服务为一种由系统提供的对系统资源进行特殊保护的处理或通信服务，安全服务通过安全机制来实现安全策略。ITU-T（即X.800）定义了五种服务：身份认证、访问控制、数据保密、数据完整性、不可否认。 Windows 10操作系统中的三种安全服务：
+认证服务：认证服务用于验证用户的身份，确保只有经过授权的用户能够访问系统或资源。在Windows 10中，用户必须提供正确的用户名和密码才能登录到系统。 访问控制服务：访问控制服务用于确定哪些用户或实体具有权限访问特定资源或执行特定操作，并确保未经授权的访问被拒绝。在Windows 10中，访问控制服务管理文件和文件夹的权限，以及系统资源的访问权限。 加密服务：加密服务用于将敏感数据转化为不可读的格式，以确保即使数据被未经授权的访问者获取，也无法理解其内容。只有具有正确密钥的用户才能解密数据。BitLocker是一个Windows 10中的工具，它可以加密整个硬盘或者某些部分，以保护数据免受丢失或盗取的威胁。 3 . 简述网络安全防护主要目标的“五不”。 1. 不泄露（Non-Disclosure）：确保网络中的敏感信息和数据不会泄露给未经授权的用户或系统。 2. 不破坏（Non-Destruction）：防止网络系统和数据被破坏、损坏或篡改。 3. 不拒绝（Non-Repudiation）：确保在网络交互中的各种操作和交易都可以被证明，不容易被否认。 4. 不中断（Non-Interruption）：确保网络服务的持续可用性，防止由于攻击、故障或其他原因导致的网络服务中断。 5. 不迟滞（Non-Delay）：保障网络通信的实时性，防止因网络拥塞、延迟或其他问题导致通信延迟。
+第三章 1. 在腾讯会议系统中，对称密码技术和公钥密码技术适合应用在哪几个阶段?说明理由。
+会话加密阶段：对称密码技术非常适合在会话加密阶段使用。一旦参与会议的用户建立了安全连接，可以使用对称加密算法来加密和解密数据通信。这是因为对称密码技术具有较高的加密和解密速度，使其非常适合对大量的音视频数据进行快速的加密和解密操作。
+登录时身份验证和密钥交换阶段：公钥密码技术通常用于安全地进行身份验证和密钥交换。在腾讯会议系统中，当用户首次登录时，可以使用公钥密码技术来验证其身份，并协商用于对称加密的会话密钥。
+2. 简述散列函数MD5的碰撞问题。既然MD5存在碰撞问题，为何http://mirrors.ustc.edu.cn/ubuntu-releases/16.04/ 仍然给出MD5值作为完整性验证的依据。 MD5的碰撞问题是指两个不同的输入数据在经过MD5算法处理后，得到了相同的散列值。这种情况被称为碰撞。 至于为什么仍然给出MD5值作为完整性验证的依据，可能是因为MD5是一个相对快速的散列函数，适用于快速验证大量文件的完整性。发行盘之后的系统安装和软件安装也有额外的安全验证程序。
+3. 简述用RSA公钥算法实现数字签名的过程。（这个问题回答的不好） 数字签名过程如下： 1. 发送者使用自己的私钥对消息进行加密，生成数字签名。 2. 发送者将消息和数字签名一起发送给接收者。 3. 接收者使用发送者的公钥对数字签名进行解密，得到消息的摘要。 4. 接收者使用相同的摘要算法对消息进行摘要处理，得到摘要。 5. 接收者比较两个摘要是否相同，如果相同，则说明消息没有被篡改过。
+4. 用PGP加密某个文件，如果接收该加密文件的用户为1个，加密文件的大小为24kB；如果接收该加密文件的用户 为10个，请问加密文件的大小是原来的10倍(240kB)吗？为什么？ 答：加密文件的大小不会是原来的10倍，由于对称密钥是相对较短的，每个接收者的非对称密钥通常很小。因此，无论接收者数量是1个还是10个，对称密钥密文的总大小都不会显著增加，而文件内容加密只需一次，因此文件大小仍然是原始文件大小（24kB）加上对称密钥密文的大小的总和，而不会变成原来的10倍。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#第一章">第一章</a></li>
+    <li><a href="#第三章">第三章</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" >
+                网络安全
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/">网络安全作业1</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 26, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="第一章">第一章</h2>
+<p><strong>1. 如果你的网络服务器被黑客远程控制，列举3个可能被破坏的安全属性， 并解释理由。</strong>
+机密性：
+理由：远程控制服务器后，黑客可以在未被授权的情况下获取个人信息、数据库记录等数据，导致数据泄露和隐私侵犯。
+完整性：
+理由：黑客远程服务器后，可以篡改服务器上的数据或者程序文件，修改网站内容、更改配置文件、插入恶意代码等。
+可用性：
+理由：黑客可能通过远程控制服务器发动拒绝服务攻击或直接禁用服务器上的关键服务和功能，导致服务器无法正常运行。
+不可抵赖性：
+理由：黑客可以使用服务器的访问权限执行恶意操作如数据篡改。如果服务器没有足够的安全措施来记录这些操作并确保其不可抵赖性，那么黑客可能会否认曾经执行过这些操作，导致难以追踪和证明责任。</p>
+<p><strong>2. 简述RFC2828安全服务的定义，例举Windows10系统的3种安全服务。</strong></p>
+<p>RFC2828定义了安全服务为一种由系统提供的对系统资源进行特殊保护的处理或通信服务，安全服务通过安全机制来实现安全策略。ITU-T（即X.800）定义了五种服务：身份认证、访问控制、数据保密、数据完整性、不可否认。
+Windows 10操作系统中的三种安全服务：</p>
+<ol>
+<li><strong>认证服务</strong>：认证服务用于验证用户的身份，确保只有经过授权的用户能够访问系统或资源。在Windows 10中，用户必须提供正确的用户名和密码才能登录到系统。</li>
+<li><strong>访问控制服务</strong>：访问控制服务用于确定哪些用户或实体具有权限访问特定资源或执行特定操作，并确保未经授权的访问被拒绝。在Windows 10中，访问控制服务管理文件和文件夹的权限，以及系统资源的访问权限。</li>
+<li><strong>加密服务</strong>：加密服务用于将敏感数据转化为不可读的格式，以确保即使数据被未经授权的访问者获取，也无法理解其内容。只有具有正确密钥的用户才能解密数据。BitLocker是一个Windows 10中的工具，它可以加密整个硬盘或者某些部分，以保护数据免受丢失或盗取的威胁。</li>
+</ol>
+<p><strong>3 . 简述网络安全防护主要目标的“五不”。</strong>
+1. <strong>不泄露</strong>（Non-Disclosure）：确保网络中的敏感信息和数据不会泄露给未经授权的用户或系统。
+2. <strong>不破坏</strong>（Non-Destruction）：防止网络系统和数据被破坏、损坏或篡改。
+3. <strong>不拒绝</strong>（Non-Repudiation）：确保在网络交互中的各种操作和交易都可以被证明，不容易被否认。
+4. <strong>不中断</strong>（Non-Interruption）：确保网络服务的持续可用性，防止由于攻击、故障或其他原因导致的网络服务中断。
+5. <strong>不迟滞</strong>（Non-Delay）：保障网络通信的实时性，防止因网络拥塞、延迟或其他问题导致通信延迟。</p>
+<h2 id="第三章">第三章</h2>
+<p><strong>1. 在腾讯会议系统中，对称密码技术和公钥密码技术适合应用在哪几个阶段?说明理由。</strong></p>
+<ul>
+<li>
+<p><strong>会话加密阶段</strong>：对称密码技术非常适合在会话加密阶段使用。一旦参与会议的用户建立了安全连接，可以使用对称加密算法来加密和解密数据通信。这是因为对称密码技术具有较高的加密和解密速度，使其非常适合对大量的音视频数据进行快速的加密和解密操作。</p>
+</li>
+<li>
+<p><strong>登录时身份验证和密钥交换阶段</strong>：公钥密码技术通常用于安全地进行身份验证和密钥交换。在腾讯会议系统中，当用户首次登录时，可以使用公钥密码技术来验证其身份，并协商用于对称加密的会话密钥。</p>
+</li>
+</ul>
+<p><strong>2.  简述散列函数MD5的碰撞问题。既然MD5存在碰撞问题，为何http://mirrors.ustc.edu.cn/ubuntu-releases/16.04/ 仍然给出MD5值作为完整性验证的依据。</strong>
+MD5的碰撞问题是指两个不同的输入数据在经过MD5算法处理后，得到了相同的散列值。这种情况被称为碰撞。
+至于为什么仍然给出MD5值作为完整性验证的依据，可能是因为MD5是一个相对快速的散列函数，适用于快速验证大量文件的完整性。发行盘之后的系统安装和软件安装也有额外的安全验证程序。</p>
+<p><strong>3.  简述用RSA公钥算法实现数字签名的过程。</strong>（这个问题回答的不好）
+数字签名过程如下：
+1. 发送者使用自己的私钥对消息进行加密，生成数字签名。
+2. 发送者将消息和数字签名一起发送给接收者。
+3. 接收者使用发送者的公钥对数字签名进行解密，得到消息的摘要。
+4. 接收者使用相同的摘要算法对消息进行摘要处理，得到摘要。
+5. 接收者比较两个摘要是否相同，如果相同，则说明消息没有被篡改过。</p>
+<p><strong>4. 用PGP加密某个文件，如果接收该加密文件的用户为1个，加密文件的大小为24kB；如果接收该加密文件的用户
+为10个，请问加密文件的大小是原来的10倍(240kB)吗？为什么？</strong>
+答：加密文件的大小不会是原来的10倍，由于对称密钥是相对较短的，每个接收者的非对称密钥通常很小。因此，无论接收者数量是1个还是10个，对称密钥密文的总大小都不会显著增加，而文件内容加密只需一次，因此文件大小仍然是原始文件大小（24kB）加上对称密钥密文的大小的总和，而不会变成原来的10倍。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全实验配置</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKhv2Qw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKhv2Q84CaPFX"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

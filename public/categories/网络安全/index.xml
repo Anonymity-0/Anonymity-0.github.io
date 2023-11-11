@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>网络安全 on AGA&#39;s Blog</title>
+        <link>https://anonymity-0.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
+        <description>Recent content in 网络安全 on AGA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>AGA</copyright>
+        <lastBuildDate>Thu, 26 Oct 2023 10:17:18 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>网络安全作业3</title>
+        <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/</link>
+        <pubDate>Thu, 26 Oct 2023 10:17:18 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/</guid>
+        <description>&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;简述防火墙的定义
+防火墙是位于两个(或多个)网络之间执行访问控制的软件和硬件系统，它根据访问控制规则对进出网络的数据流进行过滤。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;防火墙对数据流的拒绝和丢弃有何区别?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当数据流被拒绝时，防火墙要向发送者回复一条消息，用ICMP包告知数据源数据包被拒绝的原因，提示发送者该数据流已被拒绝。&lt;/li&gt;
+&lt;li&gt;当数据流被丢弃时，防火墙不会对这些数据包进行任何处理，也不会向发送者发送任何提示信息。丢弃数据包的做法加长了网络扫描所花费的时间，发送者只能等待回应直至通信超时。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;简述数据包过滤器和状态防火墙。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据包过滤器通过数据包的头部信息来判断是接受还是拒绝数据包，它并不查看数据包载荷中的应用数据。这种防火墙检查流经它的每个数据包，根据数据包本身所带的信息决定它的去留，而不用参考其他数据包的内容。&lt;/li&gt;
+&lt;li&gt;状态防火墙会通过对流经的数据包的分析查找通信中的数据流，根据数据流的信息来帮助判断是否让数据包通行。数据流提供了数据包的上下文。状态防火墙有时还会检测一些常用协议的应用数据（虽然可以检测的数据量是有限的），通过这些数据来识别和跟踪相关的数据流。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;与包过滤防火墙相比，应用代理防火墙有哪些特点？&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在已有的安全模型中安全性较高。&lt;/li&gt;
+&lt;li&gt;具有强大的认证功能。&lt;/li&gt;
+&lt;li&gt;具有超强的日志功能。&lt;/li&gt;
+&lt;li&gt;应用级网关防火墙的规则配置比较简单&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在防火墙的典型部署中，堡垒主机是一个组织机构网络安全的中心主机，它应该具备哪些主要特征？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;堡垒主机硬件平台运行较为安全的操作系统，成为可信任的系统。&lt;/li&gt;
+&lt;li&gt;只有网络管理员认为必要的服务(代理和用户认证等)才会安装在堡垒主机上。&lt;/li&gt;
+&lt;li&gt;当允许一个用户访问代理服务时，堡垒主机可能会要求进行额外认证。另外，每一个代理服务都可能需要相应的鉴别机制(Authentication)&lt;/li&gt;
+&lt;li&gt;每一个代理都只能支持标准应用服务命令集中的一个子集。&lt;/li&gt;
+&lt;li&gt;每一个代理只允许访问指定主机的通信，支持对通信进行详细的审计。&lt;/li&gt;
+&lt;li&gt;每一个代理模块都是一个为网络安全设计的一个很小的软件包。&lt;/li&gt;
+&lt;li&gt;代理之间相互独立。&lt;/li&gt;
+&lt;li&gt;代理通常无需进行磁盘访问，不需要读取初始配置文件。这使得入侵者很难在主机上安装Trojan horse、sniffers或其他危险的文件。&lt;/li&gt;
+&lt;li&gt;堡垒主机是一个组织机构网络安全的中心主机。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
+        <title>网络安全作业1</title>
+        <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/</link>
+        <pubDate>Thu, 26 Oct 2023 10:17:13 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/</guid>
+        <description>&lt;h2 id=&#34;第一章&#34;&gt;第一章&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1. 如果你的网络服务器被黑客远程控制，列举3个可能被破坏的安全属性， 并解释理由。&lt;/strong&gt;
+机密性：
+理由：远程控制服务器后，黑客可以在未被授权的情况下获取个人信息、数据库记录等数据，导致数据泄露和隐私侵犯。
+完整性：
+理由：黑客远程服务器后，可以篡改服务器上的数据或者程序文件，修改网站内容、更改配置文件、插入恶意代码等。
+可用性：
+理由：黑客可能通过远程控制服务器发动拒绝服务攻击或直接禁用服务器上的关键服务和功能，导致服务器无法正常运行。
+不可抵赖性：
+理由：黑客可以使用服务器的访问权限执行恶意操作如数据篡改。如果服务器没有足够的安全措施来记录这些操作并确保其不可抵赖性，那么黑客可能会否认曾经执行过这些操作，导致难以追踪和证明责任。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 简述RFC2828安全服务的定义，例举Windows10系统的3种安全服务。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;RFC2828定义了安全服务为一种由系统提供的对系统资源进行特殊保护的处理或通信服务，安全服务通过安全机制来实现安全策略。ITU-T（即X.800）定义了五种服务：身份认证、访问控制、数据保密、数据完整性、不可否认。
+Windows 10操作系统中的三种安全服务：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;认证服务&lt;/strong&gt;：认证服务用于验证用户的身份，确保只有经过授权的用户能够访问系统或资源。在Windows 10中，用户必须提供正确的用户名和密码才能登录到系统。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;访问控制服务&lt;/strong&gt;：访问控制服务用于确定哪些用户或实体具有权限访问特定资源或执行特定操作，并确保未经授权的访问被拒绝。在Windows 10中，访问控制服务管理文件和文件夹的权限，以及系统资源的访问权限。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;加密服务&lt;/strong&gt;：加密服务用于将敏感数据转化为不可读的格式，以确保即使数据被未经授权的访问者获取，也无法理解其内容。只有具有正确密钥的用户才能解密数据。BitLocker是一个Windows 10中的工具，它可以加密整个硬盘或者某些部分，以保护数据免受丢失或盗取的威胁。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;3 . 简述网络安全防护主要目标的“五不”。&lt;/strong&gt;
+1. &lt;strong&gt;不泄露&lt;/strong&gt;（Non-Disclosure）：确保网络中的敏感信息和数据不会泄露给未经授权的用户或系统。
+2. &lt;strong&gt;不破坏&lt;/strong&gt;（Non-Destruction）：防止网络系统和数据被破坏、损坏或篡改。
+3. &lt;strong&gt;不拒绝&lt;/strong&gt;（Non-Repudiation）：确保在网络交互中的各种操作和交易都可以被证明，不容易被否认。
+4. &lt;strong&gt;不中断&lt;/strong&gt;（Non-Interruption）：确保网络服务的持续可用性，防止由于攻击、故障或其他原因导致的网络服务中断。
+5. &lt;strong&gt;不迟滞&lt;/strong&gt;（Non-Delay）：保障网络通信的实时性，防止因网络拥塞、延迟或其他问题导致通信延迟。&lt;/p&gt;
+&lt;h2 id=&#34;第三章&#34;&gt;第三章&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1. 在腾讯会议系统中，对称密码技术和公钥密码技术适合应用在哪几个阶段?说明理由。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;会话加密阶段&lt;/strong&gt;：对称密码技术非常适合在会话加密阶段使用。一旦参与会议的用户建立了安全连接，可以使用对称加密算法来加密和解密数据通信。这是因为对称密码技术具有较高的加密和解密速度，使其非常适合对大量的音视频数据进行快速的加密和解密操作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;登录时身份验证和密钥交换阶段&lt;/strong&gt;：公钥密码技术通常用于安全地进行身份验证和密钥交换。在腾讯会议系统中，当用户首次登录时，可以使用公钥密码技术来验证其身份，并协商用于对称加密的会话密钥。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2.  简述散列函数MD5的碰撞问题。既然MD5存在碰撞问题，为何http://mirrors.ustc.edu.cn/ubuntu-releases/16.04/ 仍然给出MD5值作为完整性验证的依据。&lt;/strong&gt;
+MD5的碰撞问题是指两个不同的输入数据在经过MD5算法处理后，得到了相同的散列值。这种情况被称为碰撞。
+至于为什么仍然给出MD5值作为完整性验证的依据，可能是因为MD5是一个相对快速的散列函数，适用于快速验证大量文件的完整性。发行盘之后的系统安装和软件安装也有额外的安全验证程序。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.  简述用RSA公钥算法实现数字签名的过程。&lt;/strong&gt;（这个问题回答的不好）
+数字签名过程如下：
+1. 发送者使用自己的私钥对消息进行加密，生成数字签名。
+2. 发送者将消息和数字签名一起发送给接收者。
+3. 接收者使用发送者的公钥对数字签名进行解密，得到消息的摘要。
+4. 接收者使用相同的摘要算法对消息进行摘要处理，得到摘要。
+5. 接收者比较两个摘要是否相同，如果相同，则说明消息没有被篡改过。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 用PGP加密某个文件，如果接收该加密文件的用户为1个，加密文件的大小为24kB；如果接收该加密文件的用户
+为10个，请问加密文件的大小是原来的10倍(240kB)吗？为什么？&lt;/strong&gt;
+答：加密文件的大小不会是原来的10倍，由于对称密钥是相对较短的，每个接收者的非对称密钥通常很小。因此，无论接收者数量是1个还是10个，对称密钥密文的总大小都不会显著增加，而文件内容加密只需一次，因此文件大小仍然是原始文件大小（24kB）加上对称密钥密文的大小的总和，而不会变成原来的10倍。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>网络安全实验配置</title>
+        <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/</link>
+        <pubDate>Thu, 26 Oct 2023 10:15:50 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/</guid>
+        <description>&lt;h1 id=&#34;网络安全实验配置&#34;&gt;网络安全实验配置&lt;/h1&gt;
+&lt;p&gt;由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;UTM下载和安装
+直接官网&lt;a class=&#34;link&#34; href=&#34;https://mac.getutm.app&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;UTM | Virtual machines for Mac&lt;/a&gt;下载并安装就好。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;windows server镜像下载
+这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012
+下载镜像地址：&lt;a class=&#34;link&#34; href=&#34;https://hellowindows.cn&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站&lt;/a&gt;
+注：需下载迅雷进行磁力链下载&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;wireshark的安装
+直接官网&lt;a class=&#34;link&#34; href=&#34;https://www.wireshark.org&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Wireshark · Go Deep&lt;/a&gt;下载安装就好&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;UTM和本地文件的共享
+待补充&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;终于是能在mac上跑实验了，类目。&lt;/p&gt;
+&lt;h2 id=&#34;utm下复制的主机互ping问题&#34;&gt;UTM下复制的主机互ping问题&lt;/h2&gt;
+&lt;p&gt;本来像按照老师所给的内容配置了七个&lt;strong&gt;host-only&lt;/strong&gt;网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。
+查阅了很多资料之后发现得设置成桥接模式，并把接口设置成&lt;code&gt;en0&lt;/code&gt;即可。如图：
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.vu1ew1aysnk.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

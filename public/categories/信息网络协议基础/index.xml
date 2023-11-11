@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>信息网络协议基础 on AGA&#39;s Blog</title>
+        <link>https://anonymity-0.github.io/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/</link>
+        <description>Recent content in 信息网络协议基础 on AGA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>AGA</copyright>
+        <lastBuildDate>Tue, 07 Nov 2023 12:46:21 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>信网实验1</title>
+        <link>https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/</link>
+        <pubDate>Tue, 07 Nov 2023 12:46:21 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/</guid>
+        <description>&lt;h1 id=&#34;实验内容&#34;&gt;实验内容&lt;/h1&gt;
+&lt;h2 id=&#34;arp&#34;&gt;arp&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 HostA 和 HostB 中分别打开一个终端用于本实验。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 HostA 和 HostB 中分别执行命令&lt;code&gt;ifconfig ens5&lt;/code&gt;，查看并记录它们各自的IPv4 地址。执行命令 &lt;code&gt;ifconfig ens6&lt;/code&gt; 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。&lt;/strong&gt;
+&lt;strong&gt;截图：&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2dh0lur8qhkw.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.5s8kni5d7b7k.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2i1qwanl02dc.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.37tkn71qiu4g.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;命令解释：&lt;/strong&gt;
+&lt;code&gt;ifconfig&lt;/code&gt; 是一个用于配置和显示网络接口信息的命令。&lt;code&gt;ens5&lt;/code&gt; 和 &lt;code&gt;ens6&lt;/code&gt; 是网络接口的名称，通常用于表示以太网接口。&lt;code&gt;ifconfig ens5&lt;/code&gt; 命令用于显示名为 &lt;code&gt;ens5&lt;/code&gt; 的网络接口的配置信息，包括 IP 地址、子网掩码、广播地址、MAC 地址等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 HostA 中执行命令 &lt;code&gt;arp -n&lt;/code&gt; 或&lt;code&gt;ip neigh show&lt;/code&gt; 查看并记录本机 ARP 缓存表的内容。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;命令解释：&lt;/strong&gt;
+&lt;code&gt;arp -n&lt;/code&gt; 是一个用于查看本地ARP缓存表的命令。它会显示已解析的IP地址和对应的MAC地址。
+&lt;code&gt;ip neigh show&lt;/code&gt; 是一个用于查看本地邻居表的命令。它会显示已解析的IP地址和对应的MAC地址，类似于 arp -n 命令。
+arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命令，它们的功能相似但有一些区别。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;命令格式不同：arp -n 是在大多数操作系统中使用的命令，而 ip neigh show 是在基于 Linux 的操作系统中使用的命令。&lt;/li&gt;
+&lt;li&gt;输出格式不同：arp -n 输出的结果通常是以表格形式显示的，包括IP地址和对应的MAC地址。而 ip neigh show 输出的结果可能更详细，包括IP地址、MAC地址、接口、状态等信息。&lt;/li&gt;
+&lt;li&gt;支持的功能不同：ip neigh show 命令在功能上更加强大，可以显示更多关于邻居的信息，如状态、接口类型等。而 arp -n 命令通常只显示基本的IP地址和MAC地址信息。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;截图：&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4y3egv3n6av4.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2al8hllnncow.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 HostA 中执行命令 &lt;code&gt;ping -c 1 HostB 的 IPv4 地址&lt;/code&gt;向 HostB 发送 ICMP 请求报文。收到 ICMP 响应后再次执行命令 &lt;code&gt;arp -n&lt;/code&gt; 或&lt;code&gt;ip neigh show&lt;/code&gt; 查看 HostA的 ARP 缓存表的内容。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;命令解释&lt;/strong&gt;
+&lt;code&gt;ping -c 1 HostB&lt;/code&gt; 是一个用于向 HostB 发送一个 ICMP 回显请求（ping）的命令。其中，&lt;code&gt;-c 1&lt;/code&gt; 表示只发送一次请求。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;截图&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.1ocbv5gka4v4.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.nkkv22ucnpc.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 HostA 的 ARP 缓存表里面可获得 HostB 的 MAC 地址，记录下来，检查与 HostB 上&lt;code&gt;ifconfig ens5&lt;/code&gt; 命令的执行结果是否一致。&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2yddow5xfbi8.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4vlp8qvkr4e8.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+与 HostB 上&lt;code&gt;ifconfig ens5&lt;/code&gt; 命令的执行结果一致&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 HostA 中执行命令&lt;code&gt;ping -c 1 202.38.64.246&lt;/code&gt;，收到 ICMP 响应后继续执行命令&lt;code&gt;ip neigh show&lt;/code&gt; 查看 HostA 的 ARP 缓存表，记录结果。简要解释为何无法看到对应于地址 &lt;code&gt;202.38.64.246&lt;/code&gt; 的 ARP 表项而只能得到网关的某网卡的MAC 地址。提示：思考网段(链路)、广播域的概念。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;截图：&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.cmtl9p1qatc.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;strong&gt;解释：&lt;/strong&gt;
+这是因为，ARP 协议用于在同一网段内查找主机的 MAC 地址。当 HostA 发送 ICMP 请求到目标地址 202.38.64.246 时，目标地址不在 HostA 的网段内，因此 HostA 需要向网关发送广播 ARP 请求。网关收到广播 ARP 请求后，会将自己的 MAC 地址回复给 HostA。HostA 收到网关的回复后，将网关的 MAC 地址存储在 ARP 缓存表中。因此，HostA 无法看到对应于地址 202.38.64.246 的 ARP 表项。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;ip&#34;&gt;IP&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分别用命令 route -n 和命令route &amp;ndash;inet6 查看本机的 IPv4 和 IPv6 路由配置，记录所在子网的子网掩码/前缀长度，并于前面 ifconfig 的结果作比较。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;命令解释&lt;/strong&gt;
+&lt;code&gt;route -n&lt;/code&gt; 是一个用于显示 IPv4 路由表的命令。它会列出系统中当前配置的所有 IPv4 路由项，包括目的网络、网关、子网掩码、接口和路由标志等信息。该命令中的 &lt;code&gt;-n&lt;/code&gt; 选项表示以数字形式显示 IP 地址和子网掩码，而不进行主机名和网络地址的解析。
+&lt;code&gt;route --inet6&lt;/code&gt; 是一个用于显示 IPv6 路由表的命令。它会列出系统中当前配置的所有 IPv6 路由项，包括目的网络、网关、前缀长度、接口和路由标志等信息。该命令中的 &lt;code&gt;--inet6&lt;/code&gt; 选项表示只显示 IPv6 路由表的信息。
+&lt;strong&gt;截图：&lt;/strong&gt;
+![[Pasted image 20231106202048.png]]
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2dh0lur8qhkw.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;	&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2i1qwanl02dc.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+比较两者的结果，可以看到，IPv4 和 IPv6 路由表中的子网掩码/前缀长度均与&lt;code&gt;ifconfig&lt;/code&gt;的结果一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;执行以下两个命令分别查看系统内核的 IPv4 和 IPv6 的 FORWARD 值，记录下来。简单解释这个值的含义以及为何这个值是这样设定的。提示：思考主机与路由器的区别。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;命令 1：&lt;code&gt;cat /proc/sys/net/ipv4/ip_forward&lt;/code&gt;
+命令 2：&lt;code&gt;cat /proc/sys/net/ipv6/conf/all/forwarding&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;命令解释：&lt;/strong&gt;
+命令1：&lt;code&gt;cat /proc/sys/net/ipv4/ip_forward&lt;/code&gt; 用于查看 IPv4 转发功能的状态。在 Linux 系统中，如果该值为 1，则表示启用了 IPv4 转发功能，即允许将数据包从一个网络接口转发到另一个网络接口。
+命令2：&lt;code&gt;cat /proc/sys/net/ipv6/conf/all/forwarding&lt;/code&gt; 用于查看 IPv6 转发功能的状态。类似于 IPv4，如果该值为 1，则表示启用了 IPv6 转发功能，允许将数据包从一个 IPv6 网络接口转发到另一个 IPv6 网络接口。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;截图：&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4xdi7ls4epvk.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;strong&gt;解释：&lt;/strong&gt;
+可以看到，系统内核的 IPv4 和 IPv6 的 FORWARD 值均为 0。FORWARD 值的含义是是否允许系统转发 IP 数据包。如果 FORWARD 值为 0，则系统不允许转发 IP 数据包。主机和路由器的区别在于，主机只能与同一子网内的主机通信，而路由器可以连接多个子网，并负责将数据包从一个子网转发到另一个子网。由于主机只能与同一子网内的主机通信，因此不需要转发 IP 数据包。因此，主机的 FORWARD 值通常为 0。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;tcp&#34;&gt;TCP&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 S 的终端 1 中执行 nc -l 1958 侦听1958 端口。。&lt;/strong&gt;
+&lt;strong&gt;命令解释：&lt;/strong&gt;
+命令 &lt;code&gt;nc -l 1958&lt;/code&gt; 将在 TCP 端口 1958 上监听传入连接&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nc&lt;/code&gt;：netcat 命令&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-l&lt;/code&gt;：监听传入连接&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1958&lt;/code&gt;：端口号
+&lt;strong&gt;截图：&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.3q5oc9vpy3r4.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在HostA 的终端 1 执行nc S 的IPv4 地址 1958&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;截图：&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.edjkfbzgz8w.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.483sotr5iwsg.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在HostA 终端 2 中执行命令netstat -aunt 来观察自己主机上的所有 TCP 与UDP 连接状况，将输出的信息记录下来。请在上述记录的结果中找到对应于上述连接的那条记录并解释这条记录的含义。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;命令解释&lt;/strong&gt;：
+执行 &lt;code&gt;netstat -aunt&lt;/code&gt; 命令可以查看当前系统上所有的网络连接和监听端口，以及它们的状态、协议类型、本地地址和远程地址等信息
+&lt;strong&gt;截图：&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.5gebmmqakyv4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;这条记录表示，HostA 主机的60260端口与 S 主机的 1958 端口建立了 TCP 连接。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;执行命令 nc S 的 IPv4 地址 100，记录命令执行结果。同样使用 netstat -aunt 来查看本机的连接状况，请判断这次 telnet 连接是否成功建立并简单说明原因。&lt;/strong&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2v2ms0onuqv4.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.53ebne5z02dc.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+原因是 100 端口是 telnet 服务器的默认端口，但 S 主机没有在 100 端口上监听 telnet 连接。因此，HostA 主机无法与 S 主机建立 telnet 连接。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;思考题&#34;&gt;思考题&lt;/h1&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;现在有一个网段的 IP 地址和子网掩码分别为202.38.75.0/255.255.255.192，请计算该网段中一共有多少个全局 IPv4 地址可供主机使用，或者说这个网络中有多少真正可分配的 IP 地址？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;子网掩码 &lt;code&gt;255.255.255.192&lt;/code&gt; 的二进制表示为 &lt;code&gt;11111111 11111111 11111111 11000000&lt;/code&gt;，其中前 24 位为 1，表示该网段的网络地址部分，后 8 位为 0，表示该网段的广播地址部分。因此，该网段中一共有 &lt;code&gt;2^6 - 2 = 62&lt;/code&gt; 个全局 IPv4 地址可供主机使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;实验中执行 ifconfig ens3 查看接口的配置信息时可以观察到一个重要的参数MTU，请问这个值是多少？查询资料说明 MTU 参数的用途。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;MTU 是最大传输单元（Maximum Transmission Unit）的缩写，指的是网络层协议所能通过的最大数据包大小。MTU 的值通常与通信接口有关（网络接口卡、串口等）。
+MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是因为以太网是最常见的网络类型，而以太网的标准帧大小为 1518 字节（包括帧头和帧尾），减去以太网帧头的 18 字节，剩下的 1500 字节就是可用于数据传输的最大数据量。
+当数据包的大小超过 MTU 值时，网络层协议会将数据包分片，将数据包拆分成多个小数据包，然后分别传输。分片会增加网络层协议的复杂度，并降低网络效率。因此，在实际应用中，需要根据网络环境调整 MTU 参数的值，以保证数据包能够正常传输，并提高网络效率。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt; 9. &lt;strong&gt;IPv6 地址长度是 IPv4 地址长度的 4 倍，不过在今后的纯 IPv6 网络环境中路由器的 路由表的规模反而有望减小，请简单解释这是为什么？&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;在纯 IPv6 网络环境中，路由器的路由表规模有望减小的原因：
+1. IPv6 支持路由重叠，即多个路由器可以指向同一个目标地址。这意味着 IPv6 路由器可以共享路由信息，从而减少路由条目的数量。
+2. IPv6 路由表结构更加简化。IPv6 路由表采用了扁平化的结构，每个路由表项只需要存储一个目标地址和下一跳地址即可。而 IPv4 路由表采用了分层的结构，每个路由表项还需要存储一个前缀长度和子网掩码。
+3. IPv6没有私有地址和NAT技术,减少了路由表中的条目。
+4. IPv6 支持动态路由，即路由器可以自动学习到目标地址的路由信息。这意味着 IPv6 路由器不需要手动配置路由条目，从而减少路由条目的数量。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;一条 TCP 连接需要哪几个参数标识？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;一条 TCP 连接需要四个参数来标识，即：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;本地 IP 地址&lt;/strong&gt;：表示连接的本地主机的 IP 地址。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;本地端口号&lt;/strong&gt;：表示连接的本地主机的端口号。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;远程 IP 地址&lt;/strong&gt;：表示连接的远程主机的 IP 地址。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;远程端口号&lt;/strong&gt;：表示连接的远程主机的端口号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

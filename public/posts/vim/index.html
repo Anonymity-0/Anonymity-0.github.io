@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='vim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入
+insert 转normal esc/jj 变回普通模式
+normal转visual v变成可视模式（无法编辑）
+visual转nomal esc或者v变回普通模式
+普通模式转命令模式 ：转成命令模式
+命令模式转普通模式 esc
+光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销
+大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl&#43;数字 command&#43;0 到文件夹 o打开 回车修改名字
+easymotion 空格空格s &#43; 要查询的字幕 空格空格&#43;e 空格空格&#43;w
+vim surround 光标转移到终端 leader &#43; t
+切换tab gt或gT'>
+<title>Vim</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/vim/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Vim'>
+<meta property='og:description' content='vim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入
+insert 转normal esc/jj 变回普通模式
+normal转visual v变成可视模式（无法编辑）
+visual转nomal esc或者v变回普通模式
+普通模式转命令模式 ：转成命令模式
+命令模式转普通模式 esc
+光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销
+大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl&#43;数字 command&#43;0 到文件夹 o打开 回车修改名字
+easymotion 空格空格s &#43; 要查询的字幕 空格空格&#43;e 空格空格&#43;w
+vim surround 光标转移到终端 leader &#43; t
+切换tab gt或gT'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/vim/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2023-11-10T12:43:42&#43;08:00'/><meta property='article:modified_time' content='2023-11-10T12:43:42&#43;08:00'/>
+<meta name="twitter:title" content="Vim">
+<meta name="twitter:description" content="vim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入
+insert 转normal esc/jj 变回普通模式
+normal转visual v变成可视模式（无法编辑）
+visual转nomal esc或者v变回普通模式
+普通模式转命令模式 ：转成命令模式
+命令模式转普通模式 esc
+光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销
+大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl&#43;数字 command&#43;0 到文件夹 o打开 回车修改名字
+easymotion 空格空格s &#43; 要查询的字幕 空格空格&#43;e 空格空格&#43;w
+vim surround 光标转移到终端 leader &#43; t
+切换tab gt或gT">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#vim模式切换">vim模式切换</a>
+      <ol>
+        <li><a href="#normal转insert">normal转insert</a></li>
+        <li><a href="#insert-转normal">insert 转normal</a></li>
+        <li><a href="#normal转visual">normal转visual</a></li>
+        <li><a href="#visual转nomal">visual转nomal</a></li>
+        <li><a href="#普通模式转命令模式">普通模式转命令模式</a></li>
+        <li><a href="#命令模式转普通模式">命令模式转普通模式</a></li>
+      </ol>
+    </li>
+    <li><a href="#光标移动">光标移动</a>
+      <ol>
+        <li><a href="#普通模式下光标移动">普通模式下光标移动</a></li>
+      </ol>
+    </li>
+    <li><a href="#动作-motion">动作 motion</a></li>
+    <li><a href="#操作符">操作符</a></li>
+    <li><a href="#大小写">大小写</a></li>
+    <li><a href="#常用">常用</a></li>
+    <li><a href="#easymotion">easymotion</a></li>
+    <li><a href="#vim-surround">vim surround</a></li>
+    <li><a href="#光标转移到终端">光标转移到终端</a></li>
+    <li><a href="#切换tab">切换tab</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" >
+                杂七杂八
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/vim/">Vim</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 10, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="vim模式切换">vim模式切换</h2>
+<h3 id="normal转insert">normal转insert</h3>
+<p>i 光标前插入
+I行首插入
+o进入下一行输入
+O上一行插入
+a光标之后输入
+A行末尾插入</p>
+<h3 id="insert-转normal">insert 转normal</h3>
+<p>esc/jj 变回普通模式</p>
+<h3 id="normal转visual">normal转visual</h3>
+<p>v变成可视模式（无法编辑）</p>
+<h3 id="visual转nomal">visual转nomal</h3>
+<p>esc或者v变回普通模式</p>
+<h3 id="普通模式转命令模式">普通模式转命令模式</h3>
+<p>：转成命令模式</p>
+<h3 id="命令模式转普通模式">命令模式转普通模式</h3>
+<p>esc</p>
+<h2 id="光标移动">光标移动</h2>
+<h3 id="普通模式下光标移动">普通模式下光标移动</h3>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.361dhwguy24g.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.6l1znm0xt3i8.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4z95f8a62f7k.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.8z6bkk52b08.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<h2 id="动作-motion">动作 motion</h2>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.3l3imza42lts.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<h2 id="操作符">操作符</h2>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4zwaffdpozk0.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p>删除全部 die
+复制全部 yie
+u 撤销</p>
+<h2 id="大小写">大小写</h2>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.6dgggu7lgdxc.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<h2 id="常用">常用</h2>
+<p>gd 查看函数定义
+^O返回
+g数字 切换标签/ctrl+数字
+command+0 到文件夹 o打开 回车修改名字</p>
+<h2 id="easymotion">easymotion</h2>
+<p>空格空格s + 要查询的字幕
+空格空格+e
+空格空格+w</p>
+<h2 id="vim-surround">vim surround</h2>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2d1gjkuofvls.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<h2 id="光标转移到终端">光标转移到终端</h2>
+<p>leader + t</p>
+<h2 id="切换tab">切换tab</h2>
+<p>gt或gT</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKhv2Qw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKhv2Q84CaPFX"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

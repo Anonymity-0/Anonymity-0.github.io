@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>杂七杂八 on AGA&#39;s Blog</title>
+        <link>https://anonymity-0.github.io/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/</link>
+        <description>Recent content in 杂七杂八 on AGA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>AGA</copyright>
+        <lastBuildDate>Fri, 10 Nov 2023 12:43:42 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Vim</title>
+        <link>https://anonymity-0.github.io/posts/vim/</link>
+        <pubDate>Fri, 10 Nov 2023 12:43:42 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/vim/</guid>
+        <description>&lt;h2 id=&#34;vim模式切换&#34;&gt;vim模式切换&lt;/h2&gt;
+&lt;h3 id=&#34;normal转insert&#34;&gt;normal转insert&lt;/h3&gt;
+&lt;p&gt;i 光标前插入
+I行首插入
+o进入下一行输入
+O上一行插入
+a光标之后输入
+A行末尾插入&lt;/p&gt;
+&lt;h3 id=&#34;insert-转normal&#34;&gt;insert 转normal&lt;/h3&gt;
+&lt;p&gt;esc/jj 变回普通模式&lt;/p&gt;
+&lt;h3 id=&#34;normal转visual&#34;&gt;normal转visual&lt;/h3&gt;
+&lt;p&gt;v变成可视模式（无法编辑）&lt;/p&gt;
+&lt;h3 id=&#34;visual转nomal&#34;&gt;visual转nomal&lt;/h3&gt;
+&lt;p&gt;esc或者v变回普通模式&lt;/p&gt;
+&lt;h3 id=&#34;普通模式转命令模式&#34;&gt;普通模式转命令模式&lt;/h3&gt;
+&lt;p&gt;：转成命令模式&lt;/p&gt;
+&lt;h3 id=&#34;命令模式转普通模式&#34;&gt;命令模式转普通模式&lt;/h3&gt;
+&lt;p&gt;esc&lt;/p&gt;
+&lt;h2 id=&#34;光标移动&#34;&gt;光标移动&lt;/h2&gt;
+&lt;h3 id=&#34;普通模式下光标移动&#34;&gt;普通模式下光标移动&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.361dhwguy24g.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.6l1znm0xt3i8.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4z95f8a62f7k.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.8z6bkk52b08.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;动作-motion&#34;&gt;动作 motion&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.3l3imza42lts.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;操作符&#34;&gt;操作符&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4zwaffdpozk0.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;删除全部 die
+复制全部 yie
+u 撤销&lt;/p&gt;
+&lt;h2 id=&#34;大小写&#34;&gt;大小写&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.6dgggu7lgdxc.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;常用&#34;&gt;常用&lt;/h2&gt;
+&lt;p&gt;gd 查看函数定义
+^O返回
+g数字 切换标签/ctrl+数字
+command+0 到文件夹 o打开 回车修改名字&lt;/p&gt;
+&lt;h2 id=&#34;easymotion&#34;&gt;easymotion&lt;/h2&gt;
+&lt;p&gt;空格空格s + 要查询的字幕
+空格空格+e
+空格空格+w&lt;/p&gt;
+&lt;h2 id=&#34;vim-surround&#34;&gt;vim surround&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2d1gjkuofvls.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;光标转移到终端&#34;&gt;光标转移到终端&lt;/h2&gt;
+&lt;p&gt;leader + t&lt;/p&gt;
+&lt;h2 id=&#34;切换tab&#34;&gt;切换tab&lt;/h2&gt;
+&lt;p&gt;gt或gT&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
