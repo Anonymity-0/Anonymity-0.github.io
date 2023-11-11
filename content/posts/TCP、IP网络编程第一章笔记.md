@@ -13,14 +13,14 @@ categories:
 tags:
     - 学习笔记
 ---
-# 1.1 理解网络和套接字
+## 1.1 理解网络和套接字
 
-## 套接字
+### 套接字
 套接字（socket）是计算机网络中进程间通信的一种机制，它将进程间通信抽象为一个端点，该端点由一个IP地址和一个端口号来标识。
 套接字是网络数据传输用的软件设备。网络编程又称为套接字编程。
 
 
-### 编写" Hello world! " 服 务 器 端
+#### 编写" Hello world! " 服 务 器 端
 网络编程中接受连接请求的套接字创建过程可整理如下。
 1. 第一步:调用s o c k e t 函数创建套接字。
 2. 第二步:调用b i n d 函数分配E地址和端口号。
@@ -80,7 +80,7 @@ func main() {
 ```
 
 
-### client
+#### client
 创建套接字,但此时套接字并不马上分为服务器端和客户端。如果紧接着调用bind和listen函数,将成为**服务器端套接字**;如果调用connect函数将成为客户端套接字。
 
 hello_client.go
@@ -122,7 +122,7 @@ func main() {
 
 ```
 
-### 运行
+#### 运行
 
 - 编译运行服务器
 ```shell
@@ -140,9 +140,9 @@ Message from server: Hello world!
 ```
 
 
-# 1.2 文件操作
+## 1.2 文件操作
 
-## 打开文件
+### 打开文件
 首先介绍打开文件以读写数据的函数。 调用此函数时需传递两个参数:第一个参数是打开的目标文件名及路径信息,第二个参数是文件打开模式(文件特性信息)。
 
 
@@ -181,7 +181,7 @@ func OpenFile(name string, flag int, perm FileMode) (*File, error) {
 }
 ```
 
-## 关闭文件
+### 关闭文件
 
 ```c
 #include <unistd.h> 
@@ -205,7 +205,7 @@ func (f *File) Close() error {
 
 ```
 
-## 将数据写入文件
+### 将数据写入文件
 
 ```c
 #include <unistd.h> 
@@ -237,7 +237,7 @@ func (f *File) write(b []byte) (n int, err error) {
 ```
 
 
-### 代码示例改写
+#### 代码示例改写
 
 low_open.go
 
@@ -277,7 +277,7 @@ go build -o ch1/low_open ch1/lowOpen/low_open.go
 file descriptor: 3 
 ```
 
-## 读取数据
+### 读取数据
 
 ```c
 #include <unistd.h> 
@@ -289,7 +289,7 @@ ssize_t read(int fdJ void * buf, size_t nbytes);
 
 ```
 
-### 示例代码改写
+#### 示例代码改写
 
 low_read.go 
 ```go
@@ -333,7 +333,7 @@ go build -o ch1/low_read  ch1/lowRead/low_read.go
 
 ```
 
-## 文件描述符与套接字
+### 文件描述符与套接字
 
 
 原文c代码
@@ -405,13 +405,13 @@ file descriptor 3: 5
 
 ```
 
-# 1.3 基于Windows平台的实现
+## 1.3 基于Windows平台的实现
 略
 
-# 1.4 基于Windows的套接字相关函数及示例
+## 1.4 基于Windows的套接字相关函数及示例
 
 
-# 1.5 习题
+## 1.5 习题
 
 1.  套接字在网络编程中的作用是什么?为何称它为套接字?
 	套接字（socket）是网络编程中的抽象概念，它提供了一种机制，使得不同计算机之间可以进行通信和数据交换。套接字可以看作是网络通信的端点，它包含了通信所需的各种信息，如IP地址、端口号、协议等。套接字的名称来源于插座（socket），类比插座连接电器，套接字连接网络。通过套接字，计算机可以在网络上进行数据的发送和接收，实现网络通信的功能。

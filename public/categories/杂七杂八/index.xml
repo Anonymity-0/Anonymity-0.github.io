@@ -13,7 +13,8 @@
         <pubDate>Fri, 10 Nov 2023 12:43:42 +0800</pubDate>
         
         <guid>https://anonymity-0.github.io/posts/vim/</guid>
-        <description>&lt;h2 id=&#34;vim模式切换&#34;&gt;vim模式切换&lt;/h2&gt;
+        <description>&lt;p&gt;尝试学习一下vim&lt;/p&gt;
+&lt;h2 id=&#34;vim模式切换&#34;&gt;vim模式切换&lt;/h2&gt;
 &lt;h3 id=&#34;normal转insert&#34;&gt;normal转insert&lt;/h3&gt;
 &lt;p&gt;i 光标前插入
 I行首插入
