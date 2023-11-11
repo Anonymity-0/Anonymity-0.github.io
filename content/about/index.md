@@ -1,10 +1,9 @@
 ---
 title: About
-description: Hugo, the world's fastest framework for building websites
+description: Welcome to my Blog!
 date: '2023-10-18'
 aliases:
   - about-us
-  - about-hugo
   - contact
 license: CC BY-NC-ND
 lastmod: '2023-10-18'
@@ -15,20 +14,38 @@ menu:
             icon: user
 ---
 
-Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+## About Me
 
-Hugo makes use of a variety of open source projects including:
+- 👋 My name is XXX.
 
-* https://github.com/yuin/goldmark
-* https://github.com/alecthomas/chroma
-* https://github.com/muesli/smartcrop
-* https://github.com/spf13/cobra
-* https://github.com/spf13/viper
+## Interests
 
-Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+- 🏸 I enjoy playing badminton.
+- 🏋️‍♀️ Fitness is a part of my daily routine.
+- 🎬 I love watching movies.
+- 🎵 Listening to concerts is one of my favorite pastimes.
+- 💻 I really enjoy coding.
 
-Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
+## 🎓 My Education:
 
-Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
+- [South-Central Minzu University], [BEng in Computer Science and Technology], [2019 - 2023]
+- [University of Chinese Academy of Sciences], [MSc in Electronic-Engineering], [2023 - Now]
+- ...
 
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+## Current Research
+
+- 🎯 My current research focus is on network security.
+- 📘 I am currently learning Go language and its network programming.
+
+
+## 💻 My tech stack includes:
+
+- ![Static Badge](https://img.shields.io/badge/python-black?style=flat&logo=python) ![Static Badge](https://img.shields.io/badge/flask-black?style=flat&logo=flask) ![Static Badge](https://img.shields.io/badge/django-black?style=flat&logo=django)
+- ![Static Badge](https://img.shields.io/badge/Golang-blue?style=flat&logo=Golang)
+- ![Static Badge](https://img.shields.io/badge/Java-red?style=flat) ![Static Badge](https://img.shields.io/badge/SSM-red?style=flat)
+- ...
+
+## Contact Me
+
+- 📫 You can reach me at [**gagaq@mail.ustc.edu.cn**].
+- 🐱‍💻 Here is my GitHub: [![GitHub Badge](https://img.shields.io/badge/-GitHub-black?style=flat&logo=github)](https://github.com/Anonymity-0)

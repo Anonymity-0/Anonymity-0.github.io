@@ -13,10 +13,6 @@ weight: 1       # You can add weight to some posts to override the default sorti
 
 Welcome to AGA's Blog. This is my first post.
 
-
-
-
 For more information about this theme, check the documentation: https://stack.jimmycai.com/
 
-Want a site like this? Check out [hugo-theme-stack-stater](https://github.com/CaiJimmy/hugo-theme-stack-starter)
 

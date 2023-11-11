@@ -16,8 +16,6 @@
         <description>&lt;img src="https://anonymity-0.github.io/posts/hello-world/cover.jpg" alt="Featured image of post Hello World" /&gt;&lt;p&gt;Welcome to AGA&amp;rsquo;s Blog. This is my first post.&lt;/p&gt;
 &lt;p&gt;For more information about this theme, check the documentation: &lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://stack.jimmycai.com/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Want a site like this? Check out &lt;a class=&#34;link&#34; href=&#34;https://github.com/CaiJimmy/hugo-theme-stack-starter&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;hugo-theme-stack-stater&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -1686,6 +1684,115 @@ MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是�
 </description>
         </item>
         <item>
+        <title>网络安全作业2</title>
+        <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/</link>
+        <pubDate>Thu, 26 Oct 2023 15:51:26 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/</guid>
+        <description>&lt;p&gt;10/10&lt;/p&gt;
+&lt;h2 id=&#34;路由配置&#34;&gt;路由配置&lt;/h2&gt;
+&lt;h3 id=&#34;配置路由器router&#34;&gt;配置路由器Router&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;安装远程访问“角色和功能”
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.e2wqle6p7a8.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image|300&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;设置IP地址和默认网关的IP地址。
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2pndmnwcyzk0.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image|300&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启用“路由和远程访问服务”
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.3myv7r2rwdhc.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image|300&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;关闭防火墙
+![[Pasted image 20231024224258.png|300]]&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;配置vpn-server&#34;&gt;配置VPN Server&lt;/h3&gt;
+&lt;h4 id=&#34;路由远程访问服务器设置&#34;&gt;路由远程访问服务器设置&lt;/h4&gt;
+&lt;p&gt;![[Pasted image 20231023164229.png|400]]&lt;/p&gt;
+&lt;h4 id=&#34;新建用户&#34;&gt;新建用户&lt;/h4&gt;
+&lt;p&gt;![[Pasted image 20231024224417.png|400]]&lt;/p&gt;
+&lt;h4 id=&#34;vpn-server的ip地址配置&#34;&gt;VPN server的ip地址配置&lt;/h4&gt;
+&lt;p&gt;![[Pasted image 20231024223002.png|400]]&lt;/p&gt;
+&lt;h3 id=&#34;配置客户端&#34;&gt;配置客户端&lt;/h3&gt;
+&lt;h4 id=&#34;client-b的ip地址&#34;&gt;client B的ip地址&lt;/h4&gt;
+&lt;p&gt;将ip地址设置为192.168.86.&lt;font color=&#34;#ff0000&#34;&gt;24&lt;/font&gt;
+24为学号末2位
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.7c8179hqfkhs.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image|400&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;client-a的ip地址&#34;&gt;client A的ip地址&lt;/h2&gt;
+&lt;p&gt;将ip地址设置为55.0.0.&lt;font color=&#34;#ff0000&#34;&gt;24&lt;/font&gt;
+![[Pasted image 20231024211518.png|400]]&lt;/p&gt;
+&lt;h3 id=&#34;vpn连接&#34;&gt;VPN连接&lt;/h3&gt;
+&lt;p&gt;进行VPN连接
+![[Pasted image 20231024223124.png|400]]&lt;/p&gt;
+&lt;h4 id=&#34;连接后的ip变化&#34;&gt;连接后的IP变化&lt;/h4&gt;
+&lt;h5 id=&#34;clienta&#34;&gt;clientA&lt;/h5&gt;
+&lt;p&gt;![[Pasted image 20231024221917.png|400]]&lt;/p&gt;
+&lt;h5 id=&#34;vpn-server&#34;&gt;VPN Server&lt;/h5&gt;
+&lt;p&gt;![[Pasted image 20231024223749.png|400]]&lt;/p&gt;
+&lt;h4 id=&#34;wireshark抓包&#34;&gt;wireshark抓包&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4okcpvjoj37k.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image|400&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.24yp15joi1kw.webp&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image|400&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>网络安全作业3</title>
         <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/</link>
         <pubDate>Thu, 26 Oct 2023 10:17:18 +0800</pubDate>
@@ -1742,7 +1849,8 @@ MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是�
         <pubDate>Thu, 26 Oct 2023 10:17:13 +0800</pubDate>
         
         <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/</guid>
-        <description>&lt;h2 id=&#34;第一章&#34;&gt;第一章&lt;/h2&gt;
+        <description>&lt;p&gt;9/10&lt;/p&gt;
+&lt;h2 id=&#34;第一章&#34;&gt;第一章&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;1. 如果你的网络服务器被黑客远程控制，列举3个可能被破坏的安全属性， 并解释理由。&lt;/strong&gt;
 机密性：
 理由：远程控制服务器后，黑客可以在未被授权的情况下获取个人信息、数据库记录等数据，导致数据泄露和隐私侵犯。
@@ -1798,7 +1906,7 @@ MD5的碰撞问题是指两个不同的输入数据在经过MD5算法处理后�
         
         <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/</guid>
         <description>&lt;h1 id=&#34;网络安全实验配置&#34;&gt;网络安全实验配置&lt;/h1&gt;
-&lt;p&gt;由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程&lt;/p&gt;
+&lt;p&gt;由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;UTM下载和安装
@@ -1836,6 +1944,196 @@ MD5的碰撞问题是指两个不同的输入数据在经过MD5算法处理后�
 	
 	
 &gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>博客配置</title>
+        <link>https://anonymity-0.github.io/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/</link>
+        <pubDate>Wed, 18 Oct 2023 19:27:27 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/</guid>
+        <description>&lt;p&gt;参考：&lt;a class=&#34;link&#34; href=&#34;https://www.gohugo.cn/getting-started/quick-start/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;快速入门 | Hugo 中文网&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;环境准备&#34;&gt;环境准备&lt;/h2&gt;
+&lt;h3 id=&#34;安装hugo&#34;&gt;安装hugo&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;brew install hugo&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;问题1&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Cloning into &lt;span class=&#34;s1&#34;&gt;&amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;&lt;/span&gt;...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fatal: unable to access &lt;span class=&#34;s1&#34;&gt;&amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;&lt;/span&gt;: Recv failure: Operation timed out
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;解决方法：关闭代理&lt;/p&gt;
+&lt;p&gt;问题2&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Cloning into &lt;span class=&#34;s1&#34;&gt;&amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;&lt;/span&gt;...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fatal: unable to access &lt;span class=&#34;s1&#34;&gt;&amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;&lt;/span&gt;: Failed to connect to github.com port &lt;span class=&#34;m&#34;&gt;443&lt;/span&gt; after &lt;span class=&#34;m&#34;&gt;75008&lt;/span&gt; ms: Couldn&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;t connect to server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;配置代理&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global http.proxy  127.0.0.1:7890
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global https.proxy  127.0.0.1:7890
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global http.proxy socks5 127.0.0.1:7890
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global https.proxy socks5 127.0.0.1:7890
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;问题3&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Error: Your Command Line Tools &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;CLT&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; does not support macOS 14.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;It is either outdated or was modified.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Please update your Command Line Tools &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;CLT&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; or delete it &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; no updates are available.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Update them from Software Update in System Settings.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;If that doesn&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;t show you any updates, run:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  sudo rm -rf /Library/Developer/CommandLineTools
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  sudo xcode-select --install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Alternatively, manually download them from:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  https://developer.apple.com/download/all/.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;You should download the Command Line Tools &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; Xcode 14.3.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;解决方法：根据提示运行命令即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  sudo rm -rf /Library/Developer/CommandLineTools
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  sudo xcode-select --install
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  brew update-reset
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;安装git&#34;&gt;安装git&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;brew install git&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;本地静态博客搭建&#34;&gt;本地静态博客搭建&lt;/h3&gt;
+&lt;p&gt;创建新站点
+`hugo new site quickstart&lt;/p&gt;
+&lt;p&gt;配置主题&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; quickstart 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git init 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后，将主题添加到站点的配置文件中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;theme = &amp;#34;ananke&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; config.toml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后启动，在 http://localhost:1313/ 进行本地查看&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo server -D
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;这里容易出现一个错误，就是&lt;code&gt;hugo.toml&lt;/code&gt;的theme没有设置，导致出现PageNotFound&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;以上是hugo的基本安装教程。&lt;/p&gt;
+&lt;h2 id=&#34;配置本地静态页面&#34;&gt;配置本地静态页面&lt;/h2&gt;
+&lt;p&gt;找来找去，本来想用academy来做学术主页，结果又要实名认证，略有些麻烦，于是换上了stack。&lt;/p&gt;
+&lt;p&gt;具体可以看&lt;a class=&#34;link&#34; href=&#34;https://github.com/CaiJimmy/hugo-theme-stack&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub - CaiJimmy/hugo-theme-stack: Card-style Hugo theme designed for bloggers&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;细节就不赘述了，终于是配置好了，最后是目前的成品。
+&lt;a class=&#34;link&#34; href=&#34;https://anonymity-0.github.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AGA&amp;rsquo;s Blog&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;其他功能&#34;&gt;其他功能&lt;/h2&gt;
+&lt;h3 id=&#34;图床配置&#34;&gt;图床配置&lt;/h3&gt;
+&lt;p&gt;打开&lt;a class=&#34;link&#34; href=&#34;https://picx.xpoet.cn/#/config&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;图床配置 | PicX&lt;/a&gt;在线使用
+配置参考&lt;a class=&#34;link&#34; href=&#34;https://picx-docs.xpoet.cn/usage-guide/get-start.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;快速开始 | PicX 图床使用指南&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;obsidian导出-markdown&#34;&gt;obsidian导出 markdown&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;obsidian-export /Users/agq/Documents/obsidian/源文件/ /Users/agq/Documents/obsidian/目的文件夹/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;评论配置&#34;&gt;评论配置&lt;/h3&gt;
+&lt;p&gt;参考&lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com/config/comments&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Site Unreachable&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -2690,26 +2988,105 @@ FDDI 采用令牌(追加令牌)环的访问方式。令牌环访问方式在网�
         <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
         
         <guid>https://anonymity-0.github.io/about/</guid>
-        <description>&lt;p&gt;Written in Go, Hugo is an open source static site generator available under the &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio/hugo/blob/master/LICENSE&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Apache Licence 2.0.&lt;/a&gt; Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.&lt;/p&gt;
-&lt;p&gt;Hugo makes use of a variety of open source projects including:&lt;/p&gt;
+        <description>&lt;h2 id=&#34;about-me&#34;&gt;About Me&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/yuin/goldmark&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/yuin/goldmark&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/alecthomas/chroma&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/alecthomas/chroma&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/muesli/smartcrop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/muesli/smartcrop&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/spf13/cobra&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/spf13/cobra&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/spf13/viper&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/spf13/viper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;👋 My name is XXX.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.&lt;/p&gt;
-&lt;p&gt;Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.&lt;/p&gt;
-&lt;p&gt;Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.&lt;/p&gt;
-&lt;p&gt;Learn more and contribute on &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;interests&#34;&gt;Interests&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;🏸 I enjoy playing badminton.&lt;/li&gt;
+&lt;li&gt;🏋️‍♀️ Fitness is a part of my daily routine.&lt;/li&gt;
+&lt;li&gt;🎬 I love watching movies.&lt;/li&gt;
+&lt;li&gt;🎵 Listening to concerts is one of my favorite pastimes.&lt;/li&gt;
+&lt;li&gt;💻 I really enjoy coding.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-my-education&#34;&gt;🎓 My Education:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;[South-Central Minzu University], [BEng in Computer Science and Technology], [2019 - 2023]&lt;/li&gt;
+&lt;li&gt;[University of Chinese Academy of Sciences], [MSc in Electronic-Engineering], [2023 - Now]&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;current-research&#34;&gt;Current Research&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;🎯 My current research focus is on network security.&lt;/li&gt;
+&lt;li&gt;📘 I am currently learning Go language and its network programming.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-my-tech-stack-includes&#34;&gt;💻 My tech stack includes:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img src=&#34;https://img.shields.io/badge/python-black?style=flat&amp;amp;logo=python&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Static Badge&#34;
+	
+	
+&gt; &lt;img src=&#34;https://img.shields.io/badge/flask-black?style=flat&amp;amp;logo=flask&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Static Badge&#34;
+	
+	
+&gt; &lt;img src=&#34;https://img.shields.io/badge/django-black?style=flat&amp;amp;logo=django&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Static Badge&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://img.shields.io/badge/Golang-blue?style=flat&amp;amp;logo=Golang&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Static Badge&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://img.shields.io/badge/Java-red?style=flat&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Static Badge&#34;
+	
+	
+&gt; &lt;img src=&#34;https://img.shields.io/badge/SSM-red?style=flat&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Static Badge&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;contact-me&#34;&gt;Contact Me&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;📫 You can reach me at [&lt;strong&gt;gagaq@mail.ustc.edu.cn&lt;/strong&gt;].&lt;/li&gt;
+&lt;li&gt;🐱‍💻 Here is my GitHub: &lt;a class=&#34;link&#34; href=&#34;https://github.com/Anonymity-0&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;img src=&#34;https://img.shields.io/badge/-GitHub-black?style=flat&amp;amp;logo=github&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;GitHub Badge&#34;
+	
+	
+&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>

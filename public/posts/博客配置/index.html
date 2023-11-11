@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='网络安全实验配置 由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:
-UTM下载和安装 直接官网UTM | Virtual machines for Mac下载并安装就好。
-windows server镜像下载 这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012 下载镜像地址：HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站 注：需下载迅雷进行磁力链下载
-wireshark的安装 直接官网Wireshark · Go Deep下载安装就好
-UTM和本地文件的共享 待补充
-终于是能在mac上跑实验了，类目。
-UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了七个host-only网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。 查阅了很多资料之后发现得设置成桥接模式，并把接口设置成en0即可。如图： '>
-<title>网络安全实验配置</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='参考：快速入门 | Hugo 中文网
+环境准备 安装hugo brew install hugo
+问题1
+1 2 3 Cloning into &amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;... fatal: unable to access &amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;: Recv failure: Operation timed out 解决方法：关闭代理
+问题2
+1 2 3 Cloning into &amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;... fatal: unable to access &amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;: Failed to connect to github.com port 443 after 75008 ms: Couldn&amp;#39;t connect to server 配置代理
+1 2 3 4 5 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890 git config --global http.'>
+<title>博客配置</title>
 
-<link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/'>
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全实验配置'>
-<meta property='og:description' content='网络安全实验配置 由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:
-UTM下载和安装 直接官网UTM | Virtual machines for Mac下载并安装就好。
-windows server镜像下载 这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012 下载镜像地址：HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站 注：需下载迅雷进行磁力链下载
-wireshark的安装 直接官网Wireshark · Go Deep下载安装就好
-UTM和本地文件的共享 待补充
-终于是能在mac上跑实验了，类目。
-UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了七个host-only网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。 查阅了很多资料之后发现得设置成桥接模式，并把接口设置成en0即可。如图： '>
-<meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/'>
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='博客配置'>
+<meta property='og:description' content='参考：快速入门 | Hugo 中文网
+环境准备 安装hugo brew install hugo
+问题1
+1 2 3 Cloning into &amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;... fatal: unable to access &amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;: Recv failure: Operation timed out 解决方法：关闭代理
+问题2
+1 2 3 Cloning into &amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;... fatal: unable to access &amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;: Failed to connect to github.com port 443 after 75008 ms: Couldn&amp;#39;t connect to server 配置代理
+1 2 3 4 5 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890 git config --global http.'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/'>
 <meta property='og:site_name' content='AGA&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-10-26T10:15:50&#43;08:00'/><meta property='article:modified_time' content='2023-10-26T10:15:50&#43;08:00'/>
-<meta name="twitter:title" content="网络安全实验配置">
-<meta name="twitter:description" content="网络安全实验配置 由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:
-UTM下载和安装 直接官网UTM | Virtual machines for Mac下载并安装就好。
-windows server镜像下载 这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012 下载镜像地址：HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站 注：需下载迅雷进行磁力链下载
-wireshark的安装 直接官网Wireshark · Go Deep下载安装就好
-UTM和本地文件的共享 待补充
-终于是能在mac上跑实验了，类目。
-UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了七个host-only网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。 查阅了很多资料之后发现得设置成桥接模式，并把接口设置成en0即可。如图： ">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2023-10-18T19:27:27&#43;08:00'/><meta property='article:modified_time' content='2023-10-18T19:27:27&#43;08:00'/>
+<meta name="twitter:title" content="博客配置">
+<meta name="twitter:description" content="参考：快速入门 | Hugo 中文网
+环境准备 安装hugo brew install hugo
+问题1
+1 2 3 Cloning into &amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;... fatal: unable to access &amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;: Recv failure: Operation timed out 解决方法：关闭代理
+问题2
+1 2 3 Cloning into &amp;#39;/Users/agq/Library/Caches/Homebrew/hugo--git&amp;#39;... fatal: unable to access &amp;#39;https://github.com/gohugoio/hugo.git/&amp;#39;: Failed to connect to github.com port 443 after 75008 ms: Couldn&amp;#39;t connect to server 配置代理
+1 2 3 4 5 git config --global http.proxy 127.0.0.1:7890 git config --global https.proxy 127.0.0.1:7890 git config --global http.">
     </head>
     <body class="
     article-page
@@ -264,7 +264,21 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#utm下复制的主机互ping问题">UTM下复制的主机互ping问题</a></li>
+    <li><a href="#环境准备">环境准备</a>
+      <ol>
+        <li><a href="#安装hugo">安装hugo</a></li>
+        <li><a href="#安装git">安装git</a></li>
+        <li><a href="#本地静态博客搭建">本地静态博客搭建</a></li>
+      </ol>
+    </li>
+    <li><a href="#配置本地静态页面">配置本地静态页面</a></li>
+    <li><a href="#其他功能">其他功能</a>
+      <ol>
+        <li><a href="#图床配置">图床配置</a></li>
+        <li><a href="#obsidian导出-markdown">obsidian导出 markdown</a></li>
+        <li><a href="#评论配置">评论配置</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -283,8 +297,8 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
     
     <header class="article-category">
         
-            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" >
-                网络安全
+            <a href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" >
+                杂七杂八
             </a>
         
     </header>
@@ -292,7 +306,7 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/">网络安全实验配置</a>
+            <a href="/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/">博客配置</a>
         </h2>
     
         
@@ -314,7 +328,7 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 26, 2023</time>
+                <time class="article-time--published">Oct 18, 2023</time>
             </div>
         
 
@@ -329,7 +343,7 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    2 minute read
                 </time>
             </div>
         
@@ -344,57 +358,194 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
     <section class="article-content">
     
     
-    <h1 id="网络安全实验配置">网络安全实验配置</h1>
-<p>由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:</p>
-<ol>
-<li>
-<p>UTM下载和安装
-直接官网<a class="link" href="https://mac.getutm.app"  target="_blank" rel="noopener"
-    >UTM | Virtual machines for Mac</a>下载并安装就好。</p>
-</li>
-<li>
-<p>windows server镜像下载
-这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012
-下载镜像地址：<a class="link" href="https://hellowindows.cn"  target="_blank" rel="noopener"
-    >HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站</a>
-注：需下载迅雷进行磁力链下载</p>
-</li>
-<li>
-<p>wireshark的安装
-直接官网<a class="link" href="https://www.wireshark.org"  target="_blank" rel="noopener"
-    >Wireshark · Go Deep</a>下载安装就好</p>
-</li>
-<li>
-<p>UTM和本地文件的共享
-待补充</p>
-</li>
-</ol>
-<p>终于是能在mac上跑实验了，类目。</p>
-<h2 id="utm下复制的主机互ping问题">UTM下复制的主机互ping问题</h2>
-<p>本来像按照老师所给的内容配置了七个<strong>host-only</strong>网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。
-查阅了很多资料之后发现得设置成桥接模式，并把接口设置成<code>en0</code>即可。如图：
-<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.vu1ew1aysnk.webp"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image"
-	
-	
-></p>
+    <p>参考：<a class="link" href="https://www.gohugo.cn/getting-started/quick-start/"  target="_blank" rel="noopener"
+    >快速入门 | Hugo 中文网</a></p>
+<h2 id="环境准备">环境准备</h2>
+<h3 id="安装hugo">安装hugo</h3>
+<p><code>brew install hugo</code></p>
+<p>问题1</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Cloning into <span class="s1">&#39;/Users/agq/Library/Caches/Homebrew/hugo--git&#39;</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">fatal: unable to access <span class="s1">&#39;https://github.com/gohugoio/hugo.git/&#39;</span>: Recv failure: Operation timed out
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解决方法：关闭代理</p>
+<p>问题2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Cloning into <span class="s1">&#39;/Users/agq/Library/Caches/Homebrew/hugo--git&#39;</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">fatal: unable to access <span class="s1">&#39;https://github.com/gohugoio/hugo.git/&#39;</span>: Failed to connect to github.com port <span class="m">443</span> after <span class="m">75008</span> ms: Couldn<span class="err">&#39;</span>t connect to server
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置代理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --global http.proxy  127.0.0.1:7890
+</span></span><span class="line"><span class="cl">git config --global https.proxy  127.0.0.1:7890
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git config --global http.proxy socks5 127.0.0.1:7890
+</span></span><span class="line"><span class="cl">git config --global https.proxy socks5 127.0.0.1:7890
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>问题3</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Error: Your Command Line Tools <span class="o">(</span>CLT<span class="o">)</span> does not support macOS 14.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">It is either outdated or was modified.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please update your Command Line Tools <span class="o">(</span>CLT<span class="o">)</span> or delete it <span class="k">if</span> no updates are available.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Update them from Software Update in System Settings.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">If that doesn<span class="err">&#39;</span>t show you any updates, run:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  sudo rm -rf /Library/Developer/CommandLineTools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  sudo xcode-select --install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Alternatively, manually download them from:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  https://developer.apple.com/download/all/.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">You should download the Command Line Tools <span class="k">for</span> Xcode 14.3.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解决方法：根据提示运行命令即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  sudo rm -rf /Library/Developer/CommandLineTools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  sudo xcode-select --install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  brew update-reset
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装git">安装git</h3>
+<p><code>brew install git</code></p>
+<h3 id="本地静态博客搭建">本地静态博客搭建</h3>
+<p>创建新站点
+`hugo new site quickstart</p>
+<p>配置主题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> quickstart 
+</span></span><span class="line"><span class="cl">git init 
+</span></span><span class="line"><span class="cl">git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后，将主题添加到站点的配置文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;theme = &#34;ananke&#34;&#39;</span> &gt;&gt; config.toml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后启动，在 http://localhost:1313/ 进行本地查看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>这里容易出现一个错误，就是<code>hugo.toml</code>的theme没有设置，导致出现PageNotFound</strong>。</p>
+<p>以上是hugo的基本安装教程。</p>
+<h2 id="配置本地静态页面">配置本地静态页面</h2>
+<p>找来找去，本来想用academy来做学术主页，结果又要实名认证，略有些麻烦，于是换上了stack。</p>
+<p>具体可以看<a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack"  target="_blank" rel="noopener"
+    >GitHub - CaiJimmy/hugo-theme-stack: Card-style Hugo theme designed for bloggers</a></p>
+<p>细节就不赘述了，终于是配置好了，最后是目前的成品。
+<a class="link" href="https://anonymity-0.github.io"  target="_blank" rel="noopener"
+    >AGA&rsquo;s Blog</a></p>
+<h2 id="其他功能">其他功能</h2>
+<h3 id="图床配置">图床配置</h3>
+<p>打开<a class="link" href="https://picx.xpoet.cn/#/config"  target="_blank" rel="noopener"
+    >图床配置 | PicX</a>在线使用
+配置参考<a class="link" href="https://picx-docs.xpoet.cn/usage-guide/get-start.html"  target="_blank" rel="noopener"
+    >快速开始 | PicX 图床使用指南</a></p>
+<h3 id="obsidian导出-markdown">obsidian导出 markdown</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">obsidian-export /Users/agq/Documents/obsidian/源文件/ /Users/agq/Documents/obsidian/目的文件夹/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="评论配置">评论配置</h3>
+<p>参考<a class="link" href="https://stack.jimmycai.com/config/comments"  target="_blank" rel="noopener"
+    >Site Unreachable</a></p>
 
 </section>
 
 
     <footer class="article-footer">
     
-    <section class="article-tags">
-        
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-        
-    </section>
-
 
     
     <section class="article-copyright">
@@ -449,38 +600,12 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
             
                 
 <article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/">
+    <a href="/posts/vim/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">网络安全作业2</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业3</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业1</h2>
+            <h2 class="article-title">Vim</h2>
         </div>
     </a>
 </article>
