@@ -7,13 +7,110 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>AGA</copyright>
-        <lastBuildDate>Thu, 26 Oct 2023 15:51:26 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 15 Nov 2023 18:44:57 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>网络安全作业4</title>
+        <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/</link>
+        <pubDate>Wed, 15 Nov 2023 18:44:57 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/</guid>
+        <description>&lt;h2 id=&#34;第六讲&#34;&gt;第六讲&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;IDS有哪些主要功能?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;网络流量的跟踪与分析功能&lt;/strong&gt;：跟踪用户进出网络的所有活动，实时检测并分析用户在系统中的活动状态；实时统计网络流量，检测拒绝服务攻击等异常行为。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;已知攻击特征的识别功能&lt;/strong&gt;：识别特定类型的攻击，并向控制台报警，为网络防护提供依据。根据定制的条件过滤重复告警事件，减轻传输与响应的压力。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;异常行为的分析、统计与响应功能&lt;/strong&gt;：分析系统的异常行为模式，统计异常行为，并对异常行为做出响应。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;特征库的在线和离线升级功能&lt;/strong&gt;：提供入侵检测规则的在线和离线升级，实时更新入侵特征库，不断提高IDS的入侵检测能力。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;数据文件的完整性检查功能&lt;/strong&gt;：检查关键数据文件的完整性，识别并报告数据文件的改动情况。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;自定义的响应功能&lt;/strong&gt;：定制实时响应策略；根据用户定义，经过系统过滤，对告警事件及时响应。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;系统漏洞的预报警功能&lt;/strong&gt;：对新发现或新公布的系统漏洞特征进行预报警。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;IDS探测器集中管理功能&lt;/strong&gt;：通过控制台收集探测器的状态和告警信息，控制各个探测器的行为。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;简述误用检测和异常检测。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;误用检测技术又称基于知识或特征的检测技术。它假定所有入侵行为和手段(及其变种)都能够表达为一种模式或特征，并对已知的入侵行为和手段进行分析，提取入侵特征，构建攻击模式或攻击签名，通过系统当前状态与攻击模式或攻击签名的匹配判断入侵行为。误用检测是最成熟、应用最广泛的技术。&lt;/li&gt;
+&lt;li&gt;异常检测技术又称为基于行为的入侵检测技术，用来检测系统（主机或网络）中的异常行为。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;总结NIDS的脆弱性。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;检测的工作量很大&lt;/strong&gt;：NIDS需要高效的检测方法和大量的系统资源。容易遭受DoS攻击。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;检测方法局限性&lt;/strong&gt;：特征匹配方法有其固有缺陷，难以完全检测入侵行为。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络协议复杂性&lt;/strong&gt;：NIDS难以精确分析复杂的网络协议。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;系统实现差异&lt;/strong&gt;：NIDS难以完全兼容不同系统的实现方式。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;简述网络安全态势感知系统。&lt;/p&gt;
+&lt;p&gt;网络安全态势感知系统可以看成是基于分布式入侵检测系统的综合安全监控系统，具有入侵检测、安全状态可视化展示、安全状态理解及趋势分析预测，以及网络监视和网络控制等功能。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;第七讲&#34;&gt;第七讲&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;简述TCSEC(受信计算机系统评测标准)标准的C2安全级4项关键功能。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安全登录机制&lt;/strong&gt;
+要求系统提供强大的用户身份验证机制，防止未经授权的用户登录系统。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;自主访问控制机制&lt;/strong&gt;
+要求系统提供自主访问控制机制，允许系统管理员根据需要对系统资源进行访问控制。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安全审计机制&lt;/strong&gt;
+系统必须提供安全审计机制，以记录系统的关键操作，以便在发生安全事件时进行调查。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;对象重用保护机制&lt;/strong&gt;
+对象重用保护机制就是残留信息的处理机制，即：阻止一个用户利用或阅读另一个用户已删除的数据，或访问另一个用户曾经使用并释放的内存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在哪些情况下可能会发生输入验证攻击。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;程序无法辨认语法上不正确的输入。&lt;/li&gt;
+&lt;li&gt;模块接受了无关的输入。&lt;/li&gt;
+&lt;li&gt;模块没有能够处理遗漏的输入域。&lt;/li&gt;
+&lt;li&gt;发生了域值相关性错误。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为什么root对其可执行文件设置用户ID许可会带来严重的安全隐患?&lt;/p&gt;
+&lt;p&gt;因为当某可执行文件是root创建的，如果设置了SUID，而该可执行文件又被赋予了其他普通用户的可执行权限，则该程序被任何用户运行时，对应的进程的euid是root，该进程可以访问任何文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>网络安全作业2</title>
         <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/</link>
         <pubDate>Thu, 26 Oct 2023 15:51:26 +0800</pubDate>
         
         <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/</guid>
-        <description>&lt;p&gt;10/10&lt;/p&gt;
+        <description>&lt;p&gt;得分：10/10&lt;/p&gt;
 &lt;h2 id=&#34;路由配置&#34;&gt;路由配置&lt;/h2&gt;
 &lt;h3 id=&#34;配置路由器router&#34;&gt;配置路由器Router&lt;/h3&gt;
 &lt;ol&gt;
@@ -122,7 +219,8 @@
         <pubDate>Thu, 26 Oct 2023 10:17:18 +0800</pubDate>
         
         <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/</guid>
-        <description>&lt;ol&gt;
+        <description>&lt;p&gt;得分：10/10&lt;/p&gt;
+&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;简述防火墙的定义
 防火墙是位于两个(或多个)网络之间执行访问控制的软件和硬件系统，它根据访问控制规则对进出网络的数据流进行过滤。&lt;/p&gt;
@@ -173,7 +271,7 @@
         <pubDate>Thu, 26 Oct 2023 10:17:13 +0800</pubDate>
         
         <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/</guid>
-        <description>&lt;p&gt;9/10&lt;/p&gt;
+        <description>&lt;p&gt;得分：9/10&lt;/p&gt;
 &lt;h2 id=&#34;第一章&#34;&gt;第一章&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;1. 如果你的网络服务器被黑客远程控制，列举3个可能被破坏的安全属性， 并解释理由。&lt;/strong&gt;
 机密性：

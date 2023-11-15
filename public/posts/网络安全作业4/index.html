@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='第六讲 IDS有哪些主要功能?
+网络流量的跟踪与分析功能：跟踪用户进出网络的所有活动，实时检测并分析用户在系统中的活动状态；实时统计网络流量，检测拒绝服务攻击等异常行为。
+已知攻击特征的识别功能：识别特定类型的攻击，并向控制台报警，为网络防护提供依据。根据定制的条件过滤重复告警事件，减轻传输与响应的压力。
+异常行为的分析、统计与响应功能：分析系统的异常行为模式，统计异常行为，并对异常行为做出响应。
+特征库的在线和离线升级功能：提供入侵检测规则的在线和离线升级，实时更新入侵特征库，不断提高IDS的入侵检测能力。
+数据文件的完整性检查功能：检查关键数据文件的完整性，识别并报告数据文件的改动情况。
+自定义的响应功能：定制实时响应策略；根据用户定义，经过系统过滤，对告警事件及时响应。
+系统漏洞的预报警功能：对新发现或新公布的系统漏洞特征进行预报警。
+IDS探测器集中管理功能：通过控制台收集探测器的状态和告警信息，控制各个探测器的行为。
+简述误用检测和异常检测。
+误用检测技术又称基于知识或特征的检测技术。它假定所有入侵行为和手段(及其变种)都能够表达为一种模式或特征，并对已知的入侵行为和手段进行分析，提取入侵特征，构建攻击模式或攻击签名，通过系统当前状态与攻击模式或攻击签名的匹配判断入侵行为。误用检测是最成熟、应用最广泛的技术。 异常检测技术又称为基于行为的入侵检测技术，用来检测系统（主机或网络）中的异常行为。 总结NIDS的脆弱性。
+检测的工作量很大：NIDS需要高效的检测方法和大量的系统资源。容易遭受DoS攻击。 检测方法局限性：特征匹配方法有其固有缺陷，难以完全检测入侵行为。 网络协议复杂性：NIDS难以精确分析复杂的网络协议。 系统实现差异：NIDS难以完全兼容不同系统的实现方式。 简述网络安全态势感知系统。
+网络安全态势感知系统可以看成是基于分布式入侵检测系统的综合安全监控系统，具有入侵检测、安全状态可视化展示、安全状态理解及趋势分析预测，以及网络监视和网络控制等功能。
+第七讲 简述TCSEC(受信计算机系统评测标准)标准的C2安全级4项关键功能。
+安全登录机制 要求系统提供强大的用户身份验证机制，防止未经授权的用户登录系统。
+自主访问控制机制 要求系统提供自主访问控制机制，允许系统管理员根据需要对系统资源进行访问控制。
+安全审计机制 系统必须提供安全审计机制，以记录系统的关键操作，以便在发生安全事件时进行调查。
+对象重用保护机制 对象重用保护机制就是残留信息的处理机制，即：阻止一个用户利用或阅读另一个用户已删除的数据，或访问另一个用户曾经使用并释放的内存。
+在哪些情况下可能会发生输入验证攻击。
+程序无法辨认语法上不正确的输入。 模块接受了无关的输入。 模块没有能够处理遗漏的输入域。 发生了域值相关性错误。 为什么root对其可执行文件设置用户ID许可会带来严重的安全隐患?
+因为当某可执行文件是root创建的，如果设置了SUID，而该可执行文件又被赋予了其他普通用户的可执行权限，则该程序被任何用户运行时，对应的进程的euid是root，该进程可以访问任何文件。'>
+<title>网络安全作业4</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全作业4'>
+<meta property='og:description' content='第六讲 IDS有哪些主要功能?
+网络流量的跟踪与分析功能：跟踪用户进出网络的所有活动，实时检测并分析用户在系统中的活动状态；实时统计网络流量，检测拒绝服务攻击等异常行为。
+已知攻击特征的识别功能：识别特定类型的攻击，并向控制台报警，为网络防护提供依据。根据定制的条件过滤重复告警事件，减轻传输与响应的压力。
+异常行为的分析、统计与响应功能：分析系统的异常行为模式，统计异常行为，并对异常行为做出响应。
+特征库的在线和离线升级功能：提供入侵检测规则的在线和离线升级，实时更新入侵特征库，不断提高IDS的入侵检测能力。
+数据文件的完整性检查功能：检查关键数据文件的完整性，识别并报告数据文件的改动情况。
+自定义的响应功能：定制实时响应策略；根据用户定义，经过系统过滤，对告警事件及时响应。
+系统漏洞的预报警功能：对新发现或新公布的系统漏洞特征进行预报警。
+IDS探测器集中管理功能：通过控制台收集探测器的状态和告警信息，控制各个探测器的行为。
+简述误用检测和异常检测。
+误用检测技术又称基于知识或特征的检测技术。它假定所有入侵行为和手段(及其变种)都能够表达为一种模式或特征，并对已知的入侵行为和手段进行分析，提取入侵特征，构建攻击模式或攻击签名，通过系统当前状态与攻击模式或攻击签名的匹配判断入侵行为。误用检测是最成熟、应用最广泛的技术。 异常检测技术又称为基于行为的入侵检测技术，用来检测系统（主机或网络）中的异常行为。 总结NIDS的脆弱性。
+检测的工作量很大：NIDS需要高效的检测方法和大量的系统资源。容易遭受DoS攻击。 检测方法局限性：特征匹配方法有其固有缺陷，难以完全检测入侵行为。 网络协议复杂性：NIDS难以精确分析复杂的网络协议。 系统实现差异：NIDS难以完全兼容不同系统的实现方式。 简述网络安全态势感知系统。
+网络安全态势感知系统可以看成是基于分布式入侵检测系统的综合安全监控系统，具有入侵检测、安全状态可视化展示、安全状态理解及趋势分析预测，以及网络监视和网络控制等功能。
+第七讲 简述TCSEC(受信计算机系统评测标准)标准的C2安全级4项关键功能。
+安全登录机制 要求系统提供强大的用户身份验证机制，防止未经授权的用户登录系统。
+自主访问控制机制 要求系统提供自主访问控制机制，允许系统管理员根据需要对系统资源进行访问控制。
+安全审计机制 系统必须提供安全审计机制，以记录系统的关键操作，以便在发生安全事件时进行调查。
+对象重用保护机制 对象重用保护机制就是残留信息的处理机制，即：阻止一个用户利用或阅读另一个用户已删除的数据，或访问另一个用户曾经使用并释放的内存。
+在哪些情况下可能会发生输入验证攻击。
+程序无法辨认语法上不正确的输入。 模块接受了无关的输入。 模块没有能够处理遗漏的输入域。 发生了域值相关性错误。 为什么root对其可执行文件设置用户ID许可会带来严重的安全隐患?
+因为当某可执行文件是root创建的，如果设置了SUID，而该可执行文件又被赋予了其他普通用户的可执行权限，则该程序被任何用户运行时，对应的进程的euid是root，该进程可以访问任何文件。'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-11-15T18:44:57&#43;08:00'/><meta property='article:modified_time' content='2023-11-15T18:44:57&#43;08:00'/>
+<meta name="twitter:title" content="网络安全作业4">
+<meta name="twitter:description" content="第六讲 IDS有哪些主要功能?
+网络流量的跟踪与分析功能：跟踪用户进出网络的所有活动，实时检测并分析用户在系统中的活动状态；实时统计网络流量，检测拒绝服务攻击等异常行为。
+已知攻击特征的识别功能：识别特定类型的攻击，并向控制台报警，为网络防护提供依据。根据定制的条件过滤重复告警事件，减轻传输与响应的压力。
+异常行为的分析、统计与响应功能：分析系统的异常行为模式，统计异常行为，并对异常行为做出响应。
+特征库的在线和离线升级功能：提供入侵检测规则的在线和离线升级，实时更新入侵特征库，不断提高IDS的入侵检测能力。
+数据文件的完整性检查功能：检查关键数据文件的完整性，识别并报告数据文件的改动情况。
+自定义的响应功能：定制实时响应策略；根据用户定义，经过系统过滤，对告警事件及时响应。
+系统漏洞的预报警功能：对新发现或新公布的系统漏洞特征进行预报警。
+IDS探测器集中管理功能：通过控制台收集探测器的状态和告警信息，控制各个探测器的行为。
+简述误用检测和异常检测。
+误用检测技术又称基于知识或特征的检测技术。它假定所有入侵行为和手段(及其变种)都能够表达为一种模式或特征，并对已知的入侵行为和手段进行分析，提取入侵特征，构建攻击模式或攻击签名，通过系统当前状态与攻击模式或攻击签名的匹配判断入侵行为。误用检测是最成熟、应用最广泛的技术。 异常检测技术又称为基于行为的入侵检测技术，用来检测系统（主机或网络）中的异常行为。 总结NIDS的脆弱性。
+检测的工作量很大：NIDS需要高效的检测方法和大量的系统资源。容易遭受DoS攻击。 检测方法局限性：特征匹配方法有其固有缺陷，难以完全检测入侵行为。 网络协议复杂性：NIDS难以精确分析复杂的网络协议。 系统实现差异：NIDS难以完全兼容不同系统的实现方式。 简述网络安全态势感知系统。
+网络安全态势感知系统可以看成是基于分布式入侵检测系统的综合安全监控系统，具有入侵检测、安全状态可视化展示、安全状态理解及趋势分析预测，以及网络监视和网络控制等功能。
+第七讲 简述TCSEC(受信计算机系统评测标准)标准的C2安全级4项关键功能。
+安全登录机制 要求系统提供强大的用户身份验证机制，防止未经授权的用户登录系统。
+自主访问控制机制 要求系统提供自主访问控制机制，允许系统管理员根据需要对系统资源进行访问控制。
+安全审计机制 系统必须提供安全审计机制，以记录系统的关键操作，以便在发生安全事件时进行调查。
+对象重用保护机制 对象重用保护机制就是残留信息的处理机制，即：阻止一个用户利用或阅读另一个用户已删除的数据，或访问另一个用户曾经使用并释放的内存。
+在哪些情况下可能会发生输入验证攻击。
+程序无法辨认语法上不正确的输入。 模块接受了无关的输入。 模块没有能够处理遗漏的输入域。 发生了域值相关性错误。 为什么root对其可执行文件设置用户ID许可会带来严重的安全隐患?
+因为当某可执行文件是root创建的，如果设置了SUID，而该可执行文件又被赋予了其他普通用户的可执行权限，则该程序被任何用户运行时，对应的进程的euid是root，该进程可以访问任何文件。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#第六讲">第六讲</a></li>
+    <li><a href="#第七讲">第七讲</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" >
+                网络安全
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/">网络安全作业4</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 15, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="第六讲">第六讲</h2>
+<ol>
+<li>
+<p>IDS有哪些主要功能?</p>
+<ul>
+<li>
+<p><strong>网络流量的跟踪与分析功能</strong>：跟踪用户进出网络的所有活动，实时检测并分析用户在系统中的活动状态；实时统计网络流量，检测拒绝服务攻击等异常行为。</p>
+</li>
+<li>
+<p><strong>已知攻击特征的识别功能</strong>：识别特定类型的攻击，并向控制台报警，为网络防护提供依据。根据定制的条件过滤重复告警事件，减轻传输与响应的压力。</p>
+</li>
+<li>
+<p><strong>异常行为的分析、统计与响应功能</strong>：分析系统的异常行为模式，统计异常行为，并对异常行为做出响应。</p>
+</li>
+<li>
+<p><strong>特征库的在线和离线升级功能</strong>：提供入侵检测规则的在线和离线升级，实时更新入侵特征库，不断提高IDS的入侵检测能力。</p>
+</li>
+<li>
+<p><strong>数据文件的完整性检查功能</strong>：检查关键数据文件的完整性，识别并报告数据文件的改动情况。</p>
+</li>
+<li>
+<p><strong>自定义的响应功能</strong>：定制实时响应策略；根据用户定义，经过系统过滤，对告警事件及时响应。</p>
+</li>
+<li>
+<p><strong>系统漏洞的预报警功能</strong>：对新发现或新公布的系统漏洞特征进行预报警。</p>
+</li>
+<li>
+<p><strong>IDS探测器集中管理功能</strong>：通过控制台收集探测器的状态和告警信息，控制各个探测器的行为。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>简述误用检测和异常检测。</p>
+<ol>
+<li>误用检测技术又称基于知识或特征的检测技术。它假定所有入侵行为和手段(及其变种)都能够表达为一种模式或特征，并对已知的入侵行为和手段进行分析，提取入侵特征，构建攻击模式或攻击签名，通过系统当前状态与攻击模式或攻击签名的匹配判断入侵行为。误用检测是最成熟、应用最广泛的技术。</li>
+<li>异常检测技术又称为基于行为的入侵检测技术，用来检测系统（主机或网络）中的异常行为。</li>
+</ol>
+</li>
+<li>
+<p>总结NIDS的脆弱性。</p>
+<ol>
+<li><strong>检测的工作量很大</strong>：NIDS需要高效的检测方法和大量的系统资源。容易遭受DoS攻击。</li>
+<li><strong>检测方法局限性</strong>：特征匹配方法有其固有缺陷，难以完全检测入侵行为。</li>
+<li><strong>网络协议复杂性</strong>：NIDS难以精确分析复杂的网络协议。</li>
+<li><strong>系统实现差异</strong>：NIDS难以完全兼容不同系统的实现方式。</li>
+</ol>
+</li>
+<li>
+<p>简述网络安全态势感知系统。</p>
+<p>网络安全态势感知系统可以看成是基于分布式入侵检测系统的综合安全监控系统，具有入侵检测、安全状态可视化展示、安全状态理解及趋势分析预测，以及网络监视和网络控制等功能。</p>
+</li>
+</ol>
+<h2 id="第七讲">第七讲</h2>
+<ol>
+<li>
+<p>简述TCSEC(受信计算机系统评测标准)标准的C2安全级4项关键功能。</p>
+<ol>
+<li>
+<p><strong>安全登录机制</strong>
+要求系统提供强大的用户身份验证机制，防止未经授权的用户登录系统。</p>
+</li>
+<li>
+<p><strong>自主访问控制机制</strong>
+要求系统提供自主访问控制机制，允许系统管理员根据需要对系统资源进行访问控制。</p>
+</li>
+<li>
+<p><strong>安全审计机制</strong>
+系统必须提供安全审计机制，以记录系统的关键操作，以便在发生安全事件时进行调查。</p>
+</li>
+<li>
+<p><strong>对象重用保护机制</strong>
+对象重用保护机制就是残留信息的处理机制，即：阻止一个用户利用或阅读另一个用户已删除的数据，或访问另一个用户曾经使用并释放的内存。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>在哪些情况下可能会发生输入验证攻击。</p>
+<ol>
+<li>程序无法辨认语法上不正确的输入。</li>
+<li>模块接受了无关的输入。</li>
+<li>模块没有能够处理遗漏的输入域。</li>
+<li>发生了域值相关性错误。</li>
+</ol>
+</li>
+<li>
+<p>为什么root对其可执行文件设置用户ID许可会带来严重的安全隐患?</p>
+<p>因为当某可执行文件是root创建的，如果设置了SUID，而该可执行文件又被赋予了其他普通用户的可执行权限，则该程序被任何用户运行时，对应的进程的euid是root，该进程可以访问任何文件。</p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全实验配置</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKhv2Qw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKhv2Q84CaPFX"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
