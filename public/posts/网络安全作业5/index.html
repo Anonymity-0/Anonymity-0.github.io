@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='、
+C程序homework08.c的主函数如下：
+1 2 3 4 5 6 7 8 9 10 11 12 int main(int argc, char * argv[]) { init_buf(Lbuffer, LEN); switch(argc) { case 1: f00(); break; case 2: f01(); break; case 3: f02(); break; default: f00(); break; } puts(&amp;#34;Done.\nThe program exited normally.&amp;#34;); return 0; } 在32位的ubuntu16.04系统中用gcc -fno-stack-protector 编译该程序，得到的可执行程序见附件，通过gdb调试，对f00()、f01()和f02()进行分析： (1) 函数f00()、f01()和f02()是否导致段错误。 如果没有命令行参数（argc 等于 1，因为程序名本身也算一个参数），则执行函数 f00()。 如果有一个命令行参数（argc 等于 2），则执行函数 f01()。 如果有两个命令行参数（argc 等于 3），则执行函数 f02()。 如果有三个或更多的命令行参数，还是执行函数 f00()。 ![[Pasted image 20231122231415.png]] 函数foo(), 和 foo01() 都会导致段错误。'>
+<title>网络安全作业5</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全作业5'>
+<meta property='og:description' content='、
+C程序homework08.c的主函数如下：
+1 2 3 4 5 6 7 8 9 10 11 12 int main(int argc, char * argv[]) { init_buf(Lbuffer, LEN); switch(argc) { case 1: f00(); break; case 2: f01(); break; case 3: f02(); break; default: f00(); break; } puts(&amp;#34;Done.\nThe program exited normally.&amp;#34;); return 0; } 在32位的ubuntu16.04系统中用gcc -fno-stack-protector 编译该程序，得到的可执行程序见附件，通过gdb调试，对f00()、f01()和f02()进行分析： (1) 函数f00()、f01()和f02()是否导致段错误。 如果没有命令行参数（argc 等于 1，因为程序名本身也算一个参数），则执行函数 f00()。 如果有一个命令行参数（argc 等于 2），则执行函数 f01()。 如果有两个命令行参数（argc 等于 3），则执行函数 f02()。 如果有三个或更多的命令行参数，还是执行函数 f00()。 ![[Pasted image 20231122231415.png]] 函数foo(), 和 foo01() 都会导致段错误。'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-11-24T15:55:04&#43;08:00'/><meta property='article:modified_time' content='2023-11-24T15:55:04&#43;08:00'/>
+<meta name="twitter:title" content="网络安全作业5">
+<meta name="twitter:description" content="、
+C程序homework08.c的主函数如下：
+1 2 3 4 5 6 7 8 9 10 11 12 int main(int argc, char * argv[]) { init_buf(Lbuffer, LEN); switch(argc) { case 1: f00(); break; case 2: f01(); break; case 3: f02(); break; default: f00(); break; } puts(&amp;#34;Done.\nThe program exited normally.&amp;#34;); return 0; } 在32位的ubuntu16.04系统中用gcc -fno-stack-protector 编译该程序，得到的可执行程序见附件，通过gdb调试，对f00()、f01()和f02()进行分析： (1) 函数f00()、f01()和f02()是否导致段错误。 如果没有命令行参数（argc 等于 1，因为程序名本身也算一个参数），则执行函数 f00()。 如果有一个命令行参数（argc 等于 2），则执行函数 f01()。 如果有两个命令行参数（argc 等于 3），则执行函数 f02()。 如果有三个或更多的命令行参数，还是执行函数 f00()。 ![[Pasted image 20231122231415.png]] 函数foo(), 和 foo01() 都会导致段错误。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#1-函数f00f01和f02是否导致段错误">(1) 函数f00()、f01()和f02()是否导致段错误。</a></li>
+    <li><a href="#如果函数f00f01和f02导致段错误计算出被攻击的缓冲区首地址与函数的返回地址所在的栈地址的距离即偏移offset给出溢出后函数的返回地址用16进制数表示">如果函数f00()、f01()和f02()导致段错误，计算出被攻击的缓冲区首地址与函数的返回地址所在的栈地址的距离（即偏移OFFSET)，给出溢出后函数的返回地址(用16进制数表示)。</a>
+      <ol>
+        <li><a href="#f00">f00()</a></li>
+        <li><a href="#f01">f01</a></li>
+        <li><a href="#其他本次实验的一些其它尝试">其他（本次实验的一些其它尝试）</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" >
+                网络安全
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/">网络安全作业5</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 24, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>、</p>
+<p>C程序homework08.c的主函数如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nf">init_buf</span><span class="p">(</span><span class="n">Lbuffer</span><span class="p">,</span> <span class="n">LEN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">switch</span><span class="p">(</span><span class="n">argc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="nf">f00</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="nf">f01</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">3</span><span class="o">:</span> <span class="nf">f02</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">default</span><span class="o">:</span> <span class="nf">f00</span><span class="p">();</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Done.</span><span class="se">\n</span><span class="s">The program exited normally.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在32位的ubuntu16.04系统中用<code>gcc -fno-stack-protector</code> 编译该程序，得到的可执行程序见附件，通过gdb调试，对f00()、f01()和f02()进行分析：</li>
+</ul>
+<h2 id="1-函数f00f01和f02是否导致段错误">(1) 函数f00()、f01()和f02()是否导致段错误。</h2>
+<ul>
+<li>如果没有命令行参数（argc 等于 1，因为程序名本身也算一个参数），则执行函数 f00()。</li>
+<li>如果有一个命令行参数（argc 等于 2），则执行函数 f01()。</li>
+<li>如果有两个命令行参数（argc 等于 3），则执行函数 f02()。</li>
+<li>如果有三个或更多的命令行参数，还是执行函数 f00()。
+![[Pasted image 20231122231415.png]]</li>
+</ul>
+<p>函数<code>foo()</code>, 和 <code>foo01()</code> 都会导致段错误。</p>
+<h2 id="如果函数f00f01和f02导致段错误计算出被攻击的缓冲区首地址与函数的返回地址所在的栈地址的距离即偏移offset给出溢出后函数的返回地址用16进制数表示">如果函数f00()、f01()和f02()导致段错误，计算出被攻击的缓冲区首地址与函数的返回地址所在的栈地址的距离（即偏移OFFSET)，给出溢出后函数的返回地址(用16进制数表示)。</h2>
+<h3 id="f00">f00()</h3>
+<p>![[Pasted image 20231121150016.png]]</p>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.ve6ptabwmds.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p>打断点
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.603yb87syfb4.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4qt3dkn4xl6o.webp"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p>函数入口处的堆栈指针esp指向的栈（地址为<strong>0xffffd1dc</strong>）保存了
+函数f00()返回到调用函数(main)的地址（<strong>0x080485a8</strong>），即“函数的返回地址”</p>
+<p>记录堆栈指针esp的值，在此以A标记：<font color="#ff0000">A=$esp = 0xffffd1dc</font></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span>  x/x <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd1dc:     0x080485a8
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> c
+</span></span><span class="line"><span class="cl">Continuing.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Breakpoint 2, 0x080484e9 in f00 <span class="o">()</span>
+</span></span><span class="line"><span class="cl">1: x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; 0x80484e9 &lt;f00+24&gt;:  call   0x8048320 &lt;strcpy@plt&gt;
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/x <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd140:     0xffffd155
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">0xffffd144:     0x0804a060
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/x 0x0804a060
+</span></span><span class="line"><span class="cl">0x804a060 &lt;Lbuffer&gt;:    0x44434241
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>令B = 0xffffd155，则<font color="#ff0000">offset=A-B=0xffffd1dc - 0xffffd155 =0x87=135</font>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> c
+</span></span><span class="line"><span class="cl">Continuing.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Breakpoint 3, 0x080484f3 in f00 <span class="o">()</span>
+</span></span><span class="line"><span class="cl">1: x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; 0x80484f3 &lt;f00+34&gt;:  ret    
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/x <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd1dc:     0x49484746
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/s <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd1dc:     <span class="s2">&#34;FGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVW&#34;</span>...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行ret之前的堆栈的内容可以推断执行ret后将跳到地址<font color="#ff0000">0x49484746</font>去执行</p>
+<h3 id="f01">f01</h3>
+<p>执行程序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">azureuser@MyServer:~/hw$ gdb homework08
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>main</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> disas main
+</span></span><span class="line"><span class="cl">Dump of assembler code <span class="k">for</span> <span class="k">function</span> main:
+</span></span><span class="line"><span class="cl">   0x0804856c &lt;+0&gt;:     lea    0x4<span class="o">(</span>%esp<span class="o">)</span>,%ecx
+</span></span><span class="line"><span class="cl">   0x08048570 &lt;+4&gt;:     and    <span class="nv">$0</span>xfffffff0,%esp
+</span></span><span class="line"><span class="cl">   0x08048573 &lt;+7&gt;:     pushl  -0x4<span class="o">(</span>%ecx<span class="o">)</span>
+</span></span><span class="line"><span class="cl">   0x08048576 &lt;+10&gt;:    push   %ebp
+</span></span><span class="line"><span class="cl">   0x08048577 &lt;+11&gt;:    mov    %esp,%ebp
+</span></span><span class="line"><span class="cl">   0x08048579 &lt;+13&gt;:    push   %ebx
+</span></span><span class="line"><span class="cl">   0x0804857a &lt;+14&gt;:    push   %ecx
+</span></span><span class="line"><span class="cl">   0x0804857b &lt;+15&gt;:    mov    %ecx,%ebx
+</span></span><span class="line"><span class="cl">   0x0804857d &lt;+17&gt;:    sub    <span class="nv">$0</span>x8,%esp
+</span></span><span class="line"><span class="cl">   0x08048580 &lt;+20&gt;:    push   <span class="nv">$0</span>x400
+</span></span><span class="line"><span class="cl">   0x08048585 &lt;+25&gt;:    push   <span class="nv">$0</span>x804a060
+</span></span><span class="line"><span class="cl">   0x0804858a &lt;+30&gt;:    call   0x804846b &lt;init_buf&gt;
+</span></span><span class="line"><span class="cl">   0x0804858f &lt;+35&gt;:    add    <span class="nv">$0</span>x10,%esp
+</span></span><span class="line"><span class="cl">   0x08048592 &lt;+38&gt;:    mov    <span class="o">(</span>%ebx<span class="o">)</span>,%eax
+</span></span><span class="line"><span class="cl">   0x08048594 &lt;+40&gt;:    cmp    <span class="nv">$0</span>x2,%eax
+</span></span><span class="line"><span class="cl">   0x08048597 &lt;+43&gt;:    je     0x80485aa &lt;main+62&gt;
+</span></span><span class="line"><span class="cl">   0x08048599 &lt;+45&gt;:    cmp    <span class="nv">$0</span>x3,%eax
+</span></span><span class="line"><span class="cl">   0x0804859c &lt;+48&gt;:    je     0x80485b1 &lt;main+69&gt;
+</span></span><span class="line"><span class="cl">   0x0804859e &lt;+50&gt;:    cmp    <span class="nv">$0</span>x1,%eax
+</span></span><span class="line"><span class="cl">   0x080485a1 &lt;+53&gt;:    jne    0x80485b8 &lt;main+76&gt;
+</span></span><span class="line"><span class="cl">   0x080485a3 &lt;+55&gt;:    call   0x80484d1 &lt;f00&gt;
+</span></span><span class="line"><span class="cl">   0x080485a8 &lt;+60&gt;:    jmp    0x80485be &lt;main+82&gt;
+</span></span><span class="line"><span class="cl">   0x080485aa &lt;+62&gt;:    call   0x80484f4 &lt;f01&gt;
+</span></span><span class="line"><span class="cl">   0x080485af &lt;+67&gt;:    jmp    0x80485be &lt;main+82&gt;
+</span></span><span class="line"><span class="cl">   0x080485b1 &lt;+69&gt;:    call   0x8048530 &lt;f02&gt;
+</span></span><span class="line"><span class="cl">   0x080485b6 &lt;+74&gt;:    jmp    0x80485be &lt;main+82&gt;
+</span></span><span class="line"><span class="cl">   0x080485b8 &lt;+76&gt;:    call   0x80484d1 &lt;f00&gt;
+</span></span><span class="line"><span class="cl">   0x080485bd &lt;+81&gt;:    nop
+</span></span><span class="line"><span class="cl">   0x080485be &lt;+82&gt;:    sub    <span class="nv">$0</span>xc,%esp
+</span></span><span class="line"><span class="cl">   0x080485c1 &lt;+85&gt;:    push   <span class="nv">$0</span>x8048660
+</span></span><span class="line"><span class="cl">   0x080485c6 &lt;+90&gt;:    call   0x8048330 &lt;puts@plt&gt;
+</span></span><span class="line"><span class="cl">   0x080485cb &lt;+95&gt;:    add    <span class="nv">$0</span>x10,%esp
+</span></span><span class="line"><span class="cl">   0x080485ce &lt;+98&gt;:    mov    <span class="nv">$0</span>x0,%eax
+</span></span><span class="line"><span class="cl">   0x080485d3 &lt;+103&gt;:   lea    -0x8<span class="o">(</span>%ebp<span class="o">)</span>,%esp
+</span></span><span class="line"><span class="cl">   0x080485d6 &lt;+106&gt;:   pop    %ecx
+</span></span><span class="line"><span class="cl">   0x080485d7 &lt;+107&gt;:   pop    %ebx
+</span></span><span class="line"><span class="cl">   0x080485d8 &lt;+108&gt;:   pop    %ebp
+</span></span><span class="line"><span class="cl">   0x080485d9 &lt;+109&gt;:   lea    -0x4<span class="o">(</span>%ecx<span class="o">)</span>,%esp
+</span></span><span class="line"><span class="cl">   0x080485dc &lt;+112&gt;:   ret    
+</span></span><span class="line"><span class="cl">End of assembler dump.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>f01()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> disas f01
+</span></span><span class="line"><span class="cl">Dump of assembler code <span class="k">for</span> <span class="k">function</span> f01:
+</span></span><span class="line"><span class="cl">   0x080484f4 &lt;+0&gt;:     push   %ebp
+</span></span><span class="line"><span class="cl">   0x080484f5 &lt;+1&gt;:     mov    %esp,%ebp
+</span></span><span class="line"><span class="cl">   0x080484f7 &lt;+3&gt;:     sub    <span class="nv">$0</span>x508,%esp
+</span></span><span class="line"><span class="cl">   0x080484fd &lt;+9&gt;:     sub    <span class="nv">$0</span>x8,%esp
+</span></span><span class="line"><span class="cl">   0x08048500 &lt;+12&gt;:    push   <span class="nv">$0</span>x400
+</span></span><span class="line"><span class="cl">   0x08048505 &lt;+17&gt;:    lea    -0x4fe<span class="o">(</span>%ebp<span class="o">)</span>,%eax
+</span></span><span class="line"><span class="cl">   0x0804850b &lt;+23&gt;:    push   %eax
+</span></span><span class="line"><span class="cl">   0x0804850c &lt;+24&gt;:    call   0x804846b &lt;init_buf&gt;
+</span></span><span class="line"><span class="cl">   0x08048511 &lt;+29&gt;:    add    <span class="nv">$0</span>x10,%esp
+</span></span><span class="line"><span class="cl">   0x08048514 &lt;+32&gt;:    sub    <span class="nv">$0</span>x8,%esp
+</span></span><span class="line"><span class="cl">   0x08048517 &lt;+35&gt;:    lea    -0x4fe<span class="o">(</span>%ebp<span class="o">)</span>,%eax
+</span></span><span class="line"><span class="cl">   0x0804851d &lt;+41&gt;:    push   %eax
+</span></span><span class="line"><span class="cl">   0x0804851e &lt;+42&gt;:    lea    -0xfe<span class="o">(</span>%ebp<span class="o">)</span>,%eax
+</span></span><span class="line"><span class="cl">   0x08048524 &lt;+48&gt;:    push   %eax
+</span></span><span class="line"><span class="cl">   0x08048525 &lt;+49&gt;:    call   0x8048320 &lt;strcpy@plt&gt;
+</span></span><span class="line"><span class="cl">   0x0804852a &lt;+54&gt;:    add    <span class="nv">$0</span>x10,%esp
+</span></span><span class="line"><span class="cl">   0x0804852d &lt;+57&gt;:    nop
+</span></span><span class="line"><span class="cl">   0x0804852e &lt;+58&gt;:    leave  
+</span></span><span class="line"><span class="cl">   0x0804852f &lt;+59&gt;:    ret    
+</span></span><span class="line"><span class="cl">End of assembler dump.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置断点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> b*<span class="o">(</span>f01+0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Breakpoint <span class="m">1</span> at 0x80484f4
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> b*<span class="o">(</span>f01+49<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Breakpoint <span class="m">2</span> at 0x8048525
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> b*<span class="o">(</span>f01+59<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Breakpoint <span class="m">3</span> at 0x804852f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> display/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl">1: x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl">&lt;error: No registers.&gt;
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl">No registers.
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> run <span class="m">1</span>
+</span></span><span class="line"><span class="cl">Starting program: /home/azureuser/hw/homework08 <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Breakpoint 1, 0x080484f4 in f01 <span class="o">()</span>
+</span></span><span class="line"><span class="cl">1: x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; 0x80484f4 &lt;f01&gt;:     push   %ebp
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/x <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd1cc:     0x080485af
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>记录堆栈指针esp的值，在此以A标记：A=$esp = <strong>0xffffd1cc</strong></p>
+<p>继续执行到下一个断点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> c
+</span></span><span class="line"><span class="cl">Continuing.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Breakpoint 2, 0x08048525 in f01 <span class="o">()</span>
+</span></span><span class="line"><span class="cl">1: x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; 0x8048525 &lt;f01+49&gt;:  call   0x8048320 &lt;strcpy@plt&gt;
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffccb0:     0xffffd0ca
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">0xffffccb4:     0xffffccca
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/x 0xffffccca
+</span></span><span class="line"><span class="cl">0xffffccca:     0x44434241
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>B=0xffffd0ca。</p>
+<p><strong>offset=A-B= 0xffffd1cc - 0xffffd0ca =0x102=258</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> c
+</span></span><span class="line"><span class="cl">Continuing.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Breakpoint 3, 0x0804852f in f01 <span class="o">()</span>
+</span></span><span class="line"><span class="cl">1: x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; 0x804852f &lt;f01+59&gt;:  ret    
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/x <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd1cc:     0x42415a59
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/s <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd1cc:     <span class="s2">&#34;YZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOP&#34;</span>...
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> si
+</span></span><span class="line"><span class="cl">0x42415a59 in ?? <span class="o">()</span>
+</span></span><span class="line"><span class="cl">1: x/i <span class="nv">$eip</span>
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; 0x42415a59:  &lt;error: Cannot access memory at address 0x42415a59&gt;
+</span></span><span class="line"><span class="cl"><span class="o">(</span>gdb<span class="o">)</span> x/s <span class="nv">$esp</span>
+</span></span><span class="line"><span class="cl">0xffffd1d0:     <span class="s2">&#34;CDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRST&#34;</span>...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回地址变 为 <strong>0x42415a59</strong></p>
+<h3 id="其他本次实验的一些其它尝试">其他（本次实验的一些其它尝试）</h3>
+<ol>
+<li>由于这个可执行文件是ubuntu16.04编译的，本身我的虚拟机系统是ubuntu18.04，一开始执行文件老是报错：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">~$ ./homework08 
+</span></span><span class="line"><span class="cl">-bash: ./homework08: No such file or directory
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查询之后发现不是文件不存在，是缺少需要的依赖，因为Ubuntu18.04默认去掉了32bit的library。</p>
+<p>解决方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install lib32z1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>之后就可以执行了。</p>
+<ol start="2">
+<li>本身自己的电脑是mac m2芯片，一开始没尝试使用虚拟机而是docker在容器内去pull ubuntu的镜像来尝试实验：<code>% docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it --platform linux/386 -v &quot;/Users/agq/Downloads/srcToStudent:/srcToStudent&quot; --name=hw6 i386/ubuntu /bin/bash</code></li>
+</ol>
+<p>发现能运行文件，并且可以显示段错误：</p>
+<p>但由于qemu天生不支持ptrace系统调用，而gdb正是依赖这个系统调用，所以无法进行调试（QEMU&rsquo;s user-mode emulation does not support the ptrace system call）所以第二题就做不了，遂作罢。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业4</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全实验配置</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKhv2Qw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKhv2Q84CaPFX"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
