@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='网络安全实验配置 由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:
-UTM下载和安装 直接官网UTM | Virtual machines for Mac下载并安装就好。
-windows server镜像下载 这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012 下载镜像地址：HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站 注：需下载迅雷进行磁力链下载
-wireshark的安装 直接官网Wireshark · Go Deep下载安装就好
-UTM和本地文件的共享 待补充
-终于是能在mac上跑实验了，类目。
-UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了七个host-only网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。 查阅了很多资料之后发现得设置成桥接模式，并把接口设置成en0即可。如图： '>
-<title>网络安全实验配置</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='第九章 简述shellcode 的概念以及编写shellcode的步骤。
+shellcode是注入到目标进程中的二进制代码，其功能取决于编写者的意图。 编写shellcode要经过以下3个步骤： 编写简洁的能完成所需功能的C程序； 反汇编可执行代码，用系统功能调用代替函数调用，用汇编语言实现相同的功能； 提取出操作码，写成shellcode，并用C程序验证。 Linux环境下的shellcode为什么不调用libc中的库函数，而是利用系统调用？
+通过系统调用可以直接访问系统内核，具有非常强大的功能。 Shellcode 通常需要尽可能小，以便能够有效地注入到受限的内存空间或数据流中。直接使用系统调用比调用 libc 函数占用更少的空间，因为这避免了链接和加载整个库的开销。 在安全测试和渗透测试中，shellcode 需要尽可能隐蔽地执行。直接使用系统调用可能帮助绕过一些安全监测工具和防御机制，因为它们更多地关注对常见库函数的调用。 直接使用系统调用可以使shellcode更加独立和可移植。因为libc的版本和实现在不同的系统和环境中可能会有所不同，依赖于特定版本的libc函数可能会导致shellcode在某些环境下无法正常工作。 在攻击字符串中4字节的RET除了其取在攻击字符串中4字节的RET除了其取值范围要猜测准确外，还有什么需要考虑的（或者说有什么限制）？
+地址空间布局随机化，现代操作系统采用了地址随机化技术，缓冲区的起始地址是会动态变化的，必须在攻击串中放置足够多的NOP，以使得RET的取值范围足够大，才能猜测一个正确的RET。 RET指令的返回地址是函数返回时要跳转到的地址。如果返回地址指向了程序的不可执行代码区域，则攻击也将失败。 一些程序可能会使用栈保护来防止溢出攻击。例如，程序可能会设置栈的大小限制，或者使用栈保护指令来检查栈是否溢出。 RET指令的地址必须具有可写权限。如果RET指令的地址具有只读权限，则程序将无法修改该地址。 如果RET地址包含零字节，那么在某些情况下，程序可能会提前终止字符串的处理，这可能会阻止攻击的进行。 第十章 简述进程跳转攻击方法的基本思想
+从系统必须加载的动态链接库(如ntdll.dll，kernel32.dll)中寻找call esp和jmp esp指令，记录下该地址（溢出攻击的跳转地址），将该地址覆盖函数的返回地址，而将shellcode放在返回地址所在单元的后面。 这样就确保溢出后通过动态链接库中的指令而跳转到被注入到进程堆栈中的shellcode。 '>
+<title>网络安全作业6</title>
 
-<link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/'>
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全实验配置'>
-<meta property='og:description' content='网络安全实验配置 由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:
-UTM下载和安装 直接官网UTM | Virtual machines for Mac下载并安装就好。
-windows server镜像下载 这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012 下载镜像地址：HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站 注：需下载迅雷进行磁力链下载
-wireshark的安装 直接官网Wireshark · Go Deep下载安装就好
-UTM和本地文件的共享 待补充
-终于是能在mac上跑实验了，类目。
-UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了七个host-only网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。 查阅了很多资料之后发现得设置成桥接模式，并把接口设置成en0即可。如图： '>
-<meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/'>
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全作业6'>
+<meta property='og:description' content='第九章 简述shellcode 的概念以及编写shellcode的步骤。
+shellcode是注入到目标进程中的二进制代码，其功能取决于编写者的意图。 编写shellcode要经过以下3个步骤： 编写简洁的能完成所需功能的C程序； 反汇编可执行代码，用系统功能调用代替函数调用，用汇编语言实现相同的功能； 提取出操作码，写成shellcode，并用C程序验证。 Linux环境下的shellcode为什么不调用libc中的库函数，而是利用系统调用？
+通过系统调用可以直接访问系统内核，具有非常强大的功能。 Shellcode 通常需要尽可能小，以便能够有效地注入到受限的内存空间或数据流中。直接使用系统调用比调用 libc 函数占用更少的空间，因为这避免了链接和加载整个库的开销。 在安全测试和渗透测试中，shellcode 需要尽可能隐蔽地执行。直接使用系统调用可能帮助绕过一些安全监测工具和防御机制，因为它们更多地关注对常见库函数的调用。 直接使用系统调用可以使shellcode更加独立和可移植。因为libc的版本和实现在不同的系统和环境中可能会有所不同，依赖于特定版本的libc函数可能会导致shellcode在某些环境下无法正常工作。 在攻击字符串中4字节的RET除了其取在攻击字符串中4字节的RET除了其取值范围要猜测准确外，还有什么需要考虑的（或者说有什么限制）？
+地址空间布局随机化，现代操作系统采用了地址随机化技术，缓冲区的起始地址是会动态变化的，必须在攻击串中放置足够多的NOP，以使得RET的取值范围足够大，才能猜测一个正确的RET。 RET指令的返回地址是函数返回时要跳转到的地址。如果返回地址指向了程序的不可执行代码区域，则攻击也将失败。 一些程序可能会使用栈保护来防止溢出攻击。例如，程序可能会设置栈的大小限制，或者使用栈保护指令来检查栈是否溢出。 RET指令的地址必须具有可写权限。如果RET指令的地址具有只读权限，则程序将无法修改该地址。 如果RET地址包含零字节，那么在某些情况下，程序可能会提前终止字符串的处理，这可能会阻止攻击的进行。 第十章 简述进程跳转攻击方法的基本思想
+从系统必须加载的动态链接库(如ntdll.dll，kernel32.dll)中寻找call esp和jmp esp指令，记录下该地址（溢出攻击的跳转地址），将该地址覆盖函数的返回地址，而将shellcode放在返回地址所在单元的后面。 这样就确保溢出后通过动态链接库中的指令而跳转到被注入到进程堆栈中的shellcode。 '>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/'>
 <meta property='og:site_name' content='AGA&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-10-26T10:15:50&#43;08:00'/><meta property='article:modified_time' content='2023-10-26T10:15:50&#43;08:00'/>
-<meta name="twitter:title" content="网络安全实验配置">
-<meta name="twitter:description" content="网络安全实验配置 由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:
-UTM下载和安装 直接官网UTM | Virtual machines for Mac下载并安装就好。
-windows server镜像下载 这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012 下载镜像地址：HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站 注：需下载迅雷进行磁力链下载
-wireshark的安装 直接官网Wireshark · Go Deep下载安装就好
-UTM和本地文件的共享 待补充
-终于是能在mac上跑实验了，类目。
-UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了七个host-only网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。 查阅了很多资料之后发现得设置成桥接模式，并把接口设置成en0即可。如图： ">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-12-13T21:46:25&#43;08:00'/><meta property='article:modified_time' content='2023-12-13T21:46:25&#43;08:00'/>
+<meta name="twitter:title" content="网络安全作业6">
+<meta name="twitter:description" content="第九章 简述shellcode 的概念以及编写shellcode的步骤。
+shellcode是注入到目标进程中的二进制代码，其功能取决于编写者的意图。 编写shellcode要经过以下3个步骤： 编写简洁的能完成所需功能的C程序； 反汇编可执行代码，用系统功能调用代替函数调用，用汇编语言实现相同的功能； 提取出操作码，写成shellcode，并用C程序验证。 Linux环境下的shellcode为什么不调用libc中的库函数，而是利用系统调用？
+通过系统调用可以直接访问系统内核，具有非常强大的功能。 Shellcode 通常需要尽可能小，以便能够有效地注入到受限的内存空间或数据流中。直接使用系统调用比调用 libc 函数占用更少的空间，因为这避免了链接和加载整个库的开销。 在安全测试和渗透测试中，shellcode 需要尽可能隐蔽地执行。直接使用系统调用可能帮助绕过一些安全监测工具和防御机制，因为它们更多地关注对常见库函数的调用。 直接使用系统调用可以使shellcode更加独立和可移植。因为libc的版本和实现在不同的系统和环境中可能会有所不同，依赖于特定版本的libc函数可能会导致shellcode在某些环境下无法正常工作。 在攻击字符串中4字节的RET除了其取在攻击字符串中4字节的RET除了其取值范围要猜测准确外，还有什么需要考虑的（或者说有什么限制）？
+地址空间布局随机化，现代操作系统采用了地址随机化技术，缓冲区的起始地址是会动态变化的，必须在攻击串中放置足够多的NOP，以使得RET的取值范围足够大，才能猜测一个正确的RET。 RET指令的返回地址是函数返回时要跳转到的地址。如果返回地址指向了程序的不可执行代码区域，则攻击也将失败。 一些程序可能会使用栈保护来防止溢出攻击。例如，程序可能会设置栈的大小限制，或者使用栈保护指令来检查栈是否溢出。 RET指令的地址必须具有可写权限。如果RET指令的地址具有只读权限，则程序将无法修改该地址。 如果RET地址包含零字节，那么在某些情况下，程序可能会提前终止字符串的处理，这可能会阻止攻击的进行。 第十章 简述进程跳转攻击方法的基本思想
+从系统必须加载的动态链接库(如ntdll.dll，kernel32.dll)中寻找call esp和jmp esp指令，记录下该地址（溢出攻击的跳转地址），将该地址覆盖函数的返回地址，而将shellcode放在返回地址所在单元的后面。 这样就确保溢出后通过动态链接库中的指令而跳转到被注入到进程堆栈中的shellcode。 ">
     </head>
     <body class="
     article-page
@@ -264,7 +258,8 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#utm下复制的主机互ping问题">UTM下复制的主机互ping问题</a></li>
+    <li><a href="#第九章">第九章</a></li>
+    <li><a href="#第十章">第十章</a></li>
   </ol>
 </nav>
         </div>
@@ -292,7 +287,7 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE/">网络安全实验配置</a>
+            <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/">网络安全作业6</a>
         </h2>
     
         
@@ -314,7 +309,7 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 26, 2023</time>
+                <time class="article-time--published">Dec 13, 2023</time>
             </div>
         
 
@@ -344,45 +339,47 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
     <section class="article-content">
     
     
-    <h1 id="网络安全实验配置">网络安全实验配置</h1>
-<p>由于Mac的m系列芯片使用了arm架构与windows server镜像要求的x86架构不同，老师使用的virtual box和mac最常用的pd模拟器均只能进行同架构系统的模拟。于是乎我又查阅了资料，发现UTM可以在mac上进行不同架构的模拟（虽然很卡也很难用，终归是跑通了），以下是我的配置过程:</p>
+    <h2 id="第九章">第九章</h2>
 <ol>
 <li>
-<p>UTM下载和安装
-直接官网<a class="link" href="https://mac.getutm.app"  target="_blank" rel="noopener"
-    >UTM | Virtual machines for Mac</a>下载并安装就好。</p>
-</li>
-<li>
-<p>windows server镜像下载
-这时候又出岔子了，老师提供的windows 2003不知道是不是太老了，UTM模拟不了。只能想办法换更新的windows sever2012
-下载镜像地址：<a class="link" href="https://hellowindows.cn"  target="_blank" rel="noopener"
-    >HelloWindows.cn - 精校 完整 极致 Windows系统下载仓储站</a>
-注：需下载迅雷进行磁力链下载</p>
-</li>
-<li>
-<p>wireshark的安装
-直接官网<a class="link" href="https://www.wireshark.org"  target="_blank" rel="noopener"
-    >Wireshark · Go Deep</a>下载安装就好</p>
-</li>
-<li>
-<p>UTM和本地文件的共享
-待补充</p>
+<p><strong>简述shellcode 的概念以及编写shellcode的步骤。</strong></p>
+<ol>
+<li>shellcode是注入到目标进程中的二进制代码，其功能取决于编写者的意图。</li>
+<li>编写shellcode要经过以下3个步骤：
+<ol>
+<li>编写简洁的能完成所需功能的C程序；</li>
+<li>反汇编可执行代码，用系统功能调用代替函数调用，用汇编语言实现相同的功能；</li>
+<li>提取出操作码，写成shellcode，并用C程序验证。</li>
+</ol>
 </li>
 </ol>
-<p>终于是能在mac上跑实验了，类目。</p>
-<h2 id="utm下复制的主机互ping问题">UTM下复制的主机互ping问题</h2>
-<p>本来像按照老师所给的内容配置了七个<strong>host-only</strong>网络，网络是可以搭建起来的，但是server和client两个虚拟机之间无法互ping。
-查阅了很多资料之后发现得设置成桥接模式，并把接口设置成<code>en0</code>即可。如图：
-<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.vu1ew1aysnk.webp"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image"
-	
-	
-></p>
+</li>
+<li>
+<p><strong>Linux环境下的shellcode为什么不调用libc中的库函数，而是利用系统调用？</strong></p>
+<ul>
+<li>通过系统调用可以直接访问系统内核，具有非常强大的功能。</li>
+<li>Shellcode 通常需要尽可能小，以便能够有效地注入到受限的内存空间或数据流中。直接使用系统调用比调用 libc 函数占用更少的空间，因为这避免了链接和加载整个库的开销。</li>
+<li>在安全测试和渗透测试中，shellcode 需要尽可能隐蔽地执行。直接使用系统调用可能帮助绕过一些安全监测工具和防御机制，因为它们更多地关注对常见库函数的调用。</li>
+<li>直接使用系统调用可以使shellcode更加独立和可移植。因为libc的版本和实现在不同的系统和环境中可能会有所不同，依赖于特定版本的libc函数可能会导致shellcode在某些环境下无法正常工作。</li>
+</ul>
+</li>
+<li>
+<p><strong>在攻击字符串中4字节的RET除了其取在攻击字符串中4字节的RET除了其取值范围要猜测准确外，还有什么需要考虑的（或者说有什么限制）？</strong></p>
+</li>
+</ol>
+<ul>
+<li><strong>地址空间布局随机化</strong>，现代操作系统采用了地址随机化技术，缓冲区的起始地址是会动态变化的，必须在攻击串中放置足够多的NOP，以使得RET的取值范围足够大，才能猜测一个正确的RET。</li>
+<li>RET指令的返回地址是函数返回时要跳转到的地址。如果返回地址指向了程序的不可执行代码区域，则攻击也将失败。</li>
+<li>一些程序可能会使用栈保护来防止溢出攻击。例如，程序可能会设置栈的大小限制，或者使用栈保护指令来检查栈是否溢出。</li>
+<li>RET指令的地址必须具有可写权限。如果RET指令的地址具有只读权限，则程序将无法修改该地址。</li>
+<li>如果RET地址包含零字节，那么在某些情况下，程序可能会提前终止字符串的处理，这可能会阻止攻击的进行。</li>
+</ul>
+<h2 id="第十章">第十章</h2>
+<p><strong>简述进程跳转攻击方法的基本思想</strong></p>
+<ul>
+<li>从系统必须加载的动态链接库(如ntdll.dll，kernel32.dll)中寻找call esp和jmp esp指令，记录下该地址（溢出攻击的跳转地址），将该地址覆盖函数的返回地址，而将shellcode放在返回地址所在单元的后面。</li>
+<li>这样就确保溢出后通过动态链接库中的指令而跳转到被注入到进程堆栈中的shellcode。</li>
+</ul>
 
 </section>
 
@@ -449,19 +446,6 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
             
                 
 <article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业6</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/">
         
         
@@ -507,6 +491,19 @@ UTM下复制的主机互ping问题 本来像按照老师所给的内容配置了
 
         <div class="article-details">
             <h2 class="article-title">网络安全作业3</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">网络安全作业1</h2>
         </div>
     </a>
 </article>

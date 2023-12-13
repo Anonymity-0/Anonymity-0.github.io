@@ -7,7 +7,56 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>AGA</copyright>
-        <lastBuildDate>Fri, 24 Nov 2023 15:55:04 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 13 Dec 2023 21:46:25 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>网络安全作业6</title>
+        <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/</link>
+        <pubDate>Wed, 13 Dec 2023 21:46:25 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/</guid>
+        <description>&lt;h2 id=&#34;第九章&#34;&gt;第九章&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;简述shellcode 的概念以及编写shellcode的步骤。&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;shellcode是注入到目标进程中的二进制代码，其功能取决于编写者的意图。&lt;/li&gt;
+&lt;li&gt;编写shellcode要经过以下3个步骤：
+&lt;ol&gt;
+&lt;li&gt;编写简洁的能完成所需功能的C程序；&lt;/li&gt;
+&lt;li&gt;反汇编可执行代码，用系统功能调用代替函数调用，用汇编语言实现相同的功能；&lt;/li&gt;
+&lt;li&gt;提取出操作码，写成shellcode，并用C程序验证。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Linux环境下的shellcode为什么不调用libc中的库函数，而是利用系统调用？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过系统调用可以直接访问系统内核，具有非常强大的功能。&lt;/li&gt;
+&lt;li&gt;Shellcode 通常需要尽可能小，以便能够有效地注入到受限的内存空间或数据流中。直接使用系统调用比调用 libc 函数占用更少的空间，因为这避免了链接和加载整个库的开销。&lt;/li&gt;
+&lt;li&gt;在安全测试和渗透测试中，shellcode 需要尽可能隐蔽地执行。直接使用系统调用可能帮助绕过一些安全监测工具和防御机制，因为它们更多地关注对常见库函数的调用。&lt;/li&gt;
+&lt;li&gt;直接使用系统调用可以使shellcode更加独立和可移植。因为libc的版本和实现在不同的系统和环境中可能会有所不同，依赖于特定版本的libc函数可能会导致shellcode在某些环境下无法正常工作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在攻击字符串中4字节的RET除了其取在攻击字符串中4字节的RET除了其取值范围要猜测准确外，还有什么需要考虑的（或者说有什么限制）？&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;地址空间布局随机化&lt;/strong&gt;，现代操作系统采用了地址随机化技术，缓冲区的起始地址是会动态变化的，必须在攻击串中放置足够多的NOP，以使得RET的取值范围足够大，才能猜测一个正确的RET。&lt;/li&gt;
+&lt;li&gt;RET指令的返回地址是函数返回时要跳转到的地址。如果返回地址指向了程序的不可执行代码区域，则攻击也将失败。&lt;/li&gt;
+&lt;li&gt;一些程序可能会使用栈保护来防止溢出攻击。例如，程序可能会设置栈的大小限制，或者使用栈保护指令来检查栈是否溢出。&lt;/li&gt;
+&lt;li&gt;RET指令的地址必须具有可写权限。如果RET指令的地址具有只读权限，则程序将无法修改该地址。&lt;/li&gt;
+&lt;li&gt;如果RET地址包含零字节，那么在某些情况下，程序可能会提前终止字符串的处理，这可能会阻止攻击的进行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;第十章&#34;&gt;第十章&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;简述进程跳转攻击方法的基本思想&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从系统必须加载的动态链接库(如ntdll.dll，kernel32.dll)中寻找call esp和jmp esp指令，记录下该地址（溢出攻击的跳转地址），将该地址覆盖函数的返回地址，而将shellcode放在返回地址所在单元的后面。&lt;/li&gt;
+&lt;li&gt;这样就确保溢出后通过动态链接库中的指令而跳转到被注入到进程堆栈中的shellcode。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>网络安全作业5</title>
         <link>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/</link>
         <pubDate>Fri, 24 Nov 2023 15:55:04 +0800</pubDate>
