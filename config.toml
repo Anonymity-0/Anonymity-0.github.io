@@ -89,16 +89,16 @@ rssFullContent = true
 
     [params.comments.giscus]
     repo = "Anonymity-0/Anonymity-0.github.io"
-    repoID = "R_kgDOKhv2Qw"
+    repoID = "R_kgDOKsFzXQ"
     category = "Announcements"
-    categoryID = "DIC_kwDOKhv2Q84CaPFX"
+    categoryID = "DIC_kwDOKsFzXc4Ca3tc"
     mapping = "url"
     strict = "0"
     lightTheme = "light"
     darkTheme = "0"
-    reactionsEnabled = 1
-    emitMetadata = 0
-    inputPosition = ""
+    reactionsEnabled = "1"
+    emitMetadata = "0"
+    inputPosition = "bottom"
   
 
 
