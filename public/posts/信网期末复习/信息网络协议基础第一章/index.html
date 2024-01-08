@@ -24,7 +24,7 @@
 特征 面向连接：分组发送前在源和目的之间建立连接 与电路交换不同，连接不是占用固定的线路资源，只是告诉网络的资源需求，在每个交换机上建立“连接状态” 建立的连接路径被称为虚电路（Virtual Circuit） 服务质量保证 有序性：同一源和目的的分组沿相同的路径到达目的地 基于虚电路标识执行交换操作，效率高 虚电路 VCI（VC Identifier）：在每条物理线路/链路可以同时运行很多条虚电路，每条虚电路由VCI标识 VCI具有局部意义，只在每条链路上唯一 每个交换机上都维护一个转发表，基于VCI对分组进行转发 从源到目的的虚电路由路径链路上一系列VCI标识 ![[Pasted image 20240101134653.png]] 性能 ATM网络采用虚电路交换，交换的单元为固定长度的ATM 信元，执行交换的设备也被称为ATM交换机 总结 以分组为单元统计复用线路/链路资源 优点：线路利用率高，节点只有在有数据要传输时才占用通信线路，因此多个节点的分组可以共享一条通信线路 缺点：需要资源管理机制来保证数据传输的速率、延时、可靠性和有序性，增加了复杂性 分组交换是为数据传输设计的，支持可变的数据速率 网络体系结构 DTN体系架构 解决的问题 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况 基本思想：走一步看一步，而不像传统路由那样直接找到从源到目的的路径。关键问题：下一步如何确定？ 最简单的策略：把数据交给我当前能通信的所有节点（感染路由），性能最好，开销最大！ 更复杂的策略：根据一些知识来选择数据转发的下一跳（单拷贝/多拷贝路由），例如历史相遇信息，节点运动信息等，这可以减小开销，但是性能会下降。 DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer SDN 当前网络问题 网络缺乏灵活的控制机制 基本思想： 数据面和控制面分离，数据路由传输由控制器控制，赋予外部应用通过控制器控制网络设备的能力 openflow OpenFlow是SDN的一种实现，定义了控制器和交换机/路由器之间的协议，以及交换机/路由器的控制接口、流表格式等 现有Internet存在的问题 可扩展性：流量增加、路由表膨胀 移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持 服务质量：IP网络提供的是尽力投递服务，未考虑数据内容 网络安全：越来越多的应用使用Internet，在设计时并未充分考虑安全性 能耗：互联网耗电量约占全球的5.'>
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/'>
 <meta property='og:site_name' content='AGA&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' />
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-02T08:27:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-02T08:27:05&#43;08:00'/>
 <meta name="twitter:title" content="信息网络协议基础第一章复习">
 <meta name="twitter:description" content="交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络
 交换类型 ![[Pasted image 20240101134814.png]]
@@ -338,6 +338,19 @@
     
     <footer class="article-time">
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 02, 2024</time>
+            </div>
+        
 
         
             <div>
@@ -642,38 +655,12 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信网实验2</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信网实验1</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第三章复习</h2>
+            <h2 class="article-title">信息网络协议基础第六章复习</h2>
         </div>
     </a>
 </article>
@@ -694,12 +681,38 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第六章复习</h2>
+            <h2 class="article-title">信息网络协议基础第三章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第四章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第二章复习</h2>
         </div>
     </a>
 </article>

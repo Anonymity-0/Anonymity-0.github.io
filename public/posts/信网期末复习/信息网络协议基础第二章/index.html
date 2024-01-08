@@ -5,19 +5,19 @@
 既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换
 Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要
 业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI&#43;VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 !'>
-<title>信网网络复习提纲</title>
+<title>信息网络协议基础第二章复习</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信网网络复习提纲'>
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信息网络协议基础第二章复习'>
 <meta property='og:description' content='接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2&#43;: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式
 既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换
 Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要
 业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI&#43;VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 !'>
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/'>
 <meta property='og:site_name' content='AGA&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' />
-<meta name="twitter:title" content="信网网络复习提纲">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-02T11:54:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-02T11:54:05&#43;08:00'/>
+<meta name="twitter:title" content="信息网络协议基础第二章复习">
 <meta name="twitter:description" content="接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2&#43;: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式
 既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换
 Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要
@@ -353,7 +353,7 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">信网网络复习提纲</a>
+            <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">信息网络协议基础第二章复习</a>
         </h2>
     
         
@@ -364,6 +364,19 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
     
     
     <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 02, 2024</time>
+            </div>
         
 
         
@@ -953,12 +966,12 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信网实验2</h2>
+            <h2 class="article-title">信息网络协议基础第六章复习</h2>
         </div>
     </a>
 </article>
@@ -966,25 +979,12 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信网实验1</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第一章复习</h2>
+            <h2 class="article-title">信息网络协议基础第五章复习</h2>
         </div>
     </a>
 </article>
@@ -1005,12 +1005,25 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第五章复习</h2>
+            <h2 class="article-title">信息网络协议基础第四章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第一章复习</h2>
         </div>
     </a>
 </article>

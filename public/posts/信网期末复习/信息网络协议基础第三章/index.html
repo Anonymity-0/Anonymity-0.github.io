@@ -26,7 +26,7 @@
 链路局部地址（Link-Local）：作用范围为链路，在链路范围内分配 前面10比特固定为1111 1110 10，接下来为54比特的0，具有形式FE80:/64 Interface ID：标识主机上的特定接口 链路局部地址总是自动配置，只用于链路范围内的数据传输 唯一本地地址（Unique Local）：与IPv4私有地址类似，一般限制在组织机构内部使用，但不会被转换成全局单播地址 全局（Global）：作用范围为全局，在全局范围进行分配 ![[Pasted image 20240102122226.png]] 前面3比特固定为001，第1个16比特为2000到3FFF Global Routing Prefix：全局路由前缀，由服务提供商(ISP)分配给用户站点（Site）的前缀 Subnet ID：标识特定的子网，一个站点中可能有多个子网 Interface ID：标识主机上的特定接口，大多数情况下长度为64 单播地址的组成 !'>
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/'>
 <meta property='og:site_name' content='AGA&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' />
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-02T16:12:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-02T16:12:05&#43;08:00'/>
 <meta name="twitter:title" content="信息网络协议基础第三章复习">
 <meta name="twitter:description" content="CIDR •CIDR：Classless Inter-Domain Routing，无类别域间寻路
 目前Internet采用的IP地址分配方式，1990年代由IETF提出，取代早期的有类别的地址分配方式 采用可变长度的网络前缀(network prefix)来取代地址分类中网络号长度固定的做法 具有相同前缀的IP地址组成CIDR Block，表示为A.B.C.D/N，其中N为前缀长度 例如202.38.208.0/20 前缀汇聚(Supernetting) 前缀汇聚举例 8个连续的/24的CIDR Block可以用一个/21的CIDR Block来表示，因此对外汇聚成一条/21的路由 200.25.16.0/24~200.25.23.0/24&amp;ndash;〉
@@ -353,6 +353,19 @@
     
     
     <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 02, 2024</time>
+            </div>
         
 
         
@@ -735,38 +748,12 @@ router指 目的，下一跳</li>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信网实验2</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信网实验1</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第一章复习</h2>
+            <h2 class="article-title">信息网络协议基础第六章复习</h2>
         </div>
     </a>
 </article>
@@ -787,12 +774,38 @@ router指 目的，下一跳</li>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第六章复习</h2>
+            <h2 class="article-title">信息网络协议基础第四章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第二章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第一章复习</h2>
         </div>
     </a>
 </article>

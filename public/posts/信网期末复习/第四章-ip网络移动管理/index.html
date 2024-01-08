@@ -14,7 +14,7 @@
 更加易于部署 更加易于管理 更好的性能 原理 网络端控制的移动管理 在网络中引入一个功能实体代理移动节点执行与家乡代理之间的信令 本地移动管理 在本地管理域中引入一个类似家乡代理的功能实体，负责管理域内的移动管理操作 '>
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/'>
 <meta property='og:site_name' content='AGA&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' />
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-02T13:27:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-02T13:27:05&#43;08:00'/>
 <meta name="twitter:title" content="信息网络协议基础第四章复习">
 <meta name="twitter:description" content="移动切换 两种切换情况 切换涉及的AP在同一个网络中-链路层切换 链路层切换不改变IP地址，执行链路层操作 不改变五元组，对应用会话无影响 切换涉及的AP在不同的网络中-网络层切换 不同网络不同AP之间的切换首先执行链路层切换，再执行网络层切换，进行网络相关参数配置 移动节点IP地址发生变化 如何消除切换对应用会话的影响？ 应用层解决方案：需要应用支持，本质上是重新建立IP会话 网络层解决方案：需要增强网络协议，对应用透明 应用会话大多通过五元组来标识 &amp;lt;源/目的IP地址、协议、源/目的端口号&amp;gt; 不同的五元组对应着不同的应用会话 移动IPv6 – 基本原理、如何对上层应用屏蔽移动性？
 基本关键词 家乡地址(HoA)：移动节点的标识，手动配置或者由家乡网络分配，通常不变 转交地址(CoA)：移动节点位置的标识，由移动到的外地网络分配，随位置变化 HoA与CoA的对应关系称为绑定(Binding)&amp;lt;HoA, CoA&amp;gt; 家乡代理(Home Agent)：保存移动节点的家乡地址和转交地址之间的映射关系(绑定) IP分组先发送到家乡代理，由家乡代理发送给移动节点！ 过程 移动检测 移动节点检测到自己移动到了外地网络 路由器公告 转交地址配置 &amp;lt;家乡地址、转交地址&amp;gt;的绑定注册 到家乡代理 到通信对端 家乡代理拦截到移动节点地址的分组 对IP以上层屏蔽移动性 双向隧道模式 移动节点和通信对端的通信始终使用家乡地址进行通信 移动节点的移动由家乡代理跟踪，对于通信对端来说是透明的 所有的通信都必须通过家乡代理转发 路由优化模式 通信对端知道移动节点当前的转交地址。 PMIPv6 引入原因• 为什么引入代理移动IPv6？
@@ -305,6 +305,19 @@
     
     <footer class="article-time">
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 02, 2024</time>
+            </div>
+        
 
         
             <div>
@@ -489,12 +502,12 @@ IP分组先发送到家乡代理，由家乡代理发送给移动节点！</li>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信网实验2</h2>
+            <h2 class="article-title">信息网络协议基础第六章复习</h2>
         </div>
     </a>
 </article>
@@ -502,25 +515,12 @@ IP分组先发送到家乡代理，由家乡代理发送给移动节点！</li>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信网实验1</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第一章复习</h2>
+            <h2 class="article-title">信息网络协议基础第五章复习</h2>
         </div>
     </a>
 </article>
@@ -541,12 +541,25 @@ IP分组先发送到家乡代理，由家乡代理发送给移动节点！</li>
             
                 
 <article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第五章复习</h2>
+            <h2 class="article-title">信息网络协议基础第二章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第一章复习</h2>
         </div>
     </a>
 </article>
