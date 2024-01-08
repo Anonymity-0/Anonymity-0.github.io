@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='移动切换 两种切换情况 切换涉及的AP在同一个网络中-链路层切换 链路层切换不改变IP地址，执行链路层操作 不改变五元组，对应用会话无影响 切换涉及的AP在不同的网络中-网络层切换 不同网络不同AP之间的切换首先执行链路层切换，再执行网络层切换，进行网络相关参数配置 移动节点IP地址发生变化 如何消除切换对应用会话的影响？ 应用层解决方案：需要应用支持，本质上是重新建立IP会话 网络层解决方案：需要增强网络协议，对应用透明 应用会话大多通过五元组来标识 &amp;lt;源/目的IP地址、协议、源/目的端口号&amp;gt; 不同的五元组对应着不同的应用会话 移动IPv6 – 基本原理、如何对上层应用屏蔽移动性？
+基本关键词 家乡地址(HoA)：移动节点的标识，手动配置或者由家乡网络分配，通常不变 转交地址(CoA)：移动节点位置的标识，由移动到的外地网络分配，随位置变化 HoA与CoA的对应关系称为绑定(Binding)&amp;lt;HoA, CoA&amp;gt; 家乡代理(Home Agent)：保存移动节点的家乡地址和转交地址之间的映射关系(绑定) IP分组先发送到家乡代理，由家乡代理发送给移动节点！ 过程 移动检测 移动节点检测到自己移动到了外地网络 路由器公告 转交地址配置 &amp;lt;家乡地址、转交地址&amp;gt;的绑定注册 到家乡代理 到通信对端 家乡代理拦截到移动节点地址的分组 对IP以上层屏蔽移动性 双向隧道模式 移动节点和通信对端的通信始终使用家乡地址进行通信 移动节点的移动由家乡代理跟踪，对于通信对端来说是透明的 所有的通信都必须通过家乡代理转发 路由优化模式 通信对端知道移动节点当前的转交地址。 PMIPv6 引入原因• 为什么引入代理移动IPv6？
+更加易于部署 更加易于管理 更好的性能 原理 网络端控制的移动管理 在网络中引入一个功能实体代理移动节点执行与家乡代理之间的信令 本地移动管理 在本地管理域中引入一个类似家乡代理的功能实体，负责管理域内的移动管理操作 '>
+<title>信息网络协议基础第四章复习</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信息网络协议基础第四章复习'>
+<meta property='og:description' content='移动切换 两种切换情况 切换涉及的AP在同一个网络中-链路层切换 链路层切换不改变IP地址，执行链路层操作 不改变五元组，对应用会话无影响 切换涉及的AP在不同的网络中-网络层切换 不同网络不同AP之间的切换首先执行链路层切换，再执行网络层切换，进行网络相关参数配置 移动节点IP地址发生变化 如何消除切换对应用会话的影响？ 应用层解决方案：需要应用支持，本质上是重新建立IP会话 网络层解决方案：需要增强网络协议，对应用透明 应用会话大多通过五元组来标识 &amp;lt;源/目的IP地址、协议、源/目的端口号&amp;gt; 不同的五元组对应着不同的应用会话 移动IPv6 – 基本原理、如何对上层应用屏蔽移动性？
+基本关键词 家乡地址(HoA)：移动节点的标识，手动配置或者由家乡网络分配，通常不变 转交地址(CoA)：移动节点位置的标识，由移动到的外地网络分配，随位置变化 HoA与CoA的对应关系称为绑定(Binding)&amp;lt;HoA, CoA&amp;gt; 家乡代理(Home Agent)：保存移动节点的家乡地址和转交地址之间的映射关系(绑定) IP分组先发送到家乡代理，由家乡代理发送给移动节点！ 过程 移动检测 移动节点检测到自己移动到了外地网络 路由器公告 转交地址配置 &amp;lt;家乡地址、转交地址&amp;gt;的绑定注册 到家乡代理 到通信对端 家乡代理拦截到移动节点地址的分组 对IP以上层屏蔽移动性 双向隧道模式 移动节点和通信对端的通信始终使用家乡地址进行通信 移动节点的移动由家乡代理跟踪，对于通信对端来说是透明的 所有的通信都必须通过家乡代理转发 路由优化模式 通信对端知道移动节点当前的转交地址。 PMIPv6 引入原因• 为什么引入代理移动IPv6？
+更加易于部署 更加易于管理 更好的性能 原理 网络端控制的移动管理 在网络中引入一个功能实体代理移动节点执行与家乡代理之间的信令 本地移动管理 在本地管理域中引入一个类似家乡代理的功能实体，负责管理域内的移动管理操作 '>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' />
+<meta name="twitter:title" content="信息网络协议基础第四章复习">
+<meta name="twitter:description" content="移动切换 两种切换情况 切换涉及的AP在同一个网络中-链路层切换 链路层切换不改变IP地址，执行链路层操作 不改变五元组，对应用会话无影响 切换涉及的AP在不同的网络中-网络层切换 不同网络不同AP之间的切换首先执行链路层切换，再执行网络层切换，进行网络相关参数配置 移动节点IP地址发生变化 如何消除切换对应用会话的影响？ 应用层解决方案：需要应用支持，本质上是重新建立IP会话 网络层解决方案：需要增强网络协议，对应用透明 应用会话大多通过五元组来标识 &amp;lt;源/目的IP地址、协议、源/目的端口号&amp;gt; 不同的五元组对应着不同的应用会话 移动IPv6 – 基本原理、如何对上层应用屏蔽移动性？
+基本关键词 家乡地址(HoA)：移动节点的标识，手动配置或者由家乡网络分配，通常不变 转交地址(CoA)：移动节点位置的标识，由移动到的外地网络分配，随位置变化 HoA与CoA的对应关系称为绑定(Binding)&amp;lt;HoA, CoA&amp;gt; 家乡代理(Home Agent)：保存移动节点的家乡地址和转交地址之间的映射关系(绑定) IP分组先发送到家乡代理，由家乡代理发送给移动节点！ 过程 移动检测 移动节点检测到自己移动到了外地网络 路由器公告 转交地址配置 &amp;lt;家乡地址、转交地址&amp;gt;的绑定注册 到家乡代理 到通信对端 家乡代理拦截到移动节点地址的分组 对IP以上层屏蔽移动性 双向隧道模式 移动节点和通信对端的通信始终使用家乡地址进行通信 移动节点的移动由家乡代理跟踪，对于通信对端来说是透明的 所有的通信都必须通过家乡代理转发 路由优化模式 通信对端知道移动节点当前的转交地址。 PMIPv6 引入原因• 为什么引入代理移动IPv6？
+更加易于部署 更加易于管理 更好的性能 原理 网络端控制的移动管理 在网络中引入一个功能实体代理移动节点执行与家乡代理之间的信令 本地移动管理 在本地管理域中引入一个类似家乡代理的功能实体，负责管理域内的移动管理操作 ">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#移动切换">移动切换</a></li>
+    <li><a href="#移动ipv6">移动IPv6</a>
+      <ol>
+        <li><a href="#基本关键词">基本关键词</a></li>
+        <li><a href="#过程">过程</a></li>
+        <li><a href="#对ip以上层屏蔽移动性">对IP以上层屏蔽移动性</a></li>
+      </ol>
+    </li>
+    <li><a href="#pmipv6">PMIPv6</a>
+      <ol>
+        <li><a href="#引入原因">引入原因•</a></li>
+        <li><a href="#原理">原理</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" >
+                信息网络协议基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">信息网络协议基础第四章复习</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="移动切换">移动切换</h2>
+<ul>
+<li>两种切换情况
+<ul>
+<li>切换涉及的AP在同一个网络中-链路层切换
+<ul>
+<li>链路层切换不改变IP地址，执行链路层操作</li>
+<li><font color="#ff0000">不改变五元组，对应用会话无影响</font></li>
+</ul>
+</li>
+<li>切换涉及的AP在不同的网络中-网络层切换
+<ul>
+<li>不同网络不同AP之间的切换首先执行链路层切换，再执行网络层切换，进行网络相关参数配置</li>
+<li><font color="#ff0000">移动节点IP地址发生变化</font></li>
+<li>如何消除切换对应用会话的影响？
+<ul>
+<li>应用层解决方案：需要应用支持，本质上是重新建立IP会话</li>
+<li>网络层解决方案：需要增强网络协议，对应用透明</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>应用会话大多通过五元组来标识
+<ul>
+<li>&lt;源/目的IP地址、协议、源/目的端口号&gt;</li>
+<li>不同的五元组对应着不同的应用会话</li>
+</ul>
+</li>
+</ul>
+<h2 id="移动ipv6">移动IPv6</h2>
+<p>– 基本原理、如何对上层应用屏蔽移动性？</p>
+<h3 id="基本关键词">基本关键词</h3>
+<ul>
+<li>家乡地址(HoA)：移动节点的标识，手动配置或者由家乡网络分配，通常不变</li>
+<li>转交地址(CoA)：移动节点位置的标识，由移动到的外地网络分配，随位置变化</li>
+<li>HoA与CoA的对应关系称为绑定(Binding)&lt;HoA, CoA&gt;</li>
+<li>家乡代理(Home Agent)：保存移动节点的家乡地址和转交地址之间的映射关系(绑定)
+IP分组先发送到家乡代理，由家乡代理发送给移动节点！</li>
+</ul>
+<h3 id="过程">过程</h3>
+<ul>
+<li>移动检测
+<ul>
+<li>移动节点检测到自己移动到了外地网络</li>
+<li>路由器公告</li>
+</ul>
+</li>
+<li>转交地址配置</li>
+<li>&lt;家乡地址、转交地址&gt;的绑定注册
+<ul>
+<li>到家乡代理</li>
+<li>到通信对端</li>
+</ul>
+</li>
+<li>家乡代理拦截到移动节点地址的分组</li>
+</ul>
+<h3 id="对ip以上层屏蔽移动性">对IP以上层屏蔽移动性</h3>
+<ul>
+<li>双向隧道模式
+<ul>
+<li>移动节点和通信对端的通信始终使用家乡地址进行通信</li>
+<li>移动节点的移动由家乡代理跟踪，对于通信对端来说是透明的</li>
+<li>所有的通信都必须通过家乡代理转发</li>
+</ul>
+</li>
+<li>路由优化模式
+通信对端知道移动节点当前的转交地址。</li>
+</ul>
+<h2 id="pmipv6">PMIPv6</h2>
+<h3 id="引入原因">引入原因•</h3>
+<p>为什么引入代理移动IPv6？</p>
+<ul>
+<li>更加易于部署</li>
+<li>更加易于管理</li>
+<li>更好的性能</li>
+</ul>
+<h3 id="原理">原理</h3>
+<ul>
+<li>网络端控制的移动管理
+<ul>
+<li>在网络中引入一个功能实体代理移动节点执行与家乡代理之间的信令</li>
+</ul>
+</li>
+<li>本地移动管理
+<ul>
+<li>在本地管理域中引入一个类似家乡代理的功能实体，负责管理域内的移动管理操作</li>
+</ul>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信网实验2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信网实验1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第一章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第三章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第五章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKsFzXQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKsFzXc4Ca3tc"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark_high_contrast"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('dark_high_contrast');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

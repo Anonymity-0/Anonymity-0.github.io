@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='•基本概念
+–QoS度量参数；流、行为集合、服务等级协议
+基本概念 QoS度量参数 常用的描述QoS需求的参数包括：带宽、延迟、延迟抖动、突发（峰值）速率、最大突发长度、丢包率
+带宽 ：给定介质、协议或连接的额定吞吐量，实际上指应用程序在网络中通信所需要的“管道大小”，也可以认为是用户对网络传输速率的要求 最小带宽（最小分组速率）：传输中的最小瞬时速率，可用产生两个相邻分组的最大时间间隔的倒数来表示 峰值带宽（峰值分组速率）：传输中的最大瞬时速率，可用产生两个相邻分组的最短时间间隔的倒数来表示 平均带宽（平均分组速率）：一段时间内分组传输的平均速率 延迟：分组从发送端到达接收端的时间间隔 传输延迟：发送分组的第一个比特到发送最后一个比特的时间间隔，取决于发送接口的速率和分组的大小 传播延迟：发送分组的一个比特到接收端接收到该比特的时间间隔，取决于传输介质和传输距离 处理延迟：分组从到达节点到进入输出队列的时间间隔，包括对分组头标处理，路由查找等，取决于节点的处理能力和分组处理的复杂度 排队延迟：分组从进入输出队列到开始输出的时间间隔，取决于队列长度和调度策略 ![[Pasted image 20240102164138.png]] 延迟抖动：端到端延迟的变化特性，由延迟的可变部分的变化导致的，流量的突发、不公平的队列调度算法都可能导致较大的延迟抖动 流 从一个源到一个目的的有序分组集合被称为一个流（Flow) 一般来说，流是由特定于具体应用并且具有相同QoS需求的分组所组成 一个流和一个应用会话（Session）相对应，所以在后面叙述中有时将流的概念和会话的概念等同 ==IP网络中通常用五元组&amp;lt;源IP地址、目的IP地址、源端口号、目的端口号、协议&amp;gt;来标识一个流== 在面向连接的网络中，属于同一个流的所有分组将会走相同的路径到达目的地 ，在无连接的网络中，属于同一个流的分组可能会走不同的路径到达目的地 行为集合 在路由器上执行相同QoS操作的分组的集合 多个流如果具有相同的QoS操作，则在路由器上可以汇聚成一个行为集合 ==行为集合有时与类（Class）的概念等同，流可以看作是只有1个流的行为集合或者类== 支持QoS操作的路由器功能 接纳控制 当应用要求QoS服务时，判断其要求是否能够得到满足，应该是放在每个网络的入口路由器上 流量调节 检查到达的分组是否满足SLA中设定的QoS水平，如果不满足，实施事先指定的整形操作，包括丢弃、延迟、重标记等 流量控制 为了满足QoS需求（带宽、丢包率、延迟、延迟抖动等），选择是否向输出链路输出分组以及控制分组的输出顺序（即队列管理和调度），该功能设置在输出端口处 两个服务质量模型 综合服务原理 资源预留 发送应用通过建立消息将想发送流的流量特性发送给路径上的每个路由器和接收主机 路径上路由器在建立消息中附加上可以提供的QoS信息（例如预测的延迟等）送给接收主机 接收应用接收预留建立消息中的QoS信息，决定数据传输所需QoS参数，并将其通过预留消息沿相反路径通知给沿途路由器和发送主机 路径上的路由器根据预留消息预留所需网络资源 数据流传输 发送主机发送遵循预留规定的数据流 流量调节 中间路由器监测数据流是否满足预留规定，如果不满足 对于保证型服务，采用整形 对于受控负载型服务，将不符合的分组转为尽力服务 流量控制 路由器根据指定的服务类型，对每个流的分组进行调度和队列管理，实现指定QoS（带宽、延迟等） 综合服务类型 ![[Pasted image 20240102171144.png]]
+综合服务缺点 基于流的细粒度资源分配，存在可扩展性问题 带宽、存储、处理开销随着流的数量的增加而急剧增长 区分服务原理 预先设置PHB 在支持区分服务的网络中，由网络管理员事先在每个路由器上设置行为集合（DSCP）所对应的PHB 数据传输 应用P直接向接收主机B发送分组，分组到达R1首先进行分类，标记其DSCP为101110，判断其速率是否大于1Mbps，如果是，则进行丢弃整形。R2、R3根据分组DSCP执行相应的PHB，即以1Mbps的速率转发分组 • PHB（逐跳行为）： 在每个节点上描述根据DSCP对特定行为集合（类）进行资源分配的方式，具体由相应的流量控制（队列管理和调度）来实现
+EFPHB，加速转发型PHB 提供低丢失率、低延时和低延时抖动的服务 严格限制EF分组到达路由器的速率小于设定的路由器转发EF分组的速率 通过在位于网络入口的路由器上限制进入的EF分组不超过某一最大速率，从而实现对EF分组速率的限制 EF由具体的调度算法来实现 推荐DSCP为101110（46） AF确定转发型PHB 比尽力更好的PHB，为用户提供不同级别的转发保证,定义了四个等级，每个等级定义了3个丢弃优先级 DSCP 服务等级/丢弃优先级 等级 1 等级 2 等级 3 等级 4 低 001010 010010 011010 100010 中 001100 010100 011100 100100 高 001110 010110 011110 100110 IP分组转发保证取决于: 多少资源分配给此分组所属的AF等级,以及此AF等级当前的负载和拥塞情况 分组的丢弃优先级 !'>
+<title>信息网络协议基础第五章复习</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信息网络协议基础第五章复习'>
+<meta property='og:description' content='•基本概念
+–QoS度量参数；流、行为集合、服务等级协议
+基本概念 QoS度量参数 常用的描述QoS需求的参数包括：带宽、延迟、延迟抖动、突发（峰值）速率、最大突发长度、丢包率
+带宽 ：给定介质、协议或连接的额定吞吐量，实际上指应用程序在网络中通信所需要的“管道大小”，也可以认为是用户对网络传输速率的要求 最小带宽（最小分组速率）：传输中的最小瞬时速率，可用产生两个相邻分组的最大时间间隔的倒数来表示 峰值带宽（峰值分组速率）：传输中的最大瞬时速率，可用产生两个相邻分组的最短时间间隔的倒数来表示 平均带宽（平均分组速率）：一段时间内分组传输的平均速率 延迟：分组从发送端到达接收端的时间间隔 传输延迟：发送分组的第一个比特到发送最后一个比特的时间间隔，取决于发送接口的速率和分组的大小 传播延迟：发送分组的一个比特到接收端接收到该比特的时间间隔，取决于传输介质和传输距离 处理延迟：分组从到达节点到进入输出队列的时间间隔，包括对分组头标处理，路由查找等，取决于节点的处理能力和分组处理的复杂度 排队延迟：分组从进入输出队列到开始输出的时间间隔，取决于队列长度和调度策略 ![[Pasted image 20240102164138.png]] 延迟抖动：端到端延迟的变化特性，由延迟的可变部分的变化导致的，流量的突发、不公平的队列调度算法都可能导致较大的延迟抖动 流 从一个源到一个目的的有序分组集合被称为一个流（Flow) 一般来说，流是由特定于具体应用并且具有相同QoS需求的分组所组成 一个流和一个应用会话（Session）相对应，所以在后面叙述中有时将流的概念和会话的概念等同 ==IP网络中通常用五元组&amp;lt;源IP地址、目的IP地址、源端口号、目的端口号、协议&amp;gt;来标识一个流== 在面向连接的网络中，属于同一个流的所有分组将会走相同的路径到达目的地 ，在无连接的网络中，属于同一个流的分组可能会走不同的路径到达目的地 行为集合 在路由器上执行相同QoS操作的分组的集合 多个流如果具有相同的QoS操作，则在路由器上可以汇聚成一个行为集合 ==行为集合有时与类（Class）的概念等同，流可以看作是只有1个流的行为集合或者类== 支持QoS操作的路由器功能 接纳控制 当应用要求QoS服务时，判断其要求是否能够得到满足，应该是放在每个网络的入口路由器上 流量调节 检查到达的分组是否满足SLA中设定的QoS水平，如果不满足，实施事先指定的整形操作，包括丢弃、延迟、重标记等 流量控制 为了满足QoS需求（带宽、丢包率、延迟、延迟抖动等），选择是否向输出链路输出分组以及控制分组的输出顺序（即队列管理和调度），该功能设置在输出端口处 两个服务质量模型 综合服务原理 资源预留 发送应用通过建立消息将想发送流的流量特性发送给路径上的每个路由器和接收主机 路径上路由器在建立消息中附加上可以提供的QoS信息（例如预测的延迟等）送给接收主机 接收应用接收预留建立消息中的QoS信息，决定数据传输所需QoS参数，并将其通过预留消息沿相反路径通知给沿途路由器和发送主机 路径上的路由器根据预留消息预留所需网络资源 数据流传输 发送主机发送遵循预留规定的数据流 流量调节 中间路由器监测数据流是否满足预留规定，如果不满足 对于保证型服务，采用整形 对于受控负载型服务，将不符合的分组转为尽力服务 流量控制 路由器根据指定的服务类型，对每个流的分组进行调度和队列管理，实现指定QoS（带宽、延迟等） 综合服务类型 ![[Pasted image 20240102171144.png]]
+综合服务缺点 基于流的细粒度资源分配，存在可扩展性问题 带宽、存储、处理开销随着流的数量的增加而急剧增长 区分服务原理 预先设置PHB 在支持区分服务的网络中，由网络管理员事先在每个路由器上设置行为集合（DSCP）所对应的PHB 数据传输 应用P直接向接收主机B发送分组，分组到达R1首先进行分类，标记其DSCP为101110，判断其速率是否大于1Mbps，如果是，则进行丢弃整形。R2、R3根据分组DSCP执行相应的PHB，即以1Mbps的速率转发分组 • PHB（逐跳行为）： 在每个节点上描述根据DSCP对特定行为集合（类）进行资源分配的方式，具体由相应的流量控制（队列管理和调度）来实现
+EFPHB，加速转发型PHB 提供低丢失率、低延时和低延时抖动的服务 严格限制EF分组到达路由器的速率小于设定的路由器转发EF分组的速率 通过在位于网络入口的路由器上限制进入的EF分组不超过某一最大速率，从而实现对EF分组速率的限制 EF由具体的调度算法来实现 推荐DSCP为101110（46） AF确定转发型PHB 比尽力更好的PHB，为用户提供不同级别的转发保证,定义了四个等级，每个等级定义了3个丢弃优先级 DSCP 服务等级/丢弃优先级 等级 1 等级 2 等级 3 等级 4 低 001010 010010 011010 100010 中 001100 010100 011100 100100 高 001110 010110 011110 100110 IP分组转发保证取决于: 多少资源分配给此分组所属的AF等级,以及此AF等级当前的负载和拥塞情况 分组的丢弃优先级 !'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' />
+<meta name="twitter:title" content="信息网络协议基础第五章复习">
+<meta name="twitter:description" content="•基本概念
+–QoS度量参数；流、行为集合、服务等级协议
+基本概念 QoS度量参数 常用的描述QoS需求的参数包括：带宽、延迟、延迟抖动、突发（峰值）速率、最大突发长度、丢包率
+带宽 ：给定介质、协议或连接的额定吞吐量，实际上指应用程序在网络中通信所需要的“管道大小”，也可以认为是用户对网络传输速率的要求 最小带宽（最小分组速率）：传输中的最小瞬时速率，可用产生两个相邻分组的最大时间间隔的倒数来表示 峰值带宽（峰值分组速率）：传输中的最大瞬时速率，可用产生两个相邻分组的最短时间间隔的倒数来表示 平均带宽（平均分组速率）：一段时间内分组传输的平均速率 延迟：分组从发送端到达接收端的时间间隔 传输延迟：发送分组的第一个比特到发送最后一个比特的时间间隔，取决于发送接口的速率和分组的大小 传播延迟：发送分组的一个比特到接收端接收到该比特的时间间隔，取决于传输介质和传输距离 处理延迟：分组从到达节点到进入输出队列的时间间隔，包括对分组头标处理，路由查找等，取决于节点的处理能力和分组处理的复杂度 排队延迟：分组从进入输出队列到开始输出的时间间隔，取决于队列长度和调度策略 ![[Pasted image 20240102164138.png]] 延迟抖动：端到端延迟的变化特性，由延迟的可变部分的变化导致的，流量的突发、不公平的队列调度算法都可能导致较大的延迟抖动 流 从一个源到一个目的的有序分组集合被称为一个流（Flow) 一般来说，流是由特定于具体应用并且具有相同QoS需求的分组所组成 一个流和一个应用会话（Session）相对应，所以在后面叙述中有时将流的概念和会话的概念等同 ==IP网络中通常用五元组&amp;lt;源IP地址、目的IP地址、源端口号、目的端口号、协议&amp;gt;来标识一个流== 在面向连接的网络中，属于同一个流的所有分组将会走相同的路径到达目的地 ，在无连接的网络中，属于同一个流的分组可能会走不同的路径到达目的地 行为集合 在路由器上执行相同QoS操作的分组的集合 多个流如果具有相同的QoS操作，则在路由器上可以汇聚成一个行为集合 ==行为集合有时与类（Class）的概念等同，流可以看作是只有1个流的行为集合或者类== 支持QoS操作的路由器功能 接纳控制 当应用要求QoS服务时，判断其要求是否能够得到满足，应该是放在每个网络的入口路由器上 流量调节 检查到达的分组是否满足SLA中设定的QoS水平，如果不满足，实施事先指定的整形操作，包括丢弃、延迟、重标记等 流量控制 为了满足QoS需求（带宽、丢包率、延迟、延迟抖动等），选择是否向输出链路输出分组以及控制分组的输出顺序（即队列管理和调度），该功能设置在输出端口处 两个服务质量模型 综合服务原理 资源预留 发送应用通过建立消息将想发送流的流量特性发送给路径上的每个路由器和接收主机 路径上路由器在建立消息中附加上可以提供的QoS信息（例如预测的延迟等）送给接收主机 接收应用接收预留建立消息中的QoS信息，决定数据传输所需QoS参数，并将其通过预留消息沿相反路径通知给沿途路由器和发送主机 路径上的路由器根据预留消息预留所需网络资源 数据流传输 发送主机发送遵循预留规定的数据流 流量调节 中间路由器监测数据流是否满足预留规定，如果不满足 对于保证型服务，采用整形 对于受控负载型服务，将不符合的分组转为尽力服务 流量控制 路由器根据指定的服务类型，对每个流的分组进行调度和队列管理，实现指定QoS（带宽、延迟等） 综合服务类型 ![[Pasted image 20240102171144.png]]
+综合服务缺点 基于流的细粒度资源分配，存在可扩展性问题 带宽、存储、处理开销随着流的数量的增加而急剧增长 区分服务原理 预先设置PHB 在支持区分服务的网络中，由网络管理员事先在每个路由器上设置行为集合（DSCP）所对应的PHB 数据传输 应用P直接向接收主机B发送分组，分组到达R1首先进行分类，标记其DSCP为101110，判断其速率是否大于1Mbps，如果是，则进行丢弃整形。R2、R3根据分组DSCP执行相应的PHB，即以1Mbps的速率转发分组 • PHB（逐跳行为）： 在每个节点上描述根据DSCP对特定行为集合（类）进行资源分配的方式，具体由相应的流量控制（队列管理和调度）来实现
+EFPHB，加速转发型PHB 提供低丢失率、低延时和低延时抖动的服务 严格限制EF分组到达路由器的速率小于设定的路由器转发EF分组的速率 通过在位于网络入口的路由器上限制进入的EF分组不超过某一最大速率，从而实现对EF分组速率的限制 EF由具体的调度算法来实现 推荐DSCP为101110（46） AF确定转发型PHB 比尽力更好的PHB，为用户提供不同级别的转发保证,定义了四个等级，每个等级定义了3个丢弃优先级 DSCP 服务等级/丢弃优先级 等级 1 等级 2 等级 3 等级 4 低 001010 010010 011010 100010 中 001100 010100 011100 100100 高 001110 010110 011110 100110 IP分组转发保证取决于: 多少资源分配给此分组所属的AF等级,以及此AF等级当前的负载和拥塞情况 分组的丢弃优先级 !">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#基本概念">基本概念</a>
+      <ol>
+        <li><a href="#qos度量参数">QoS度量参数</a></li>
+        <li><a href="#流">流</a></li>
+        <li><a href="#行为集合">行为集合</a></li>
+      </ol>
+    </li>
+    <li><a href="#支持qos操作的路由器功能">支持QoS操作的路由器功能</a></li>
+    <li><a href="#两个服务质量模型">两个服务质量模型</a>
+      <ol>
+        <li><a href="#综合服务原理">综合服务原理</a></li>
+        <li><a href="#综合服务类型">综合服务类型</a></li>
+        <li><a href="#综合服务缺点">综合服务缺点</a></li>
+        <li><a href="#区分服务原理">区分服务原理</a></li>
+        <li><a href="#phb逐跳行为">PHB（逐跳行为）：</a>
+          <ol>
+            <li><a href="#efphb加速转发型phb">EFPHB，加速转发型PHB</a></li>
+            <li><a href="#af确定转发型phb">AF确定转发型PHB</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" >
+                信息网络协议基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">信息网络协议基础第五章复习</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>•基本概念</p>
+<p>–QoS度量参数；流、行为集合、服务等级协议</p>
+<h2 id="基本概念">基本概念</h2>
+<h3 id="qos度量参数">QoS度量参数</h3>
+<p>常用的描述QoS需求的参数包括：带宽、延迟、延迟抖动、突发（峰值）速率、最大突发长度、丢包率</p>
+<ul>
+<li>带宽 ：给定介质、协议或连接的额定吞吐量，实际上指应用程序在网络中通信所需要的“管道大小”，也可以认为是用户对网络传输速率的要求
+<ul>
+<li>最小带宽（最小分组速率）：传输中的最小瞬时速率，可用产生两个相邻分组的最大时间间隔的倒数来表示</li>
+<li>峰值带宽（峰值分组速率）：传输中的最大瞬时速率，可用产生两个相邻分组的最短时间间隔的倒数来表示</li>
+<li>平均带宽（平均分组速率）：一段时间内分组传输的平均速率</li>
+</ul>
+</li>
+<li>延迟：分组从发送端到达接收端的时间间隔
+<ul>
+<li>传输延迟：发送分组的第一个比特到发送最后一个比特的时间间隔，取决于发送接口的速率和分组的大小</li>
+<li>传播延迟：发送分组的一个比特到接收端接收到该比特的时间间隔，取决于传输介质和传输距离</li>
+<li>处理延迟：分组从到达节点到进入输出队列的时间间隔，包括对分组头标处理，路由查找等，取决于节点的处理能力和分组处理的复杂度</li>
+<li><font color="#ff0000">排队延迟：分组从进入输出队列到开始输出的时间间隔，取决于队列长度和调度策略</font></li>
+<li>![[Pasted image 20240102164138.png]]</li>
+</ul>
+</li>
+<li>延迟抖动：端到端延迟的变化特性，由延迟的可变部分的变化导致的，流量的突发、不公平的队列调度算法都可能导致较大的延迟抖动</li>
+</ul>
+<h3 id="流">流</h3>
+<ul>
+<li>从一个源到一个目的的有序分组集合被称为一个流（Flow)</li>
+<li>一般来说，流是由特定于具体应用并且具有相同QoS需求的分组所组成</li>
+<li>一个流和一个应用会话（Session）相对应，所以在后面叙述中有时将流的概念和会话的概念等同</li>
+<li>==IP网络中通常用五元组&lt;源IP地址、目的IP地址、源端口号、目的端口号、协议&gt;来标识一个流==</li>
+<li>在面向连接的网络中，属于同一个流的所有分组将会走相同的路径到达目的地 ，在无连接的网络中，属于同一个流的分组可能会走不同的路径到达目的地</li>
+</ul>
+<h3 id="行为集合">行为集合</h3>
+<ul>
+<li>在路由器上执行相同QoS操作的分组的集合</li>
+<li>多个流如果具有相同的QoS操作，则在路由器上可以汇聚成一个行为集合</li>
+<li>==行为集合有时与类（Class）的概念等同，流可以看作是只有1个流的行为集合或者类==</li>
+</ul>
+<h2 id="支持qos操作的路由器功能">支持QoS操作的路由器功能</h2>
+<ol>
+<li>接纳控制
+当应用要求QoS服务时，判断其要求是否能够得到满足，应该是放在每个网络的入口路由器上</li>
+<li>流量调节
+检查到达的分组是否满足SLA中设定的QoS水平，如果不满足，实施事先指定的整形操作，包括丢弃、延迟、重标记等</li>
+<li>流量控制
+为了满足QoS需求（带宽、丢包率、延迟、延迟抖动等），选择是否向输出链路输出分组以及控制分组的输出顺序（即队列管理和调度），该功能设置在输出端口处</li>
+</ol>
+<h2 id="两个服务质量模型">两个服务质量模型</h2>
+<h3 id="综合服务原理">综合服务原理</h3>
+<ol>
+<li>资源预留
+<ol>
+<li>发送应用通过<font color="#ff0000">建立消息</font>将想发送流的流量特性发送给路径上的每个路由器和接收主机</li>
+<li>路径上路由器在<font color="#ff0000">建立消息</font>中附加上可以提供的QoS信息（例如预测的延迟等）送给接收主机</li>
+<li>接收应用接收<font color="#ff0000">预留建立</font>消息中的QoS信息，决定数据传输所需QoS参数，并将其通过预留消息沿相反路径通知给沿途路由器和发送主机</li>
+<li>路径上的路由器根据<font color="#ff0000">预留消息</font>预留所需网络资源</li>
+</ol>
+</li>
+<li>数据流传输
+<ul>
+<li>发送主机发送遵循预留规定的数据流</li>
+</ul>
+</li>
+<li>流量调节</li>
+</ol>
+<ul>
+<li>中间路由器监测数据流是否满足预留规定，如果不满足
+<ul>
+<li>对于保证型服务，采用整形</li>
+<li>对于受控负载型服务，将不符合的分组转为尽力服务</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>流量控制
+<ul>
+<li>路由器根据指定的服务类型，对每个流的分组进行调度和队列管理，实现指定QoS（带宽、延迟等）</li>
+</ul>
+</li>
+</ol>
+<h3 id="综合服务类型">综合服务类型</h3>
+<p>![[Pasted image 20240102171144.png]]</p>
+<h3 id="综合服务缺点">综合服务缺点</h3>
+<ul>
+<li>基于流的细粒度资源分配，存在可扩展性问题</li>
+<li><font color="#ff0000">带宽、存储、处理开销随着流的数量的增加而急剧增长</font></li>
+</ul>
+<h3 id="区分服务原理">区分服务原理</h3>
+<ol>
+<li>预先设置PHB
+在支持区分服务的网络中，由网络管理员事先在每个路由器上设置行为集合（DSCP）所对应的PHB</li>
+<li>数据传输
+应用P直接向接收主机B发送分组，分组到达R1首先进行分类，标记其DSCP为101110，判断其速率是否大于1Mbps，如果是，则进行丢弃整形。R2、R3根据分组DSCP执行相应的PHB，即以1Mbps的速率转发分组
+•</li>
+</ol>
+<h3 id="phb逐跳行为">PHB（逐跳行为）：</h3>
+<p>在每个节点上描述根据DSCP对特定行为集合（类）进行资源分配的方式，具体由相应的流量控制（队列管理和调度）来实现</p>
+<h4 id="efphb加速转发型phb">EFPHB，加速转发型PHB</h4>
+<ul>
+<li>提供低丢失率、低延时和低延时抖动的服务</li>
+<li>严格限制EF分组到达路由器的速率小于设定的路由器转发EF分组的速率</li>
+<li>通过在位于网络入口的路由器上限制进入的EF分组不超过某一最大速率，从而实现对EF分组速率的限制</li>
+<li>EF由具体的调度算法来实现</li>
+<li>推荐DSCP为101110（46）</li>
+</ul>
+<h4 id="af确定转发型phb">AF确定转发型PHB</h4>
+<ul>
+<li>比尽力更好的PHB，为用户提供不同级别的转发保证,定义了四个等级，每个等级定义了3个丢弃优先级</li>
+<li>DSCP</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>服务等级/丢弃优先级</th>
+<th>等级 1</th>
+<th>等级 2</th>
+<th>等级 3</th>
+<th>等级 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>低</td>
+<td>001010</td>
+<td>010010</td>
+<td>011010</td>
+<td>100010</td>
+</tr>
+<tr>
+<td>中</td>
+<td>001100</td>
+<td>010100</td>
+<td>011100</td>
+<td>100100</td>
+</tr>
+<tr>
+<td>高</td>
+<td>001110</td>
+<td>010110</td>
+<td>011110</td>
+<td>100110</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>IP分组转发保证取决于:
+<ul>
+<li>多少资源分配给此分组所属的AF等级,以及此AF等级当前的负载和拥塞情况</li>
+<li>分组的丢弃优先级
+![[Pasted image 20240102171449.png]]</li>
+</ul>
+</li>
+</ul>
+<p>试图结合综合服务和区分服务的优点</p>
+<ul>
+<li>综合服务提供细粒度的以流（Flow）为单位的QoS，并且通过资源预留能够保证端到端的QoS,<font color="#ff0000">适用于规模较小的接入网络</font></li>
+<li>区分服务通过对流进行聚类（BA），并且在路由器上事先设置分组的处理规则（PHB），具有更好的可扩展性,<font color="#ff0000">适用于业务流量大的核心网</font></li>
+</ul>
+<p>在6to4网络中，IPv6地址的前32位是固定的2002，接下来的32位是IPv4地址的16进制表示。因此，路由器R的IPv4地址238.136.16.1对应的16进制表示为EE88:1001。所以，我们可以给子网W1和W2分配的6to4子网前缀如下：</p>
+<ul>
+<li>子网W1的6to4子网前缀：2002:EE88:1001:1::/64</li>
+<li>子网W2的6to4子网前缀：2002:EE88:1001:2::/64</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信网实验2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信网实验1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第一章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第三章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第六章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKsFzXQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKsFzXc4Ca3tc"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark_high_contrast"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('dark_high_contrast');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

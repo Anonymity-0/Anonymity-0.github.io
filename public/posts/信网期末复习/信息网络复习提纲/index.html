@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='题型：简答题问答题
+第一章 信息网络概述 ﻿交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP） 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络
+交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成
+电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程
+（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 网络体系结构 ﻿现有网络体系结构面临哪些主要挑战？有哪些主要的解决方案？ 第二章 接入网技术 接入网架构 ﻿常用接入网络类型有哪些？各自有什么特点？ ﻿﻿802.11无线局域网 - 共享、资源利用率高、成本低 - 共享信道的访问控制机制 - 覆盖范围 ﻿基本CSMA/CA原理、扩展CSMA/CA原理 RTS、CTS ﻿站点切换过程 无源光接入网 ﻿PON网络架构、关键技术 ATM的apon 以太网EPON 第三章IPv6协议 NATA\CIDR ﻿﻿NAT技术原理及其局限性 ﻿﻿前缀汇聚、前缀最长匹配规则； 学会汇聚 带来问题：路由匹配到多个表项 ﻿﻿路由表配置 使得路由表项最少 ﻿﻿IPv6地址 ﻿﻿链路局部地址、全局地址、常用组播地址（全节点、全路由器、被请求节点）
+地址范围 被请求节点地址是邻居发现机制非常重要的地址 ﻿﻿IPv6邻居发现机制
+地址解析、地址重复检测、路由器发现 ﻿﻿基于EUI-64地址的IPv6地址自动配置过程 ﻿﻿IPv4/IPv6过渡机制
+﻿﻿手动隧道配置、自动隧道（ISATAP、6to4）原理和配置 掌握基本的IP网络配置，包括地址、路由等 注意实验
+第四章IP网络移动管理 重新配置ip地址
+移动切换 网络层切换与链路层切换 ﻿﻿移动IPv6 ﻿基本原理、如何对上层应用屏蔽移动性？ ﻿可以优化的地方？ ﻿﻿PMIPv6 ﻿引入原因及原理 第五章IP网络服务质量 ﻿基本概念 服务质量度量：延迟、带宽、丢包率 QoS度量参数；流、行为集合、服务等级协议 支持QoS操作的路由器功能 接纳控制 流量调节 流量控制 两个服务质量模型 ﻿综合服务原理，综合服务类型'>
+<title>信网网络复习提纲</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%8F%90%E7%BA%B2/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信网网络复习提纲'>
+<meta property='og:description' content='题型：简答题问答题
+第一章 信息网络概述 ﻿交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP） 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络
+交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成
+电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程
+（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 网络体系结构 ﻿现有网络体系结构面临哪些主要挑战？有哪些主要的解决方案？ 第二章 接入网技术 接入网架构 ﻿常用接入网络类型有哪些？各自有什么特点？ ﻿﻿802.11无线局域网 - 共享、资源利用率高、成本低 - 共享信道的访问控制机制 - 覆盖范围 ﻿基本CSMA/CA原理、扩展CSMA/CA原理 RTS、CTS ﻿站点切换过程 无源光接入网 ﻿PON网络架构、关键技术 ATM的apon 以太网EPON 第三章IPv6协议 NATA\CIDR ﻿﻿NAT技术原理及其局限性 ﻿﻿前缀汇聚、前缀最长匹配规则； 学会汇聚 带来问题：路由匹配到多个表项 ﻿﻿路由表配置 使得路由表项最少 ﻿﻿IPv6地址 ﻿﻿链路局部地址、全局地址、常用组播地址（全节点、全路由器、被请求节点）
+地址范围 被请求节点地址是邻居发现机制非常重要的地址 ﻿﻿IPv6邻居发现机制
+地址解析、地址重复检测、路由器发现 ﻿﻿基于EUI-64地址的IPv6地址自动配置过程 ﻿﻿IPv4/IPv6过渡机制
+﻿﻿手动隧道配置、自动隧道（ISATAP、6to4）原理和配置 掌握基本的IP网络配置，包括地址、路由等 注意实验
+第四章IP网络移动管理 重新配置ip地址
+移动切换 网络层切换与链路层切换 ﻿﻿移动IPv6 ﻿基本原理、如何对上层应用屏蔽移动性？ ﻿可以优化的地方？ ﻿﻿PMIPv6 ﻿引入原因及原理 第五章IP网络服务质量 ﻿基本概念 服务质量度量：延迟、带宽、丢包率 QoS度量参数；流、行为集合、服务等级协议 支持QoS操作的路由器功能 接纳控制 流量调节 流量控制 两个服务质量模型 ﻿综合服务原理，综合服务类型'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%8F%90%E7%BA%B2/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' />
+<meta name="twitter:title" content="信网网络复习提纲">
+<meta name="twitter:description" content="题型：简答题问答题
+第一章 信息网络概述 ﻿交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP） 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络
+交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成
+电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程
+（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 网络体系结构 ﻿现有网络体系结构面临哪些主要挑战？有哪些主要的解决方案？ 第二章 接入网技术 接入网架构 ﻿常用接入网络类型有哪些？各自有什么特点？ ﻿﻿802.11无线局域网 - 共享、资源利用率高、成本低 - 共享信道的访问控制机制 - 覆盖范围 ﻿基本CSMA/CA原理、扩展CSMA/CA原理 RTS、CTS ﻿站点切换过程 无源光接入网 ﻿PON网络架构、关键技术 ATM的apon 以太网EPON 第三章IPv6协议 NATA\CIDR ﻿﻿NAT技术原理及其局限性 ﻿﻿前缀汇聚、前缀最长匹配规则； 学会汇聚 带来问题：路由匹配到多个表项 ﻿﻿路由表配置 使得路由表项最少 ﻿﻿IPv6地址 ﻿﻿链路局部地址、全局地址、常用组播地址（全节点、全路由器、被请求节点）
+地址范围 被请求节点地址是邻居发现机制非常重要的地址 ﻿﻿IPv6邻居发现机制
+地址解析、地址重复检测、路由器发现 ﻿﻿基于EUI-64地址的IPv6地址自动配置过程 ﻿﻿IPv4/IPv6过渡机制
+﻿﻿手动隧道配置、自动隧道（ISATAP、6to4）原理和配置 掌握基本的IP网络配置，包括地址、路由等 注意实验
+第四章IP网络移动管理 重新配置ip地址
+移动切换 网络层切换与链路层切换 ﻿﻿移动IPv6 ﻿基本原理、如何对上层应用屏蔽移动性？ ﻿可以优化的地方？ ﻿﻿PMIPv6 ﻿引入原因及原理 第五章IP网络服务质量 ﻿基本概念 服务质量度量：延迟、带宽、丢包率 QoS度量参数；流、行为集合、服务等级协议 支持QoS操作的路由器功能 接纳控制 流量调节 流量控制 两个服务质量模型 ﻿综合服务原理，综合服务类型">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#第一章-信息网络概述">第一章 信息网络概述</a>
+      <ol>
+        <li><a href="#交换技术">﻿交换技术</a>
+          <ol>
+            <li><a href="#为什么需要交换">为什么需要交换？</a></li>
+            <li><a href="#交换的概念">交换的概念</a></li>
+            <li><a href="#电路交换概念">电路交换：概念</a></li>
+            <li><a href="#电路交换特征">电路交换：特征</a></li>
+            <li><a href="#电路交换性能">电路交换：性能</a></li>
+          </ol>
+        </li>
+        <li><a href="#网络体系结构">网络体系结构</a></li>
+      </ol>
+    </li>
+    <li><a href="#第二章-接入网技术">第二章 接入网技术</a>
+      <ol>
+        <li><a href="#接入网架构">接入网架构</a></li>
+        <li><a href="#80211无线局域网">﻿﻿802.11无线局域网</a></li>
+        <li><a href="#无源光接入网">无源光接入网</a></li>
+      </ol>
+    </li>
+    <li><a href="#第三章ipv6协议">第三章IPv6协议</a></li>
+    <li><a href="#natacidr">NATA\CIDR</a>
+      <ol>
+        <li><a href="#ipv6地址">﻿﻿IPv6地址</a></li>
+      </ol>
+    </li>
+    <li><a href="#第四章ip网络移动管理">第四章IP网络移动管理</a>
+      <ol>
+        <li><a href="#移动切换">移动切换</a></li>
+        <li><a href="#移动ipv6">﻿﻿移动IPv6</a></li>
+        <li><a href="#pmipv6">﻿﻿PMIPv6</a></li>
+      </ol>
+    </li>
+    <li><a href="#第五章ip网络服务质量">第五章IP网络服务质量</a>
+      <ol>
+        <li><a href="#基本概念">﻿基本概念</a></li>
+        <li><a href="#支持qos操作的路由器功能">支持QoS操作的路由器功能</a></li>
+        <li><a href="#两个服务质量模型">两个服务质量模型</a></li>
+      </ol>
+    </li>
+    <li><a href="#第六章-路由和交換">第六章 路由和交換</a>
+      <ol>
+        <li><a href="#路由器功能与架构">路由器功能与架构</a></li>
+        <li><a href="#路由查找算法">﻿路由查找算法</a></li>
+        <li><a href="#交换结构">﻿﻿交换结构</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" >
+                信息网络协议基础
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%8F%90%E7%BA%B2/">信网网络复习提纲</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>题型：简答题问答题</p>
+<h2 id="第一章-信息网络概述">第一章 信息网络概述</h2>
+<h3 id="交换技术">﻿交换技术</h3>
+<ul>
+<li>交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）
+<ul>
+<li>原理 特点</li>
+</ul>
+</li>
+</ul>
+<h4 id="为什么需要交换">为什么需要交换？</h4>
+<p>减少网络中节点之间所需的通信线路
+增强可扩展性,构建更大规模网络</p>
+<h4 id="交换的概念">交换的概念</h4>
+<p>交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上
+网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成</p>
+<h4 id="电路交换概念">电路交换：概念</h4>
+<ul>
+<li>交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径</li>
+<li>传输路径建立后，数据像流一样在路径上传输
+<ul>
+<li>空分交换：传输路径由线路组成</li>
+<li>时分交换：传输路径由每条线路上的固定时隙组成</li>
+</ul>
+</li>
+</ul>
+<h4 id="电路交换特征">电路交换：特征</h4>
+<p>网络通信包括三个过程</p>
+<ul>
+<li>（发送）端到（接收）端电路连接建立</li>
+<li>数据传输</li>
+<li>电路连接拆除
+优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性
+缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟</li>
+</ul>
+<h4 id="电路交换性能">电路交换：性能</h4>
+<h3 id="网络体系结构">网络体系结构</h3>
+<ul>
+<li>﻿现有网络体系结构面临哪些主要挑战？有哪些主要的解决方案？</li>
+</ul>
+<h2 id="第二章-接入网技术">第二章 接入网技术</h2>
+<h3 id="接入网架构">接入网架构</h3>
+<ul>
+<li>﻿常用接入网络类型有哪些？各自有什么特点？</li>
+</ul>
+<h3 id="80211无线局域网">﻿﻿802.11无线局域网</h3>
+<pre><code>- 共享、资源利用率高、成本低
+- 共享信道的访问控制机制
+- 覆盖范围
+</code></pre>
+<ul>
+<li>﻿基本CSMA/CA原理、扩展CSMA/CA原理
+<ul>
+<li>RTS、CTS</li>
+</ul>
+</li>
+<li>﻿站点切换过程</li>
+</ul>
+<h3 id="无源光接入网">无源光接入网</h3>
+<ul>
+<li>﻿PON网络架构、关键技术
+ATM的apon
+以太网EPON</li>
+</ul>
+<h2 id="第三章ipv6协议">第三章IPv6协议</h2>
+<h2 id="natacidr">NATA\CIDR</h2>
+<ul>
+<li>﻿﻿NAT技术原理及其局限性</li>
+<li></li>
+<li>﻿﻿<strong>前缀汇聚、前缀最长匹配规则</strong>；
+<ul>
+<li>学会汇聚</li>
+<li>带来问题：路由匹配到多个表项</li>
+<li></li>
+</ul>
+</li>
+<li>﻿﻿<strong>路由表配置</strong>
+<ul>
+<li>使得路由表项最少</li>
+</ul>
+</li>
+</ul>
+<h3 id="ipv6地址">﻿﻿IPv6地址</h3>
+<ul>
+<li>
+<p>﻿﻿<strong>链路局部地址</strong>、全局地址、常用组播地址（全节点、全路由器、<strong>被请求节点</strong>）</p>
+<ul>
+<li>地址范围</li>
+<li>被请求节点地址是邻居发现机制非常重要的地址</li>
+</ul>
+</li>
+<li>
+<p>﻿﻿IPv6邻居发现机制</p>
+<ul>
+<li>地址解析、地址重复检测、路由器发现</li>
+<li>﻿﻿基于EUI-64地址的IPv6<strong>地址自动配置过程</strong></li>
+</ul>
+</li>
+<li>
+<p>﻿﻿IPv4/IPv6过渡机制</p>
+<ul>
+<li>﻿﻿手动<strong>隧道配置</strong>、自动<strong>隧道</strong>（ISATAP、6to4）原理和配置</li>
+</ul>
+</li>
+</ul>
+<p>掌握基本的IP网络配置，包括地址、路由等
+注意实验</p>
+<h2 id="第四章ip网络移动管理">第四章IP网络移动管理</h2>
+<p>重新配置ip地址</p>
+<h3 id="移动切换">移动切换</h3>
+<ul>
+<li>网络层切换与链路层切换</li>
+</ul>
+<h3 id="移动ipv6">﻿﻿移动IPv6</h3>
+<ul>
+<li>﻿基本原理、如何对上层应用屏蔽移动性？</li>
+<li>﻿可以优化的地方？</li>
+</ul>
+<h3 id="pmipv6">﻿﻿PMIPv6</h3>
+<ul>
+<li>﻿引入原因及原理</li>
+</ul>
+<h2 id="第五章ip网络服务质量">第五章IP网络服务质量</h2>
+<h3 id="基本概念">﻿基本概念</h3>
+<ul>
+<li>服务质量度量：延迟、带宽、丢包率</li>
+<li>QoS度量参数；流、行为集合、服务等级协议</li>
+</ul>
+<h3 id="支持qos操作的路由器功能">支持QoS操作的路由器功能</h3>
+<ol>
+<li>接纳控制</li>
+<li>流量调节</li>
+<li>流量控制</li>
+</ol>
+<h3 id="两个服务质量模型">两个服务质量模型</h3>
+<ul>
+<li>
+<p>﻿综合服务原理，综合服务类型</p>
+</li>
+<li>
+<p>﻿区分服务原理，EF PHB和AF PHB</p>
+</li>
+</ul>
+<h2 id="第六章-路由和交換">第六章 路由和交換</h2>
+<h3 id="路由器功能与架构">路由器功能与架构</h3>
+<h3 id="路由查找算法">﻿路由查找算法</h3>
+<ul>
+<li>﻿﻿Binary Trie、Leaf Pushing、LC Trie （Multi-Bit Trie, PathCompression）、<strong>Tree Bitmap</strong>的原理和采用的数据结构</li>
+</ul>
+<h3 id="交换结构">﻿﻿交换结构</h3>
+<ul>
+<li>﻿﻿路由器吞吐量和加速、内部阻塞和输出端口竞争的概念</li>
+<li>﻿﻿3代交换结构</li>
+<li>﻿﻿Banyan交换结构</li>
+<li>﻿﻿输入队列与输出队列</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信网实验2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信网实验1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第一章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第三章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">信息网络协议基础第五章复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKsFzXQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKsFzXc4Ca3tc"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark_high_contrast"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('dark_high_contrast');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
