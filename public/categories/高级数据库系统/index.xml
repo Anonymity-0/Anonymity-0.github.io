@@ -2443,6 +2443,198 @@ TLC（小于1000次）&lt;/li&gt;
 &gt;&lt;/p&gt;
 </description>
         </item>
+        <item>
+        <title>第1章 数据库系统概述</title>
+        <link>https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC1%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</link>
+        <pubDate>Wed, 10 Jan 2024 00:40:05 +0800</pubDate>
+        
+        <guid>https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC1%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</guid>
+        <description>&lt;h2 id=&#34;11-dbms系统结构组成&#34;&gt;1.1. DBMS系统结构组成&lt;/h2&gt;
+&lt;h2 id=&#34;数据库dbms数据库系统等基本概念&#34;&gt;数据库、DBMS、数据库系统等基本概念&lt;/h2&gt;
+&lt;h3 id=&#34;数据&#34;&gt;数据&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;数据(Data)是数据库中存储的基本对象&lt;/li&gt;
+&lt;li&gt;数据的定义
+&lt;ul&gt;
+&lt;li&gt;人们用来反映客观世界而记录下来的可以鉴别的符号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;数据的种类
+&lt;ul&gt;
+&lt;li&gt;数值数据：0－9&lt;/li&gt;
+&lt;li&gt;非数值数据：字符、文字、声音、图形、图像等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;数据的特点
+&lt;ul&gt;
+&lt;li&gt;数据与其语义是不可分的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;例子1：93是一个数据
+&lt;ul&gt;
+&lt;li&gt;语义1：学生某门课的成绩&lt;/li&gt;
+&lt;li&gt;语义2：某人的体重&lt;/li&gt;
+&lt;li&gt;语义3：计算机学院2016级学生人数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;例子2：学生档案记录（李明，197205，中国科大，1990）
+&lt;ul&gt;
+&lt;li&gt;语义1：学生，出生年月，所在学校，毕业年份&lt;/li&gt;
+&lt;li&gt;语义2： 学生，出生年月，录取大学，入学时间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;数据库&#34;&gt;数据库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;数据库的定义
+数据库(Database,简称DB)是长期储存在计算机内、有
+组织的、可共享的大量数据的集合&lt;/li&gt;
+&lt;li&gt;数据库的基本特征
+&lt;ul&gt;
+&lt;li&gt;数据按一定的数据模型组织、描述和储存&lt;/li&gt;
+&lt;li&gt;可为各种用户共享&lt;/li&gt;
+&lt;li&gt;数据间联系密切，具有最小的冗余度和较高的独立性&lt;/li&gt;
+&lt;li&gt;服务于某个特定的应用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;例：图书馆的图书数据库、机场的航班数据库、银行数据库……&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;数据库模式-schema&#34;&gt;数据库模式 (Schema)&lt;/h3&gt;
+&lt;p&gt;数据库模式是数据库中全体数据的逻辑结构和特征的描述
+![[Pasted image 20240108110812.png]]&lt;/p&gt;
+&lt;h3 id=&#34;数据库管理系统&#34;&gt;数据库管理系统&lt;/h3&gt;
+&lt;p&gt;DBMS（Database Management System），是计算机程序的集
+合，用于创建和维护数据库
+![[Pasted image 20240108110347.png]]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;位于操作系统和用户应用之间&lt;/li&gt;
+&lt;li&gt;总是基于某种数据模型&lt;/li&gt;
+&lt;li&gt;数据库厂商的产品通常指DBMS，如Oracle11g、Microsoft SQL Server 2008、DB2、MySQL等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;dbms一般架构&#34;&gt;DBMS一般架构&lt;/h3&gt;
+&lt;p&gt;![[Pasted image 20240108210938.png]]&lt;/p&gt;
+&lt;h3 id=&#34;数据库系统&#34;&gt;数据库系统&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;DBS（DataBase System），指在计算机系统中引入了数据库后的系统，即采用了数据库技术的计算机系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;数据库设计问题&#34;&gt;数据库设计问题&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;如何设计和实现一个DBMS来高效的组织和管理数据库？——DBMS实现问题    研究生课程内容&lt;/li&gt;
+&lt;li&gt;如何针对特定应用的需求设计一个合理的数据库结构？——数据库设计问题       本科课程内容&lt;/li&gt;
+&lt;li&gt;应用程序如何有效地存取数据库中的数据？——数据库存取问题      本科课程内容&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;dbms实现问题&#34;&gt;DBMS实现问题&lt;/h2&gt;
+&lt;p&gt;1、一个虚拟的DBMS：Megatron2000&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;UNIX下的关系型DBMS，支持SQL&lt;/li&gt;
+&lt;li&gt;实现细节
+&lt;ul&gt;
+&lt;li&gt;关系通过文件（ASCII）存储，e.g. R存储在/usr/db/R中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;pre&gt;&lt;code&gt;  Smith # 123 # CS
+  Jones # 522 # EE
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt; - 数据库模式存储在特定的文件（ASCII）中
+	R1 # A # INT # B # STR …
+	R2 # C # STR # A # INT …
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Megatron 2000如何执行查询？
+执行 “&lt;strong&gt;select * from R where condition&lt;/strong&gt;”:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读数据字典获取R的属性&lt;/li&gt;
+&lt;li&gt;读R对应的文件，对于每一行数据:
+&lt;ul&gt;
+&lt;li&gt;检查条件&lt;/li&gt;
+&lt;li&gt;如果条件满足，则输出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;执行”&lt;strong&gt;select A,B from R,S where condition&lt;/strong&gt;”:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读数据字典获取R和S的属性&lt;/li&gt;
+&lt;li&gt;读R文件，对于每一行数据:
+&lt;ul&gt;
+&lt;li&gt;读S文件，对于每一行数据:
+&lt;ul&gt;
+&lt;li&gt;生成连接元组&lt;/li&gt;
+&lt;li&gt;检查条件&lt;/li&gt;
+&lt;li&gt;若条件满足，则输出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Megatron 2000功能总结&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以定义表&lt;/li&gt;
+&lt;li&gt;可以进行数据操作
+&lt;ul&gt;
+&lt;li&gt;数据更新&lt;/li&gt;
+&lt;li&gt;数据查询&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Megatron 2000 存在什么问题？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;元组平铺在磁盘上&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将 ’EE’改为 ’ECON’，需要重写整个文件&lt;/li&gt;
+&lt;li&gt;ASCII存储过于昂贵&lt;/li&gt;
+&lt;li&gt;删除操作同样代价很高&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;低级的查询处理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例，&lt;code&gt;select *from Student S,SC where S.sno = SC.sno and SC.credit &amp;gt; 3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先做连接比先做选择效率要低&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;未考虑更高效的连接算法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;没有缓冲区管理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据直接从磁盘存取，磁盘I/O的代价昂贵&lt;/li&gt;
+&lt;li&gt;需要Buffer来加速数据存取效率&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;没有并发控制&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;多用户同时存取数据时数据一致性得不到保证&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;没有索引；数据查询效率低&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不能快速地根据给定键值查询元组&lt;/li&gt;
+&lt;li&gt;总是要读入整个关系&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;没有可靠性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发生数据库系统故障时没有恢复机制&lt;/li&gt;
+&lt;li&gt;易出现数据不一致的情形&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;没有应用程序编程接口（API）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;应用如何存取数据库？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;糟糕的数据字典组织&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
         
     </channel>
 </rss>
