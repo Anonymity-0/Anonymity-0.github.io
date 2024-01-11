@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）
+OS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间
+从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）
+磁头定位到所要的柱面所花费的时间 平均寻道时间
+旋转延迟(Rotation Latency)
+磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)
+块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟
+CPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？
+CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块
+与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改
+将块读入主存 在主存中完成修改 将块重新写入磁盘 块地址'>
+<title>第3章 数据存储</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='第3章 数据存储'>
+<meta property='og:description' content='典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）
+OS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间
+从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）
+磁头定位到所要的柱面所花费的时间 平均寻道时间
+旋转延迟(Rotation Latency)
+磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)
+块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟
+CPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？
+CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块
+与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改
+将块读入主存 在主存中完成修改 将块重新写入磁盘 块地址'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-10T03:27:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-10T03:27:05&#43;08:00'/>
+<meta name="twitter:title" content="第3章 数据存储">
+<meta name="twitter:description" content="典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）
+OS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间
+从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）
+磁头定位到所要的柱面所花费的时间 平均寻道时间
+旋转延迟(Rotation Latency)
+磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)
+块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟
+CPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？
+CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块
+与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改
+将块读入主存 在主存中完成修改 将块重新写入磁盘 块地址">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#典型磁盘结构">典型磁盘结构</a></li>
+    <li><a href="#磁盘块存取时间">磁盘块存取时间</a>
+      <ol>
+        <li><a href="#相关计算概念">相关计算概念</a></li>
+        <li><a href="#磁盘例子-megatron747计算磁盘块存取时间">磁盘例子: Megatron747计算磁盘块存取时间</a></li>
+        <li><a href="#例题">例题</a></li>
+      </ol>
+    </li>
+    <li><a href="#磁盘存取优化">磁盘存取优化</a>
+      <ol>
+        <li><a href="#random-io-to-sequential-io">Random IO to Sequential IO</a></li>
+        <li><a href="#预取缓冲">预取/缓冲</a></li>
+      </ol>
+    </li>
+    <li><a href="#新型存储">新型存储</a>
+      <ol>
+        <li><a href="#闪存">闪存</a></li>
+        <li><a href="#相变存储器">相变存储器</a></li>
+        <li><a href="#相变存储器-phase-change-memory">相变存储器 Phase Change Memory</a></li>
+        <li><a href="#基于新型存储的计算机架构">基于新型存储的计算机架构</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" >
+                高级数据库系统
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/">第3章 数据存储</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 10, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="典型磁盘结构">典型磁盘结构</h2>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239172.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<ul>
+<li>盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面
+cylinder, 扇区 sector</li>
+</ul>
+<h2 id="磁盘块存取时间">磁盘块存取时间</h2>
+<h3 id="相关计算概念">相关计算概念</h3>
+<ul>
+<li>
+<p>块（Block）</p>
+<ul>
+<li>OS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成</li>
+<li>块是DBMS中数据存取的最小单元</li>
+<li>扇区是磁盘中数据存储的最小单元</li>
+</ul>
+</li>
+<li>
+<p>读块时间</p>
+<ul>
+<li>从“发出块存取请求”到“块位于主存”的时间</li>
+<li>读块时间＝<font color="#ff0000">寻道时间S＋旋转延迟R＋传输时间T＋其它延迟</font></li>
+</ul>
+</li>
+<li>
+<p>寻道时间（Seek Time）</p>
+<ul>
+<li>磁头定位到所要的柱面所花费的时间</li>
+</ul>
+</li>
+<li>
+<p>平均寻道时间</p>
+<ul>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239197.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>旋转延迟(Rotation Latency)</p>
+<ul>
+<li>磁盘转动到块的第一个扇区到达磁头所需的时间</li>
+<li>平均时间为旋转1/2周所费的时间</li>
+<li><font color="#245bdb">一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms</font></li>
+</ul>
+</li>
+<li>
+<p>传输延迟(Transfer Time)</p>
+<ul>
+<li>块的扇区及其间隙旋转通过磁头所需的时间</li>
+<li>如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms</li>
+</ul>
+</li>
+</ul>
+<p><strong>其它延迟</strong></p>
+<ul>
+<li>CPU请求I/O的时间 (CPU time to issueI/O)</li>
+<li>争用磁盘控制器时间 (Contention for controller)</li>
+<li>争用总线和主存的时间 (Contention forbus, memory)</li>
+</ul>
+<p><strong>如何读下一块？</strong></p>
+<ul>
+<li>CASE 1：下一块在同一柱面上
+<ul>
+<li>Sequential I/O</li>
+<li><font color="#245bdb">旋转延迟＋传输时间＋其它（忽略）</font></li>
+</ul>
+</li>
+<li>CASE 2：不在一个柱面上
+<ul>
+<li>Random I/O</li>
+<li><font color="#245bdb">寻道＋旋转＋传输＋其它</font></li>
+</ul>
+</li>
+</ul>
+<p><strong>写块</strong></p>
+<ul>
+<li>与读块类似</li>
+<li>如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间</li>
+</ul>
+<p><strong>块修改</strong></p>
+<ul>
+<li>将块读入主存</li>
+<li>在主存中完成修改</li>
+<li>将块重新写入磁盘</li>
+</ul>
+<p><strong>块地址</strong></p>
+<ul>
+<li>物理设备号</li>
+<li>柱面号</li>
+<li>盘面号（或磁头号）</li>
+<li>扇区号</li>
+</ul>
+<h3 id="磁盘例子-megatron747计算磁盘块存取时间">磁盘例子: Megatron747计算磁盘块存取时间</h3>
+<ul>
+<li>
+<p>参数
+3.5 inch
+3840 RPM
+8 surfaces
+8192 tracks/surface
+256 sectors/track
+512 bytes/sector</p>
+</li>
+<li>
+<p>Megatron 747大小 = 8*8192*256*512 = 233 = 8 GB</p>
+</li>
+<li>
+<p>寻道时间 (最大)：17.4 ms</p>
+</li>
+<li>
+<p>磁头启动停止1 ms，每移动500个柱面需1ms</p>
+</li>
+<li>
+<p>1 block ＝ 4 KB ＝ 8 sectors</p>
+</li>
+<li>
+<p>块之间的间隙占块的10%大小</p>
+</li>
+<li>
+<p>每磁道大小=(256/8)*4 KB=128KB=32块</p>
+</li>
+<li>
+<p>每柱面大小=8*128KB=1 MB</p>
+</li>
+<li>
+<p>3840 RPM → 1/64 秒/转 = 15.625 ms</p>
+</li>
+<li>
+<p>读取一个磁道时间=15.625 ms, 其中</p>
+<ul>
+<li>用于磁道数据的时间=15.625 * 0.9=14.0625 ms</li>
+<li>用于扇区间隙的时间=15.625*0.1=1.5625 ms</li>
+</ul>
+</li>
+<li>
+<p>读取一个块的时间=15.625/32－1.5625/256 ≈0.482 ms</p>
+</li>
+<li>
+<p>读取数据的时间=15.625/32 * 0.9 ≈ 0.439 ms</p>
+</li>
+<li>
+<p>OS或DBMS随机读取一块的最大时间</p>
+<ul>
+<li><font color="#245bdb">T=S＋R＋T</font>=17.4 + 15.625 + 0.482 ≈ 33. 507 ms</li>
+</ul>
+</li>
+<li>
+<p>最小时间：0.482 ms</p>
+</li>
+<li>
+<p>平均时间</p>
+<ul>
+<li><font color="#245bdb">T=S＋R＋T=6.5 + 7.8125 + 0.482 ≈ 14.8 ms</font></li>
+<li>平均寻道数＝8192/3＝2730 (see Fig.13.9)1＋2730/500 = 6.5</li>
+</ul>
+</li>
+</ul>
+<h3 id="例题">例题</h3>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239210.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239217.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239226.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239232.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h2 id="磁盘存取优化">磁盘存取优化</h2>
+<ul>
+<li>按柱面组织数据
+<ul>
+<li>减少平均寻道时间</li>
+</ul>
+</li>
+<li>磁盘调度算法
+<ul>
+<li>如电梯算法 (Elevator Algorithm)</li>
+</ul>
+</li>
+<li>磁盘阵列(Disk Arrays)</li>
+<li>磁盘镜像(Disk Mirrors)</li>
+<li>Random IO to Sequential IO</li>
+<li>预取(Pre-fetch)和缓冲(Buffering)</li>
+</ul>
+<h3 id="random-io-to-sequential-io">Random IO to Sequential IO</h3>
+<p><strong>随机I/O（Random I/O）：</strong></p>
+<p>定义：随机I/O 是指以随机的顺序访问数据的方式，即不按照存储介质上的物理顺序进行读取或写入。在随机I/O 中，数据块的访问顺序不是连续的，可能是分散的。</p>
+<p>特点：随机I/O 通常需要更多的时间和资源，因为存储设备不能有效地预取下一个数据块，而需要在不同位置之间移动磁头或访问不同的存储块。随机I/O 对于小型数据集或需要随机查找的操作比较常见。</p>
+<p>示例：从数据库表中随机读取特定记录，访问随机分布的文件块，或执行随机的内存访问操作。</p>
+<p><strong>顺序I/O（Sequential I/O）：</strong></p>
+<p>定义：顺序I/O 是指按顺序访问数据的方式，通常从存储介质中按照顺序读取或写入数据。这种访问模式通常涉及连续的数据块，一次读取或写入一个数据块，然后按照顺序移动到下一个数据块。</p>
+<p>特点：顺序I/O 是按照数据的物理存储顺序来操作的。这意味着数据块的读取或写入通常是高效的，因为存储设备可以预取（预读取）下一个数据块，以提高性能。顺序I/O 对于大型文件和数据集的扫描操作非常高效。</p>
+<p>示例：顺序读取或写入文件的内容，如逐行读取文本文件，逐个扇区地写入磁盘，以及顺序扫描数据库表中的记录等。</p>
+<p>在数据库中，我们经常会遇到两种类型的输入/输出（IO）操作：随机IO和顺序IO¹²³⁵。</p>
+<p><strong>随机IO</strong>是指读写操作的访问地址不连续，随机分布在磁盘的地址空间中³。在数据库中，索引访问就是典型的随机读IO¹。例如，当我们需要查找特定的行时，由于I/O的粒度是页级的，其中大部分可能是浪费的⁵。</p>
+<p><strong>顺序IO</strong>则是指读写操作的访问地址连续³。在顺序IO访问中，硬盘驱动器（HDD）所需的磁道搜索时间显着减少，因为读/写磁头可以以最小的移动访问下一个块³。在数据库中，全表扫描就是连续读IO¹。例如，当我们进行数据备份和日志记录等业务时，通常会发生在想要的数据块上的所有行⁵。</p>
+<p>在数据库系统的设计中，日志文件采用顺序写入（sequential logging），这是基于传统磁盘访问特性的最大特点¹。数据库中的日志文件，要求必须在事务提交时写入到磁盘，对响应时间的要求很高，所以设计为顺序写入的方式，可以有效降低磁盘寻道花费的时间，减少延迟时间¹。</p>
+<p>然而，数据文件的写入通常包括写数据（写聚簇索引）和写索引（普通索引），所以一般不可能在同一个文件中顺序写入。因此，数据文件的写入通常被视为随机写IO。</p>
+<p>总的来说，&ldquo;Random IO to Sequential IO&quot;可能是指通过某种方式或策略，尽可能地将随机IO转化为顺序IO，以提高数据库的性能。具体的实现方式</p>
+<p>3.2. 存储器结构3.3. 不同类型存储介质之间的差异3.3.1. 闪存(NAND)3.3.2. 相变存储器(PCM)</p>
+<h3 id="预取缓冲">预取/缓冲</h3>
+<ul>
+<li>
+<p>单缓冲(Single Buffering)</p>
+<ul>
+<li>例：一个文件由一系列块构成：B1, B2,…设有一程序，按下面顺序处理数据：1、处理B1 2、处理B23、处理B3</li>
+<li>单缓冲处理策略
+<ul>
+<li>(1) 将B1读入缓冲区</li>
+<li>(2) 在缓冲区中处理B1中的数据</li>
+<li>(3) 将B2读入缓冲区</li>
+<li>(4) 处理缓冲区中的B2数据</li>
+</ul>
+</li>
+<li>设 P = 在缓冲区中处理一块的时间,R = 将一块读入缓冲区的时间,n = 块数.单缓冲处理时间 = <strong>n(P+R)</strong></li>
+</ul>
+</li>
+<li>
+<p>双缓冲(Double Buffering)</p>
+<ul>
+<li>双缓冲处理时间＝<strong>R＋nP（P&gt;=R）＝ nR＋P（R&gt;=P）</strong></li>
+</ul>
+</li>
+</ul>
+<p><a class="link" href="https://www.bilibili.com/video/BV1Ck4y1W7WC/?spm_id_from=333.337.search-card.all.click"  target="_blank" rel="noopener"
+    >操作系统-单缓冲区与双缓冲区计算_哔哩哔哩_bilibili</a>
+<a class="link" href="https://www.bilibili.com/video/BV1gF411F74B/?spm_id_from=333.337.search-card.all.click"  target="_blank" rel="noopener"
+    >19-磁盘管理-磁盘单缓冲区与双缓冲区读取_哔哩哔哩_bilibili</a></p>
+<p><strong>缓冲的缺点</strong></p>
+<ul>
+<li>主存代价</li>
+<li>缓冲区管理</li>
+<li>一致性维护</li>
+</ul>
+<p><strong>块大小选择</strong></p>
+<ul>
+<li>I/O次数 ↓
+<ul>
+<li>可能读入大量无用数据</li>
+<li>每次I/O要花费更多时间</li>
+</ul>
+</li>
+<li>趋势
+-<font color="#245bdb"> 大块</font></li>
+</ul>
+<h2 id="新型存储">新型存储</h2>
+<ul>
+<li>计算机系统性能依赖于
+<ul>
+<li><font color="#245bdb">处理器的数据计算能力</font></li>
+<li><font color="#245bdb">存储层次向处理器传输数据的能力</font></li>
+</ul>
+</li>
+<li>随着多/众核、多线程技术的发展，传统存储器件构成的存储层次面临的<font color="#245bdb">存储墙</font>问题愈发严重
+<ul>
+<li><font color="#0070c0">处理单元（核）数的增长与存储数据供应能力（容量）不匹配</font></li>
+<li><font color="#0070c0">SRAM/DRAM的功耗过高</font></li>
+</ul>
+</li>
+<li>新型存储器件包括：<font color="#ff0000">闪存、相变存储器</font>、磁阻式存储、电阻式存储器、忆阻器等等。具备一个共同特点：<font color="#0070c0">非易失性</font>
+<ul>
+<li><font color="#0070c0">优点：高存储密度、低功耗、无机械延迟、存取速度快、便携、抗震、低噪音等</font></li>
+<li><font color="#0070c0">缺点：读写性能不对称、读写次数有限、可靠性不高等</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="闪存">闪存</h3>
+<h3 id="相变存储器">相变存储器</h3>
+<ul>
+<li>
+<p>闪存的工业化程度最高</p>
+<ul>
+<li><font color="#0070c0">SSD（solid state drive）</font></li>
+<li><font color="#0070c0">闪存芯片+控制器+FTL（WL, LBA-PBA, GC）</font></li>
+</ul>
+</li>
+<li>
+<p>（NAND）闪存的特点</p>
+<ul>
+<li><font color="#0070c0">读写不对称</font>
+<ul>
+<li>写慢读快</li>
+</ul>
+</li>
+<li><font color="#0070c0">写前擦除：异位更新、块擦除操作</font></li>
+<li><font color="#0070c0">寿命有限：块擦除次数有限</font>
+SLC （约10万次擦写）
+MLC（小于1万次）
+TLC（小于1000次）</li>
+<li><font color="#0070c0">按页读写</font>
+<ul>
+<li>E.g., 1 page =2 KB</li>
+</ul>
+</li>
+<li><font color="#0070c0">按块擦除</font>
+<ul>
+<li>E.g., 1 block = 64 pages
+<img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239237.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="相变存储器-phase-change-memory">相变存储器 Phase Change Memory</h3>
+<ul>
+<li>PCM
+<ul>
+<li>起源于20世纪60年代</li>
+<li>电阻式非易失性半导体存储器</li>
+<li>以硫族化物材料作为存储介质，利用相变材料在不同结晶状态时呈现出显著的电阻值差异性来实现数据存储</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于新型存储的计算机架构">基于新型存储的计算机架构</h3>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239244.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC5%E7%AB%A0-buffer-management/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">第5章 缓冲区管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC4%E7%AB%A0-data-representation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">第4章 数据表达</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">第2章 关系型数据库回顾</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKsFzXQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKsFzXc4Ca3tc"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark_high_contrast"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('dark_high_contrast');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

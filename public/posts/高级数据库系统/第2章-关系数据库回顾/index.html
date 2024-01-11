@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据库体系结构 从模式的角度描述一般数据库系统的概念和结构
+可以用于解释特定数据库系统的内部结构
+ANSI/SPARC体系结构——三级模式结构＋两级映象
+Oracle、Informix等SQL数据库系统的模式结构可通过ANSI/SPARC体系结构进行解释 模式（Schema）和实例（Instance）
+模式是数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值 模式的一个具体值称为模式的一个实例 模式类型 描述 特点 视图 DDL 概念模式 数据库中全体数据的逻辑结构和特征的描述 不涉及数据物理存储的细节和硬件环境，一个数据库只有一个概念模式 概念视图 通过模式DDL进行定义 外模式 单个用户所看到的局部数据的逻辑结构和特征的描述 用户与数据库系统的数据接口，对于用户而言，外模式就是数据库，同一模式上可有多个不同的外模式 外部视图 通过子模式DDL进行定义 内模式 数据物理结构和存储方式的描述 不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小，一个数据库只有一个内模式 内部视图 通过内模式DDL定义 数据库的三级模式结构 概念模式（模式、逻辑模式）
+数据库中全体数据的逻辑结构和特征的描述 数据记录由哪些数据项构成 数据项的名字、类型、取值范围 数据之间的联系、数据的完整性等 不涉及数据物理存储的细节和硬件环境 一个数据库只有一个概念模式 概念视图：概念模式的实例 通过模式DDL进行定义 外模式（子模式、用户模式）
+单个用户所看到的局部数据的逻辑结构和特征的描述 用户与数据库系统的数据接口，对于用户而言，外模式就是数据库 建立在概念模式之上，同一模式上可有多个不同的外模式 外部视图：外模式的实例 通过子模式DDL进行定义 内模式（存储模式）
+数据物理结构和存储方式的描述 记录的存储方式：顺序存储、按B树组织还是散列存储？ 索引按什么方式组织：排序、散列？ 数据是否加密？是否压缩存储？ 不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小 一个数据库只有一个内模式 内部视图：内模式的实例 通过内模式DDL定义 二级映象和数据独立性 二级映象实现三级模式结构间的联系和转换，使用户可以逻辑地处理数据，不必关系数据的底层表示方式和存储方式 外模式/模式映象
+定义了外模式与概念模式之间的对应关系 属性名称可能不同 外模式中的属性可能由模式中的多个属性运算而得 当概念模式发生改变时，只要修改外模式/模式映象，可保持外模式不变，从而保持用户应用程序不变，保证了数据与用户程序的逻辑独立性——数据的逻辑独立性 模式/内模式映象
+定义了概念模式与内模式之间的对应关系 - 概念模式中的逻辑记录和字段在内部如何表示 当数据库的内部存储结构发生改变时，只要修改模式/内模式映象，可保持概念模式不变，从而保持外模式以及用户程序的不变，保证了数据与程序的物理独立性——数据的物理独立性 SQL数据库体系结构 关系型数据库 使用数据库技术，首先必须把现实世界中的事物表示为计算机能够处理的数据 模型是对现实世界特征的抽象 数据模型是对现实世界数据特征的抽象 数据模型的定义 描述现实世界实体、实体间联系以及数据语义和一致性约束的模型 数据模型的分类 概念数据模型（概念模型）'>
+<title>第2章 关系型数据库回顾</title>
+
+<link rel='canonical' href='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='第2章 关系型数据库回顾'>
+<meta property='og:description' content='数据库体系结构 从模式的角度描述一般数据库系统的概念和结构
+可以用于解释特定数据库系统的内部结构
+ANSI/SPARC体系结构——三级模式结构＋两级映象
+Oracle、Informix等SQL数据库系统的模式结构可通过ANSI/SPARC体系结构进行解释 模式（Schema）和实例（Instance）
+模式是数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值 模式的一个具体值称为模式的一个实例 模式类型 描述 特点 视图 DDL 概念模式 数据库中全体数据的逻辑结构和特征的描述 不涉及数据物理存储的细节和硬件环境，一个数据库只有一个概念模式 概念视图 通过模式DDL进行定义 外模式 单个用户所看到的局部数据的逻辑结构和特征的描述 用户与数据库系统的数据接口，对于用户而言，外模式就是数据库，同一模式上可有多个不同的外模式 外部视图 通过子模式DDL进行定义 内模式 数据物理结构和存储方式的描述 不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小，一个数据库只有一个内模式 内部视图 通过内模式DDL定义 数据库的三级模式结构 概念模式（模式、逻辑模式）
+数据库中全体数据的逻辑结构和特征的描述 数据记录由哪些数据项构成 数据项的名字、类型、取值范围 数据之间的联系、数据的完整性等 不涉及数据物理存储的细节和硬件环境 一个数据库只有一个概念模式 概念视图：概念模式的实例 通过模式DDL进行定义 外模式（子模式、用户模式）
+单个用户所看到的局部数据的逻辑结构和特征的描述 用户与数据库系统的数据接口，对于用户而言，外模式就是数据库 建立在概念模式之上，同一模式上可有多个不同的外模式 外部视图：外模式的实例 通过子模式DDL进行定义 内模式（存储模式）
+数据物理结构和存储方式的描述 记录的存储方式：顺序存储、按B树组织还是散列存储？ 索引按什么方式组织：排序、散列？ 数据是否加密？是否压缩存储？ 不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小 一个数据库只有一个内模式 内部视图：内模式的实例 通过内模式DDL定义 二级映象和数据独立性 二级映象实现三级模式结构间的联系和转换，使用户可以逻辑地处理数据，不必关系数据的底层表示方式和存储方式 外模式/模式映象
+定义了外模式与概念模式之间的对应关系 属性名称可能不同 外模式中的属性可能由模式中的多个属性运算而得 当概念模式发生改变时，只要修改外模式/模式映象，可保持外模式不变，从而保持用户应用程序不变，保证了数据与用户程序的逻辑独立性——数据的逻辑独立性 模式/内模式映象
+定义了概念模式与内模式之间的对应关系 - 概念模式中的逻辑记录和字段在内部如何表示 当数据库的内部存储结构发生改变时，只要修改模式/内模式映象，可保持概念模式不变，从而保持外模式以及用户程序的不变，保证了数据与程序的物理独立性——数据的物理独立性 SQL数据库体系结构 关系型数据库 使用数据库技术，首先必须把现实世界中的事物表示为计算机能够处理的数据 模型是对现实世界特征的抽象 数据模型是对现实世界数据特征的抽象 数据模型的定义 描述现实世界实体、实体间联系以及数据语义和一致性约束的模型 数据模型的分类 概念数据模型（概念模型）'>
+<meta property='og:url' content='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/'>
+<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-10T01:27:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-10T01:27:05&#43;08:00'/>
+<meta name="twitter:title" content="第2章 关系型数据库回顾">
+<meta name="twitter:description" content="数据库体系结构 从模式的角度描述一般数据库系统的概念和结构
+可以用于解释特定数据库系统的内部结构
+ANSI/SPARC体系结构——三级模式结构＋两级映象
+Oracle、Informix等SQL数据库系统的模式结构可通过ANSI/SPARC体系结构进行解释 模式（Schema）和实例（Instance）
+模式是数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值 模式的一个具体值称为模式的一个实例 模式类型 描述 特点 视图 DDL 概念模式 数据库中全体数据的逻辑结构和特征的描述 不涉及数据物理存储的细节和硬件环境，一个数据库只有一个概念模式 概念视图 通过模式DDL进行定义 外模式 单个用户所看到的局部数据的逻辑结构和特征的描述 用户与数据库系统的数据接口，对于用户而言，外模式就是数据库，同一模式上可有多个不同的外模式 外部视图 通过子模式DDL进行定义 内模式 数据物理结构和存储方式的描述 不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小，一个数据库只有一个内模式 内部视图 通过内模式DDL定义 数据库的三级模式结构 概念模式（模式、逻辑模式）
+数据库中全体数据的逻辑结构和特征的描述 数据记录由哪些数据项构成 数据项的名字、类型、取值范围 数据之间的联系、数据的完整性等 不涉及数据物理存储的细节和硬件环境 一个数据库只有一个概念模式 概念视图：概念模式的实例 通过模式DDL进行定义 外模式（子模式、用户模式）
+单个用户所看到的局部数据的逻辑结构和特征的描述 用户与数据库系统的数据接口，对于用户而言，外模式就是数据库 建立在概念模式之上，同一模式上可有多个不同的外模式 外部视图：外模式的实例 通过子模式DDL进行定义 内模式（存储模式）
+数据物理结构和存储方式的描述 记录的存储方式：顺序存储、按B树组织还是散列存储？ 索引按什么方式组织：排序、散列？ 数据是否加密？是否压缩存储？ 不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小 一个数据库只有一个内模式 内部视图：内模式的实例 通过内模式DDL定义 二级映象和数据独立性 二级映象实现三级模式结构间的联系和转换，使用户可以逻辑地处理数据，不必关系数据的底层表示方式和存储方式 外模式/模式映象
+定义了外模式与概念模式之间的对应关系 属性名称可能不同 外模式中的属性可能由模式中的多个属性运算而得 当概念模式发生改变时，只要修改外模式/模式映象，可保持外模式不变，从而保持用户应用程序不变，保证了数据与用户程序的逻辑独立性——数据的逻辑独立性 模式/内模式映象
+定义了概念模式与内模式之间的对应关系 - 概念模式中的逻辑记录和字段在内部如何表示 当数据库的内部存储结构发生改变时，只要修改模式/内模式映象，可保持概念模式不变，从而保持外模式以及用户程序的不变，保证了数据与程序的物理独立性——数据的物理独立性 SQL数据库体系结构 关系型数据库 使用数据库技术，首先必须把现实世界中的事物表示为计算机能够处理的数据 模型是对现实世界特征的抽象 数据模型是对现实世界数据特征的抽象 数据模型的定义 描述现实世界实体、实体间联系以及数据语义和一致性约束的模型 数据模型的分类 概念数据模型（概念模型）">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
+                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍚</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+            <h2 class="site-description">Hello World!</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Anonymity-0'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+                <li id="i18n-switch">  
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
+                        
+                            <option value="https://anonymity-0.github.io/" selected>English</option>
+                        
+                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
+                        
+                    </select>
+                </li>
+            
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#数据库体系结构">数据库体系结构</a>
+      <ol>
+        <li><a href="#数据库的三级模式结构">数据库的三级模式结构</a></li>
+        <li><a href="#二级映象和数据独立性">二级映象和数据独立性</a></li>
+        <li><a href="#sql数据库体系结构">SQL数据库体系结构</a></li>
+      </ol>
+    </li>
+    <li><a href="#关系型数据库">关系型数据库</a>
+      <ol>
+        <li><a href="#数据模型的分类">数据模型的分类</a></li>
+        <li><a href="#数据抽象的层次">数据抽象的层次</a></li>
+        <li><a href="#数据模型的例子">数据模型的例子</a></li>
+        <li><a href="#数据模型的要素">数据模型的要素</a></li>
+        <li><a href="#关系模型">关系模型</a></li>
+        <li><a href="#几个术语">几个术语</a></li>
+        <li><a href="#关系的性质">关系的性质</a></li>
+        <li><a href="#关系模式与关系数据库">关系模式与关系数据库</a></li>
+        <li><a href="#关系模式的形式化定义">关系模式的形式化定义</a></li>
+        <li><a href="#函数依赖">函数依赖</a></li>
+        <li><a href="#关系模型的形式化定义">关系模型的形式化定义</a></li>
+        <li><a href="#关系代数relational-algebra">关系代数(Relational Algebra)</a></li>
+        <li><a href="#关系模型的三类完整性规则">关系模型的三类完整性规则</a></li>
+      </ol>
+    </li>
+    <li><a href="#sql">SQL</a>
+      <ol>
+        <li><a href="#sql基本组成">SQL基本组成</a></li>
+        <li><a href="#sql与关系模型">SQL与关系模型</a></li>
+      </ol>
+    </li>
+    <li><a href="#习题">习题</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" >
+                高级数据库系统
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/">第2章 关系型数据库回顾</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 10, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="数据库体系结构">数据库体系结构</h2>
+<ul>
+<li>
+<p>从模式的角度描述一般数据库系统的概念和结构</p>
+</li>
+<li>
+<p>可以用于解释特定数据库系统的内部结构</p>
+</li>
+<li>
+<p>ANSI/SPARC体系结构——三级模式结构＋两级映象</p>
+<ul>
+<li>Oracle、Informix等SQL数据库系统的模式结构可通过ANSI/SPARC体系结构进行解释</li>
+</ul>
+</li>
+<li>
+<p>模式（Schema）和实例（Instance）</p>
+<ul>
+<li><font color="#0070c0">模式是数据库中全体数据的逻辑结构和特征的描述，它仅仅涉及类型的描述，不涉及具体的值</font></li>
+<li><font color="#0070c0">模式的一个具体值称为模式的一个实例</font></li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091025914.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>模式类型</th>
+<th>描述</th>
+<th>特点</th>
+<th>视图</th>
+<th>DDL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>概念模式</strong></td>
+<td>数据库中全体数据的逻辑结构和特征的描述</td>
+<td>不涉及数据物理存储的细节和硬件环境，一个数据库只有一个概念模式</td>
+<td>概念视图</td>
+<td>通过模式DDL进行定义</td>
+</tr>
+<tr>
+<td><strong>外模式</strong></td>
+<td>单个用户所看到的局部数据的逻辑结构和特征的描述</td>
+<td>用户与数据库系统的数据接口，对于用户而言，外模式就是数据库，同一模式上可有多个不同的外模式</td>
+<td>外部视图</td>
+<td>通过子模式DDL进行定义</td>
+</tr>
+<tr>
+<td><strong>内模式</strong></td>
+<td>数据物理结构和存储方式的描述</td>
+<td>不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小，一个数据库只有一个内模式</td>
+<td>内部视图</td>
+<td>通过内模式DDL定义</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="数据库的三级模式结构">数据库的三级模式结构</h3>
+<ol>
+<li>
+<p>概念模式（模式、逻辑模式）</p>
+<ul>
+<li>数据库中全体数据的逻辑结构和特征的描述
+<ul>
+<li>数据记录由哪些数据项构成</li>
+<li>数据项的名字、类型、取值范围</li>
+<li>数据之间的联系、数据的完整性等</li>
+</ul>
+</li>
+<li>不涉及数据物理存储的细节和硬件环境</li>
+<li>一个数据库只有一个概念模式</li>
+<li>概念视图：概念模式的实例</li>
+<li>通过模式DDL进行定义</li>
+</ul>
+</li>
+<li>
+<p>外模式（子模式、用户模式）</p>
+<ul>
+<li>单个用户所看到的局部数据的逻辑结构和特征的描述</li>
+<li>用户与数据库系统的数据接口，对于用户而言，外模式就是数据库</li>
+<li>建立在概念模式之上，同一模式上可有多个不同的外模式</li>
+<li>外部视图：外模式的实例</li>
+<li>通过子模式DDL进行定义</li>
+</ul>
+</li>
+<li>
+<p>内模式（存储模式）</p>
+<ul>
+<li>数据物理结构和存储方式的描述
+<ul>
+<li>记录的存储方式：<font color="#0070c0">顺序存储、按B树组织还是散列存储？</font></li>
+<li><font color="#0070c0">索引按什么方式组织：排序、散列？</font></li>
+<li><font color="#0070c0">数据是否加密？是否压缩存储？</font></li>
+</ul>
+</li>
+<li>不涉及物理块（或页）的大小，也不考虑具体设备的柱面或磁道大小</li>
+<li>一个数据库只有一个内模式</li>
+<li>内部视图：内模式的实例</li>
+<li>通过内模式DDL定义</li>
+</ul>
+</li>
+</ol>
+<h3 id="二级映象和数据独立性">二级映象和数据独立性</h3>
+<ul>
+<li>二级映象实现三级模式结构间的联系和转换，使用户可以逻辑地处理数据，不必关系数据的底层表示方式和存储方式<img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091034656.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+<ol>
+<li>
+<p><strong>外模式/模式映象</strong></p>
+<ul>
+<li>定义了外模式与概念模式之间的对应关系
+<ul>
+<li>属性名称可能不同</li>
+<li>外模式中的属性可能由模式中的多个属性运算而得</li>
+</ul>
+</li>
+<li>当概念模式发生改变时，只要修改外模式/模式映象，可保持外模式不变，从而保持用户应用程序不变，保证了数据与用户程序的逻辑独立性——数据的逻辑独立性</li>
+</ul>
+</li>
+<li>
+<p>模式/内模式映象</p>
+<ul>
+<li>定义了概念模式与内模式之间的对应关系
+-<font color="#0070c0"> 概念模式中的逻辑记录和字段在内部如何表示</font></li>
+<li>当数据库的内部存储结构发生改变时，只要修改模式/内模式映象，可保持概念模式不变，从而保持外模式以及用户程序的不变，保证了数据与程序的物理独立性——数据的物理独立性</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091427010.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ol>
+<h3 id="sql数据库体系结构">SQL数据库体系结构</h3>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091427074.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h2 id="关系型数据库">关系型数据库</h2>
+<ul>
+<li>使用数据库技术，首先必须把现实世界中的事物表示为计算机能够处理的数据</li>
+<li>模型是对现实世界特征的抽象</li>
+<li>数据模型是对现实世界数据特征的抽象</li>
+<li>数据模型的定义
+<ul>
+<li><font color="#0070c0">描述现实世界实体、实体间联系以及数据语义和一致性约束的模型</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="数据模型的分类">数据模型的分类</h3>
+<ul>
+<li>
+<p>概念数据模型（概念模型）</p>
+<ul>
+<li>按用户的观点对数据进行建模，强调语义表达功能</li>
+<li>独立于计算机系统和DBMS</li>
+<li>主要用于数据库的概念设计</li>
+</ul>
+</li>
+<li>
+<p>结构数据模型（数据模型）</p>
+<ul>
+<li>按计算机系统的观点对数据进行建模，直接面向数据库的逻辑结构</li>
+<li>与计算机系统和DBMS相关（DBMS支持某种数据模型）</li>
+<li>有严格的形式化定义，以便于在计算机系统中实现</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据抽象的层次">数据抽象的层次</h3>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091433547.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="数据模型的例子">数据模型的例子</h3>
+<ul>
+<li>
+<p>现实世界</p>
+<ul>
+<li>客户存款</li>
+</ul>
+</li>
+<li>
+<p>信息世界</p>
+<ul>
+<li>概念模型（E-R模型）</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091434056.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>机器世界</p>
+<ul>
+<li>数据模型（关系模型</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091434443.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ul>
+<h3 id="数据模型的要素">数据模型的要素</h3>
+<ul>
+<li>数据结构
+<ul>
+<li><font color="#0070c0">现实世界实体及实体间联系的表示和实现</font></li>
+</ul>
+</li>
+<li>数据操作
+<ul>
+<li><font color="#0070c0">数据检索和更新的实现</font></li>
+</ul>
+</li>
+<li>数据的完整性约束
+<ul>
+<li><font color="#0070c0">数据及数据间联系应具有的制约和依赖规则</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="关系模型">关系模型</h3>
+<ul>
+<li>关系模型
+<ul>
+<li>用<font color="#ff0000">规范化的二维表格结构</font>表示实体集，<font color="#ff0000">外码</font>表示实体间联系，<font color="#ff0000">三类完整性</font>表示数据约束的数据模型</li>
+</ul>
+</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091437344.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+<h3 id="几个术语">几个术语</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>属性(Attribute)</td>
+<td>二维表格的每一列称为关系的一个属性，列的数目称为<font color="#ff0000">度（degree）</font></td>
+</tr>
+<tr>
+<td>元组(Tuple)</td>
+<td>每一行称为关系的一个元组，元组的数目称为<font color="#ff0000">势（cardinality）</font></td>
+</tr>
+<tr>
+<td>域(Domain)</td>
+<td>一组具有相同数据类型的值的集合。每个属性有一个域</td>
+</tr>
+<tr>
+<td>关系（Relation）</td>
+<td>元组的集合</td>
+</tr>
+<tr>
+<td>超码（Super Key）</td>
+<td>在关系中能<font color="#ff0000">唯一标识一个元组</font>的属性集称为关系模式的超码</td>
+</tr>
+<tr>
+<td>候选码（Candidate Key）</td>
+<td>不含多余属性的超码</td>
+</tr>
+<tr>
+<td>主属性（Primary Attribute）</td>
+<td>包含在任何一个候选码中的属性</td>
+</tr>
+<tr>
+<td>非主属性（Nonprime Attribute）</td>
+<td>不包含在任何一个候选码中的属性</td>
+</tr>
+<tr>
+<td>主码（Primary Key）</td>
+<td>用户选作元组标识的一个候选码称为主码，其余的候选码称为<font color="#ff0000">替换码</font>（Alternate Key）</td>
+</tr>
+<tr>
+<td>Student(Sno, Name, Age, LibraryID)</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>超码
+<ul>
+<li>(sno,name)</li>
+<li>(libraryID, name) …</li>
+</ul>
+</li>
+<li>候选码
+<ul>
+<li>Sno</li>
+<li>LibraryID</li>
+</ul>
+</li>
+<li>主码
+<ul>
+<li>若选sno，则sno为主码，libraryID为替换码</li>
+<li>若选libraryID，则libraryID 为主码， sno为替换码</li>
+</ul>
+</li>
+</ul>
+<h3 id="关系的性质">关系的性质</h3>
+<ul>
+<li>
+<p>一个关系是一个规范化的二维表格</p>
+<ul>
+<li><font color="#245bdb">属性值不可分解</font></li>
+<li>不允许表中有表</li>
+</ul>
+</li>
+<li>
+<p><font color="#245bdb"> 元组不可重复</font></p>
+<ul>
+<li>因此一个关系模式至少存在一个候选码</li>
+</ul>
+</li>
+<li>
+<p><font color="#245bdb">没有行序，即元组之间无序</font></p>
+<ul>
+<li>关系是元组的集合，集合的元素是无序的</li>
+</ul>
+</li>
+<li>
+<p><font color="#245bdb">没有列序，即属性之间无序</font></p>
+<ul>
+<li>关系模式是属性的集合</li>
+</ul>
+</li>
+</ul>
+<h3 id="关系模式与关系数据库">关系模式与关系数据库</h3>
+<ul>
+<li>
+<p><font color="#ff0000">关系模式（Relation Schema）</font></p>
+<ul>
+<li><font color="#245bdb">关系的逻辑结构和特征的描述</font></li>
+<li><font color="#245bdb">对应于二维表格的表头</font></li>
+<li><font color="#245bdb">通常由属性集和各属性域表示，不关心域时可省略域</font>
+<ul>
+<li>Student（Name, Age, Class）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><font color="#ff0000">关系</font>：关系模式的实例，即二维表（元组的集合）</p>
+</li>
+<li>
+<p><font color="#ff0000">关系数据库模式</font>（Relational DatabaseSchema）：关系模式的集合</p>
+</li>
+<li>
+<p><font color="#ff0000">关系数据库</font>：关系数据库模式的实例</p>
+</li>
+</ul>
+<h3 id="关系模式的形式化定义">关系模式的形式化定义</h3>
+<ul>
+<li>
+<p>关系模式可以形式化定义为：</p>
+<ul>
+<li><font color="#245bdb">R（U，D，dom，F）</font></li>
+<li>R为关系模式名，U是一个属性集，D是U中属性的值所来自的域，Dom是属性向域的映射集合，F是属性间的依赖关系</li>
+</ul>
+</li>
+<li>
+<p>例：Student关系模式的定义</p>
+<ul>
+<li><font color="#245bdb">Student(U,D,dom,F)</font>
+<ul>
+<li>U={sno,name,age}</li>
+<li>D={CHAR,INT}</li>
+<li>Dom={dom(sno)=dom(name)=CHAR,dom(age)=INT}</li>
+<li>F={sno→name, sno→age}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>关系模式通常简写为R(U)，或R(A1,A2,…,An)</p>
+</li>
+</ul>
+<h3 id="函数依赖">函数依赖</h3>
+<ul>
+<li>
+<p>R(U，D，dom，F)中的F在实际中一般只考虑函数依赖</p>
+</li>
+<li>
+<p>函数依赖(Functional Dependency, FD)是指一个关系模式中一个属性集和另一个属性集间的多对一关系</p>
+<ul>
+<li>例如选课关系SC(S#, C#, Score)</li>
+<li>存在由属性集{S#, C#}到属性集{Score}的函数依赖
+<ul>
+<li>对于任意给定的S#值和C#值，只有一个Score值与其对应</li>
+<li>反过来，可以存在多个S#值和C#值，它们对应的Score值相等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>函数依赖（FD，Functional Dependency）的形式化定义</p>
+<ul>
+<li><font color="#245bdb">设关系模式R(A1,A2,…,An)或简记为R(U)，X和Y是U的子集。r是R的任意一个实例（关系），若r的任意两个元组t1、t2，由t1[X]=t2[X]可导致t1[Y]=t2[Y]，即如果X相等则Y也相等，则称Y函数依赖于X或称为X函数决定Y，记作 X→Y</font></li>
+<li><font color="#245bdb">即R的X属性集上的值可唯一决定R的Y属性集上的值</font></li>
+<li><font color="#245bdb">也即对于R的任意两个元组，X上的值相等，则Y上的值也必相等</font></li>
+</ul>
+</li>
+<li>
+<p>FD是相对于关系模式而言的，因此关系模式R的所有实例都要满足FD</p>
+</li>
+<li>
+<p>例如</p>
+<ul>
+<li><font color="#245bdb">Student关系模式中，{S#} →{Sname} （单个属性可去掉括号，简写成 S# →Sname ）</font></li>
+<li><font color="#245bdb">SC关系模式中， {S#,C#} →{Score}</font></li>
+</ul>
+</li>
+<li>
+<p>FD是否成立，唯一办法是仔细考察应用中属性的 含义。FD实际上是对现实世界的断言。数据库设计者在设计时把应遵守的函数依赖通知DBMS，则DBMS会自动检查关系的合法性</p>
+<ul>
+<li><font color="#245bdb">对于关系模式 R( Tname, Addr, C#, Cname)</font>
+<ul>
+<li>若一门课只能有一个教师，则有{C#} →{Tname}</li>
+<li>若一门课可有多个教师任教，则{C#} →{Tname}不成立</li>
+<li>因此FD是与具体应用相关的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="关系模型的形式化定义">关系模型的形式化定义</h3>
+<ul>
+<li>数据结构
+-<font color="#245bdb"> 关系：数据库中全部数据及数据间联系都以关系来表示</font></li>
+<li>数据操作
+<ul>
+<li>关系运算
+<ul>
+<li>关系代数</li>
+<li>关系演算（元组关系演算、域关系演算）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据的完整性约束
+<ul>
+<li><font color="#245bdb">关系模型的三类完整性规则</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="关系代数relational-algebra">关系代数(Relational Algebra)</h3>
+<ul>
+<li>
+<p>以关系为运算对象的一组运算集合</p>
+</li>
+<li>
+<p>运算结果仍是关系</p>
+</li>
+<li>
+<p>以集合操作为基本运算
+<img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091830614.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+</li>
+<li>
+<p>关系代数表达式的符号</p>
+<ul>
+<li>数学符号表示
+并∪ 、交∩、差－、笛卡儿积×
+选择σ 、投影π 、联接 ∞ 、除÷
+重命名 ρx（E）
+赋值 ←</li>
+</ul>
+</li>
+<li>
+<p>英语关键字表示</p>
+<ul>
+<li>并Union、交Intersect、差Minus、笛卡儿积Times、选择Where…、投影{All But…}、联接Join、除Devidedby</li>
+</ul>
+</li>
+<li>
+<p>关系代数的封闭性</p>
+<ul>
+<li><font color="#245bdb">任意关系代数操作的结果仍是一个关系</font></li>
+</ul>
+</li>
+<li>
+<p>关系代数的封闭性保证了关系代数操作的可嵌套性</p>
+<ul>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091848464.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>例子：<img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091849151.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+</li>
+<li>
+<p>关系代数表达式</p>
+<ul>
+<li><font color="#245bdb">关系模型中数据操作都通过关系代数表达式来表示</font></li>
+</ul>
+</li>
+<li>
+<p>关系代数中的基本表达式是关系代数表达式，基本表达式由如下之一构成：</p>
+<ul>
+<li><font color="#245bdb">数据库中的一个关系</font></li>
+<li><font color="#245bdb">一个常量关系</font></li>
+</ul>
+</li>
+<li>
+<p>设E1和E2是关系代数表达式，则下面的都是关系代数表达式：</p>
+<ul>
+<li><font color="#245bdb">E1∪E2 、E1－E2、E1×E2</font></li>
+<li><font color="#245bdb">σP(E1),其中P是E1中属性上的谓词</font></li>
+<li><font color="#245bdb">πs(E1),其中S是E1中某些属性的列表</font></li>
+<li><font color="#245bdb">ρx(E1),其中x是E1结果的新名字</font></li>
+</ul>
+</li>
+<li>
+<p>关系代数操作的语义</p>
+<ul>
+<li>并∪ 、交∩、差－、笛卡儿积×</li>
+<li>选择σ 、投影π 、联接 ∞ 、除÷</li>
+</ul>
+</li>
+<li>
+<p>并</p>
+<ul>
+<li>R∪S＝｛t∣t∈R∨t∈S｝
+<ul>
+<li><font color="#245bdb">t是元组变量</font></li>
+<li><font color="#245bdb">R和S是关系代数表达式</font></li>
+<li><font color="#245bdb">R与S的degree必须相同</font></li>
+<li><font color="#245bdb">R与S的类型必须相同</font></li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091837766.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>交</p>
+<ul>
+<li>R∩S＝｛t∣t∈R∧t∈S｝</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091837820.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>差</p>
+<ul>
+<li>R－S＝｛t∣t∈R∧t S｝</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091838386.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>积</p>
+<ul>
+<li>R×S＝｛t∣t=&lt;tr,ts&gt;∧tr∈R∧ts∈S｝</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091839636.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>选择</p>
+<ul>
+<li>σF(R)＝｛t∣t∈R∧F(t)=TRUE｝
+<ul>
+<li>水平划分关系</li>
+<li>F是一个逻辑表达式，表示所选的元组应满足的条件</li>
+<li>F由逻辑运算符┐(NOT)、∧(AND)、∨(OR)连接算术表达式构成
+<ul>
+<li>算术表达式形为XθY，θ可以是&gt;,&lt;,=, ≤,≥或≠，X和Y可以是属性名、常量或简单函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091842784.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>投影</p>
+<ul>
+<li>πA(R)＝｛t[A]∣t∈R｝,其中A是R的属性子集
+<ul>
+<li><font color="#245bdb">垂直划分关系，选取若干列所构成的关系</font></li>
+<li><font color="#245bdb">A中的属性不可重复</font></li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091843713.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>联接：自然联接</p>
+<ul>
+<li>设R的属性集为{X,Y}，S的属性集为{Y,Z}</li>
+<li>R∞S=t|t=&lt;X,Y,Z&gt;∧t[X,Y]∈R∧t[Y,Z]∈S}
+<ul>
+<li><font color="#245bdb">相当于在R×S中选取R和S的所有公共属性值都相等的元组，并在结果中去掉重复属性</font></li>
+</ul>
+</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091845001.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>联接： θ联接</p>
+<ul>
+<li>设R的属性集为{X,Y}，S的属性集为{Y,Z}</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091846598.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+>
+<ul>
+<li>相当于在R×S中选取R的属性A值与S的属性B值满足比较关系θ的元组。</li>
+</ul>
+</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091846504.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>联接： 等值联接（equijoin）</p>
+<ul>
+<li>在θ联接中θ为等号时，称为“等值联接”</li>
+<li>等值联接是θ联接中比较常见的形式</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091847725.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>数据更新仍通过关系代数实现</p>
+</li>
+<li>
+<p>删除</p>
+<ul>
+<li><font color="#245bdb">R←R－E：R是关系，E是关系代数查询</font></li>
+<li><font color="#245bdb">例“从数据库中删除姓名为‘Rose’的学生”</font>
+<ul>
+<li>Student←Student－σname=‘Rose’(Student)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>插入</p>
+<ul>
+<li><font color="#245bdb">R←R∪E：R是关系，E是关系代数表达式</font></li>
+<li><font color="#245bdb">如果E是常量关系，则可以插入单个元组</font></li>
+<li><font color="#245bdb">例：插入一个新的学生</font>
+<ul>
+<li>S1←S1∪ { (‘001’,’Rose’,19) }</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>修改</p>
+<ul>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091851095.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ul>
+<h3 id="关系模型的三类完整性规则">关系模型的三类完整性规则</h3>
+<ul>
+<li>
+<p>实体完整性（Entity Integrity）</p>
+<ul>
+<li>关系模式R的<strong>主码</strong>不可取空值</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091852883.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>
+<p>参照完整性（Referential Integrity）</p>
+<ul>
+<li>外码（Foreign Key）
+<ul>
+<li>关系模式R的外码是它的一个属性集FK，满足：
+<ul>
+<li>存在带有候选码CK的关系模式S，且</li>
+<li>R的任一非空FK值都在S的CK中有一个相同的值</li>
+</ul>
+</li>
+<li>S称为被参照关系（Referenced Relation），R称为参照关系（Referential Relation）</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091853384.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+<li>参照关系R的任一个外码值必须
+<ul>
+<li><font color="#245bdb">等于被参照关系S中所参照的候选码的某个值</font></li>
+<li><font color="#245bdb">或者为空</font></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>用户自定义完整性（User-Defined Integrity）</p>
+<ul>
+<li>针对某一具体数据的约束条件，反映某一具体应用所涉及的数据必须满足的特殊语义</li>
+<li>由应用环境决定</li>
+<li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091855588.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+</li>
+</ul>
+<h2 id="sql">SQL</h2>
+<ul>
+<li>
+<p>数据库语言</p>
+<ul>
+<li><font color="#245bdb">数据库语言是用户使用数据库的接口，DBMS支持用户通过数据库语言进行数据存取与管理</font></li>
+</ul>
+</li>
+<li>
+<p>有三类数据库语言</p>
+<ul>
+<li>数据定义语言(Data Definition Language, DDL)</li>
+<li>数据操纵语言(Data Manipulation Language， DML)</li>
+<li>数据控制语言 (Data Control Language, DCL)</li>
+</ul>
+</li>
+</ul>
+<h3 id="sql基本组成">SQL基本组成</h3>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091856088.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="sql与关系模型">SQL与关系模型</h3>
+<ol>
+<li><strong>数据结构:</strong>
+<ul>
+<li>SQL使用表来组织和存储数据。</li>
+<li>在关系模型中，数据以关系的形式组织。</li>
+</ul>
+</li>
+<li><strong>数据操作:</strong>
+<ul>
+<li>SQL使用数据操纵语言（DML）进行操作，如SELECT、INSERT、UPDATE、DELETE。</li>
+<li>关系模型使用关系代数进行数据操作。</li>
+</ul>
+</li>
+<li><strong>数据约束:</strong>
+<ul>
+<li>SQL包含主键、外键、唯一和检查等约束。</li>
+<li>在关系模型中，约束涉及实体完整性（确保每行具有唯一标识符）、参照完整性（维护表之间的关系）和用户自定义完整性（用户定义的其他约束</li>
+</ul>
+</li>
+</ol>
+<h2 id="习题">习题</h2>
+<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401091909276.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC5%E7%AB%A0-buffer-management/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">第5章 缓冲区管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC4%E7%AB%A0-data-representation/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">第4章 数据表达</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">第3章 数据存储</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Anonymity-0/Anonymity-0.github.io"
+    data-repo-id="R_kgDOKsFzXQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKsFzXc4Ca3tc"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark_high_contrast"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('dark_high_contrast');
+            } else {
+                setGiscusTheme('0');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2024 AGA
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
