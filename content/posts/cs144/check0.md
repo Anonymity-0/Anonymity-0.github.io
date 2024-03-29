@@ -14,10 +14,11 @@ tags:
     - lab
 ---
 
+
 ## 前言
 其实从本科开始，计网相关的课上了也有三次：第一次是大二在CQU上的，当时用的自顶向下那本书，一上来方老师就无敌催眠，不过是开卷考试，最后面向考试临时复习也拿了90+；第二次是考研的时候看的湖科大的网课，说实话这个老师动画做的很好，每个知识点好像都听懂了，但是还是没有形成成套的系统；第三次是在USTC上的高级计算机网络，上学期选这门课的时候，还是抱着一种想学东西的心态去听的，毕竟选的时候就听过这门课很硬核。遗憾的是，尝试听了一两节课后还是放弃了。机缘巧合之下，看到了cs144的lab，想给自己立一个新坑，这个学期搓出来cs144。计网的概念实在是玄乎又不好理解，或许换种方式，试试自己动手写写，顺便尝试读读英文文档（当然还是会借助一下翻译器），话不多说，cs144，启动！
 
-
+前面都是一些配置相关废话，正式写代码请看[[#3.4 Writing webget]]
 
 ## 1 Set up GNU/Linux on your computer
 
@@ -41,7 +42,6 @@ tags:
 ### 2.1 Fetch a Web page
 1. 在图形化浏览器访问[cs144.keithw.org/hello](http://cs144.keithw.org/hello)，可以看到下图内容
 	![](https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202403161810392.png)
-
 2. 在虚拟机的终端输入 `telnet cs144.keithw.org http`，结果如下
 	- 这个命令是用来通过Telnet协议手动模拟一个简单的HTTP请求，以连接到域名 `cs144.keithw.org` 上提供的HTTP服务。
 	- **telnet** 是一个基于TCP/IP协议的远端登录工具，它允许用户通过网络与远程主机上的指定端口建立直接交互式连接。
@@ -57,8 +57,10 @@ tags:
 
 
 ### 2.2
+略
 
 ### 2.3
+略
 ## 3. Writing a network program using an OS stream socket
 
 前面只是一些直观的体验，现在要真正开始编程了，在这个实验中，你将使用操作系统内置的传输控制协议支持。你需要编写一个名为“webget”的程序，创建一个TCP流套接字，连接到Web服务器，并获取一个页面。在后续的实验中，你将实现传输控制协议的另一部分，即自己实现TCP协议，将不可靠的数据报转换为可靠的字节流。
@@ -163,9 +165,13 @@ public:
 - 重点讲一下`explicit TCPSocket( FileDescriptor&& fd ) : Socket( std::move( fd ), AF_INET, SOCK_STREAM, IPPROTO_TCP ) {}`这个部分，这是之前没有遇到过的（C++学的比较浅）。
 	- 总的来说，`explicit TCPSocket( FileDescriptor&& fd ) : Socket( std::move(fd), AF_INET, SOCK_STREAM, IPPROTO_TCP ) {}`表示`TCPSocke`t构造函数接受一个右值引用的`FileDescriptor`类型的参数fd，并使用这个参数来初始化`Socket`对象。
 	- `explicit`关键字表示这个构造函数只能显式地被调用，不能隐式地转换类型。
+
 	- `FileDescriptor&& fd`表示这个构造函数接收一个`FileDescriptor`类型的参数，`&&`表示这个参数是右值引用，也就是说，这个参数可能是一个临时的对象。
+
 	- `: Socket( std::move( fd ), AF_INET, SOCK_STREAM, IPPROTO_TCP )` 这部分是构造函数的初始化列表。它的作用是初始化这个`TCPSocket`对象的父类`Socket`。实际上是在调用基类`Socket`的构造函数，并传递了构造函数的参数。这样做的好处是，它可以确保基类构造函数在派生类构造函数体执行之前被调用，从而正确初始化基类的部分。
+
 	- `std::move( fd )`表示将`fd`的所有权移动给`Socket`，这样可以避免不必要的复制。
+
 	- `AF_INET, SOCK_STREAM, IPPROTO_TCP`是创建`Socket`时需要的参数，它们分别表示使用的网络协议族（IPv4），套接字类型（流式套接字）和协议（TCP）。
 
 如果你觉得上面解释的如果还不够清晰，那说明~~你的c++和我一样学的半桶水~~，接下来是一些举例的知识补充：
@@ -308,127 +314,210 @@ TCPSocket socket(std::move(fd1));
 	3. 确保读取并打印服务器所有输出直到套接字达到“EOF”（文件结束）——一次读取调用是不够的。
 	4. 我们预计你将需要编写大约十行代码
 
+我之前还尝试分析了一下源码，~~后来发现是我想多了。~~
+
+在写代码之前，首先来回顾一下TCP协议的Socket套接字编程。更基础的，让我们回顾一下一些基础概念：
+
+#### 套接字
+~~其实这个概念我至今都觉得很抽象，不过他确实非常重要~~
+
+首先先问个问题，请问Socket和socket有什么区别？
+你可能和我一样有些云里雾里，在不同教材或者csdn上叫法都不太统一，**这玩意难道不是同一个东西？**
+
+以下是结合我个人的理解和gpt老师的答案：
+
+在大多数情况下，“Socket”和“socket”指的是同一件事：计算机网络编程中用于通信的一种抽象概念，即套接字。套接字是网络通信的端点，允许不同进程在网络上进行通信。无论是大写还是小写，它们都是指同一个概念，只是书写时的大小写不同。在不同的编程语言或文档中可能会有不同的约定，但在通用的网络编程术语中，它们是等价的。
+
+1. **Socket（首字母大写）**：
+    - 这通常是指操作系统提供的一个抽象层，它允许网络中的不同主机间进行通信。
+    - 在编程语境中，一个Socket代表一个网络连接的端点，可以看作是不同计算机进程间或同一计算机上不同进程间通信的一个门户。
+    - 在Unix和Linux系统中，Socket是实现进程间通信（IPC）和网络通信的一种机制。
+2. **socket（首字母小写）**：
+    - socket 是一组用于**网络通信的 API**，**提供了一种统一的接口**，使得应用程序可以通过网络进行通信。在不同的操作系统中，socket 的实现方式可能不同，但它们都遵循相同的规范和协议，**可以实现跨平台的网络通信**。
+    - 在使用C语言编写网络程序时，`socket()`函数是用来创建一个Socket连接的一个系统调用。
+    - 在Python等编程语言中，`socket`模块提供了一个用于网络通信的接口，通过这个模块可以创建Socket连接，进行数据的发送和接收。
+
+#### 套接字与服务端进行通信流程
+~~其实我觉得以上都是废话~~，简单来说，套接字就像是一个通信的桥梁，它允许不同设备上的应用程序进行数据交换。在编程中，我们通过套接字可以实现客户端和服务器之间的通信。
+
+举例来说，当你使用浏览器访问一个网站时，你的电脑（作为客户端）和网站服务器之间就需要通过套接字来传输数据。这个过程大致如下：
+
+1. 服务器程序首先在自己的计算机上创建一个套接字，并且告诉网络操作系统它需要监听哪个端口（Port），这个过程可以看作是服务器在告诉外界：“我现在在这个地址（端口）上等待连接。”
+2. 你的电脑（客户端）在浏览器中输入网址后，浏览器会向服务器发起一个连接请求，这个请求会通过你的电脑创建一个套接字，并且通过网络找到服务器的套接字。
+3. 服务器接收到连接请求后，会创建一个新的套接字与你的电脑的套接字进行连接，从而建立起一个数据传输的通道。
+4. 一旦连接建立，数据就可以在你的电脑和服务器之间双向传输。比如，服务器会通过这个连接发送网页的数据给你的电脑，你的电脑接收到数据后，浏览器将其渲染成你看到的网页。
+
+在这个例子中，套接字的作用就是使得客户端和服务器能够建立一个可靠的通信通道，从而实现数据的传输。无论是Web浏览、文件传输、即时通讯等网络应用，都离不开套接字技术的支持。
+
+放一张陈年经典老图便于理解具体过程：
+![](https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202403291741844.png)
 
 
+#### c++套接字编程相关函数
+cs144的lab是用c++写的，那就让我们来看看相关的类和成员函数
 
 ```cpp
-//! 一个围绕[TCP 套接字](\ref man7::tcp)的包装类
+//! A wrapper around [TCP sockets](\ref man7::tcp)
 class TCPSocket : public Socket
 {
 private:
-  //! \brief 通过文件描述符构造（由accept()函数使用）
-  //! \param[in] fd 是用于构造的文件描述符
+  //! \brief Construct from FileDescriptor (used by accept())
+  //! \param[in] fd is the FileDescriptor from which to construct
   explicit TCPSocket( FileDescriptor&& fd ) : Socket( std::move( fd ), AF_INET, SOCK_STREAM, IPPROTO_TCP ) {}
+
 public:
-  //! 默认构造函数：创建一个未绑定、未连接的TCP套接字
+  //! Default: construct an unbound, unconnected TCP socket
   TCPSocket() : Socket( AF_INET, SOCK_STREAM ) {}
-  //! 标记一个套接字监听入站连接
+
+  //! Mark a socket as listening for incoming connections
   void listen( int backlog = 16 );
-  //! 接受一个新入站的连接
+
+  //! Accept a new incoming connection
   TCPSocket accept();
 };
 ```
-这是TCPSocket类的源码，注意他的构造函数，`AF_INET` 指定了 IPv4 地址族，`SOCK_STREAM` 指定了流式套接字类型。
 
-```cpp
-//! 包装类，用于处理[IPv4 地址](@ref man7::ip) 和 DNS 操作。
-class Address
-{
-public:
-  //! \brief 包装 [sockaddr_storage](@ref man7::socket) 的类。
-  //! \details `sockaddr_storage` 结构体有足够的空间来存储任何类型的套接字地址（IPv4 或 IPv6）。
-  class Raw
-  {
-  public:
-    sockaddr_storage storage {}; //!< 被包装的结构体本身。
-    // NOLINTBEGIN (*-explicit-*)
-    operator sockaddr*(); //!< 隐式转换操作符，允许将 Raw 对象转换为 sockaddr 指针。
-    operator const sockaddr*() const; //!< 隐式转换操作符，允许将 Raw 对象转换为 const sockaddr 指针。
-    // NOLINTEND (*-explicit-*)
-  };
-private:
-  socklen_t _size; //!< 被包装地址的大小。
-  Raw _address {}; //!< 包含地址的 [sockaddr_storage](@ref man7::socket) 的包装。
-  //! 通过 ip/host、service/port 和解析器提示构造。
-  Address( const std::string& node, const std::string& service, const addrinfo& hints );
-public:
-  //! 通过解析主机名和服务名构造。
-  Address( const std::string& hostname, const std::string& service );
-  //! 通过点分四段字符串（例如 "18.243.0.1"）和数字端口构造。
-  explicit Address( const std::string& ip, std::uint16_t port = 0 );
-  //! 通过 [sockaddr *](@ref man7::socket) 构造。
-  Address( const sockaddr* addr, std::size_t size );
-  //! 相等比较运算符。
-  bool operator==( const Address& other ) const;
-  bool operator!=( const Address& other ) const { return not operator==( other ); } //!< 不等比较运算符，通过重载 == 运算符实现。
-  //! \name 转换函数
-  //!@{
-  //! 返回点分四段 IP 地址字符串（例如 "18.243.0.1"）和数字端口。
-  std::pair<std::string, uint16_t> ip_port() const;
-  //! 返回点分四段 IP 地址字符串（例如 "18.243.0.1"）。
-  std::string ip() const { return ip_port().first; }
-  //! 返回数字端口（主机字节序）。
-  uint16_t port() const { return ip_port().second; }
-  //! 返回数字 IP 地址作为整数（即以 [主机字节序](\ref man3::byteorder)）。
-  uint32_t ipv4_numeric() const;
-  //! 从 32 位原始数字 IP 地址创建 Address。
-  static Address from_ipv4_numeric( uint32_t ip_address );
-  //! 返回人类可读的字符串，例如 "8.8.8.8:53"。
-  std::string to_string() const;
-  //!@}
-  //! \name 低级操作
-  //!@{
-  //! 返回底层地址存储的大小。
-  socklen_t size() const { return _size; }
-  //! 返回指向底层套接字地址存储的常量指针。
-  const sockaddr* raw() const { return static_cast<const sockaddr*>( _address ); }
-  //! 安全地转换为底层 sockaddr 类型。
-  template<typename sockaddr_type>
-  const sockaddr_type* as() const;
-  //!@}
-};
-```
-`Address`类的构造函数有许多，让我们回到getURL函数，可以看到传递过来的参数为host和path。
+    
+- `TCPSocket()` 是一个公有构造函数，用于创建一个未绑定，未连接的 TCP 套接字。
+    
+- `listen( int backlog = 16 )` 函数用于将套接字标记为监听状态，准备接收进来的连接请求。`backlog` 参数指定了等待连接队列的大小。
+    
+- `accept()` 函数用于接受一个新的连接请求。当有新的连接请求到来时，它会创建一个新的文件描述符来处理这个连接，然后使用这个文件描述符构造一个 `TCPSocket` 对象并返回。
 
-```cpp
-void get_URL( const string& host, const string& path )
-{
-}
-
-```
-很容易的想到用以下构造函数进行地址对象的构建
-```cpp
-explicit Address( const std::string& ip, std::uint16_t port = 0 );
-```
-
-
-
-`TCPSocket`类并没有定义`write`方法，但是它继承自`Socket`类，而`Socket`类又继承自`FileDescriptor`类。在Unix和Linux系统中，套接字可以被视为一种特殊类型的文件描述符，因此你可以使用`write`系统调用来向套接字写入数据。这就是为什么你可以在`TCPSocket`对象上调用`write`方法而不会报错的原因。
-
-
-
-
+创建套接字，监听函数，接受函数都有了，其他函数呢？你可能会奇怪诶为什么`TCPSocket`类里没有定义？是不是在父类`Socket`里，在`socket.hh`头文件一找，嗯找到了连接函数：
 
 ``` cpp
-void get_URL( const string& host, const string& path )
-{
-  TCPSocket socket;
-  const string service {"http"};
-  socket.connect(Address(host,service)); // 绑定到所有接口的80端口
-  const string request {"GET "+path+" HTTP/1.1\r\n"+"Host: "+host+"\r\n"+"Connection: close\r\n"+"\r\n"};
-  socket.write(request);
-  string response,buffer;
-  while(socket.read(buffer),!buffer.empty()){
-    response.append(buffer);
-  }
-  cout  << response; 
-  socket.close();
-}
+  //! Connect a socket to a specified peer address with [connect(2)](\ref man2::connect)
+  void connect( const Address& address );
+
+```
+- `void connect( const Address& address )`：这个函数用于将套接字连接到一个指定的地址。
+还是没看到读写函数和关闭函数，这时候你发现`Socket`也有父类`FileDescriptor`，继续套娃，你发现原来在`file_descriptor.hh`里声明了，好家伙真是连环套。
+```cpp
+// Read into `buffer`
+  void read( std::string& buffer );
+  void read( std::vector<std::string>& buffers );
+
+  // Attempt to write a buffer
+  // returns number of bytes written
+  size_t write( std::string_view buffer );
+  size_t write( const std::vector<std::string_view>& buffers );
+  size_t write( const std::vector<std::string>& buffers );
+
+  // Close the underlying file descriptor
+  void close() { internal_fd_->close(); }
 
 ```
 
+- `void read( std::string& buffer )` 和 `void read( std::vector<std::string>& buffers )`：这两个函数用于从文件描述符读取数据。第一个函数将读取的数据存入一个字符串，第二个函数将读取的数据存入一个字符串向量。
+- `size_t write( std::string_view buffer )`、`size_t write( const std::vector<std::string_view>& buffers )` 和 `size_t write( const std::vector<std::string>& buffers )`：这三个函数用于向文件描述符写入数据。第一个函数写入一个字符串，第二个函数写入一个字符串向量，第三个函数也写入一个字符串向量。这三个函数都返回写入的字节数。
+- `void close()`：这个函数用于关闭文件描述符。
+
+#### http报文格式
+这部分不是代码的重点，不过还是简单介绍一下我们这次需要填写的GET请求报文，详情请参考相关专业书籍以及这个[博客](https://blog.csdn.net/csdnlijingran/article/details/88909370)。
+
+
+```
+GET path HTTP/1.1
+Host: host
+Connection: close
+
+```
+
+注意最后还有一个空行。
+用cpp实现代码如下：
+
+```cpp
+  const string request { "GET " + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n"
+                         + "\r\n" };
+```
+
+#### 实现代码
+这下，你终于找齐了图上所有函数，填写好简单请求报文。可以开始编程了！结合上面的流程图和函数，你可以填补get_URL函数模拟网页访问了。实际上代码确实很短，你只需要实现TCP套接字编程的客户端部分。
+
+1. 创建socket
+```cpp
+TCPSocket socket;
+```
+2.  建立连接
+```cpp
+const string service { "http" };
+  socket.connect( Address( host, service ) ); 
+```
+3. 发送请求
+```cpp
+  const string request { "GET " + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n"
+                         + "\r\n" };
+  socket.write( request );
+```
+
+4. 读取响应并输出
+
+```cpp
+  string response, buffer;
+  while ( socket.read( buffer ), !buffer.empty() ) {
+    response.append( buffer );
+  }
+  cout << response;
+```
+
+5. 关闭连接
+
+```cpp
+  socket.close();
+```
+
+好的以上就是所有代码，这次小实验主要是让我们初步上手套接字编程。接下来让我们来测试一下：
+
+#### 代码测试
+在终端执行以下代码进行测试
+``` shell
+cmake --build build --target check_webget
+```
+
+如果你的代码还没完成/出现错误，那么将会出现类似以下结果：
+
+``` shell
+Test project /home/cs144/minnow/build
+
+    Start 1: compile with bug-checkers
+1/2 Test #1: compile with bug-checkers ........
+
+Passed
+
+1.02 sec
+
+    Start 2: t_webget
+2/2 Test #2: t_webget .........................***Failed
+Function called: get_URL(cs144.keithw.org, /nph-hasher/xyzzy)
+Warning: get_URL() has not been implemented yet.
+ERROR: webget returned output that did not match the test's expectations
+
+```
+
+如果成功，就会出现如下类似结果：
+``` shell
+cs144@vm:~/minnow$ cmake --build build --target check_webget
+Test project /home/cs144/minnow/build
+    Start 1: compile with bug-checkers
+1/2 Test #1: compile with bug-checkers ........   Passed    0.15 sec
+    Start 2: t_webget
+2/2 Test #2: t_webget .........................   Passed    3.26 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   3.41 sec
+Built target check_webget
+
+```
+
+这时候你发现他好像有点慢，官方文档里t_webget才0.72s。诶是怎么一回事呢？
+在这里挖一个坑待填~~（因为我的c++学的真是太差了）~~
 
 
 
-测试
-`cmake --build build --target check_webget`
+## 4.An in-memory reliable byte stream
+
+正当我以为lab0就大功告成，真是易如反掌，易如反掌啊的时候，我惊喜地发现那只是前菜，接下来的字节流编程更是折磨。
+
+（待填）
