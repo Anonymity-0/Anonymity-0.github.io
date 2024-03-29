@@ -7,7 +7,11 @@ math:
 license: 
 hidden: false
 comments: true
-draft: true
+draft: false
+categories:
+    - 计算机网络基础知识
+tags:
+    - lab
 ---
 
 ## 前言
