@@ -287,7 +287,16 @@ Recommended: Install the CS144 VirtualBox virtual-machine image (instructions at
         </li>
       </ol>
     </li>
-    <li><a href="#4an-in-memory-reliable-byte-stream">4.An in-memory reliable byte stream</a></li>
+    <li><a href="#4an-in-memory-reliable-byte-stream">4.An in-memory reliable byte stream</a>
+      <ol>
+        <li><a href="#实验目的">实验目的：</a></li>
+        <li><a href="#实验要求">实验要求：</a></li>
+        <li><a href="#实验细节">实验细节：</a></li>
+        <li><a href="#需要实现的接口定义">需要实现的接口定义：</a></li>
+        <li><a href="#非常无聊的代码解读">非常无聊的代码解读</a></li>
+        <li><a href="#实现接口">实现接口</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -352,7 +361,7 @@ Recommended: Install the CS144 VirtualBox virtual-machine image (instructions at
 
 
                 <time class="article-time--reading">
-                    7 minute read
+                    11 minute read
                 </time>
             </div>
         
@@ -1173,8 +1182,536 @@ Recommended: Install the CS144 VirtualBox virtual-machine image (instructions at
 在这里挖一个坑待填~~（因为我的c++学的真是太差了）~~</p>
 <h2 id="4an-in-memory-reliable-byte-stream">4.An in-memory reliable byte stream</h2>
 <p>正当我以为lab0就大功告成，真是易如反掌，易如反掌啊的时候，我惊喜地发现那只是前菜，接下来的字节流编程更是折磨。</p>
-<p>（待填）</p>
-
+<p>先读题目：</p>
+<h3 id="实验目的">实验目的：</h3>
+<ul>
+<li>实现一个抽象的可靠字节流对象，即使底层网络只提供“尽力而为”（不可靠）的数据报服务。</li>
+<li>字节流是有界的：写入端可以结束输入，之后不能再写入更多字节；读取端读到流的末尾时，会到达“EOF”（文件结束），之后不能再读取更多字节。</li>
+</ul>
+<h3 id="实验要求">实验要求：</h3>
+<ul>
+<li>字节流需要有流量控制以限制任何给定时间的内存消耗。</li>
+<li>字节流对象初始化时会指定一个“容量”参数，即它愿意在任何给定时刻存储在自身内存中的最大字节数。</li>
+<li>写入端在任何给定时刻能写入的量受到限制，以确保流不会超过其存储容量。</li>
+<li>读取端读取字节并从流中清除它们时，写入端被允许写入更多数据。</li>
+<li>字节流用于单线程环境，不需要担心并发写入/读取、锁定或竞态条件。</li>
+</ul>
+<h3 id="实验细节">实验细节：</h3>
+<ul>
+<li>字节流是有界的，但在写入端结束输入并完成流之前，它可以几乎任意长。</li>
+<li>实现必须能够处理比容量长得多的流。</li>
+<li>容量限制了在任何给定时刻保留在内存中的字节数（已写入但尚未读取），但不限制流的长度。</li>
+<li>即使是容量仅为一个字节的对象，只要写入端一次写入一个字节，并且读取端在写入下一个字节之前读取每个字节，它仍然可以携带长达数TB的流。</li>
+</ul>
+<h3 id="需要实现的接口定义">需要实现的接口定义：</h3>
+<ul>
+<li>
+<p>对于写入端：</p>
+<ul>
+<li><code>void push(std::string data)</code>：将数据推送到流中，但只能推送可用容量允许的数据量。</li>
+<li><code>void close()</code>：信号表示流已到达结尾。不会再写入任何内容。</li>
+<li><code>bool is_closed() const</code>：流是否已被关闭？</li>
+<li><code>uint64_t available_capacity() const</code>：当前可以推送到流中的字节数。</li>
+<li><code>uint64_t bytes_pushed() const</code>：累计推送到流中的总字节数。</li>
+</ul>
+</li>
+<li>
+<p>对于读取端：</p>
+<ul>
+<li><code>std::string_view peek() const</code>：查看缓冲区中的下一些字节。</li>
+<li><code>void pop(uint64_t len)</code>：从缓冲区中移除<code>len</code>个字节。</li>
+<li><code>bool is_finished() const</code>：流是否已完成（已关闭并完全弹出）？</li>
+<li><code>bool has_error() const</code>：流是否出现错误？</li>
+<li><code>uint64_t bytes_buffered() const</code>：当前缓冲的字节数（已推送且尚未弹出）。</li>
+<li><code>uint64_t bytes_popped() const</code>：从流中累计弹出的总字节数。</li>
+</ul>
+</li>
+</ul>
+<h3 id="非常无聊的代码解读">非常无聊的代码解读</h3>
+<p>让我们来看看byte_stream.hh头文件的源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#pragma once </span><span class="c1">// 确保这个头文件只被包含一次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdint&gt;</span><span class="cp"> </span><span class="c1">// 引入标准库，包含基本的整数类型定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">  </span><span class="c1">// 引入标准库，包含字符串类的定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;string_view&gt;</span><span class="cp"> </span><span class="c1">// 引入标准库，包含对字符串的非拥有（non-owning）视图的定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ByteStream类是Writer和Reader的基类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">ByteStream</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 构造函数，初始化时传入流的容量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">explicit</span> <span class="n">ByteStream</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">capacity</span><span class="p">)</span> <span class="o">:</span> <span class="n">capacity_</span><span class="p">(</span><span class="n">capacity</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 提供对Reader和Writer接口的访问的辅助函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Reader</span><span class="o">&amp;</span> <span class="n">reader</span><span class="p">();</span> <span class="c1">// 返回Reader对象的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">const</span> <span class="n">Reader</span><span class="o">&amp;</span> <span class="n">reader</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span> <span class="c1">// 返回const Reader对象的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Writer</span><span class="o">&amp;</span> <span class="n">writer</span><span class="p">();</span> <span class="c1">// 返回Writer对象的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">const</span> <span class="n">Writer</span><span class="o">&amp;</span> <span class="n">writer</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span> <span class="c1">// 返回const Writer对象的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 设置流错误状态，并提供一个方法来检查流是否发生过错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="nf">set_error</span><span class="p">()</span> <span class="p">{</span> <span class="n">error_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="nf">has_error</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">error_</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 这里添加ByteStream的任何额外状态，不要添加到Writer和Reader接口中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">uint64_t</span> <span class="n">capacity_</span><span class="p">;</span> <span class="c1">// 流的容量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">bool</span> <span class="n">error_</span> <span class="p">{};</span> <span class="c1">// 流是否发生过错误的标志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Writer类继承自ByteStream，用于写入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Writer</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ByteStream</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 向流中推送数据，但只能推送当前可用容量允许的数据量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 标记流已经结束，之后不再写入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="nf">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 检查流是否已经被关闭
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">bool</span> <span class="nf">is_closed</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回当前可以推送到流中的字节数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">uint64_t</span> <span class="nf">available_capacity</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回累计推送到流中的总字节数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">uint64_t</span> <span class="nf">bytes_pushed</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Reader类继承自ByteStream，用于读取数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Reader</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ByteStream</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 查看缓冲区中的下一些字节，但不移除它们
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">peek</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 从缓冲区移除len个字节
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="nf">pop</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 检查流是否已经结束（已关闭并且所有数据都已弹出）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">bool</span> <span class="nf">is_finished</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回当前缓冲的字节数（已推送且尚未弹出）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">uint64_t</span> <span class="nf">bytes_buffered</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 返回从流中累计弹出的总字节数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">uint64_t</span> <span class="nf">bytes_popped</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// read函数是一个辅助函数，用于从ByteStream的Reader中peek并pop最多len个字节到一个字符串中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">read</span><span class="p">(</span><span class="n">Reader</span><span class="o">&amp;</span> <span class="n">reader</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为了实现内存中的字节流，需要一些成员变量来维护流的状态。以下是在ByteStream类里补充的成员变量：</p>
+<ol>
+<li>
+<p><code>std::deque&lt;char&gt; buffer_;</code></p>
+<ul>
+<li><code>buffer_</code>是一个双端队列，用于存储字节流中的数据。使用<code>std::deque</code>（双端队列）是因为它支持高效的两端插入和删除操作，这对于模拟字节流的写入（push）和读取（pop）操作非常合适。</li>
+</ul>
+</li>
+<li>
+<p><code>bool closed_ {};</code></p>
+<ul>
+<li><code>closed_</code>是一个布尔值，用来标记字节流是否已经被关闭。一旦流被关闭，就不应该再有数据写入。这个状态对于<code>Writer</code>类特别重要，因为它需要知道何时停止接受新的数据。</li>
+</ul>
+</li>
+<li>
+<p><code>uint64_t bytes_pushed_ {};</code></p>
+<ul>
+<li><code>bytes_pushed_</code>这是一个无符号整数，用于记录已经推送到字节流中的字节数。每次调用 <code>push</code> 方法时，都会更新这个值。</li>
+</ul>
+</li>
+<li>
+<p><code>uint64_t bytes_popped_ {};</code></p>
+<ul>
+<li>这是一个无符号整数，用于记录已经从字节流中弹出的字节数。每次调用 <code>pop</code> 方法时，都会更新这个值。</li>
+</ul>
+</li>
+</ol>
+<h3 id="实现接口">实现接口</h3>
+<p>接下来让我们开始一步一步实现接口吧！
+首先是最简单的方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Writer</span><span class="o">::</span><span class="n">is_closed</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">closed_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p> 这个函数非常简单，它只是返回 <code>closed_</code> 成员变量的值。<code>closed_</code> 是一个布尔值，用于标记字节流是否已经关闭。如果 <code>closed_</code> 为 <code>true</code>，则表示字节流已经关闭，不再允许向其中写入数据。</p>
+<p>接下来是很重要的push函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Writer</span><span class="o">::</span><span class="n">push</span><span class="p">(</span><span class="n">string</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果流已经关闭，直接返回，不再进行后续操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">closed_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 计算要推送的字节数，这个数是输入数据的大小和流的可用容量之间的较小值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">uint64_t</span> <span class="n">to_push</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">available_capacity</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 如果要推送的字节数为0，表示没有可用的容量，因此不推送任何数据，直接返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">to_push</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 使用循环将要推送的数据添加到流中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">for</span> <span class="p">(</span><span class="kt">uint64_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">to_push</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer_</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> <span class="c1">// 将数据添加到流的末尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 更新已推送的字节数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">bytes_pushed_</span> <span class="o">+=</span> <span class="n">to_push</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>首先，检查 <code>closed_</code> 是否为 <code>true</code>。如果为 <code>true</code>，则表示字节流已经关闭，不再允许写入数据，因此直接返回。</p>
+</li>
+<li>
+<p>然后，计算要推送的字节数<code>to_push</code>。这个数是 <code>data.size()</code>（即输入数据的大小）和 <code>available_capacity()</code>（即字节流的可用容量）之间的较小值。如果<code>to_push</code>为 <code>0</code>，则表示没有可用的容量，因此不推送任何数据，直接返回。</p>
+</li>
+<li>
+<p>最后，使用循环将要推送的数据添加到 <code>buffer_</code> 中。<code>buffer_</code> 是一个 <code>std::deque&lt;char&gt;</code>，用于存储字节流中的数据。循环的次数是要推送的字节数，每次循环都将一个字节的数据添加到 <code>buffer_</code> 的末尾。</p>
+</li>
+</ul>
+<p>又是几个很简单的函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Writer</span><span class="o">::</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">closed_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个方法的思路非常简单：就是将 <code>closed_</code> 设置为 <code>true</code>，以标记字节流已经关闭。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Reader</span><span class="o">::</span><span class="n">is_finished</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">buffer_</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">&amp;&amp;</span><span class="n">closed_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>buffer_.empty()</code> 是一个布尔值，表示 <code>buffer_</code>（字节流的缓冲区）是否为空。如果 <code>buffer_</code> 为空，表示没有更多的数据可以从字节流中读取。</p>
+<p><code>closed_</code> 是一个布尔值，用于标记字节流是否已经关闭。如果 <code>closed_</code> 为 <code>true</code>，表示字节流已经关闭，不再允许向其中写入数据。</p>
+<p>因此，如果 <code>buffer_</code> 为空并且 <code>closed_</code> 为 <code>true</code>，则表示字节流已完成。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="n">Writer</span><span class="o">::</span><span class="n">available_capacity</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">capacity_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&#34;Buffer size exceeds capacity.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">capacity_</span> <span class="o">-</span> <span class="n">buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个方法是检查buffer_的可用容量的代码。首先检查 buffer_ 的大小是否超过了 capacity_，如果超过了就抛出错误；没超过就返回字节流的可用容量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="n">Writer</span><span class="o">::</span><span class="n">bytes_pushed</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">bytes_pushed_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="n">Reader</span><span class="o">::</span><span class="n">bytes_popped</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">bytes_popped_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这俩方法的思路非常简单：就是返回 <code>bytes_popped_</code> 和<code>bytes_pushed_</code> 的值，即已经从字节流中弹出的字节数和已经推送到字节流中的字节数。</p>
+<p>那到底在哪里更新这俩值呢？<code>bytes_pushed_</code>在前面的<code>push</code>函数中被更新；而<code>bytes_popped_</code>顾名思义则在下面的<code>pop</code>函数中更新。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Reader</span><span class="o">::</span><span class="n">pop</span><span class="p">(</span> <span class="kt">uint64_t</span> <span class="n">len</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&gt;</span> <span class="n">buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">(</span><span class="s">&#34;Cannot pop more data than available in the buffer.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">len</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">buffer_</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>  <span class="c1">// 确保不会删除超过 buffer_ 大小的元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">for</span> <span class="p">(</span><span class="kt">uint64_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer_</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">bytes_popped_</span> <span class="o">+=</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>在这个方法中，首先检查要弹出的数据量 <code>len</code> 是否超过了 <code>buffer_</code>（字节流的缓冲区）的大小。如果超过了，就抛出一个运行时错误。</li>
+<li>然后，将 <code>len</code> 设置为 <code>len</code> 和 <code>buffer_.size()</code> 之间的较小值，以确保不会删除超过 <code>buffer_</code> 大小的元素。</li>
+<li>==你可能会奇怪，前面已经判断过了，<code>len</code> 已经被确认不会大于 <code>buffer_.size()</code>，为什么还要再取值一遍？在这段代码中，因为在多线程环境中，如果在检查 <code>len &gt; buffer_.size()</code> 之后和执行 <code>len = std::min(len, buffer_.size());</code> 之前，另一个线程修改了 <code>buffer_</code>，那么 <code>len</code> 可能会大于 <code>buffer_.size()</code>。在这种情况下，<code>std::min</code> 调用可以防止尝试弹出超过 <code>buffer_</code> 大小的元素。==</li>
+<li>接着，使用循环从 <code>buffer_</code> 中弹出 <code>len</code> 个元素。每次循环都调用 <code>buffer_.pop_front()</code>，这个方法会删除 <code>buffer_</code> 的第一个元素。</li>
+<li>最后，更新 <code>bytes_popped_</code> 的值，将其增加 <code>len</code>。<code>bytes_popped_</code> 是一个无符号整数，用于记录已经从字节流中弹出的字节数。</li>
+</ul>
+<p>然后就是最后一个<code>peek</code> 方法的实现。这个方法的作用是预览字节流中的数据，但不从字节流中删除这些数据。
+这个方法真的让我错了很多遍，测试麻了都。一开始的代码是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string_view</span> <span class="n">Reader</span><span class="o">::</span><span class="n">peek</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">buffer_</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 返回一个非空但内容为空的视图
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nf">string_view</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 只返回缓冲区中实际存在的数据，而不是整个缓冲区的大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer_</span><span class="p">.</span><span class="n">front</span><span class="p">(),</span> <span class="n">bytes_buffered</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后来怎么测试都测试不过，才发现哦，<code>peek</code> 方法的目的是只查看 <code>buffer_</code> 的第一个元素，而不是所有元素，改了之后终于通过了耶！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string_view</span> <span class="n">Reader</span><span class="o">::</span><span class="n">peek</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">buffer_</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">string_view</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  <span class="c1">// 返回一个空视图
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 只返回缓冲区中实际存在的数据，而不是整个缓冲区的大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer_</span><span class="p">.</span><span class="n">front</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>先来解释一下<code>std::string_view</code> ，它是 C++17 引入的一个新特性，它是一个轻量级的、非拥有的只读字符序列视图。它可以看作是指向字符数组的指针和长度的组合，但并不拥有它所指向的字符数组。<code>std::string_view</code> 的主要用途是作为函数的参数类型，特别是当函数需要接受一个字符串，但不需要拥有它时。使用 <code>std::string_view</code> 可以<strong>避免不必要的字符串复制，提高性能</strong>。</p>
+</li>
+<li>
+<p>在这个方法中，首先，检查 <code>buffer_</code> 是否为空。这是通过调用 <code>buffer_.empty()</code> 来完成的。如果 <code>buffer_</code> 为空（即没有数据可以读取），那么方法返回一个空的 <code>std::string_view</code>。这是通过 <code>string_view(nullptr, 0)</code> 实现的，它创建了一个没有数据的 <code>std::string_view</code>。</p>
+</li>
+<li>
+<p>如果 <code>buffer_</code> 不为空，那么方法返回一个 <code>std::string_view</code>，它表示 <code>buffer_</code> 的第一个元素。这是通过 <code>std::string_view(&amp;buffer_.front(), 1)</code> 实现的。这里，<code>&amp;buffer_.front()</code> 获取 <code>buffer_</code> 第一个元素的地址，<code>1</code> 表示我们只关心一个元素。</p>
+</li>
+</ul>
+<p>最后执行<code>cmake --build build --target check0</code>测试
+测试结果如下，终于成功了，第一个实验完结撒花🎉！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cs144@vm:~/minnow$ cmake --build build --target check0 
+</span></span><span class="line"><span class="cl">Test project /home/cs144/minnow/build
+</span></span><span class="line"><span class="cl">      Start  1: compile with bug-checkers
+</span></span><span class="line"><span class="cl"> 1/10 Test  <span class="c1">#1: compile with bug-checkers ........   Passed    0.20 sec</span>
+</span></span><span class="line"><span class="cl">      Start  2: t_webget
+</span></span><span class="line"><span class="cl"> 2/10 Test  <span class="c1">#2: t_webget .........................   Passed    1.37 sec</span>
+</span></span><span class="line"><span class="cl">      Start  3: byte_stream_basics
+</span></span><span class="line"><span class="cl"> 3/10 Test  <span class="c1">#3: byte_stream_basics ...............   Passed    0.04 sec</span>
+</span></span><span class="line"><span class="cl">      Start  4: byte_stream_capacity
+</span></span><span class="line"><span class="cl"> 4/10 Test  <span class="c1">#4: byte_stream_capacity .............   Passed    0.02 sec</span>
+</span></span><span class="line"><span class="cl">      Start  5: byte_stream_one_write
+</span></span><span class="line"><span class="cl"> 5/10 Test  <span class="c1">#5: byte_stream_one_write ............   Passed    0.02 sec</span>
+</span></span><span class="line"><span class="cl">      Start  6: byte_stream_two_writes
+</span></span><span class="line"><span class="cl"> 6/10 Test  <span class="c1">#6: byte_stream_two_writes ...........   Passed    0.01 sec</span>
+</span></span><span class="line"><span class="cl">      Start  7: byte_stream_many_writes
+</span></span><span class="line"><span class="cl"> 7/10 Test  <span class="c1">#7: byte_stream_many_writes ..........   Passed    0.07 sec</span>
+</span></span><span class="line"><span class="cl">      Start  8: byte_stream_stress_test
+</span></span><span class="line"><span class="cl"> 8/10 Test  <span class="c1">#8: byte_stream_stress_test ..........   Passed    0.25 sec</span>
+</span></span><span class="line"><span class="cl">      Start 37: compile with optimization
+</span></span><span class="line"><span class="cl"> 9/10 Test <span class="c1">#37: compile with optimization ........   Passed    0.07 sec</span>
+</span></span><span class="line"><span class="cl">      Start 38: byte_stream_speed_test
+</span></span><span class="line"><span class="cl">             ByteStream throughput: 0.85 Gbit/s
+</span></span><span class="line"><span class="cl">10/10 Test <span class="c1">#38: byte_stream_speed_test ...........   Passed    0.16 sec</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">100% tests passed, <span class="m">0</span> tests failed out of <span class="m">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Total Test <span class="nb">time</span> <span class="o">(</span>real<span class="o">)</span> <span class="o">=</span>   2.21 sec
+</span></span><span class="line"><span class="cl">Built target check0
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 

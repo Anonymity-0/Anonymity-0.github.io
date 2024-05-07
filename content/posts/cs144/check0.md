@@ -15,6 +15,7 @@ tags:
 ---
 
 
+
 ## 前言
 其实从本科开始，计网相关的课上了也有三次：第一次是大二在CQU上的，当时用的自顶向下那本书，一上来方老师就无敌催眠，不过是开卷考试，最后面向考试临时复习也拿了90+；第二次是考研的时候看的湖科大的网课，说实话这个老师动画做的很好，每个知识点好像都听懂了，但是还是没有形成成套的系统；第三次是在USTC上的高级计算机网络，上学期选这门课的时候，还是抱着一种想学东西的心态去听的，毕竟选的时候就听过这门课很硬核。遗憾的是，尝试听了一两节课后还是放弃了。机缘巧合之下，看到了cs144的lab，想给自己立一个新坑，这个学期搓出来cs144。计网的概念实在是玄乎又不好理解，或许换种方式，试试自己动手写写，顺便尝试读读英文文档（当然还是会借助一下翻译器），话不多说，cs144，启动！
 
@@ -520,4 +521,328 @@ Built target check_webget
 
 正当我以为lab0就大功告成，真是易如反掌，易如反掌啊的时候，我惊喜地发现那只是前菜，接下来的字节流编程更是折磨。
 
-（待填）
+先读题目：
+### 实验目的：
+- 实现一个抽象的可靠字节流对象，即使底层网络只提供“尽力而为”（不可靠）的数据报服务。
+- 字节流是有界的：写入端可以结束输入，之后不能再写入更多字节；读取端读到流的末尾时，会到达“EOF”（文件结束），之后不能再读取更多字节。
+### 实验要求：
+- 字节流需要有流量控制以限制任何给定时间的内存消耗。
+- 字节流对象初始化时会指定一个“容量”参数，即它愿意在任何给定时刻存储在自身内存中的最大字节数。
+- 写入端在任何给定时刻能写入的量受到限制，以确保流不会超过其存储容量。
+- 读取端读取字节并从流中清除它们时，写入端被允许写入更多数据。
+- 字节流用于单线程环境，不需要担心并发写入/读取、锁定或竞态条件。
+### 实验细节：
+- 字节流是有界的，但在写入端结束输入并完成流之前，它可以几乎任意长。
+- 实现必须能够处理比容量长得多的流。
+- 容量限制了在任何给定时刻保留在内存中的字节数（已写入但尚未读取），但不限制流的长度。
+- 即使是容量仅为一个字节的对象，只要写入端一次写入一个字节，并且读取端在写入下一个字节之前读取每个字节，它仍然可以携带长达数TB的流。
+### 需要实现的接口定义：
+
+- 对于写入端：
+    
+    - `void push(std::string data)`：将数据推送到流中，但只能推送可用容量允许的数据量。
+    - `void close()`：信号表示流已到达结尾。不会再写入任何内容。
+    - `bool is_closed() const`：流是否已被关闭？
+    - `uint64_t available_capacity() const`：当前可以推送到流中的字节数。
+    - `uint64_t bytes_pushed() const`：累计推送到流中的总字节数。
+- 对于读取端：
+    
+    - `std::string_view peek() const`：查看缓冲区中的下一些字节。
+    - `void pop(uint64_t len)`：从缓冲区中移除`len`个字节。
+    - `bool is_finished() const`：流是否已完成（已关闭并完全弹出）？
+    - `bool has_error() const`：流是否出现错误？
+    - `uint64_t bytes_buffered() const`：当前缓冲的字节数（已推送且尚未弹出）。
+    - `uint64_t bytes_popped() const`：从流中累计弹出的总字节数。
+
+### 非常无聊的代码解读
+让我们来看看byte_stream.hh头文件的源码
+
+```cpp
+#pragma once // 确保这个头文件只被包含一次
+
+#include <cstdint> // 引入标准库，包含基本的整数类型定义
+#include <string>  // 引入标准库，包含字符串类的定义
+#include <string_view> // 引入标准库，包含对字符串的非拥有（non-owning）视图的定义
+
+// ByteStream类是Writer和Reader的基类
+class ByteStream
+{
+public:
+  // 构造函数，初始化时传入流的容量
+  explicit ByteStream(uint64_t capacity) : capacity_(capacity) {}
+
+  // 提供对Reader和Writer接口的访问的辅助函数
+  Reader& reader(); // 返回Reader对象的引用
+  const Reader& reader() const; // 返回const Reader对象的引用
+  Writer& writer(); // 返回Writer对象的引用
+  const Writer& writer() const; // 返回const Writer对象的引用
+
+  // 设置流错误状态，并提供一个方法来检查流是否发生过错误
+  void set_error() { error_ = true; }
+  bool has_error() const { return error_; }
+
+protected:
+  // 这里添加ByteStream的任何额外状态，不要添加到Writer和Reader接口中
+  uint64_t capacity_; // 流的容量
+  bool error_ {}; // 流是否发生过错误的标志
+};
+
+// Writer类继承自ByteStream，用于写入数据
+class Writer : public ByteStream
+{
+public:
+  // 向流中推送数据，但只能推送当前可用容量允许的数据量
+  void push(std::string data);
+  // 标记流已经结束，之后不再写入数据
+  void close();
+
+  // 检查流是否已经被关闭
+  bool is_closed() const;
+  // 返回当前可以推送到流中的字节数
+  uint64_t available_capacity() const;
+  // 返回累计推送到流中的总字节数
+  uint64_t bytes_pushed() const;
+};
+
+// Reader类继承自ByteStream，用于读取数据
+class Reader : public ByteStream
+{
+public:
+  // 查看缓冲区中的下一些字节，但不移除它们
+  std::string_view peek() const;
+  // 从缓冲区移除len个字节
+  void pop(uint64_t len);
+
+  // 检查流是否已经结束（已关闭并且所有数据都已弹出）
+  bool is_finished() const;
+  // 返回当前缓冲的字节数（已推送且尚未弹出）
+  uint64_t bytes_buffered() const;
+  // 返回从流中累计弹出的总字节数
+  uint64_t bytes_popped() const;
+};
+
+// read函数是一个辅助函数，用于从ByteStream的Reader中peek并pop最多len个字节到一个字符串中
+void read(Reader& reader, uint64_t len, std::string& out);
+```
+
+为了实现内存中的字节流，需要一些成员变量来维护流的状态。以下是在ByteStream类里补充的成员变量：
+
+1. `std::deque<char> buffer_;`
+    - `buffer_`是一个双端队列，用于存储字节流中的数据。使用`std::deque`（双端队列）是因为它支持高效的两端插入和删除操作，这对于模拟字节流的写入（push）和读取（pop）操作非常合适。
+2. `bool closed_ {};`
+    
+    - `closed_`是一个布尔值，用来标记字节流是否已经被关闭。一旦流被关闭，就不应该再有数据写入。这个状态对于`Writer`类特别重要，因为它需要知道何时停止接受新的数据。
+3. `uint64_t bytes_pushed_ {};`
+    - `bytes_pushed_`这是一个无符号整数，用于记录已经推送到字节流中的字节数。每次调用 `push` 方法时，都会更新这个值。
+4. `uint64_t bytes_popped_ {};`
+    - 这是一个无符号整数，用于记录已经从字节流中弹出的字节数。每次调用 `pop` 方法时，都会更新这个值。
+
+
+### 实现接口
+
+接下来让我们开始一步一步实现接口吧！
+首先是最简单的方法：
+
+```cpp
+bool Writer::is_closed() const
+{
+  return closed_;
+}
+```
+ 这个函数非常简单，它只是返回 `closed_` 成员变量的值。`closed_` 是一个布尔值，用于标记字节流是否已经关闭。如果 `closed_` 为 `true`，则表示字节流已经关闭，不再允许向其中写入数据。
+
+接下来是很重要的push函数：
+
+```cpp
+void Writer::push(string data)
+{
+  // 如果流已经关闭，直接返回，不再进行后续操作
+  if (closed_) {
+    return;
+  }
+
+  // 计算要推送的字节数，这个数是输入数据的大小和流的可用容量之间的较小值
+  uint64_t to_push = std::min(data.size(), available_capacity());
+  // 如果要推送的字节数为0，表示没有可用的容量，因此不推送任何数据，直接返回
+  if (to_push == 0) {
+    return; 
+  }
+
+  // 使用循环将要推送的数据添加到流中
+  for (uint64_t i = 0; i < to_push; ++i) {
+    buffer_.push_back(data[i]); // 将数据添加到流的末尾
+  }
+  // 更新已推送的字节数
+  bytes_pushed_ += to_push;
+}
+
+```
+- 首先，检查 `closed_` 是否为 `true`。如果为 `true`，则表示字节流已经关闭，不再允许写入数据，因此直接返回。
+
+- 然后，计算要推送的字节数`to_push`。这个数是 `data.size()`（即输入数据的大小）和 `available_capacity()`（即字节流的可用容量）之间的较小值。如果`to_push`为 `0`，则表示没有可用的容量，因此不推送任何数据，直接返回。
+
+- 最后，使用循环将要推送的数据添加到 `buffer_` 中。`buffer_` 是一个 `std::deque<char>`，用于存储字节流中的数据。循环的次数是要推送的字节数，每次循环都将一个字节的数据添加到 `buffer_` 的末尾。
+
+
+又是几个很简单的函数：
+
+```cpp
+void Writer::close()
+{
+  closed_ = true;
+}
+```
+这个方法的思路非常简单：就是将 `closed_` 设置为 `true`，以标记字节流已经关闭。
+
+
+```cpp
+bool Reader::is_finished() const
+{
+  return buffer_.empty()&&closed_;
+}
+
+```
+
+`buffer_.empty()` 是一个布尔值，表示 `buffer_`（字节流的缓冲区）是否为空。如果 `buffer_` 为空，表示没有更多的数据可以从字节流中读取。
+
+`closed_` 是一个布尔值，用于标记字节流是否已经关闭。如果 `closed_` 为 `true`，表示字节流已经关闭，不再允许向其中写入数据。
+
+因此，如果 `buffer_` 为空并且 `closed_` 为 `true`，则表示字节流已完成。
+
+```cpp
+uint64_t Writer::available_capacity() const
+{
+  if (buffer_.size() > capacity_) {
+    throw std::runtime_error("Buffer size exceeds capacity.");
+  }
+  return capacity_ - buffer_.size();
+}
+
+```
+
+这个方法是检查buffer_的可用容量的代码。首先检查 buffer_ 的大小是否超过了 capacity_，如果超过了就抛出错误；没超过就返回字节流的可用容量。
+
+```cpp
+uint64_t Writer::bytes_pushed() const
+{
+  return bytes_pushed_;
+}
+
+
+uint64_t Reader::bytes_popped() const
+{
+  return bytes_popped_;
+}
+
+```
+这俩方法的思路非常简单：就是返回 `bytes_popped_` 和`bytes_pushed_` 的值，即已经从字节流中弹出的字节数和已经推送到字节流中的字节数。
+
+那到底在哪里更新这俩值呢？`bytes_pushed_`在前面的`push`函数中被更新；而`bytes_popped_`顾名思义则在下面的`pop`函数中更新。
+
+```cpp
+void Reader::pop( uint64_t len )
+{
+  if (len > buffer_.size()) {
+    throw std::runtime_error("Cannot pop more data than available in the buffer.");
+  }
+  len = std::min(len, buffer_.size());  // 确保不会删除超过 buffer_ 大小的元素
+  for (uint64_t i = 0; i < len; ++i) {
+    buffer_.pop_front();
+  } 
+  bytes_popped_ += len;
+}
+
+```
+- 在这个方法中，首先检查要弹出的数据量 `len` 是否超过了 `buffer_`（字节流的缓冲区）的大小。如果超过了，就抛出一个运行时错误。
+- 然后，将 `len` 设置为 `len` 和 `buffer_.size()` 之间的较小值，以确保不会删除超过 `buffer_` 大小的元素。
+- ==你可能会奇怪，前面已经判断过了，`len` 已经被确认不会大于 `buffer_.size()`，为什么还要再取值一遍？在这段代码中，因为在多线程环境中，如果在检查 `len > buffer_.size()` 之后和执行 `len = std::min(len, buffer_.size());` 之前，另一个线程修改了 `buffer_`，那么 `len` 可能会大于 `buffer_.size()`。在这种情况下，`std::min` 调用可以防止尝试弹出超过 `buffer_` 大小的元素。==
+- 接着，使用循环从 `buffer_` 中弹出 `len` 个元素。每次循环都调用 `buffer_.pop_front()`，这个方法会删除 `buffer_` 的第一个元素。
+- 最后，更新 `bytes_popped_` 的值，将其增加 `len`。`bytes_popped_` 是一个无符号整数，用于记录已经从字节流中弹出的字节数。
+
+然后就是最后一个`peek` 方法的实现。这个方法的作用是预览字节流中的数据，但不从字节流中删除这些数据。
+这个方法真的让我错了很多遍，测试麻了都。一开始的代码是这样的：
+```cpp
+string_view Reader::peek() const {
+  if (buffer_.empty()) {
+    // 返回一个非空但内容为空的视图
+    return string_view(nullptr, 0);
+  } else {
+    // 只返回缓冲区中实际存在的数据，而不是整个缓冲区的大小
+    return std::string_view(&buffer_.front(), bytes_buffered());
+  }
+}
+```
+后来怎么测试都测试不过，才发现哦，`peek` 方法的目的是只查看 `buffer_` 的第一个元素，而不是所有元素，改了之后终于通过了耶！
+
+```cpp
+string_view Reader::peek() const {
+  if (buffer_.empty()) {
+    return string_view(nullptr, 0);  // 返回一个空视图
+  } else {
+    // 只返回缓冲区中实际存在的数据，而不是整个缓冲区的大小
+    return std::string_view(&buffer_.front(), 1);
+  }
+}
+```
+
+- 先来解释一下`std::string_view` ，它是 C++17 引入的一个新特性，它是一个轻量级的、非拥有的只读字符序列视图。它可以看作是指向字符数组的指针和长度的组合，但并不拥有它所指向的字符数组。`std::string_view` 的主要用途是作为函数的参数类型，特别是当函数需要接受一个字符串，但不需要拥有它时。使用 `std::string_view` 可以**避免不必要的字符串复制，提高性能**。
+
+- 在这个方法中，首先，检查 `buffer_` 是否为空。这是通过调用 `buffer_.empty()` 来完成的。如果 `buffer_` 为空（即没有数据可以读取），那么方法返回一个空的 `std::string_view`。这是通过 `string_view(nullptr, 0)` 实现的，它创建了一个没有数据的 `std::string_view`。
+
+-  如果 `buffer_` 不为空，那么方法返回一个 `std::string_view`，它表示 `buffer_` 的第一个元素。这是通过 `std::string_view(&buffer_.front(), 1)` 实现的。这里，`&buffer_.front()` 获取 `buffer_` 第一个元素的地址，`1` 表示我们只关心一个元素。
+
+
+最后执行`cmake --build build --target check0`测试
+测试结果如下，终于成功了，第一个实验完结撒花🎉！
+
+```bash
+cs144@vm:~/minnow$ cmake --build build --target check0 
+Test project /home/cs144/minnow/build
+      Start  1: compile with bug-checkers
+ 1/10 Test  #1: compile with bug-checkers ........   Passed    0.20 sec
+      Start  2: t_webget
+ 2/10 Test  #2: t_webget .........................   Passed    1.37 sec
+      Start  3: byte_stream_basics
+ 3/10 Test  #3: byte_stream_basics ...............   Passed    0.04 sec
+      Start  4: byte_stream_capacity
+ 4/10 Test  #4: byte_stream_capacity .............   Passed    0.02 sec
+      Start  5: byte_stream_one_write
+ 5/10 Test  #5: byte_stream_one_write ............   Passed    0.02 sec
+      Start  6: byte_stream_two_writes
+ 6/10 Test  #6: byte_stream_two_writes ...........   Passed    0.01 sec
+      Start  7: byte_stream_many_writes
+ 7/10 Test  #7: byte_stream_many_writes ..........   Passed    0.07 sec
+      Start  8: byte_stream_stress_test
+ 8/10 Test  #8: byte_stream_stress_test ..........   Passed    0.25 sec
+      Start 37: compile with optimization
+ 9/10 Test #37: compile with optimization ........   Passed    0.07 sec
+      Start 38: byte_stream_speed_test
+             ByteStream throughput: 0.85 Gbit/s
+10/10 Test #38: byte_stream_speed_test ...........   Passed    0.16 sec
+
+100% tests passed, 0 tests failed out of 10
+
+Total Test time (real) =   2.21 sec
+Built target check0
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
