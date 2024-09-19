@@ -1,6 +1,6 @@
 ---
-title: "{{title}}"
-date: "{{date}}"
+title: '{{ replace .Name "-" " " | title }}'
+date: "{{ .Date}}"
 tags:
   - code
 categories:
