@@ -1,6 +1,6 @@
 ---
-title: '{{ replace .Name "-" " " | title }}'
-date: "{{ .Date}}"
+title: gateway文档
+date: "{{data:YYYY-MM-DD-HH:mm}}"
 tags:
   - code
 categories:
@@ -311,4 +311,81 @@ func main() {
 
 
 
-### 
+### tcp实现
+
+**如果没有deferclose会出现什么情况**
+
+
+如果server端没有close，客户端会停在FIN_WAIT_2，服务器会停在CLOSE_WAIT
+![](https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202409191603143.png)
+
+
+
+### golang创建http服务器和客户端
+
+```go
+package main
+
+import (
+	"log"
+	"net/http"
+	"time"
+)
+
+const Addr = "localhost:9999"
+
+// main 是程序的入口函数。
+// 它创建一个 HTTP 服务器并在本地的 9999 端口上启动服务。
+func main() {
+
+	// 1. 创建一个 http.ServeMux 路由器
+	mux := http.NewServeMux()
+	// 2. 设置路由规则
+	mux.HandleFunc("/bye", sayBye)
+	// 3. 创建一个 http.Server
+	server := http.Server{
+		Addr:         Addr,
+		Handler:      mux,
+		WriteTimeout: time.Second * 3,
+	}
+	// 4. 监听端口并启动服务
+	log.Println("Starting http server at " + Addr)
+	log.Fatal(server.ListenAndServe())
+}
+
+// sayBye 处理 /bye 路由的请求。
+// 它等待 1 秒钟，然后返回 "bye bye, this is http server" 响应。
+func sayBye(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(1 * time.Second)
+	w.Write([]byte("bye bye, this is http server"))
+}
+
+```
+
+测试得到
+
+```shell
+agq@AGdeMacBook-Air tcp_client % curl -v 'http//127.0.0.1:9
+999/bye'
+* Could not resolve host: http
+* Closing connection 0
+curl: (6) Could not resolve host: http
+agq@AGdeMacBook-Air tcp_client % curl -v 'http://127.0.0.1:9999/bye'
+*   Trying 127.0.0.1:9999...
+* Connected to 127.0.0.1 (127.0.0.1) port 9999 (#0)
+> GET /bye HTTP/1.1
+> Host: 127.0.0.1:9999
+> User-Agent: curl/8.1.2
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Date: Thu, 19 Sep 2024 13:22:37 GMT
+< Content-Length: 28
+< Content-Type: text/plain; charset=utf-8
+< 
+* Connection #0 to host 127.0.0.1 left intact
+bye bye, this is http server%  
+
+```
+
+
