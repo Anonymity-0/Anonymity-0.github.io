@@ -12,22 +12,25 @@ isCJKLanguage: true
 
 # 动态字符串SDS
 
----yaml  
+---
+
 title: "动态字符串SDS"  
-description:  
-date: 2023-10-18T18:52:01+08:00  
-image:  
-math:  
-license:  
-hidden: false  
-comments: true  
-draft: false  
+date: {{ now.Format "2006-01-02T15:04:01+08:00" }}  # 自动填充当前时间（适用于 Hugo）  
+image: "/images/your-image.jpg"  # 图片路径（可选）  
+math: false  # 是否启用数学公式（如 LaTeX）  
+license: "CC BY-SA 4.0"  # 许可协议（可选）  
+hidden: false  # 是否隐藏文章  
+comments: true  # 是否启用评论  
+draft: false  # 是否为草稿（true 时不生成）  
 categories:  
-    - 计算机网络基础知识  
+    - "redis源码解析"  
 tags:  
-    - 学习笔记
+    - "中间件源码学习"  
+    - "redis"
 
 ---
+
+‍
 
 Redis没有用c语言的字符串，本质c语言没有字符串`char * s = "hello"`​ ![image](/images/image-20250527212640-b2ey49f.png)他有一个结束标识'\0'
 
