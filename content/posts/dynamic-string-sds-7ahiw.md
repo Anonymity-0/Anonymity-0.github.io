@@ -14,9 +14,9 @@ isCJKLanguage: true
 
 ---
 
-title: "动态字符串SDS"  
-date: {{ now.Format "2006-01-02T15:04:01+08:00" }}  # 自动填充当前时间（适用于 Hugo）  
-image: "/images/your-image.jpg"  # 图片路径（可选）  
+title: "{{ replace .Title "your-title" "default-title" }}"  
+date: {{ now.Format "2006-01-02T15:04:01+08:00" }}  # 自动生成当前时间  
+image: "/images/your-image.jpg"  # 可选：图片路径  
 math: false  # 是否启用数学公式（如 LaTeX）  
 license: "CC BY-SA 4.0"  # 许可协议（可选）  
 hidden: false  # 是否隐藏文章  
@@ -29,8 +29,6 @@ tags:
     - "redis"
 
 ---
-
-‍
 
 Redis没有用c语言的字符串，本质c语言没有字符串`char * s = "hello"`​ ![image](/images/image-20250527212640-b2ey49f.png)他有一个结束标识'\0'
 
