@@ -1,14 +1,14 @@
 /*
-*   Style: monokai
-*   https://xyproto.github.io/splash/docs/monokai.html
+*   Style: GitHub Light (经典白底配色 - 统一应用)
+*   经典的白色背景代码高亮方案，提供最佳的可读性
 */
 
-$color: #f8f8f2;
-$background-color: #272822;
-$error-color: #bb0064;
-$keyword-color: #66d9ef;
-$text-color: $color;
-$name-color: #a6e22e;
-$literal-color: #e6db74;
+$color: #24292f;
+$background-color: #ffffff;
+$error-color: #cf222e;
+$keyword-color: #cf222e;
+$text-color: #24292f;
+$name-color: #8250df;
+$literal-color: #0969da;
 
 @import "common.scss";

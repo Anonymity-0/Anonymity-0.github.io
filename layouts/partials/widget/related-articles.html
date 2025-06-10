@@ -1,0 +1,53 @@
+{{- $context := .Context -}}
+{{- $currentPage := $context -}}
+
+{{- if $currentPage.Params.tags -}}
+<section class="widget related-articles-widget">
+    <h3 class="widget-title">相关文章</h3>
+    
+    {{- $relatedArticles := slice -}}
+    {{- $currentTags := $currentPage.Params.tags -}}
+    
+    {{- if $currentTags -}}
+        {{- range $currentPage.Site.RegularPages -}}
+            {{- if and (ne .Permalink $currentPage.Permalink) .Params.tags -}}
+                {{- $hasCommonTag := false -}}
+                {{- range .Params.tags -}}
+                    {{- if in $currentTags . -}}
+                        {{- $hasCommonTag = true -}}
+                    {{- end -}}
+                {{- end -}}
+                
+                {{- if $hasCommonTag -}}
+                    {{- $relatedArticles = $relatedArticles | append . -}}
+                {{- end -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    
+    {{- if $relatedArticles -}}
+        {{- $relatedArticles = $relatedArticles | first 5 -}}
+        <ul class="related-articles-list">
+            {{- range $relatedArticles -}}
+            <li class="related-article-item">
+                <a href="{{ .Permalink }}" class="article-link">
+                    <div class="article-title">{{ .Title }}</div>
+                    <div class="article-meta">
+                        <span class="article-date">{{ .Date.Format "2006-01-02" }}</span>
+                        {{- if .Params.tags -}}
+                        <div class="article-tags">
+                            {{- range first 3 .Params.tags -}}
+                            <span class="tag">{{ . }}</span>
+                            {{- end -}}
+                        </div>
+                        {{- end -}}
+                    </div>
+                </a>
+            </li>
+            {{- end -}}
+        </ul>
+    {{- else -}}
+        <div class="no-related-articles">暂无相关文章</div>
+    {{- end -}}
+</section>
+{{- end -}}

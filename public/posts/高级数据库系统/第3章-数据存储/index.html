@@ -1,48 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）
-OS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间
-从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）
-磁头定位到所要的柱面所花费的时间 平均寻道时间
-旋转延迟(Rotation Latency)
-磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)
-块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟
-CPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？
-CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块
-与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改
-将块读入主存 在主存中完成修改 将块重新写入磁盘 块地址'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）\nOS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间\n从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）\n磁头定位到所要的柱面所花费的时间 平均寻道时间\n旋转延迟(Rotation Latency)\n磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)\n块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟\nCPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？\nCASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块\n与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改\n">
 <title>第3章 数据存储</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='第3章 数据存储'>
-<meta property='og:description' content='典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）
-OS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间
-从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）
-磁头定位到所要的柱面所花费的时间 平均寻道时间
-旋转延迟(Rotation Latency)
-磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)
-块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟
-CPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？
-CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块
-与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改
-将块读入主存 在主存中完成修改 将块重新写入磁盘 块地址'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="第3章 数据存储">
+<meta property='og:description' content="典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）\nOS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间\n从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）\n磁头定位到所要的柱面所花费的时间 平均寻道时间\n旋转延迟(Rotation Latency)\n磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)\n块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟\nCPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？\nCASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块\n与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-10T03:27:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-10T03:27:05&#43;08:00'/>
 <meta name="twitter:title" content="第3章 数据存储">
-<meta name="twitter:description" content="典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）
-OS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间
-从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）
-磁头定位到所要的柱面所花费的时间 平均寻道时间
-旋转延迟(Rotation Latency)
-磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)
-块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟
-CPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？
-CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块
-与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改
-将块读入主存 在主存中完成修改 将块重新写入磁盘 块地址">
+<meta name="twitter:description" content="典型磁盘结构 盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面 cylinder, 扇区 sector 磁盘块存取时间 相关计算概念 块（Block）\nOS或DBMS进行磁盘数据存取的最小逻辑单元，由若干连续扇区构成 块是DBMS中数据存取的最小单元 扇区是磁盘中数据存储的最小单元 读块时间\n从“发出块存取请求”到“块位于主存”的时间 读块时间＝寻道时间S＋旋转延迟R＋传输时间T＋其它延迟 寻道时间（Seek Time）\n磁头定位到所要的柱面所花费的时间 平均寻道时间\n旋转延迟(Rotation Latency)\n磁盘转动到块的第一个扇区到达磁头所需的时间 平均时间为旋转1/2周所费的时间 一个7200RPM的磁盘 平均旋转延迟 R≈4.17 ms 传输延迟(Transfer Time)\n块的扇区及其间隙旋转通过磁头所需的时间 如果磁道大约有100 000字节，约10ms转一周，则每秒可从磁盘读取约10M字节，一个4K字节的块传输时间小于0.5ms 其它延迟\nCPU请求I/O的时间 (CPU time to issueI/O) 争用磁盘控制器时间 (Contention for controller) 争用总线和主存的时间 (Contention forbus, memory) 如何读下一块？\nCASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间＋其它（忽略） CASE 2：不在一个柱面上 Random I/O 寻道＋旋转＋传输＋其它 写块\n与读块类似 如果需要校验块是否正确写入，则需要加上一次旋转时间和一次块传输时间 块修改\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -76,60 +48,47 @@ CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间�
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -143,51 +102,16 @@ CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间�
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -201,37 +125,61 @@ CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间�
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -239,7 +187,7 @@ CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间�
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -247,10 +195,11 @@ CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间�
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -377,8 +326,8 @@ CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间�
     <section class="article-content">
     
     
-    <h2 id="典型磁盘结构">典型磁盘结构</h2>
-<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239172.png"
+    <h2 id="典型磁盘结构">典型磁盘结构
+</h2><p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239172.png"
 	
 	
 	
@@ -390,9 +339,9 @@ CASE 1：下一块在同一柱面上 Sequential I/O 旋转延迟＋传输时间�
 <li>盘片platter, 盘面 surface, 磁头 R/W head, 磁道 track, 柱面
 cylinder, 扇区 sector</li>
 </ul>
-<h2 id="磁盘块存取时间">磁盘块存取时间</h2>
-<h3 id="相关计算概念">相关计算概念</h3>
-<ul>
+<h2 id="磁盘块存取时间">磁盘块存取时间
+</h2><h3 id="相关计算概念">相关计算概念
+</h3><ul>
 <li>
 <p>块（Block）</p>
 <ul>
@@ -482,8 +431,8 @@ cylinder, 扇区 sector</li>
 <li>盘面号（或磁头号）</li>
 <li>扇区号</li>
 </ul>
-<h3 id="磁盘例子-megatron747计算磁盘块存取时间">磁盘例子: Megatron747计算磁盘块存取时间</h3>
-<ul>
+<h3 id="磁盘例子-megatron747计算磁盘块存取时间">磁盘例子: Megatron747计算磁盘块存取时间
+</h3><ul>
 <li>
 <p>参数
 3.5 inch
@@ -547,8 +496,8 @@ cylinder, 扇区 sector</li>
 </ul>
 </li>
 </ul>
-<h3 id="例题">例题</h3>
-<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239210.png"
+<h3 id="例题">例题
+</h3><p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239210.png"
 	
 	
 	
@@ -580,8 +529,8 @@ cylinder, 扇区 sector</li>
 	
 	
 ></p>
-<h2 id="磁盘存取优化">磁盘存取优化</h2>
-<ul>
+<h2 id="磁盘存取优化">磁盘存取优化
+</h2><ul>
 <li>按柱面组织数据
 <ul>
 <li>减少平均寻道时间</li>
@@ -597,8 +546,8 @@ cylinder, 扇区 sector</li>
 <li>Random IO to Sequential IO</li>
 <li>预取(Pre-fetch)和缓冲(Buffering)</li>
 </ul>
-<h3 id="random-io-to-sequential-io">Random IO to Sequential IO</h3>
-<p><strong>随机I/O（Random I/O）：</strong></p>
+<h3 id="random-io-to-sequential-io">Random IO to Sequential IO
+</h3><p><strong>随机I/O（Random I/O）：</strong></p>
 <p>定义：随机I/O 是指以随机的顺序访问数据的方式，即不按照存储介质上的物理顺序进行读取或写入。在随机I/O 中，数据块的访问顺序不是连续的，可能是分散的。</p>
 <p>特点：随机I/O 通常需要更多的时间和资源，因为存储设备不能有效地预取下一个数据块，而需要在不同位置之间移动磁头或访问不同的存储块。随机I/O 对于小型数据集或需要随机查找的操作比较常见。</p>
 <p>示例：从数据库表中随机读取特定记录，访问随机分布的文件块，或执行随机的内存访问操作。</p>
@@ -613,8 +562,8 @@ cylinder, 扇区 sector</li>
 <p>然而，数据文件的写入通常包括写数据（写聚簇索引）和写索引（普通索引），所以一般不可能在同一个文件中顺序写入。因此，数据文件的写入通常被视为随机写IO。</p>
 <p>总的来说，&ldquo;Random IO to Sequential IO&quot;可能是指通过某种方式或策略，尽可能地将随机IO转化为顺序IO，以提高数据库的性能。具体的实现方式</p>
 <p>3.2. 存储器结构3.3. 不同类型存储介质之间的差异3.3.1. 闪存(NAND)3.3.2. 相变存储器(PCM)</p>
-<h3 id="预取缓冲">预取/缓冲</h3>
-<ul>
+<h3 id="预取缓冲">预取/缓冲
+</h3><ul>
 <li>
 <p>单缓冲(Single Buffering)</p>
 <ul>
@@ -658,8 +607,8 @@ cylinder, 扇区 sector</li>
 <li>趋势
 -<font color="#245bdb"> 大块</font></li>
 </ul>
-<h2 id="新型存储">新型存储</h2>
-<ul>
+<h2 id="新型存储">新型存储
+</h2><ul>
 <li>计算机系统性能依赖于
 <ul>
 <li><font color="#245bdb">处理器的数据计算能力</font></li>
@@ -679,9 +628,9 @@ cylinder, 扇区 sector</li>
 </ul>
 </li>
 </ul>
-<h3 id="闪存">闪存</h3>
-<h3 id="相变存储器">相变存储器</h3>
-<ul>
+<h3 id="闪存">闪存
+</h3><h3 id="相变存储器">相变存储器
+</h3><ul>
 <li>
 <p>闪存的工业化程度最高</p>
 <ul>
@@ -723,8 +672,8 @@ TLC（小于1000次）</li>
 </ul>
 </li>
 </ul>
-<h3 id="相变存储器-phase-change-memory">相变存储器 Phase Change Memory</h3>
-<ul>
+<h3 id="相变存储器-phase-change-memory">相变存储器 Phase Change Memory
+</h3><ul>
 <li>PCM
 <ul>
 <li>起源于20世纪60年代</li>
@@ -733,8 +682,8 @@ TLC（小于1000次）</li>
 </ul>
 </li>
 </ul>
-<h3 id="基于新型存储的计算机架构">基于新型存储的计算机架构</h3>
-<p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239244.png"
+<h3 id="基于新型存储的计算机架构">基于新型存储的计算机架构
+</h3><p><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401082239244.png"
 	
 	
 	
@@ -784,7 +733,8 @@ TLC（小于1000次）</li>
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -794,74 +744,88 @@ TLC（小于1000次）</li>
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC5%E7%AB%A0-buffer-management/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第5章 缓冲区管理</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC4%E7%AB%A0-data-representation/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第4章 数据表达</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第2章 关系型数据库回顾</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC1%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第1章 数据库系统概述</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC5%E7%AB%A0-buffer-management/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第5章 缓冲区管理</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-11
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC4%E7%AB%A0-data-representation/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第4章 数据表达</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第2章 关系型数据库回顾</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC1%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第1章 数据库系统概述</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -876,8 +840,9 @@ TLC（小于1000次）</li>
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -907,7 +872,7 @@ TLC（小于1000次）</li>
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -923,25 +888,140 @@ TLC（小于1000次）</li>
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

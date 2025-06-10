@@ -76,7 +76,36 @@ let Stack = {
             if (!codeBlock) return;
 
             copyButton.addEventListener('click', () => {
-                navigator.clipboard.writeText(codeBlock.textContent)
+                // 获取代码内容，排除行号
+                let codeContent = '';
+                
+                // 检查是否有行号结构 (.ln + .cl)
+                const codeLines = codeBlock.querySelectorAll('.cl');
+                if (codeLines.length > 0) {
+                    // 如果有 .cl 元素，只复制这些元素的内容（排除 .ln 行号）
+                    const lines: string[] = [];
+                    for (let i = 0; i < codeLines.length; i++) {
+                        lines.push(codeLines[i].textContent || '');
+                    }
+                    codeContent = lines.join('');
+                } else {
+                    // 如果没有特殊结构，检查是否有行号元素需要排除
+                    const lineNumbers = codeBlock.querySelectorAll('.ln, .lnt');
+                    if (lineNumbers.length > 0) {
+                        // 克隆代码块，移除行号元素后获取文本
+                        const clonedCodeBlock = codeBlock.cloneNode(true) as HTMLElement;
+                        const clonedLineNumbers = clonedCodeBlock.querySelectorAll('.ln, .lnt');
+                        for (let i = 0; i < clonedLineNumbers.length; i++) {
+                            clonedLineNumbers[i].remove();
+                        }
+                        codeContent = clonedCodeBlock.textContent || '';
+                    } else {
+                        // 没有行号，直接复制所有内容
+                        codeContent = codeBlock.textContent || '';
+                    }
+                }
+                
+                navigator.clipboard.writeText(codeContent.trim())
                     .then(() => {
                         copyButton.textContent = copiedText;
 

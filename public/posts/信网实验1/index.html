@@ -1,30 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='实验内容 arp 在 HostA 和 HostB 中分别打开一个终端用于本实验。
-在 HostA 和 HostB 中分别执行命令ifconfig ens5，查看并记录它们各自的IPv4 地址。执行命令 ifconfig ens6 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。 截图： 命令解释： ifconfig 是一个用于配置和显示网络接口信息的命令。ens5 和 ens6 是网络接口的名称，通常用于表示以太网接口。ifconfig ens5 命令用于显示名为 ens5 的网络接口的配置信息，包括 IP 地址、子网掩码、广播地址、MAC 地址等。
-在 HostA 中执行命令 arp -n 或ip neigh show 查看并记录本机 ARP 缓存表的内容。
-命令解释： arp -n 是一个用于查看本地ARP缓存表的命令。它会显示已解析的IP地址和对应的MAC地址。 ip neigh show 是一个用于查看本地邻居表的命令。它会显示已解析的IP地址和对应的MAC地址，类似于 arp -n 命令。 arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命令，它们的功能相似但有一些区别。
-命令格式不同：arp -n 是在大多数操作系统中使用的命令，而 ip neigh show 是在基于 Linux 的操作系统中使用的命令。 输出格式不同：arp -n 输出的结果通常是以表格形式显示的，包括IP地址和对应的MAC地址。而 ip neigh show 输出的结果可能更详细，包括IP地址、MAC地址、接口、状态等信息。 支持的功能不同：ip neigh show 命令在功能上更加强大，可以显示更多关于邻居的信息，如状态、接口类型等。而 arp -n 命令通常只显示基本的IP地址和MAC地址信息。 截图： 在 HostA 中执行命令 ping -c 1 HostB 的 IPv4 地址向 HostB 发送 ICMP 请求报文。收到 ICMP 响应后再次执行命令 arp -n 或ip neigh show 查看 HostA的 ARP 缓存表的内容。'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="实验内容 arp 在 HostA 和 HostB 中分别打开一个终端用于本实验。\n在 HostA 和 HostB 中分别执行命令ifconfig ens5，查看并记录它们各自的IPv4 地址。执行命令 ifconfig ens6 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。 截图： 命令解释： ifconfig 是一个用于配置和显示网络接口信息的命令。ens5 和 ens6 是网络接口的名称，通常用于表示以太网接口。ifconfig ens5 命令用于显示名为 ens5 的网络接口的配置信息，包括 IP 地址、子网掩码、广播地址、MAC 地址等。\n在 HostA 中执行命令 arp -n 或ip neigh show 查看并记录本机 ARP 缓存表的内容。\n命令解释： arp -n 是一个用于查看本地ARP缓存表的命令。它会显示已解析的IP地址和对应的MAC地址。 ip neigh show 是一个用于查看本地邻居表的命令。它会显示已解析的IP地址和对应的MAC地址，类似于 arp -n 命令。 arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命令，它们的功能相似但有一些区别。\n命令格式不同：arp -n 是在大多数操作系统中使用的命令，而 ip neigh show 是在基于 Linux 的操作系统中使用的命令。 输出格式不同：arp -n 输出的结果通常是以表格形式显示的，包括IP地址和对应的MAC地址。而 ip neigh show 输出的结果可能更详细，包括IP地址、MAC地址、接口、状态等信息。 支持的功能不同：ip neigh show 命令在功能上更加强大，可以显示更多关于邻居的信息，如状态、接口类型等。而 arp -n 命令通常只显示基本的IP地址和MAC地址信息。 截图： ">
 <title>信网实验1</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信网实验1'>
-<meta property='og:description' content='实验内容 arp 在 HostA 和 HostB 中分别打开一个终端用于本实验。
-在 HostA 和 HostB 中分别执行命令ifconfig ens5，查看并记录它们各自的IPv4 地址。执行命令 ifconfig ens6 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。 截图： 命令解释： ifconfig 是一个用于配置和显示网络接口信息的命令。ens5 和 ens6 是网络接口的名称，通常用于表示以太网接口。ifconfig ens5 命令用于显示名为 ens5 的网络接口的配置信息，包括 IP 地址、子网掩码、广播地址、MAC 地址等。
-在 HostA 中执行命令 arp -n 或ip neigh show 查看并记录本机 ARP 缓存表的内容。
-命令解释： arp -n 是一个用于查看本地ARP缓存表的命令。它会显示已解析的IP地址和对应的MAC地址。 ip neigh show 是一个用于查看本地邻居表的命令。它会显示已解析的IP地址和对应的MAC地址，类似于 arp -n 命令。 arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命令，它们的功能相似但有一些区别。
-命令格式不同：arp -n 是在大多数操作系统中使用的命令，而 ip neigh show 是在基于 Linux 的操作系统中使用的命令。 输出格式不同：arp -n 输出的结果通常是以表格形式显示的，包括IP地址和对应的MAC地址。而 ip neigh show 输出的结果可能更详细，包括IP地址、MAC地址、接口、状态等信息。 支持的功能不同：ip neigh show 命令在功能上更加强大，可以显示更多关于邻居的信息，如状态、接口类型等。而 arp -n 命令通常只显示基本的IP地址和MAC地址信息。 截图： 在 HostA 中执行命令 ping -c 1 HostB 的 IPv4 地址向 HostB 发送 ICMP 请求报文。收到 ICMP 响应后再次执行命令 arp -n 或ip neigh show 查看 HostA的 ARP 缓存表的内容。'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="信网实验1">
+<meta property='og:description' content="实验内容 arp 在 HostA 和 HostB 中分别打开一个终端用于本实验。\n在 HostA 和 HostB 中分别执行命令ifconfig ens5，查看并记录它们各自的IPv4 地址。执行命令 ifconfig ens6 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。 截图： 命令解释： ifconfig 是一个用于配置和显示网络接口信息的命令。ens5 和 ens6 是网络接口的名称，通常用于表示以太网接口。ifconfig ens5 命令用于显示名为 ens5 的网络接口的配置信息，包括 IP 地址、子网掩码、广播地址、MAC 地址等。\n在 HostA 中执行命令 arp -n 或ip neigh show 查看并记录本机 ARP 缓存表的内容。\n命令解释： arp -n 是一个用于查看本地ARP缓存表的命令。它会显示已解析的IP地址和对应的MAC地址。 ip neigh show 是一个用于查看本地邻居表的命令。它会显示已解析的IP地址和对应的MAC地址，类似于 arp -n 命令。 arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命令，它们的功能相似但有一些区别。\n命令格式不同：arp -n 是在大多数操作系统中使用的命令，而 ip neigh show 是在基于 Linux 的操作系统中使用的命令。 输出格式不同：arp -n 输出的结果通常是以表格形式显示的，包括IP地址和对应的MAC地址。而 ip neigh show 输出的结果可能更详细，包括IP地址、MAC地址、接口、状态等信息。 支持的功能不同：ip neigh show 命令在功能上更加强大，可以显示更多关于邻居的信息，如状态、接口类型等。而 arp -n 命令通常只显示基本的IP地址和MAC地址信息。 截图： ">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-11-07T12:46:21&#43;08:00'/><meta property='article:modified_time' content='2023-11-07T12:46:21&#43;08:00'/>
 <meta name="twitter:title" content="信网实验1">
-<meta name="twitter:description" content="实验内容 arp 在 HostA 和 HostB 中分别打开一个终端用于本实验。
-在 HostA 和 HostB 中分别执行命令ifconfig ens5，查看并记录它们各自的IPv4 地址。执行命令 ifconfig ens6 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。 截图： 命令解释： ifconfig 是一个用于配置和显示网络接口信息的命令。ens5 和 ens6 是网络接口的名称，通常用于表示以太网接口。ifconfig ens5 命令用于显示名为 ens5 的网络接口的配置信息，包括 IP 地址、子网掩码、广播地址、MAC 地址等。
-在 HostA 中执行命令 arp -n 或ip neigh show 查看并记录本机 ARP 缓存表的内容。
-命令解释： arp -n 是一个用于查看本地ARP缓存表的命令。它会显示已解析的IP地址和对应的MAC地址。 ip neigh show 是一个用于查看本地邻居表的命令。它会显示已解析的IP地址和对应的MAC地址，类似于 arp -n 命令。 arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命令，它们的功能相似但有一些区别。
-命令格式不同：arp -n 是在大多数操作系统中使用的命令，而 ip neigh show 是在基于 Linux 的操作系统中使用的命令。 输出格式不同：arp -n 输出的结果通常是以表格形式显示的，包括IP地址和对应的MAC地址。而 ip neigh show 输出的结果可能更详细，包括IP地址、MAC地址、接口、状态等信息。 支持的功能不同：ip neigh show 命令在功能上更加强大，可以显示更多关于邻居的信息，如状态、接口类型等。而 arp -n 命令通常只显示基本的IP地址和MAC地址信息。 截图： 在 HostA 中执行命令 ping -c 1 HostB 的 IPv4 地址向 HostB 发送 ICMP 请求报文。收到 ICMP 响应后再次执行命令 arp -n 或ip neigh show 查看 HostA的 ARP 缓存表的内容。">
+<meta name="twitter:description" content="实验内容 arp 在 HostA 和 HostB 中分别打开一个终端用于本实验。\n在 HostA 和 HostB 中分别执行命令ifconfig ens5，查看并记录它们各自的IPv4 地址。执行命令 ifconfig ens6 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。 截图： 命令解释： ifconfig 是一个用于配置和显示网络接口信息的命令。ens5 和 ens6 是网络接口的名称，通常用于表示以太网接口。ifconfig ens5 命令用于显示名为 ens5 的网络接口的配置信息，包括 IP 地址、子网掩码、广播地址、MAC 地址等。\n在 HostA 中执行命令 arp -n 或ip neigh show 查看并记录本机 ARP 缓存表的内容。\n命令解释： arp -n 是一个用于查看本地ARP缓存表的命令。它会显示已解析的IP地址和对应的MAC地址。 ip neigh show 是一个用于查看本地邻居表的命令。它会显示已解析的IP地址和对应的MAC地址，类似于 arp -n 命令。 arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命令，它们的功能相似但有一些区别。\n命令格式不同：arp -n 是在大多数操作系统中使用的命令，而 ip neigh show 是在基于 Linux 的操作系统中使用的命令。 输出格式不同：arp -n 输出的结果通常是以表格形式显示的，包括IP地址和对应的MAC地址。而 ip neigh show 输出的结果可能更详细，包括IP地址、MAC地址、接口、状态等信息。 支持的功能不同：ip neigh show 命令在功能上更加强大，可以显示更多关于邻居的信息，如状态、接口类型等。而 arp -n 命令通常只显示基本的IP地址和MAC地址信息。 截图： ">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -58,60 +48,47 @@
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -125,51 +102,16 @@
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -183,37 +125,61 @@
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -221,7 +187,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -229,10 +195,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -340,9 +307,9 @@
     <section class="article-content">
     
     
-    <h1 id="实验内容">实验内容</h1>
-<h2 id="arp">arp</h2>
-<ol>
+    <h1 id="实验内容">实验内容
+</h1><h2 id="arp">arp
+</h2><ol>
 <li>
 <p><strong>在 HostA 和 HostB 中分别打开一个终端用于本实验。</strong></p>
 </li>
@@ -492,8 +459,8 @@ arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命�
 这是因为，ARP 协议用于在同一网段内查找主机的 MAC 地址。当 HostA 发送 ICMP 请求到目标地址 202.38.64.246 时，目标地址不在 HostA 的网段内，因此 HostA 需要向网关发送广播 ARP 请求。网关收到广播 ARP 请求后，会将自己的 MAC 地址回复给 HostA。HostA 收到网关的回复后，将网关的 MAC 地址存储在 ARP 缓存表中。因此，HostA 无法看到对应于地址 202.38.64.246 的 ARP 表项。</p>
 </li>
 </ol>
-<h2 id="ip">IP</h2>
-<ol>
+<h2 id="ip">IP
+</h2><ol>
 <li>
 <p><strong>分别用命令 route -n 和命令route &ndash;inet6 查看本机的 IPv4 和 IPv6 路由配置，记录所在子网的子网掩码/前缀长度，并于前面 ifconfig 的结果作比较。</strong></p>
 <p><strong>命令解释</strong>
@@ -544,8 +511,8 @@ arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命�
 可以看到，系统内核的 IPv4 和 IPv6 的 FORWARD 值均为 0。FORWARD 值的含义是是否允许系统转发 IP 数据包。如果 FORWARD 值为 0，则系统不允许转发 IP 数据包。主机和路由器的区别在于，主机只能与同一子网内的主机通信，而路由器可以连接多个子网，并负责将数据包从一个子网转发到另一个子网。由于主机只能与同一子网内的主机通信，因此不需要转发 IP 数据包。因此，主机的 FORWARD 值通常为 0。</p>
 </li>
 </ol>
-<h2 id="tcp">TCP</h2>
-<ol>
+<h2 id="tcp">TCP
+</h2><ol>
 <li>
 <p><strong>在 S 的终端 1 中执行 nc -l 1958 侦听1958 端口。。</strong>
 <strong>命令解释：</strong>
@@ -632,8 +599,8 @@ arp -n 和 ip neigh show 都是用于查看本地ARP缓存表或邻居表的命�
 原因是 100 端口是 telnet 服务器的默认端口，但 S 主机没有在 100 端口上监听 telnet 连接。因此，HostA 主机无法与 S 主机建立 telnet 连接。</p>
 </li>
 </ol>
-<h1 id="思考题">思考题</h1>
-<ol start="7">
+<h1 id="思考题">思考题
+</h1><ol start="7">
 <li>
 <p><strong>现在有一个网段的 IP 地址和子网掩码分别为202.38.75.0/255.255.255.192，请计算该网段中一共有多少个全局 IPv4 地址可供主机使用，或者说这个网络中有多少真正可分配的 IP 地址？</strong></p>
 <p>子网掩码 <code>255.255.255.192</code> 的二进制表示为 <code>11111111 11111111 11111111 11000000</code>，其中前 24 位为 1，表示该网段的网络地址部分，后 8 位为 0，表示该网段的广播地址部分。因此，该网段中一共有 <code>2^6 - 2 = 62</code> 个全局 IPv4 地址可供主机使用。</p>
@@ -706,7 +673,8 @@ MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是�
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -716,87 +684,124 @@ MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是�
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第六章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第五章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第三章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第四章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第二章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第六章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-03
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第五章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第三章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第四章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第二章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第一章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -811,8 +816,9 @@ MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是�
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -842,7 +848,7 @@ MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是�
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -858,25 +864,140 @@ MTU 的值通常以字节为单位，常见的默认值是 1500 字节。这是�
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

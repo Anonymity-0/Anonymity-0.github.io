@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='介绍 ns3是用来进行网络仿真的一个平台
-学习资源 略
-安装 源码安装 详情可参考ns-3 Installation Guide — Installation guide
-下载源码 [Releases | ns-3](https://www.nsnam.org/releases/ 进入网站选择版本下载 编译源码 解压进入文件夹 cd /Users/x x x/Downloads/ns-allinone-3.40 编译文件 ./build.py --enable-examples --enable-tests 注：记得提前安装好cmake brew install cmake 安装完成以后cd ns-3.40可以通过ls查看文件内容
-在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf
-运行第一个模拟仿真脚本 通过 ./ns3 run hello-simulator 运行
-测试的安装 1 agq@AGdeMacBook-Air ns-3.40 % ./test.py '>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="介绍 ns3是用来进行网络仿真的一个平台\n学习资源 略\n安装 源码安装 详情可参考ns-3 Installation Guide — Installation guide\n下载源码 [Releases | ns-3](https://www.nsnam.org/releases/ 进入网站选择版本下载 编译源码 解压进入文件夹 cd /Users/x x x/Downloads/ns-allinone-3.40 编译文件 ./build.py --enable-examples --enable-tests 注：记得提前安装好cmake brew install cmake 安装完成以后cd ns-3.40可以通过ls查看文件内容\n在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf\n运行第一个模拟仿真脚本 通过 ./ns3 run hello-simulator 运行\n测试的安装 1agq@AGdeMacBook-Air ns-3.40 % ./test.py ">
 <title>NS 3初上手</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/ns-3%E5%88%9D%E4%B8%8A%E6%89%8B/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='NS 3初上手'>
-<meta property='og:description' content='介绍 ns3是用来进行网络仿真的一个平台
-学习资源 略
-安装 源码安装 详情可参考ns-3 Installation Guide — Installation guide
-下载源码 [Releases | ns-3](https://www.nsnam.org/releases/ 进入网站选择版本下载 编译源码 解压进入文件夹 cd /Users/x x x/Downloads/ns-allinone-3.40 编译文件 ./build.py --enable-examples --enable-tests 注：记得提前安装好cmake brew install cmake 安装完成以后cd ns-3.40可以通过ls查看文件内容
-在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf
-运行第一个模拟仿真脚本 通过 ./ns3 run hello-simulator 运行
-测试的安装 1 agq@AGdeMacBook-Air ns-3.40 % ./test.py '>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="NS 3初上手">
+<meta property='og:description' content="介绍 ns3是用来进行网络仿真的一个平台\n学习资源 略\n安装 源码安装 详情可参考ns-3 Installation Guide — Installation guide\n下载源码 [Releases | ns-3](https://www.nsnam.org/releases/ 进入网站选择版本下载 编译源码 解压进入文件夹 cd /Users/x x x/Downloads/ns-allinone-3.40 编译文件 ./build.py --enable-examples --enable-tests 注：记得提前安装好cmake brew install cmake 安装完成以后cd ns-3.40可以通过ls查看文件内容\n在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf\n运行第一个模拟仿真脚本 通过 ./ns3 run hello-simulator 运行\n测试的安装 1agq@AGdeMacBook-Air ns-3.40 % ./test.py ">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/ns-3%E5%88%9D%E4%B8%8A%E6%89%8B/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-12-18T15:38:41&#43;08:00'/><meta property='article:modified_time' content='2023-12-18T15:38:41&#43;08:00'/>
 <meta name="twitter:title" content="NS 3初上手">
-<meta name="twitter:description" content="介绍 ns3是用来进行网络仿真的一个平台
-学习资源 略
-安装 源码安装 详情可参考ns-3 Installation Guide — Installation guide
-下载源码 [Releases | ns-3](https://www.nsnam.org/releases/ 进入网站选择版本下载 编译源码 解压进入文件夹 cd /Users/x x x/Downloads/ns-allinone-3.40 编译文件 ./build.py --enable-examples --enable-tests 注：记得提前安装好cmake brew install cmake 安装完成以后cd ns-3.40可以通过ls查看文件内容
-在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf
-运行第一个模拟仿真脚本 通过 ./ns3 run hello-simulator 运行
-测试的安装 1 agq@AGdeMacBook-Air ns-3.40 % ./test.py ">
+<meta name="twitter:description" content="介绍 ns3是用来进行网络仿真的一个平台\n学习资源 略\n安装 源码安装 详情可参考ns-3 Installation Guide — Installation guide\n下载源码 [Releases | ns-3](https://www.nsnam.org/releases/ 进入网站选择版本下载 编译源码 解压进入文件夹 cd /Users/x x x/Downloads/ns-allinone-3.40 编译文件 ./build.py --enable-examples --enable-tests 注：记得提前安装好cmake brew install cmake 安装完成以后cd ns-3.40可以通过ls查看文件内容\n在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf\n运行第一个模拟仿真脚本 通过 ./ns3 run hello-simulator 运行\n测试的安装 1agq@AGdeMacBook-Air ns-3.40 % ./test.py ">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -64,60 +48,47 @@
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -131,51 +102,16 @@
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -189,37 +125,61 @@
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -227,7 +187,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -235,10 +195,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -352,13 +313,13 @@
     <section class="article-content">
     
     
-    <h2 id="介绍">介绍</h2>
-<p>ns3是用来进行网络仿真的一个平台</p>
-<h2 id="学习资源">学习资源</h2>
-<p>略</p>
-<h2 id="安装">安装</h2>
-<h3 id="源码安装">源码安装</h3>
-<p>详情可参考<a class="link" href="https://www.nsnam.org/docs/release/3.40/installation/html/index.html"  target="_blank" rel="noopener"
+    <h2 id="介绍">介绍
+</h2><p>ns3是用来进行网络仿真的一个平台</p>
+<h2 id="学习资源">学习资源
+</h2><p>略</p>
+<h2 id="安装">安装
+</h2><h3 id="源码安装">源码安装
+</h3><p>详情可参考<a class="link" href="https://www.nsnam.org/docs/release/3.40/installation/html/index.html"  target="_blank" rel="noopener"
     >ns-3 Installation Guide — Installation guide</a></p>
 <ol>
 <li>下载源码
@@ -375,18 +336,11 @@
 </ol>
 <p>安装完成以后<code>cd ns-3.40</code>可以通过ls查看文件内容</p>
 <p>在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf</p>
-<h3 id="运行第一个模拟仿真脚本">运行第一个模拟仿真脚本</h3>
-<p>通过 <code>./ns3 run hello-simulator</code> 运行</p>
-<h3 id="测试的安装">测试的安装</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">agq@AGdeMacBook-Air ns-3.40 % ./test.py
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
+<h3 id="运行第一个模拟仿真脚本">运行第一个模拟仿真脚本
+</h3><p>通过 <code>./ns3 run hello-simulator</code> 运行</p>
+<h3 id="测试的安装">测试的安装
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">agq@AGdeMacBook-Air ns-3.40 % ./test.py
+</span></span></code></pre></div>
 </section>
 
 
@@ -428,7 +382,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -438,13 +393,23 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
     
 
-    
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="no-related-articles">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 17h.01"/>
+                </svg>
+                <span>暂无相关文章</span>
+            </div></div>
+</section>
      
     
         
@@ -459,8 +424,9 @@
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -490,7 +456,7 @@
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -506,25 +472,140 @@
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

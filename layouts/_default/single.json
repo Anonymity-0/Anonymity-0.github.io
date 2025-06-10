@@ -1,0 +1,1 @@
+{{- jsonify (dict "message" "Search API endpoint") -}}

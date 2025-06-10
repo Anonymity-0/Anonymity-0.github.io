@@ -1,38 +1,19 @@
 baseurl = "https://anonymity-0.github.io"
-languageCode = "en-us"
+languageCode = "zh-cn"
 #theme = "hugo-theme-stack"
-paginate = 5
+[pagination]
+  pageSize = 5
 title = "AGA's Blog"
 copyright = "AGA"
 disqusShortname = "hugo-theme-stack"
-DefaultContentLanguage = "en"
-hasCJKLanguage = false
-
-[languages.en]
-languageName = "English"
-title = "AGA's Blog"
-weight = 1
-
-  [languages.en.params]
-  description = "Hello World!"
-
-[languages.zh-cn]
-languageName = "中文"
-title = "AGA's Blog"
-weight = 2
-
-  [languages.zh-cn.params]
-  description = "Hello World!"
-
-
-[permalinks]
-post = "/p/:slug/"
-page = "/:slug/"
+DefaultContentLanguage = "zh-cn"
+hasCJKLanguage = true
 
 [params]
 mainSections = [ "posts" ]
 featuredImageField = "image"
 rssFullContent = true
+description = "Hello World!"
 
   [params.footer]
   since = 2_020
@@ -94,7 +75,7 @@ rssFullContent = true
     categoryID = "DIC_kwDOKsFzXc4Ca3tc"
     mapping = "url"
     strict = "0"
-    lightTheme = "dark_high_contrast"
+    lightTheme = "noborder_light"
     darkTheme = "0"
     reactionsEnabled = "1"
     emitMetadata = "0"
@@ -147,19 +128,12 @@ enabled = true
 [params.imageProcessing.content]
 enabled = true
 
-[menu]
 
-  [[menu.social]]
-  identifier = "github"
-  name = "GitHub"
-  url = "https://github.com/Anonymity-0"
-    [menu.social.params]
-    icon = "brand-github"
  
 
 [related]
 includeNewer = true
-threshold = 60
+threshold = 80
 toLower = false
 
   [[related.indices]]
@@ -184,6 +158,40 @@ codeFences = true
 guessSyntax = true
 lineNoStart = 1
 lineNos = true
-lineNumbersInTable = true
+lineNumbersInTable = false
 tabWidth = 4
+
+[module]
+  [[module.imports]]
+    path = "github.com/CaiJimmy/hugo-theme-stack/v3"
+
+# 主菜单配置
+[[menu.main]]
+name = "首页"
+url = "/"
+weight = 1
+[menu.main.params]
+icon = "home"
+
+[[menu.main]]
+name = "归档"
+url = "/archives/"
+weight = 2
+[menu.main.params]
+icon = "archives"
+
+[[menu.main]]
+name = "分类"
+url = "/categories/"
+weight = 3
+[menu.main.params]
+icon = "categories"
+
+[[menu.main]]
+name = "搜索"
+url = "/search/"
+weight = 4
+[menu.main.params]
+icon = "search"
+
 

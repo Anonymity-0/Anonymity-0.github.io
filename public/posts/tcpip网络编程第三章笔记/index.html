@@ -1,39 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='3.1 分配给套接字的IP地址与端口号 网络地址 略
-用于区分套接字的端口号 IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?
-若想接收多台计算机发来的数据,则需要相应个数的套接字。那如何区分这些套接字呢? 计算机中一般配有NIC(Network Interface Card,网络接口卡)数据传输设备。通过NIC向计算机内部传输数据时会用到IP。操作系统负责把传递到内部的数据适当分配给套接字,利用端口号。也就是说,通过NIC接收的数据内有端口号,操作系统正是参考此端口号把数据传输给相应端口的套接字 端口号就是在同一操作系统内为区分不同套接字而设置的,因此无法将1个端口号分配给不同套接字。 另外,端口号由16位构成 可分配的端口号范围是0-65535。但0-1023是知名端口(Well-known PORT),一般分配给特定应用程序,所以应当分配此范围之外的值。另外,虽然端口号不能重复,但TCP套接字和UDP套接字不会共用端口号,所以允许重复。例如:如果某TCP 套接字使用9190号端口,则其他TCP套接字就无法使用该端口号,但UDP套接字可以使用。 总之,数据传输目标地址同时包含IP地址和端口号,只有这样,数据才会被传输到最终的目的应用程序(应用程序套接字)。
-3.2 应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。
-表示IPv4的结构体 填写地址信息时应以如下提问为线索进行
-口 问题1：“采用哪一种地址族？” 口 答案1：“基于IPv4的地址族。” 口问题2：“IP地址是多少？” 口答案2：“211.204.214.76。” 口 问题3：“端口号是多少？” 口 答案3：“2048。” C C语言中IPv4结构体定义为如下形态
-1 2 3 4 5 6 7 struct sockaddr_in { sa_family_t sin_family; //地址族 uint16_t sin_port; //16位TCP/UDP地址 struct in_addr sin_addr; //32位ip地址 char sin_zero[8]; //不使用 }; in_addr定义如下，它用来存放32位IP地址
-1 2 3 4 struct in_addr { In_addr_t s_addr; //32位IPv4地址 } 可以看到 in_addr_t 实际上是 uint32_t也就是无符号32位bit，那为什么需要额外定义这些数据类型呢?'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="3.1 分配给套接字的IP地址与端口号 网络地址 略\n用于区分套接字的端口号 IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?\n若想接收多台计算机发来的数据,则需要相应个数的套接字。那如何区分这些套接字呢? 计算机中一般配有NIC(Network Interface Card,网络接口卡)数据传输设备。通过NIC向计算机内部传输数据时会用到IP。操作系统负责把传递到内部的数据适当分配给套接字,利用端口号。也就是说,通过NIC接收的数据内有端口号,操作系统正是参考此端口号把数据传输给相应端口的套接字 端口号就是在同一操作系统内为区分不同套接字而设置的,因此无法将1个端口号分配给不同套接字。 另外,端口号由16位构成 可分配的端口号范围是0-65535。但0-1023是知名端口(Well-known PORT),一般分配给特定应用程序,所以应当分配此范围之外的值。另外,虽然端口号不能重复,但TCP套接字和UDP套接字不会共用端口号,所以允许重复。例如:如果某TCP 套接字使用9190号端口,则其他TCP套接字就无法使用该端口号,但UDP套接字可以使用。 总之,数据传输目标地址同时包含IP地址和端口号,只有这样,数据才会被传输到最终的目的应用程序(应用程序套接字)。\n3.2 应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。\n表示IPv4的结构体 填写地址信息时应以如下提问为线索进行\n口 问题1：“采用哪一种地址族？” 口 答案1：“基于IPv4的地址族。” 口问题2：“IP地址是多少？” 口答案2：“211.204.214.76。” 口 问题3：“端口号是多少？” 口 答案3：“2048。” C C语言中IPv4结构体定义为如下形态\n1struct sockaddr_in 2{ 3\tsa_family_t sin_family; //地址族 4\tuint16_t sin_port; //16位TCP/UDP地址 5\tstruct in_addr sin_addr; //32位ip地址 6\tchar sin_zero[8]; //不使用 7}; in_addr定义如下，它用来存放32位IP地址\n1struct in_addr 2{ 3\tIn_addr_t s_addr; //32位IPv4地址 4} 可以看到 in_addr_t 实际上是 uint32_t也就是无符号32位bit，那为什么需要额外定义这些数据类型呢? 如前所述,这是考虑到扩展性的结果。如果使用int32_t类型的数据,就能保证在任何时候都占用4字节,即使将来用64位表示int类型也是如此。 从之前介绍的代码也可看出,sockaddr_in结构体变量地址值将以如下方式传递给bind函数。\n1struct sockaddr_in serv_addr; 2... 3if(bind(serv_sock,(struct sockaddr * ) &amp;serv_addr, sizeof(Serv_addr))== -1) 4\terror_handling(&#34;bind()error&#34;); 5... 此处重要的是第二个参数的传递。实际上,bind函数的第二个参数期望得到sockaddr结构体变量地址值,包括地址族、端口号、IP地址等。（此处进行了强制类型转换,将sockaddr_in转成sockaddr）从下列代码也可看出,直接向sockaddr结构体填充这些信息会带来麻烦。\n1struct sockaddr { 2 sa_family_t char sin_family;//地址族(Address Family) 3 sa_data[14];// 地址信息 4} 此结构体成员sa_data保存的地址信息中需包含IP地址和端口号,剩余部分应填充0,这也是bind函数要求的。而这对于包含地址信息来讲非常麻烦,继而就有了新的结构体sockaddr_in。若按照之前的讲解填写sockaddr_in结构体,则将生成符合bind函数要求的字节流。最后转换为sockaddr型的结构体变量,再传递给bind函数即可。\nsin_family 每种协议族适用的地址族均不同。比如,IPv4使用4字节地址族,IPv6使用16字节地址族。 可以参考表3-2保存sin_family地址信息。 sockaddr_in是保存IPv4地址信息的结构体。那为何还需要通过sin_family单独指定地址族信息呢? 这与之前讲过的sockaddr结构体有关。结构体sockaddr并非只次IPv4设计, 这从保存地址信息的数组sa_data长度为14字节也可看出。因此,结构体sockaddr要求在sin_family 中指定地址族信息。为了与sockaddr保持一致,sockaddr_in结构体中也有地址族信息。\n">
 <title>TCP、IP网络编程第三章笔记</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/tcpip%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='TCP、IP网络编程第三章笔记'>
-<meta property='og:description' content='3.1 分配给套接字的IP地址与端口号 网络地址 略
-用于区分套接字的端口号 IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?
-若想接收多台计算机发来的数据,则需要相应个数的套接字。那如何区分这些套接字呢? 计算机中一般配有NIC(Network Interface Card,网络接口卡)数据传输设备。通过NIC向计算机内部传输数据时会用到IP。操作系统负责把传递到内部的数据适当分配给套接字,利用端口号。也就是说,通过NIC接收的数据内有端口号,操作系统正是参考此端口号把数据传输给相应端口的套接字 端口号就是在同一操作系统内为区分不同套接字而设置的,因此无法将1个端口号分配给不同套接字。 另外,端口号由16位构成 可分配的端口号范围是0-65535。但0-1023是知名端口(Well-known PORT),一般分配给特定应用程序,所以应当分配此范围之外的值。另外,虽然端口号不能重复,但TCP套接字和UDP套接字不会共用端口号,所以允许重复。例如:如果某TCP 套接字使用9190号端口,则其他TCP套接字就无法使用该端口号,但UDP套接字可以使用。 总之,数据传输目标地址同时包含IP地址和端口号,只有这样,数据才会被传输到最终的目的应用程序(应用程序套接字)。
-3.2 应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。
-表示IPv4的结构体 填写地址信息时应以如下提问为线索进行
-口 问题1：“采用哪一种地址族？” 口 答案1：“基于IPv4的地址族。” 口问题2：“IP地址是多少？” 口答案2：“211.204.214.76。” 口 问题3：“端口号是多少？” 口 答案3：“2048。” C C语言中IPv4结构体定义为如下形态
-1 2 3 4 5 6 7 struct sockaddr_in { sa_family_t sin_family; //地址族 uint16_t sin_port; //16位TCP/UDP地址 struct in_addr sin_addr; //32位ip地址 char sin_zero[8]; //不使用 }; in_addr定义如下，它用来存放32位IP地址
-1 2 3 4 struct in_addr { In_addr_t s_addr; //32位IPv4地址 } 可以看到 in_addr_t 实际上是 uint32_t也就是无符号32位bit，那为什么需要额外定义这些数据类型呢?'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="TCP、IP网络编程第三章笔记">
+<meta property='og:description' content="3.1 分配给套接字的IP地址与端口号 网络地址 略\n用于区分套接字的端口号 IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?\n若想接收多台计算机发来的数据,则需要相应个数的套接字。那如何区分这些套接字呢? 计算机中一般配有NIC(Network Interface Card,网络接口卡)数据传输设备。通过NIC向计算机内部传输数据时会用到IP。操作系统负责把传递到内部的数据适当分配给套接字,利用端口号。也就是说,通过NIC接收的数据内有端口号,操作系统正是参考此端口号把数据传输给相应端口的套接字 端口号就是在同一操作系统内为区分不同套接字而设置的,因此无法将1个端口号分配给不同套接字。 另外,端口号由16位构成 可分配的端口号范围是0-65535。但0-1023是知名端口(Well-known PORT),一般分配给特定应用程序,所以应当分配此范围之外的值。另外,虽然端口号不能重复,但TCP套接字和UDP套接字不会共用端口号,所以允许重复。例如:如果某TCP 套接字使用9190号端口,则其他TCP套接字就无法使用该端口号,但UDP套接字可以使用。 总之,数据传输目标地址同时包含IP地址和端口号,只有这样,数据才会被传输到最终的目的应用程序(应用程序套接字)。\n3.2 应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。\n表示IPv4的结构体 填写地址信息时应以如下提问为线索进行\n口 问题1：“采用哪一种地址族？” 口 答案1：“基于IPv4的地址族。” 口问题2：“IP地址是多少？” 口答案2：“211.204.214.76。” 口 问题3：“端口号是多少？” 口 答案3：“2048。” C C语言中IPv4结构体定义为如下形态\n1struct sockaddr_in 2{ 3\tsa_family_t sin_family; //地址族 4\tuint16_t sin_port; //16位TCP/UDP地址 5\tstruct in_addr sin_addr; //32位ip地址 6\tchar sin_zero[8]; //不使用 7}; in_addr定义如下，它用来存放32位IP地址\n1struct in_addr 2{ 3\tIn_addr_t s_addr; //32位IPv4地址 4} 可以看到 in_addr_t 实际上是 uint32_t也就是无符号32位bit，那为什么需要额外定义这些数据类型呢? 如前所述,这是考虑到扩展性的结果。如果使用int32_t类型的数据,就能保证在任何时候都占用4字节,即使将来用64位表示int类型也是如此。 从之前介绍的代码也可看出,sockaddr_in结构体变量地址值将以如下方式传递给bind函数。\n1struct sockaddr_in serv_addr; 2... 3if(bind(serv_sock,(struct sockaddr * ) &amp;serv_addr, sizeof(Serv_addr))== -1) 4\terror_handling(&#34;bind()error&#34;); 5... 此处重要的是第二个参数的传递。实际上,bind函数的第二个参数期望得到sockaddr结构体变量地址值,包括地址族、端口号、IP地址等。（此处进行了强制类型转换,将sockaddr_in转成sockaddr）从下列代码也可看出,直接向sockaddr结构体填充这些信息会带来麻烦。\n1struct sockaddr { 2 sa_family_t char sin_family;//地址族(Address Family) 3 sa_data[14];// 地址信息 4} 此结构体成员sa_data保存的地址信息中需包含IP地址和端口号,剩余部分应填充0,这也是bind函数要求的。而这对于包含地址信息来讲非常麻烦,继而就有了新的结构体sockaddr_in。若按照之前的讲解填写sockaddr_in结构体,则将生成符合bind函数要求的字节流。最后转换为sockaddr型的结构体变量,再传递给bind函数即可。\nsin_family 每种协议族适用的地址族均不同。比如,IPv4使用4字节地址族,IPv6使用16字节地址族。 可以参考表3-2保存sin_family地址信息。 sockaddr_in是保存IPv4地址信息的结构体。那为何还需要通过sin_family单独指定地址族信息呢? 这与之前讲过的sockaddr结构体有关。结构体sockaddr并非只次IPv4设计, 这从保存地址信息的数组sa_data长度为14字节也可看出。因此,结构体sockaddr要求在sin_family 中指定地址族信息。为了与sockaddr保持一致,sockaddr_in结构体中也有地址族信息。\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/tcpip%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E7%AC%94%E8%AE%B0/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-11-15T20:09:07&#43;08:00'/><meta property='article:modified_time' content='2023-11-15T20:09:07&#43;08:00'/>
 <meta name="twitter:title" content="TCP、IP网络编程第三章笔记">
-<meta name="twitter:description" content="3.1 分配给套接字的IP地址与端口号 网络地址 略
-用于区分套接字的端口号 IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?
-若想接收多台计算机发来的数据,则需要相应个数的套接字。那如何区分这些套接字呢? 计算机中一般配有NIC(Network Interface Card,网络接口卡)数据传输设备。通过NIC向计算机内部传输数据时会用到IP。操作系统负责把传递到内部的数据适当分配给套接字,利用端口号。也就是说,通过NIC接收的数据内有端口号,操作系统正是参考此端口号把数据传输给相应端口的套接字 端口号就是在同一操作系统内为区分不同套接字而设置的,因此无法将1个端口号分配给不同套接字。 另外,端口号由16位构成 可分配的端口号范围是0-65535。但0-1023是知名端口(Well-known PORT),一般分配给特定应用程序,所以应当分配此范围之外的值。另外,虽然端口号不能重复,但TCP套接字和UDP套接字不会共用端口号,所以允许重复。例如:如果某TCP 套接字使用9190号端口,则其他TCP套接字就无法使用该端口号,但UDP套接字可以使用。 总之,数据传输目标地址同时包含IP地址和端口号,只有这样,数据才会被传输到最终的目的应用程序(应用程序套接字)。
-3.2 应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。
-表示IPv4的结构体 填写地址信息时应以如下提问为线索进行
-口 问题1：“采用哪一种地址族？” 口 答案1：“基于IPv4的地址族。” 口问题2：“IP地址是多少？” 口答案2：“211.204.214.76。” 口 问题3：“端口号是多少？” 口 答案3：“2048。” C C语言中IPv4结构体定义为如下形态
-1 2 3 4 5 6 7 struct sockaddr_in { sa_family_t sin_family; //地址族 uint16_t sin_port; //16位TCP/UDP地址 struct in_addr sin_addr; //32位ip地址 char sin_zero[8]; //不使用 }; in_addr定义如下，它用来存放32位IP地址
-1 2 3 4 struct in_addr { In_addr_t s_addr; //32位IPv4地址 } 可以看到 in_addr_t 实际上是 uint32_t也就是无符号32位bit，那为什么需要额外定义这些数据类型呢?">
+<meta name="twitter:description" content="3.1 分配给套接字的IP地址与端口号 网络地址 略\n用于区分套接字的端口号 IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?\n若想接收多台计算机发来的数据,则需要相应个数的套接字。那如何区分这些套接字呢? 计算机中一般配有NIC(Network Interface Card,网络接口卡)数据传输设备。通过NIC向计算机内部传输数据时会用到IP。操作系统负责把传递到内部的数据适当分配给套接字,利用端口号。也就是说,通过NIC接收的数据内有端口号,操作系统正是参考此端口号把数据传输给相应端口的套接字 端口号就是在同一操作系统内为区分不同套接字而设置的,因此无法将1个端口号分配给不同套接字。 另外,端口号由16位构成 可分配的端口号范围是0-65535。但0-1023是知名端口(Well-known PORT),一般分配给特定应用程序,所以应当分配此范围之外的值。另外,虽然端口号不能重复,但TCP套接字和UDP套接字不会共用端口号,所以允许重复。例如:如果某TCP 套接字使用9190号端口,则其他TCP套接字就无法使用该端口号,但UDP套接字可以使用。 总之,数据传输目标地址同时包含IP地址和端口号,只有这样,数据才会被传输到最终的目的应用程序(应用程序套接字)。\n3.2 应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。\n表示IPv4的结构体 填写地址信息时应以如下提问为线索进行\n口 问题1：“采用哪一种地址族？” 口 答案1：“基于IPv4的地址族。” 口问题2：“IP地址是多少？” 口答案2：“211.204.214.76。” 口 问题3：“端口号是多少？” 口 答案3：“2048。” C C语言中IPv4结构体定义为如下形态\n1struct sockaddr_in 2{ 3\tsa_family_t sin_family; //地址族 4\tuint16_t sin_port; //16位TCP/UDP地址 5\tstruct in_addr sin_addr; //32位ip地址 6\tchar sin_zero[8]; //不使用 7}; in_addr定义如下，它用来存放32位IP地址\n1struct in_addr 2{ 3\tIn_addr_t s_addr; //32位IPv4地址 4} 可以看到 in_addr_t 实际上是 uint32_t也就是无符号32位bit，那为什么需要额外定义这些数据类型呢? 如前所述,这是考虑到扩展性的结果。如果使用int32_t类型的数据,就能保证在任何时候都占用4字节,即使将来用64位表示int类型也是如此。 从之前介绍的代码也可看出,sockaddr_in结构体变量地址值将以如下方式传递给bind函数。\n1struct sockaddr_in serv_addr; 2... 3if(bind(serv_sock,(struct sockaddr * ) &amp;serv_addr, sizeof(Serv_addr))== -1) 4\terror_handling(&#34;bind()error&#34;); 5... 此处重要的是第二个参数的传递。实际上,bind函数的第二个参数期望得到sockaddr结构体变量地址值,包括地址族、端口号、IP地址等。（此处进行了强制类型转换,将sockaddr_in转成sockaddr）从下列代码也可看出,直接向sockaddr结构体填充这些信息会带来麻烦。\n1struct sockaddr { 2 sa_family_t char sin_family;//地址族(Address Family) 3 sa_data[14];// 地址信息 4} 此结构体成员sa_data保存的地址信息中需包含IP地址和端口号,剩余部分应填充0,这也是bind函数要求的。而这对于包含地址信息来讲非常麻烦,继而就有了新的结构体sockaddr_in。若按照之前的讲解填写sockaddr_in结构体,则将生成符合bind函数要求的字节流。最后转换为sockaddr型的结构体变量,再传递给bind函数即可。\nsin_family 每种协议族适用的地址族均不同。比如,IPv4使用4字节地址族,IPv6使用16字节地址族。 可以参考表3-2保存sin_family地址信息。 sockaddr_in是保存IPv4地址信息的结构体。那为何还需要通过sin_family单独指定地址族信息呢? 这与之前讲过的sockaddr结构体有关。结构体sockaddr并非只次IPv4设计, 这从保存地址信息的数组sa_data长度为14字节也可看出。因此,结构体sockaddr要求在sin_family 中指定地址族信息。为了与sockaddr保持一致,sockaddr_in结构体中也有地址族信息。\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -67,60 +48,47 @@
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -134,51 +102,16 @@
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -192,37 +125,61 @@
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -230,7 +187,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -238,10 +195,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -370,7 +328,7 @@
 
 
                 <time class="article-time--reading">
-                    9 minute read
+                    8 minute read
                 </time>
             </div>
         
@@ -385,11 +343,11 @@
     <section class="article-content">
     
     
-    <h2 id="31-分配给套接字的ip地址与端口号">3.1 分配给套接字的IP地址与端口号</h2>
-<h3 id="网络地址">网络地址</h3>
-<p>略</p>
-<h2 id="用于区分套接字的端口号">用于区分套接字的端口号</h2>
-<p>IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?</p>
+    <h2 id="31-分配给套接字的ip地址与端口号">3.1 分配给套接字的IP地址与端口号
+</h2><h3 id="网络地址">网络地址
+</h3><p>略</p>
+<h2 id="用于区分套接字的端口号">用于区分套接字的端口号
+</h2><p>IP用于区分计算机,只要有IP地址就能向目标主机传输数据,但仅凭这些无法传输给最终的应用程序。假设各位欣赏视频的同时在网上冲浪,这时至少需要1个接收视频数据的套接字和1 个接收网页信息的套接字。问题在于如何区分二者。简言之,传输到计算机的网络数据是发给播放器,还是发送给浏览器?</p>
 <p>若想接收多台计算机发来的数据,则需要相应个数的套接字。那如何区分这些套接字呢?
 计算机中一般配有NIC(Network Interface Card,网络接口卡)数据传输设备。通过NIC向计算机内部传输数据时会用到IP。操作系统负责把传递到内部的数据适当分配给套接字,利用端口号。也就是说,通过NIC接收的数据内有端口号,操作系统正是参考此端口号把数据传输给相应端口的套接字
 <img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.5q51v4z8i4n4.webp"
@@ -405,10 +363,10 @@
 <p>端口号就是在同一操作系统内为区分不同套接字而设置的,因此无法将1个端口号分配给不同套接字。
 另外,端口号由16位构成 可分配的端口号范围是<strong>0-65535</strong>。但<strong>0-1023</strong>是<strong>知名端口(Well-known PORT)</strong>,一般分配给特定应用程序,所以应当分配此范围之外的值。另外,虽然端口号不能重复,<strong>但TCP套接字和UDP套接字不会共用端口号,所以允许重复</strong>。例如:如果某TCP 套接字使用9190号端口,则其他TCP套接字就无法使用该端口号,但UDP套接字可以使用。
 总之,数据传输目标地址同时包含IP地址和端口号,只有这样,数据才会被传输到最终的目的应用程序(应用程序套接字)。</p>
-<h2 id="32">3.2</h2>
-<p>应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。</p>
-<h3 id="表示ipv4的结构体">表示IPv4的结构体</h3>
-<p>填写地址信息时应以如下提问为线索进行</p>
+<h2 id="32">3.2
+</h2><p>应用程序中使用的IP地址和端口号以结构体的形式给出了定义。本节将以IPv4为中心,围绕此结构体讨论目标地址的表示方法。</p>
+<h3 id="表示ipv4的结构体">表示IPv4的结构体
+</h3><p>填写地址信息时应以如下提问为线索进行</p>
 <pre><code>口 问题1：“采用哪一种地址族？”
 口 答案1：“基于IPv4的地址族。”
 口问题2：“IP地址是多少？”
@@ -416,44 +374,21 @@
 口 问题3：“端口号是多少？”
 口 答案3：“2048。”
 </code></pre>
-<h4 id="c">C</h4>
-<p>C语言中IPv4结构体定义为如下形态</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sockaddr_in</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">sa_family_t</span>      <span class="n">sin_family</span><span class="p">;</span> <span class="c1">//地址族
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">uint16_t</span>         <span class="n">sin_port</span><span class="p">;</span>   <span class="c1">//16位TCP/UDP地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">struct</span> <span class="n">in_addr</span>          <span class="n">sin_addr</span><span class="p">;</span>  <span class="c1">//32位ip地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">char</span>             <span class="n">sin_zero</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>    <span class="c1">//不使用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>in_addr</code>定义如下，它用来存放32位IP地址</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">in_addr</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">In_addr_t</span>    <span class="n">s_addr</span><span class="p">;</span>  <span class="c1">//32位IPv4地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.1a3tohqxb3ts.webp"
+<h4 id="c">C
+</h4><p>C语言中IPv4结构体定义为如下形态</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">struct</span> <span class="n">sockaddr_in</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">	<span class="kt">sa_family_t</span>      <span class="n">sin_family</span><span class="p">;</span> <span class="c1">//地址族
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"></span>	<span class="kt">uint16_t</span>         <span class="n">sin_port</span><span class="p">;</span>   <span class="c1">//16位TCP/UDP地址
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"></span>	<span class="k">struct</span> <span class="n">in_addr</span>          <span class="n">sin_addr</span><span class="p">;</span>  <span class="c1">//32位ip地址
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="c1"></span>	<span class="kt">char</span>             <span class="n">sin_zero</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>    <span class="c1">//不使用
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><p><code>in_addr</code>定义如下，它用来存放32位IP地址</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">struct</span> <span class="n">in_addr</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">	<span class="n">In_addr_t</span>    <span class="n">s_addr</span><span class="p">;</span>  <span class="c1">//32位IPv4地址
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.1a3tohqxb3ts.webp"
 	
 	
 	
@@ -465,38 +400,17 @@
 ></p>
 <p>可以看到 <code>in_addr_t</code> 实际上是 <code>uint32_t</code>也就是无符号32位bit，那为什么需要额外定义这些数据类型呢? 如前所述,这是考虑到扩展性的结果。如果使用int32_t类型的数据,就能保证在任何时候都占用4字节,即使将来用64位表示int类型也是如此。
 从之前介绍的代码也可看出,<code>sockaddr_in</code>结构体变量地址值将以如下方式传递给<code>bind</code>函数。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">serv_addr</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl"><span class="p">...</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nf">bind</span><span class="p">(</span><span class="n">serv_sock</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span> <span class="p">)</span> <span class="o">&amp;</span><span class="n">serv_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Serv_addr</span><span class="p">))</span><span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">	<span class="nf">error_handling</span><span class="p">(</span><span class="s">&#34;bind()error&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">...</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>此处重要的是第二个参数的传递。实际上,bind函数的第二个参数期望得到<code>sockaddr</code>结构体变量地址值,包括地址族、端口号、IP地址等。（此处进行了强制类型转换,将<code>sockaddr_in</code>转成<code>sockaddr</code>）从下列代码也可看出,直接向sockaddr结构体填充这些信息会带来麻烦。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sockaddr</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">sa_family_t</span> <span class="kt">char</span> <span class="n">sin_family</span><span class="p">;</span><span class="c1">//地址族(Address Family) 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">sa_data</span><span class="p">[</span><span class="mi">14</span><span class="p">];</span><span class="c1">// 地址信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>此结构体成员<code>sa_data</code>保存的地址信息中需包含IP地址和端口号,剩余部分应填充0,这也是<code>bind</code>函数要求的。而这对于包含地址信息来讲非常麻烦,继而就有了新的结构体<code>sockaddr_in</code>。若按照之前的讲解填写<code>sockaddr_in</code>结构体,则将生成符合bind函数要求的字节流。最后转换为<code>sockaddr</code>型的结构体变量,再传递给<code>bind</code>函数即可。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">serv_addr</span><span class="p">;</span> 
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nf">bind</span><span class="p">(</span><span class="n">serv_sock</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span> <span class="p">)</span> <span class="o">&amp;</span><span class="n">serv_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Serv_addr</span><span class="p">))</span><span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> 
+</span></span><span class="line"><span class="ln">4</span><span class="cl">	<span class="nf">error_handling</span><span class="p">(</span><span class="s">&#34;bind()error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">...</span>
+</span></span></code></pre></div><p>此处重要的是第二个参数的传递。实际上,bind函数的第二个参数期望得到<code>sockaddr</code>结构体变量地址值,包括地址族、端口号、IP地址等。（此处进行了强制类型转换,将<code>sockaddr_in</code>转成<code>sockaddr</code>）从下列代码也可看出,直接向sockaddr结构体填充这些信息会带来麻烦。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">struct</span> <span class="n">sockaddr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="kt">sa_family_t</span> <span class="kt">char</span> <span class="n">sin_family</span><span class="p">;</span><span class="c1">//地址族(Address Family) 
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span>    <span class="n">sa_data</span><span class="p">[</span><span class="mi">14</span><span class="p">];</span><span class="c1">// 地址信息
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>此结构体成员<code>sa_data</code>保存的地址信息中需包含IP地址和端口号,剩余部分应填充0,这也是<code>bind</code>函数要求的。而这对于包含地址信息来讲非常麻烦,继而就有了新的结构体<code>sockaddr_in</code>。若按照之前的讲解填写<code>sockaddr_in</code>结构体,则将生成符合bind函数要求的字节流。最后转换为<code>sockaddr</code>型的结构体变量,再传递给<code>bind</code>函数即可。</p>
 <ul>
 <li>
 <p><code>sin_family</code>
@@ -529,28 +443,16 @@
 必需填充为0,否则无法得到想要的结果。</p>
 </li>
 </ul>
-<h4 id="go">go</h4>
-<p>在 Go 语言中，类似于 C 语言中 <code>struct sockaddr_in</code> 的结构体是 <code>syscall.SockaddrInet4</code>（对于 IPv4）和 <code>syscall.SockaddrInet6</code>（对于 IPv6）。</p>
+<h4 id="go">go
+</h4><p>在 Go 语言中，类似于 C 语言中 <code>struct sockaddr_in</code> 的结构体是 <code>syscall.SockaddrInet4</code>（对于 IPv4）和 <code>syscall.SockaddrInet6</code>（对于 IPv6）。</p>
 <p>在go中，就没有特别定义<code>in_addr_t</code>，直接使用[4]byte。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// SockaddrInet4 结构体用于表示一个 IPv4 网络地址。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">SockaddrInet4</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Port</span> <span class="kt">int</span>       <span class="c1">// Port 字段表示端口号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Addr</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>   <span class="c1">// Addr 字段表示 IPv4 地址，存储为 4 字节
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">raw</span>  <span class="nx">RawSockaddrInet4</span>  <span class="c1">// raw 字段是内部使用的原始结构体，用于与系统调用交互
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// SockaddrInet4 结构体用于表示一个 IPv4 网络地址。</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kd">type</span> <span class="nx">SockaddrInet4</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nx">Port</span> <span class="kt">int</span>       <span class="c1">// Port 字段表示端口号</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">Addr</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>   <span class="c1">// Addr 字段表示 IPv4 地址，存储为 4 字节</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="nx">raw</span>  <span class="nx">RawSockaddrInet4</span>  <span class="c1">// raw 字段是内部使用的原始结构体，用于与系统调用交互</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>
 <p><code>Port</code>：一个 <code>int</code> 类型的值，表示网络地址的端口号。</p>
 </li>
@@ -562,50 +464,23 @@
 </li>
 </ul>
 <p><strong>RawSockaddrInet4</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// RawSockaddrInet4 结构体用于表示一个 IPv4 网络地址的底层结构。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">RawSockaddrInet4</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Len</span>    <span class="kt">uint8</span>     <span class="c1">// Len 字段表示此结构体的长度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Family</span> <span class="kt">uint8</span>     <span class="c1">// Family 字段表示地址族，对于 IPv4，此值通常为 AF_INET
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Port</span>   <span class="kt">uint16</span>    <span class="c1">// Port 字段表示端口号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Addr</span>   <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>   <span class="c1">// Addr 字段表示 IPv4 地址，存储为 4 字节
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Zero</span>   <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="kt">int8</span>   <span class="c1">// Zero 字段是填充字段，用于确保结构体的大小正确
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Go语言也类似，这是go 的bind函数</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Bind</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">sa</span> <span class="nx">Sockaddr</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sa</span><span class="p">.</span><span class="nf">sockaddr</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nf">bind</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在 Go 语言中，<code>syscall.Bind</code> 函数的第二个参数是 <code>Sockaddr</code> 类型，这是一个接口类型，它定义了一些方法，这些方法需要由任何实现该接口的类型来实现。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// RawSockaddrInet4 结构体用于表示一个 IPv4 网络地址的底层结构。</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kd">type</span> <span class="nx">RawSockaddrInet4</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nx">Len</span>    <span class="kt">uint8</span>     <span class="c1">// Len 字段表示此结构体的长度</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">Family</span> <span class="kt">uint8</span>     <span class="c1">// Family 字段表示地址族，对于 IPv4，此值通常为 AF_INET</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="nx">Port</span>   <span class="kt">uint16</span>    <span class="c1">// Port 字段表示端口号</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="nx">Addr</span>   <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>   <span class="c1">// Addr 字段表示 IPv4 地址，存储为 4 字节</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="nx">Zero</span>   <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="kt">int8</span>   <span class="c1">// Zero 字段是填充字段，用于确保结构体的大小正确</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Go语言也类似，这是go 的bind函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">func</span> <span class="nf">Bind</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">sa</span> <span class="nx">Sockaddr</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">	<span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sa</span><span class="p">.</span><span class="nf">sockaddr</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">	<span class="k">return</span> <span class="nf">bind</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在 Go 语言中，<code>syscall.Bind</code> 函数的第二个参数是 <code>Sockaddr</code> 类型，这是一个接口类型，它定义了一些方法，这些方法需要由任何实现该接口的类型来实现。</p>
 <p><strong><code>SockaddrInet4</code> 和 <code>SockaddrInet6</code> 结构体都实现了 <code>Sockaddr</code> 接口</strong>，因此它们可以作为 <code>syscall.Bind</code> 函数的参数。</p>
 <p>当你创建一个 <code>SockaddrInet4</code> 结构体并传递给 <code>syscall.Bind</code> 函数时，<strong>Go 语言会自动将 <code>SockaddrInet4</code> 结构体转换为 <code>Sockaddr</code> 接口类型</strong>，然后再传递给 <code>syscall.Bind</code> 函数。</p>
 <p>所以，虽然 <code>syscall.Bind</code> 函数的参数类型是 <code>Sockaddr</code>，但你可以传递一个 <code>*SockaddrInet4</code> 或 <code>*SockaddrInet6</code> 结构体给它。</p>
@@ -634,14 +509,14 @@
 <p>而 <code>RawSockaddrInet4</code> 是对系统调用级别的网络地址的低级表示，它的 <code>Port</code> 和 <code>Addr</code> 字段类型分别为 <code>uint16</code> 和 <code>[4]byte</code>，并且 <code>Port</code> 字段是网络字节序，这对于系统调用来说是必须的。</p>
 <p>当你在 Go 代码中创建一个 <code>SockaddrInet4</code> 结构体并传递给如 <code>syscall.Bind</code> 这样的函数时，Go 语言会自动将 <code>SockaddrInet4</code> 结构体转换为 <code>RawSockaddrInet4</code> 结构体，然后再传递给底层的系统调用。这就是为什么 <code>SockaddrInet4</code> 结构体中包含一个 <code>RawSockaddrInet4</code> 字段的原因。</p>
 <p><code>SockaddrInet4</code>结构体包含了IPv4地址和端口信息，而<code>RawSockaddrInet4</code>结构体则是为了在底层网络编程中使用原始的套接字地址结构而定义的。这种设计可以让网络编程在不同层次上进行操作，同时保持灵活性和可扩展性。</p>
-<h2 id="33-网络字节序与地址变换">3.3 网络字节序与地址变换</h2>
-<p>不同CPU中,4字节整数型值1在内存空间的保存方式是不同的。4字节整数型值1可用2进制表示如下。
+<h2 id="33-网络字节序与地址变换">3.3 网络字节序与地址变换
+</h2><p>不同CPU中,4字节整数型值1在内存空间的保存方式是不同的。4字节整数型值1可用2进制表示如下。
 00000000 00000000 00000000 00000001
 有些CPU以这种顺序保存到内存,另外一些CPU则以倒序保存。
 00000001 00000000 00000000 00000000
 若不考虑这些就收发数据则会发生问题,因为保存顺序的不同意味着对接收数据的解析顺序也不同。</p>
-<h3 id="字节序与网络字节序">字节序与网络字节序</h3>
-<p>CPU向内存保存数据的方式有2种,这意味着CPU解析数据的方式也分为2种。</p>
+<h3 id="字节序与网络字节序">字节序与网络字节序
+</h3><p>CPU向内存保存数据的方式有2种,这意味着CPU解析数据的方式也分为2种。</p>
 <ul>
 <li>大端序(Big Endian):高位字节存放到低位地址。
 <img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.27xmkxdgjg74.webp"
@@ -679,8 +554,8 @@
 0x12和0x34构成的大端序系统值与0x34和0x12构成的小端序系统值相同。换言之,只有改变数据保存顺序才能被识别为同一值。图3-6中,大端序系统传输数据0x1234时未考虑字节序问题, 而直接以Ox12、0x34的顺序发送。结果接收端以小端序方式保存数据,因此小端序接收的数据变成0x3412,而非0x1234。正因如此,在通过网络传输数据时约定统一方式,这种约定称为<strong>网络字节序(Network Byte Order)</strong> 非常简单：<strong>统一为大端序</strong>。
 即,先把数据数组转化成大端序格式再进行网络传输。因此,所有计算机接收数据时应识别该数据是网络字节序格式,小端序系统传输数据时应转化为大端序排列方式。</li>
 </ul>
-<h3 id="字节序转换">字节序转换</h3>
-<p>接下来介绍帮助转换字节序的函数。这是文中给的c语言转换函数
+<h3 id="字节序转换">字节序转换
+</h3><p>接下来介绍帮助转换字节序的函数。这是文中给的c语言转换函数
 <img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2mqwp5w3kkcg.webp"
 	
 	
@@ -693,508 +568,237 @@
 ></p>
 <p>在 Go 语言中，没有内置的 <code>htons</code>（Host TO Network Short）、<code>ntohs</code>（Network TO Host Short）、<code>htonl</code>（Host TO Network Long）和 <code>ntohl</code>（Network TO Host Long）函数。这些函数在 C 语言中用于在主机字节序和网络字节序之间转换数据。</p>
 <p>但是，你可以使用 Go 语言的 <code>encoding/binary</code> 包来实现同样的功能。以下是如何在 Go 语言中实现这些函数的例子：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint16</span><span class="p">)</span> <span class="kt">uint16</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">b</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">byte</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint16</span><span class="p">(</span><span class="nx">b</span><span class="p">[:],</span> <span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint16</span><span class="p">(</span><span class="nx">b</span><span class="p">[:])</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">ntohs</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint16</span><span class="p">)</span> <span class="kt">uint16</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="c1">// 在 16 位无符号整数上，ntohs 和 htons 是相同的
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">b</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint32</span><span class="p">(</span><span class="nx">b</span><span class="p">[:],</span> <span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">b</span><span class="p">[:])</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">ntohl</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="c1">// 在 32 位无符号整数上，ntohl 和 htonl 是相同的
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">htons</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">ntohs</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">htonl</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">ntohl</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>endian_conv.go</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// htons 函数接收一个 uint16 类型的主机字节序值，
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 将其转换为网络字节序，然后返回转换后的值。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint16</span><span class="p">)</span> <span class="kt">uint16</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">// 创建一个长度为 2 的字节数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint16</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="c1">// 将 n 的值以大端字节序放入字节数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint16</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 从字节数组中读取并返回大端字节序的值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// htonl 函数接收一个 uint32 类型的主机字节序值，
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 将其转换为网络字节序，然后返回转换后的值。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1">// 创建一个长度为 4 的字节数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint32</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="c1">// 将 n 的值以大端字节序放入字节数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 从字节数组中读取并返回大端字节序的值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">hostPort</span> <span class="o">:=</span> <span class="nb">uint16</span><span class="p">(</span><span class="mh">0x1234</span><span class="p">)</span> <span class="c1">// 定义一个主机字节序的端口值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">hostAddr</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="mh">0x12345678</span><span class="p">)</span> <span class="c1">// 定义一个主机字节序的地址值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="nx">netPort</span> <span class="o">:=</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">hostPort</span><span class="p">)</span> <span class="c1">// 将主机字节序的端口值转换为网络字节序
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">netAddr</span> <span class="o">:=</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">hostAddr</span><span class="p">)</span> <span class="c1">// 将主机字节序的地址值转换为网络字节序
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="34-网络地址的初始化与分配">3.4 网络地址的初始化与分配</h2>
-<h3 id="将字符串信息转换为网络字节序的整数型">将字符串信息转换为网络字节序的整数型</h3>
-<p>sockaddr_in中保存地址信息的成员为32位整数型。因此,为了分配IP地址,需要将其表示为32位整数型数据。这对于只熟悉字符串信息的我们来说实非易事。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="kd">func</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint16</span><span class="p">)</span> <span class="kt">uint16</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="kd">var</span> <span class="nx">b</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">byte</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint16</span><span class="p">(</span><span class="nx">b</span><span class="p">[:],</span> <span class="nx">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint16</span><span class="p">(</span><span class="nx">b</span><span class="p">[:])</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="kd">func</span> <span class="nf">ntohs</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint16</span><span class="p">)</span> <span class="kt">uint16</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="k">return</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="c1">// 在 16 位无符号整数上，ntohs 和 htons 是相同的</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="kd">func</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="kd">var</span> <span class="nx">b</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint32</span><span class="p">(</span><span class="nx">b</span><span class="p">[:],</span> <span class="nx">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">b</span><span class="p">[:])</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="kd">func</span> <span class="nf">ntohl</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="k">return</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="c1">// 在 32 位无符号整数上，ntohl 和 htonl 是相同的</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">
+</span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">htons</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">ntohs</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">htonl</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">ntohl</span><span class="p">(</span><span class="mi">12345</span><span class="p">))</span> <span class="c1">// 输出：12345</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>endian_conv.go</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1">// htons 函数接收一个 uint16 类型的主机字节序值，</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1">// 将其转换为网络字节序，然后返回转换后的值。</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kd">func</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint16</span><span class="p">)</span> <span class="kt">uint16</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">// 创建一个长度为 2 的字节数组</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint16</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="c1">// 将 n 的值以大端字节序放入字节数组</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint16</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 从字节数组中读取并返回大端字节序的值</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1">// htonl 函数接收一个 uint32 类型的主机字节序值，</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1">// 将其转换为网络字节序，然后返回转换后的值。</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="kd">func</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c1">// 创建一个长度为 4 的字节数组</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">PutUint32</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="c1">// 将 n 的值以大端字节序放入字节数组</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="c1">// 从字节数组中读取并返回大端字节序的值</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="nx">hostPort</span> <span class="o">:=</span> <span class="nb">uint16</span><span class="p">(</span><span class="mh">0x1234</span><span class="p">)</span> <span class="c1">// 定义一个主机字节序的端口值</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="nx">hostAddr</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="mh">0x12345678</span><span class="p">)</span> <span class="c1">// 定义一个主机字节序的地址值</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    <span class="nx">netPort</span> <span class="o">:=</span> <span class="nf">htons</span><span class="p">(</span><span class="nx">hostPort</span><span class="p">)</span> <span class="c1">// 将主机字节序的端口值转换为网络字节序</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="nx">netAddr</span> <span class="o">:=</span> <span class="nf">htonl</span><span class="p">(</span><span class="nx">hostAddr</span><span class="p">)</span> <span class="c1">// 将主机字节序的地址值转换为网络字节序</span>
+</span></span></code></pre></div><h2 id="34-网络地址的初始化与分配">3.4 网络地址的初始化与分配
+</h2><h3 id="将字符串信息转换为网络字节序的整数型">将字符串信息转换为网络字节序的整数型
+</h3><p>sockaddr_in中保存地址信息的成员为32位整数型。因此,为了分配IP地址,需要将其表示为32位整数型数据。这对于只熟悉字符串信息的我们来说实非易事。</p>
 <p>对于IP地址的表示,我们熟悉的是点分十进制表示法(Dotted Decimal Notation),而非整数型数据表示法。幸运的是,有个函数会帮我们将字符串形式的IP地址转换成32位整数型数据。此函数在转换类型的同时进行网络字节序转换。</p>
-<h4 id="inet_addr">inet_addr</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt; </span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">in_addr_t</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">string</span><span class="p">);</span> 
-</span></span><span class="line"><span class="cl">	<span class="c1">//成功时返回32位大端序整数型值,失败时返回 INADDR_NONE。
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果向该函数传递类似“211.214.107.99”的点分十进制格式的字符串,它会将其转换为32 位整数型数据并返回。当然,该整数型值满足网络字节序。另外,该函数的返回值类型in_addr_t 在内部声明为32位整数型。</p>
+<h4 id="inet_addr">inet_addr
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt; </span><span class="cp">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span><span class="kt">in_addr_t</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">string</span><span class="p">);</span> 
+</span></span><span class="line"><span class="ln">3</span><span class="cl">	<span class="c1">//成功时返回32位大端序整数型值,失败时返回 INADDR_NONE。
+</span></span></span></code></pre></div><p>如果向该函数传递类似“211.214.107.99”的点分十进制格式的字符串,它会将其转换为32 位整数型数据并返回。当然,该整数型值满足网络字节序。另外,该函数的返回值类型in_addr_t 在内部声明为32位整数型。</p>
 <p>在 Go 中，你可以使用 <code>net</code> 包的 <code>ParseIP</code> 函数来解析 IP 地址。这个函数可以处理 IPv4 和 IPv6 地址，如果输入的字符串不是有效的 IP 地址，它会返回 <code>nil</code>。然后，你可以使用 <code>encoding/binary</code> 包的 <code>BigEndian.Uint32</code> 或 <code>LittleEndian.Uint32</code> 函数将 <code>net.IP</code> 类型的 IP 地址转换为网络字节序或主机字节序的整数。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;net&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ip</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">ParseIP</span><span class="p">(</span><span class="s">&#34;1.2.3.4&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Invalid IP address&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ip</span> <span class="p">=</span> <span class="nx">ip</span><span class="p">.</span><span class="nf">To4</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Not an IPv4 address&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;IP as integer (network byte order): %x\n&#34;</span><span class="p">,</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">ip</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;IP as integer (host byte order): %x\n&#34;</span><span class="p">,</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">LittleEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">ip</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>inter_addr.go</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;encoding/binary&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;net&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">INADDR_NONE</span> <span class="p">=</span> <span class="mh">0xffffffff</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// inet_addr converts an IPv4 address in dot-decimal notation into a 32-bit integer in network byte order.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// If the IP address is invalid, it returns INADDR_NONE (0xffffffff).
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="nx">ipStr</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ip</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">ParseIP</span><span class="p">(</span><span class="nx">ipStr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mh">0xffffffff</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ip</span> <span class="p">=</span> <span class="nx">ip</span><span class="p">.</span><span class="nf">To4</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mh">0xffffffff</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">ip</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">addr1</span> <span class="o">:=</span> <span class="s">&#34;1.2.3.4&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">addr2</span> <span class="o">:=</span> <span class="s">&#34;1.2.3.256&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">conv_addr</span> <span class="o">:=</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="nx">addr1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">conv_addr</span> <span class="o">==</span> <span class="nx">INADDR_NONE</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Error occured!&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Network ordered integer addr: %#x\n&#34;</span><span class="p">,</span> <span class="nx">conv_addr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">conv_addr</span> <span class="p">=</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="nx">addr2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">conv_addr</span> <span class="o">==</span> <span class="nx">INADDR_NONE</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Error occured!&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Network ordered integer addr: %#x\n&#34;</span><span class="p">,</span> <span class="nx">conv_addr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="inet_aton">inet_aton</h4>
-<p><code>inet_aton</code>函数 与inet_addr函数在功能上完全相同,也将字符串形式IP地址转换为32位网络字节序整数并返回。只不过该函数利用了in_addr结构体,且其使用频率更高。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt; </span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">inet_aton</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">string</span><span class="p">,</span><span class="k">struct</span> <span class="n">in_addn</span> <span class="o">*</span> <span class="n">addn</span><span class="p">);</span> 
-</span></span><span class="line"><span class="cl"><span class="c1">//成功时返回1(true),失败时返回 0(false)。
-</span></span></span><span class="line"><span class="cl"><span class="c1">//string 含有需转换的IP地址信息的字符串地址值。
-</span></span></span><span class="line"><span class="cl"><span class="c1">//addr 将保存转换结果的in_addr结构体变量的地址值。
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>inet_aton.go</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;log&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;net&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// inet_aton converts an IPv4 address in dot-decimal notation into a 32-bit integer in network byte order.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// If the IP address is valid, it stores the result in the given *uint32 and returns true.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// If the IP address is invalid, it returns false.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">inet_aton</span><span class="p">(</span><span class="nx">ipStr</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ip</span> <span class="o">*</span><span class="kt">uint32</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">parsedIP</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">ParseIP</span><span class="p">(</span><span class="nx">ipStr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">parsedIP</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">parsedIP</span> <span class="p">=</span> <span class="nx">parsedIP</span><span class="p">.</span><span class="nf">To4</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">parsedIP</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="nx">ip</span> <span class="p">=</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">parsedIP</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.232.124.79&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">ip</span> <span class="kt">uint32</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">!</span><span class="nf">inet_aton</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ip</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalln</span><span class="p">(</span><span class="s">&#34;Conversion error&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Network ordered integer addr: %#x\n&#34;</span><span class="p">,</span> <span class="nx">ip</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="inet_aton-1">inet_aton</h4>
-<p>上述运行结果无关紧要,更重要的是大家要熟练掌握该函数的调用方法。最后再介绍一个与inet_aton函数正好相反的函数,此函数可以把网络字节序整数型IP地址转换成我们熟悉的字符串形式。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt; </span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span> <span class="o">*</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="k">struct</span> <span class="n">in_addr</span> <span class="n">adr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//成功时返回转换的字符串地址值,失败时返回-1。
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>该函数将通过参数传入的整数型IP地址转换为字符串格式并返回。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">ip</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">ParseIP</span><span class="p">(</span><span class="s">&#34;1.2.3.4&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Invalid IP address&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="nx">ip</span> <span class="p">=</span> <span class="nx">ip</span><span class="p">.</span><span class="nf">To4</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Not an IPv4 address&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;IP as integer (network byte order): %x\n&#34;</span><span class="p">,</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">ip</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;IP as integer (host byte order): %x\n&#34;</span><span class="p">,</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">LittleEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">ip</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>inter_addr.go</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="s">&#34;encoding/binary&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	<span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kd">const</span> <span class="nx">INADDR_NONE</span> <span class="p">=</span> <span class="mh">0xffffffff</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1">// inet_addr converts an IPv4 address in dot-decimal notation into a 32-bit integer in network byte order.</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1">// If the IP address is invalid, it returns INADDR_NONE (0xffffffff).</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="kd">func</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="nx">ipStr</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">uint32</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="nx">ip</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">ParseIP</span><span class="p">(</span><span class="nx">ipStr</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">	<span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">		<span class="k">return</span> <span class="mh">0xffffffff</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">	<span class="nx">ip</span> <span class="p">=</span> <span class="nx">ip</span><span class="p">.</span><span class="nf">To4</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">	<span class="k">if</span> <span class="nx">ip</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">		<span class="k">return</span> <span class="mh">0xffffffff</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">	<span class="k">return</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">ip</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">	<span class="nx">addr1</span> <span class="o">:=</span> <span class="s">&#34;1.2.3.4&#34;</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">	<span class="nx">addr2</span> <span class="o">:=</span> <span class="s">&#34;1.2.3.256&#34;</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">
+</span></span><span class="line"><span class="ln">29</span><span class="cl">	<span class="nx">conv_addr</span> <span class="o">:=</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="nx">addr1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">
+</span></span><span class="line"><span class="ln">31</span><span class="cl">	<span class="k">if</span> <span class="nx">conv_addr</span> <span class="o">==</span> <span class="nx">INADDR_NONE</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Error occured!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Network ordered integer addr: %#x\n&#34;</span><span class="p">,</span> <span class="nx">conv_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">	<span class="nx">conv_addr</span> <span class="p">=</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="nx">addr2</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">	<span class="k">if</span> <span class="nx">conv_addr</span> <span class="o">==</span> <span class="nx">INADDR_NONE</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Error occured!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Network ordered integer addr: %#x\n&#34;</span><span class="p">,</span> <span class="nx">conv_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="inet_aton">inet_aton
+</h4><p><code>inet_aton</code>函数 与inet_addr函数在功能上完全相同,也将字符串形式IP地址转换为32位网络字节序整数并返回。只不过该函数利用了in_addr结构体,且其使用频率更高。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt; </span><span class="cp">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">inet_aton</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">string</span><span class="p">,</span><span class="k">struct</span> <span class="n">in_addn</span> <span class="o">*</span> <span class="n">addn</span><span class="p">);</span> 
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1">//成功时返回1(true),失败时返回 0(false)。
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1">//string 含有需转换的IP地址信息的字符串地址值。
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1">//addr 将保存转换结果的in_addr结构体变量的地址值。
+</span></span></span></code></pre></div><p>inet_aton.go</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="s">&#34;encoding/binary&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">// inet_aton converts an IPv4 address in dot-decimal notation into a 32-bit integer in network byte order.</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1">// If the IP address is valid, it stores the result in the given *uint32 and returns true.</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1">// If the IP address is invalid, it returns false.</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="kd">func</span> <span class="nf">inet_aton</span><span class="p">(</span><span class="nx">ipStr</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ip</span> <span class="o">*</span><span class="kt">uint32</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nx">parsedIP</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">ParseIP</span><span class="p">(</span><span class="nx">ipStr</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="k">if</span> <span class="nx">parsedIP</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="nx">parsedIP</span> <span class="p">=</span> <span class="nx">parsedIP</span><span class="p">.</span><span class="nf">To4</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="k">if</span> <span class="nx">parsedIP</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">        <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    <span class="o">*</span><span class="nx">ip</span> <span class="p">=</span> <span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nf">Uint32</span><span class="p">(</span><span class="nx">parsedIP</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">
+</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    <span class="nx">addr</span> <span class="o">:=</span> <span class="s">&#34;127.232.124.79&#34;</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    <span class="kd">var</span> <span class="nx">ip</span> <span class="kt">uint32</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">
+</span></span><span class="line"><span class="ln">30</span><span class="cl">    <span class="k">if</span> <span class="p">!</span><span class="nf">inet_aton</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ip</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalln</span><span class="p">(</span><span class="s">&#34;Conversion error&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Network ordered integer addr: %#x\n&#34;</span><span class="p">,</span> <span class="nx">ip</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="inet_aton-1">inet_aton
+</h4><p>上述运行结果无关紧要,更重要的是大家要熟练掌握该函数的调用方法。最后再介绍一个与inet_aton函数正好相反的函数,此函数可以把网络字节序整数型IP地址转换成我们熟悉的字符串形式。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt; </span><span class="cp">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span><span class="kt">char</span> <span class="o">*</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="k">struct</span> <span class="n">in_addr</span> <span class="n">adr</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1">//成功时返回转换的字符串地址值,失败时返回-1。
+</span></span></span></code></pre></div><p>该函数将通过参数传入的整数型IP地址转换为字符串格式并返回。
 但调用时需小心,返回值类型为char指针。返回字符串地址意味着字符串已保存到内存空间,但该函数未向程序员要求分配内存,而是在内部申请了内存并保存了字符串。也就是说,调用完该函数后,应立即将字符串信息复制到其他内存空间。总之,再次调用inet_ntoa函数前返回的字符串地址值是有效的。若需要长期保存,则应将字符串复制到其他内存空间。</p>
 <p>Go语言标准库中并没有直接提供对C语言中的网络地址转换函数的封装。如果要在Go中实现类似的功能，可以使用net包中的IP和IPv4类来进行IP地址的转换和操作。以下是一个简单的示例代码：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;net&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main1</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">addr1</span><span class="p">,</span> <span class="nx">addr2</span> <span class="kt">uint32</span> <span class="p">=</span> <span class="mh">0x1020304</span><span class="p">,</span> <span class="mh">0x1010101</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">ip1</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">IPv4</span><span class="p">(</span><span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="o">&gt;&gt;</span><span class="mi">16</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ip2</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">IPv4</span><span class="p">(</span><span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="o">&gt;&gt;</span><span class="mi">16</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation1: %s \n&#34;</span><span class="p">,</span> <span class="nx">ip1</span><span class="p">.</span><span class="nf">String</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation2: %s \n&#34;</span><span class="p">,</span> <span class="nx">ip2</span><span class="p">.</span><span class="nf">String</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>用go自行写的 inet_aton函数</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;net&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// inet_ntoa converts a 32-bit integer in network byte order into a dotted-decimal IP address.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="nx">ipInt</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ipBytes</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">net</span><span class="p">.</span><span class="nf">IP</span><span class="p">(</span><span class="nx">ipBytes</span><span class="p">).</span><span class="nf">String</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">addr1</span><span class="p">,</span> <span class="nx">addr2</span> <span class="kt">uint32</span> <span class="p">=</span> <span class="mh">0x1020304</span><span class="p">,</span> <span class="mh">0x1010101</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation1: %s \n&#34;</span><span class="p">,</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="nx">addr1</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation2: %s \n&#34;</span><span class="p">,</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="nx">addr2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="网络地址初始化">网络地址初始化</h3>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.5lfoz23nb62o.webp"
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="kd">func</span> <span class="nf">main1</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">	<span class="kd">var</span> <span class="nx">addr1</span><span class="p">,</span> <span class="nx">addr2</span> <span class="kt">uint32</span> <span class="p">=</span> <span class="mh">0x1020304</span><span class="p">,</span> <span class="mh">0x1010101</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">	<span class="nx">ip1</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">IPv4</span><span class="p">(</span><span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="o">&gt;&gt;</span><span class="mi">16</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr1</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">	<span class="nx">ip2</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">IPv4</span><span class="p">(</span><span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="o">&gt;&gt;</span><span class="mi">16</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">),</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">addr2</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation1: %s \n&#34;</span><span class="p">,</span> <span class="nx">ip1</span><span class="p">.</span><span class="nf">String</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation2: %s \n&#34;</span><span class="p">,</span> <span class="nx">ip2</span><span class="p">.</span><span class="nf">String</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>用go自行写的 inet_aton函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1">// inet_ntoa converts a 32-bit integer in network byte order into a dotted-decimal IP address.</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kd">func</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="nx">ipInt</span> <span class="kt">uint32</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">	<span class="nx">ipBytes</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="nx">ipBytes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">=</span> <span class="nb">byte</span><span class="p">(</span><span class="nx">ipInt</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">	<span class="k">return</span> <span class="nx">net</span><span class="p">.</span><span class="nf">IP</span><span class="p">(</span><span class="nx">ipBytes</span><span class="p">).</span><span class="nf">String</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">	<span class="kd">var</span> <span class="nx">addr1</span><span class="p">,</span> <span class="nx">addr2</span> <span class="kt">uint32</span> <span class="p">=</span> <span class="mh">0x1020304</span><span class="p">,</span> <span class="mh">0x1010101</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">
+</span></span><span class="line"><span class="ln">21</span><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation1: %s \n&#34;</span><span class="p">,</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="nx">addr1</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Dotted-Decimal notation2: %s \n&#34;</span><span class="p">,</span> <span class="nf">inet_ntoa</span><span class="p">(</span><span class="nx">addr2</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="网络地址初始化">网络地址初始化
+</h3><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.5lfoz23nb62o.webp"
 	
 	
 	
@@ -1207,16 +811,16 @@
 <p>上述代码中,memset函数将每个字节初始化为同一值:第一个参数为结构体变量addr的地址值,即初始化对象为addr;第二个参数为0,因此初始化为0;最后一个参数中传入addr的长度,因此addr的所有字节均初始化为0。这么做是为了将sockaddr_in结构体的成员sin_zero初始化为0。
 另外,最后一行代码调用的atoi函数把字符串类型的值转换成整数型。总之,上述代码利用字符串格式的IP地址和端口号初始化了sockaddr_in结构体变量。
 另外,代码中对IP地址和端口号进行了硬编码,这并非良策,因为运行环境改变就得更改代码。因此,我们运行示例main函数时传入IP地址和端口号。</p>
-<h3 id="客户端地址信息初始化">客户端地址信息初始化</h3>
-<p>上述网络地址信息初始化过程主要针对服务器端而非客户端。给套接字分配IP地址和端口号主要是为下面这件事做准备:</p>
+<h3 id="客户端地址信息初始化">客户端地址信息初始化
+</h3><p>上述网络地址信息初始化过程主要针对服务器端而非客户端。给套接字分配IP地址和端口号主要是为下面这件事做准备:</p>
 <pre><code>“请把进入IP 211.217.168.13、9190端口的数据传给我!”
 </code></pre>
 <p>反观客户端中连接请求如下:</p>
 <pre><code>“请连接到IP 211.217.168.13、9190端口!”
 </code></pre>
 <p>请求方法不同意味着调用的函数也不同。服务器端的准备工作通过<code>bind</code>函数完成,而客户端则通过<code>connect</code>函数完成。因此,函数调用前需准备的地址值类型也不同。服务器端声明<code>sockaddr_in</code> 结构体变量,将其初始化为赋子<strong>服务器端IP和套接字的端口号</strong>,然后调用<strong>bind函数</strong>;而客户端则声明sockaddr_in结构体,并初始化为要与之连接的服务器端套接字的IP和端口号,然后调用<strong>connect函数</strong>。</p>
-<h3 id="inaddr_any">INADDR_ANY</h3>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4hipk7niksg0.webp"
+<h3 id="inaddr_any">INADDR_ANY
+</h3><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4hipk7niksg0.webp"
 	
 	
 	
@@ -1229,109 +833,51 @@
 与之前方式最大的区别在于,利用常数<strong>INADDR_ANY</strong>分配服务器端的IP地址。若采用这种方式,则可<strong>自动获取运行服务器端的计算机IP地址</strong>,不必亲自输人。而且,若同一计算机中已分配多个IP地址(多宿主(Multi-homed)计算机,一般路由器属于这一类),则只要端口号一致, 就可以从不同IP地址接收数据。因此,服务器端中优先考虑这种方式。而客户端中除非带有一部分服务器端功能,否则不会采用。</p>
 <p>初始化服务器端套接字时应分配所属计算机的IP地址,因为初始化时使用的IP地址非常明确,那为何还要进行IP初始化呢?如前所述,同一计算机中可以分配多个IP地址, <strong>实际IP地址的个数与计算机中安装的NIC的数量相等</strong>。即使是<strong>服务器端套接字,也需要决定应接收哪个IP传来的(哪个NIC传来的)数据</strong>。因此,服务器端套接字初始化过程中要求IP地址信息。另外,若只有1个NIC,则直接使用INADDR_ANY。</p>
 <p>在 Go 中，你可以使用空字符串 <code>&quot;&quot;</code> 作为 IP 地址来代表 INADDR_ANY，这表示监听所有的 IP 地址。以下是一个简单的 TCP 服务器示例，它监听所有的 IP 地址和一个特定的端口：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;log&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;net&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">listener</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="s">&#34;:8080&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="nx">listener</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">listener</span><span class="p">.</span><span class="nf">Accept</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="nf">handleConnection</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">handleConnection</span><span class="p">(</span><span class="nx">conn</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Handle the connection
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在这个示例中，<code>net.Listen(&quot;tcp&quot;, &quot;:8080&quot;)</code> 会监听所有的 IP 地址和端口 8080。当有新的连接到来时，<code>listener.Accept()</code> 会返回一个新的 <code>net.Conn</code> 对象，然后你可以在新的 goroutine 中处理这个连接。</p>
-<h3 id="向套接字分配网络地址">向套接字分配网络地址</h3>
-<p>既然已讨论了sockaddr_in结构体的初始化方法,接下来就把初始化的地址信息分配给套接字。bind函数负责这项操作。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt; </span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">bind</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span> <span class="n">myaddr</span><span class="p">,</span> <span class="kt">socklen_t</span> <span class="n">addrLen</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//成功时返回0,失败时返回-1。
-</span></span></span><span class="line"><span class="cl"><span class="c1">//sockfd 要分配地址信息(IP地址和端口号)的套接字文件描述符。
-</span></span></span><span class="line"><span class="cl"><span class="c1">//myaddr 存有地址信息的结构体变量地址值。
-</span></span></span><span class="line"><span class="cl"><span class="c1">//addrlen 第二个结构体变量的长度。
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>在 Go 语言中，<code>Bind</code> 函数是 <code>syscall</code> 包中的一个函数，用于将本地协议地址 <code>addr</code> 绑定到文件描述符 <code>fd</code>。函数原型如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Bind</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">sa</span> <span class="nx">Sockaddr</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sa</span><span class="p">.</span><span class="nf">sockaddr</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nf">bind</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>其中，<code>fd</code> 是通过 <code>Socket</code> 函数获取的文件描述符，<code>addr</code> 是一个实现了 <code>Sockaddr</code> 接口的网络地址。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">listener</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="s">&#34;:8080&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="k">defer</span> <span class="nx">listener</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="nx">conn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">listener</span><span class="p">.</span><span class="nf">Accept</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">        <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">            <span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">        <span class="k">go</span> <span class="nf">handleConnection</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="kd">func</span> <span class="nf">handleConnection</span><span class="p">(</span><span class="nx">conn</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="c1">// Handle the connection</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="k">defer</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在这个示例中，<code>net.Listen(&quot;tcp&quot;, &quot;:8080&quot;)</code> 会监听所有的 IP 地址和端口 8080。当有新的连接到来时，<code>listener.Accept()</code> 会返回一个新的 <code>net.Conn</code> 对象，然后你可以在新的 goroutine 中处理这个连接。</p>
+<h3 id="向套接字分配网络地址">向套接字分配网络地址
+</h3><p>既然已讨论了sockaddr_in结构体的初始化方法,接下来就把初始化的地址信息分配给套接字。bind函数负责这项操作。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt; </span><span class="cp">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">bind</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span> <span class="n">myaddr</span><span class="p">,</span> <span class="kt">socklen_t</span> <span class="n">addrLen</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1">//成功时返回0,失败时返回-1。
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1">//sockfd 要分配地址信息(IP地址和端口号)的套接字文件描述符。
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1">//myaddr 存有地址信息的结构体变量地址值。
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="c1">//addrlen 第二个结构体变量的长度。
+</span></span></span></code></pre></div><p>在 Go 语言中，<code>Bind</code> 函数是 <code>syscall</code> 包中的一个函数，用于将本地协议地址 <code>addr</code> 绑定到文件描述符 <code>fd</code>。函数原型如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">func</span> <span class="nf">Bind</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">sa</span> <span class="nx">Sockaddr</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">	<span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sa</span><span class="p">.</span><span class="nf">sockaddr</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">		<span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">	<span class="k">return</span> <span class="nf">bind</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span> <span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>其中，<code>fd</code> 是通过 <code>Socket</code> 函数获取的文件描述符，<code>addr</code> 是一个实现了 <code>Sockaddr</code> 接口的网络地址。</p>
 <p>两者的主要区别在于：</p>
 <ol>
 <li>
@@ -1344,34 +890,21 @@
 <p>Go 的 <code>Bind</code> 函数处理了一些底层的细节，如网络字节序的转换。而在 C 中，需要手动进行这些操作。</p>
 </li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">bind</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">addr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">addrlen</span> <span class="nx">_Socklen</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">_</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">e1</span> <span class="o">:=</span> <span class="nf">syscall</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nf">FuncPCABI0</span><span class="p">(</span><span class="nx">libc_bind_trampoline</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">addr</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">addrlen</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">e1</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">err</span> <span class="p">=</span> <span class="nf">errnoErr</span><span class="p">(</span><span class="nx">e1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在 Go 语言的 <code>syscall</code> 包中，<code>Bind</code> 和 <code>bind</code> 函数都是用来将本地协议地址绑定到文件描述符的。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">func</span> <span class="nf">bind</span><span class="p">(</span><span class="nx">s</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">addr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">addrlen</span> <span class="nx">_Socklen</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">	<span class="nx">_</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">e1</span> <span class="o">:=</span> <span class="nf">syscall</span><span class="p">(</span><span class="nx">abi</span><span class="p">.</span><span class="nf">FuncPCABI0</span><span class="p">(</span><span class="nx">libc_bind_trampoline</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">addr</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">addrlen</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">	<span class="k">if</span> <span class="nx">e1</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">		<span class="nx">err</span> <span class="p">=</span> <span class="nf">errnoErr</span><span class="p">(</span><span class="nx">e1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在 Go 语言的 <code>syscall</code> 包中，<code>Bind</code> 和 <code>bind</code> 函数都是用来将本地协议地址绑定到文件描述符的。
 <code>bind</code> 函数是一个私有的函数，它直接接受一个文件描述符和一个 <code>unsafe.Pointer</code> 类型的地址作为参数，然后调用系统调用 <code>bind</code>。这个函数通常不会直接被用户代码调用，而是被 <code>Bind</code> 函数调用。
 <code>bind</code> 函数是通过 <code>syscall</code> 函数调用 <code>libc_bind_trampoline</code> 函数来实现的，这个函数是一个跳板函数，它会跳转到动态链接库中的 <code>bind</code> 函数。
 总的来说，<code>Bind</code> 函数提供了一个更高级的接口，它处理了类型转换和错误处理，而 <code>bind</code> 函数是一个更底层的接口，它直接调用系统调用。</p>
-<h2 id="35-基于windows的实现">3.5 基于Windows的实现</h2>
-<p>略</p>
-<h2 id="36-习题">3.6 习题</h2>
-<ol>
+<h2 id="35-基于windows的实现">3.5 基于Windows的实现
+</h2><p>略</p>
+<h2 id="36-习题">3.6 习题
+</h2><ol>
 <li>
 <p>IP地址族IPv4和IPv6有何区别?在何种背景下诞生了IPv6?</p>
 <p>IPv4与IPv6的差别主要是表示IP地址所用的字节数,目前通用的地址族为IPv4。IPv6是为了应对2010年前后IP地址耗尽的问题而提出的标准。</p>
@@ -1449,20 +982,20 @@
 </li>
 </ol>
 <div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>大端序</th>
-<th>网络字节序</th>
-<th>小端序</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0x0000000C</td>
-<td>0x0000000C</td>
-<td>0x0C000000</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>大端序</th>
+          <th>网络字节序</th>
+          <th>小端序</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0x0000000C</td>
+          <td>0x0000000C</td>
+          <td>0x0C000000</td>
+      </tr>
+  </tbody>
 </table></div>
 <ol start="10">
 <li>怎样表示回送地址?其含义是什么?如果向回送地址传输数据将发生什么情况?
@@ -1514,7 +1047,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1524,87 +1058,106 @@
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/tcpip%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%AC%94%E8%AE%B0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TCP、IP网络编程第二章笔记</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/tcpip%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TCP、IP网络编程第一章笔记</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%B1%82/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络层</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">数据链路层</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/cs144/check0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Check0</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/cs144/check0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">Check0</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-03-29
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    计算机网络基础知识
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/tcpip%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%BA%8C%E7%AB%A0%E7%AC%94%E8%AE%B0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">TCP、IP网络编程第二章笔记</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-11
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    计算机网络基础知识
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/tcpip%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%94%E8%AE%B0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">TCP、IP网络编程第一章笔记</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-11
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    计算机网络基础知识
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%B1%82/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络层</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-10-18
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    计算机网络基础知识
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">数据链路层</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-10-18
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    计算机网络基础知识
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -1619,8 +1172,9 @@
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -1650,7 +1204,7 @@
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -1666,25 +1220,140 @@
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

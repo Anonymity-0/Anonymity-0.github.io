@@ -15,6 +15,7 @@
     max-width: none;
     width: 100%;
     position: relative;
+    background: transparent; /* 移除侧边栏背景 */
 
     --sidebar-avatar-size: 100px;
     --sidebar-element-separation: 20px;

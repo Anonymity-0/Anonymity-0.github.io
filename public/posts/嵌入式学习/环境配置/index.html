@@ -1,48 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='简介 发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！
-Mac 主机上一般的日常开发流程为
-在 Mac 上阅读修改代码（VSCode），融合模式下使用 Windows 上 SourceInsight 阅读修改代码，然后通过 共享目录把代码传到 Parallel Desktop 中的 Ubuntu； 在 Ubuntu 上编译程序； 把程序下载到开发板上,运行验证； 在 Mac 下通过串口/网络操作开发板。 ubuntu 安装pd虚拟机 直接官网安装就行
-镜像安装 在这里我选择的是在USTC Open Source Software Mirror下安装的
-下载好之后在pd内进行安装即可
-配置 在Ubuntu上安装图形界面 1 sudo apt install ubuntu-desktop 配置中文 这一步看个人选择，如果有需要请gpt/百度
-NFS 服务开启 首先新建文件夹
-1 2 3 mkdir imx6ull cd imx6ull mkdir nfs 安装 nfs服务
-1 sudo apt-get install nfs-kernel-server rpcbind 使用如下命令打开 nfs配置文件/etc/exports：
-1 sudo vi /etc/exports 打开/etc/exports以后在后面添加如下内容：
-1 /home/用户名/imx6ull/nfs *rw,sync,no_root_squash 添加完成以后，重启 NFS服务，使用命令如下：'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！\nMac 主机上一般的日常开发流程为\n在 Mac 上阅读修改代码（VSCode），融合模式下使用 Windows 上 SourceInsight 阅读修改代码，然后通过 共享目录把代码传到 Parallel Desktop 中的 Ubuntu； 在 Ubuntu 上编译程序； 把程序下载到开发板上,运行验证； 在 Mac 下通过串口/网络操作开发板。 ubuntu 安装pd虚拟机 直接官网安装就行\n镜像安装 在这里我选择的是在USTC Open Source Software Mirror下安装的\n下载好之后在pd内进行安装即可\n配置 在Ubuntu上安装图形界面 1sudo apt install ubuntu-desktop 配置中文 这一步看个人选择，如果有需要请gpt/百度\nNFS 服务开启 首先新建文件夹\n1mkdir imx6ull 2cd imx6ull 3mkdir nfs 安装 nfs服务\n1sudo apt-get install nfs-kernel-server rpcbind 使用如下命令打开 nfs配置文件/etc/exports：\n1sudo vi /etc/exports 打开/etc/exports以后在后面添加如下内容：\n1/home/用户名/imx6ull/nfs *rw,sync,no_root_squash 添加完成以后，重启 NFS服务，使用命令如下：\n">
 <title>环境配置</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='环境配置'>
-<meta property='og:description' content='简介 发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！
-Mac 主机上一般的日常开发流程为
-在 Mac 上阅读修改代码（VSCode），融合模式下使用 Windows 上 SourceInsight 阅读修改代码，然后通过 共享目录把代码传到 Parallel Desktop 中的 Ubuntu； 在 Ubuntu 上编译程序； 把程序下载到开发板上,运行验证； 在 Mac 下通过串口/网络操作开发板。 ubuntu 安装pd虚拟机 直接官网安装就行
-镜像安装 在这里我选择的是在USTC Open Source Software Mirror下安装的
-下载好之后在pd内进行安装即可
-配置 在Ubuntu上安装图形界面 1 sudo apt install ubuntu-desktop 配置中文 这一步看个人选择，如果有需要请gpt/百度
-NFS 服务开启 首先新建文件夹
-1 2 3 mkdir imx6ull cd imx6ull mkdir nfs 安装 nfs服务
-1 sudo apt-get install nfs-kernel-server rpcbind 使用如下命令打开 nfs配置文件/etc/exports：
-1 sudo vi /etc/exports 打开/etc/exports以后在后面添加如下内容：
-1 /home/用户名/imx6ull/nfs *rw,sync,no_root_squash 添加完成以后，重启 NFS服务，使用命令如下：'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="环境配置">
+<meta property='og:description' content="简介 发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！\nMac 主机上一般的日常开发流程为\n在 Mac 上阅读修改代码（VSCode），融合模式下使用 Windows 上 SourceInsight 阅读修改代码，然后通过 共享目录把代码传到 Parallel Desktop 中的 Ubuntu； 在 Ubuntu 上编译程序； 把程序下载到开发板上,运行验证； 在 Mac 下通过串口/网络操作开发板。 ubuntu 安装pd虚拟机 直接官网安装就行\n镜像安装 在这里我选择的是在USTC Open Source Software Mirror下安装的\n下载好之后在pd内进行安装即可\n配置 在Ubuntu上安装图形界面 1sudo apt install ubuntu-desktop 配置中文 这一步看个人选择，如果有需要请gpt/百度\nNFS 服务开启 首先新建文件夹\n1mkdir imx6ull 2cd imx6ull 3mkdir nfs 安装 nfs服务\n1sudo apt-get install nfs-kernel-server rpcbind 使用如下命令打开 nfs配置文件/etc/exports：\n1sudo vi /etc/exports 打开/etc/exports以后在后面添加如下内容：\n1/home/用户名/imx6ull/nfs *rw,sync,no_root_squash 添加完成以后，重启 NFS服务，使用命令如下：\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-03-29T14:13:47&#43;08:00'/><meta property='article:modified_time' content='2024-03-29T14:13:47&#43;08:00'/>
 <meta name="twitter:title" content="环境配置">
-<meta name="twitter:description" content="简介 发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！
-Mac 主机上一般的日常开发流程为
-在 Mac 上阅读修改代码（VSCode），融合模式下使用 Windows 上 SourceInsight 阅读修改代码，然后通过 共享目录把代码传到 Parallel Desktop 中的 Ubuntu； 在 Ubuntu 上编译程序； 把程序下载到开发板上,运行验证； 在 Mac 下通过串口/网络操作开发板。 ubuntu 安装pd虚拟机 直接官网安装就行
-镜像安装 在这里我选择的是在USTC Open Source Software Mirror下安装的
-下载好之后在pd内进行安装即可
-配置 在Ubuntu上安装图形界面 1 sudo apt install ubuntu-desktop 配置中文 这一步看个人选择，如果有需要请gpt/百度
-NFS 服务开启 首先新建文件夹
-1 2 3 mkdir imx6ull cd imx6ull mkdir nfs 安装 nfs服务
-1 sudo apt-get install nfs-kernel-server rpcbind 使用如下命令打开 nfs配置文件/etc/exports：
-1 sudo vi /etc/exports 打开/etc/exports以后在后面添加如下内容：
-1 /home/用户名/imx6ull/nfs *rw,sync,no_root_squash 添加完成以后，重启 NFS服务，使用命令如下：">
+<meta name="twitter:description" content="简介 发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！\nMac 主机上一般的日常开发流程为\n在 Mac 上阅读修改代码（VSCode），融合模式下使用 Windows 上 SourceInsight 阅读修改代码，然后通过 共享目录把代码传到 Parallel Desktop 中的 Ubuntu； 在 Ubuntu 上编译程序； 把程序下载到开发板上,运行验证； 在 Mac 下通过串口/网络操作开发板。 ubuntu 安装pd虚拟机 直接官网安装就行\n镜像安装 在这里我选择的是在USTC Open Source Software Mirror下安装的\n下载好之后在pd内进行安装即可\n配置 在Ubuntu上安装图形界面 1sudo apt install ubuntu-desktop 配置中文 这一步看个人选择，如果有需要请gpt/百度\nNFS 服务开启 首先新建文件夹\n1mkdir imx6ull 2cd imx6ull 3mkdir nfs 安装 nfs服务\n1sudo apt-get install nfs-kernel-server rpcbind 使用如下命令打开 nfs配置文件/etc/exports：\n1sudo vi /etc/exports 打开/etc/exports以后在后面添加如下内容：\n1/home/用户名/imx6ull/nfs *rw,sync,no_root_squash 添加完成以后，重启 NFS服务，使用命令如下：\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -76,60 +48,47 @@ NFS 服务开启 首先新建文件夹
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -143,51 +102,16 @@ NFS 服务开启 首先新建文件夹
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -201,37 +125,61 @@ NFS 服务开启 首先新建文件夹
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -239,7 +187,7 @@ NFS 服务开启 首先新建文件夹
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -247,10 +195,11 @@ NFS 服务开启 首先新建文件夹
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -380,8 +329,8 @@ NFS 服务开启 首先新建文件夹
     <section class="article-content">
     
     
-    <h2 id="简介">简介</h2>
-<p>发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！</p>
+    <h2 id="简介">简介
+</h2><p>发现自己很久没更新博客了（没错是在摆），课题组要整新的工作，不得不开学嵌入式，话不多说开始！</p>
 <p><strong>Mac 主机上一般的日常开发流程为</strong></p>
 <ol>
 <li>在 Mac 上阅读修改代码（VSCode），融合模式下使用 Windows 上 SourceInsight 阅读修改代码，然后通过 共享目录把代码传到 Parallel Desktop 中的 Ubuntu；</li>
@@ -389,12 +338,12 @@ NFS 服务开启 首先新建文件夹
 <li>把程序下载到开发板上,运行验证；</li>
 <li>在 Mac 下通过串口/网络操作开发板。</li>
 </ol>
-<h2 id="ubuntu">ubuntu</h2>
-<h3 id="安装pd虚拟机">安装pd虚拟机</h3>
-<p>直接<a class="link" href="https://www.parallelsdesktop.net/parallels-desktop/"  target="_blank" rel="noopener"
+<h2 id="ubuntu">ubuntu
+</h2><h3 id="安装pd虚拟机">安装pd虚拟机
+</h3><p>直接<a class="link" href="https://www.parallelsdesktop.net/parallels-desktop/"  target="_blank" rel="noopener"
     >官网</a>安装就行</p>
-<h3 id="镜像安装">镜像安装</h3>
-<ol>
+<h3 id="镜像安装">镜像安装
+</h3><ol>
 <li>
 <p>在这里我选择的是在<a class="link" href="http://mirrors.ustc.edu.cn"  target="_blank" rel="noopener"
     >USTC Open Source Software Mirror</a>下安装的<img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202403291107183.png"
@@ -410,92 +359,34 @@ NFS 服务开启 首先新建文件夹
 <p>下载好之后在pd内进行安装即可</p>
 </li>
 </ol>
-<h3 id="配置">配置</h3>
-<h4 id="在ubuntu上安装图形界面">在Ubuntu上安装图形界面</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt install ubuntu-desktop
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="配置中文">配置中文</h4>
-<p>这一步看个人选择，如果有需要请gpt/百度</p>
-<h4 id="nfs-服务开启"><strong>NFS</strong> 服务开启</h4>
-<p>首先新建文件夹</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir imx6ull
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> imx6ull
-</span></span><span class="line"><span class="cl">mkdir nfs
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>安装 nfs服务</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install nfs-kernel-server rpcbind
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>使用如下命令打开 nfs配置文件/etc/exports：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo vi /etc/exports
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>打开/etc/exports以后在后面添加如下内容：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">/home/用户名/imx6ull/nfs *rw,sync,no_root_squash
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>添加完成以后，重启 NFS服务，使用命令如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo /etc/init.d/nfs-kernel-server restart
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="ssh-服务开启"><strong>SSH</strong> 服务开启</h4>
-<p>Ubuntu下使用如下命令开启 SSH服务：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install openssh-server
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>上述命令安装 ssh服务，ssh的配置文件为/etc/ssh/sshd_config，使用默认配置即可</p>
-<h4 id="交叉编译工具">交叉编译工具</h4>
-<p>因为我本身下的就是arm架构的镜像，我估计是不需要用交叉编译的，这一步略过（如果之后需要再说）</p>
+<h3 id="配置">配置
+</h3><h4 id="在ubuntu上安装图形界面">在Ubuntu上安装图形界面
+</h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">sudo apt install ubuntu-desktop
+</span></span></code></pre></div><h4 id="配置中文">配置中文
+</h4><p>这一步看个人选择，如果有需要请gpt/百度</p>
+<h4 id="nfs-服务开启"><strong>NFS</strong> 服务开启
+</h4><p>首先新建文件夹</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">mkdir imx6ull
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span> imx6ull
+</span></span><span class="line"><span class="ln">3</span><span class="cl">mkdir nfs
+</span></span></code></pre></div><p>安装 nfs服务</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">sudo apt-get install nfs-kernel-server rpcbind
+</span></span></code></pre></div><p>使用如下命令打开 nfs配置文件/etc/exports：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">sudo vi /etc/exports
+</span></span></code></pre></div><p>打开/etc/exports以后在后面添加如下内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">/home/用户名/imx6ull/nfs *rw,sync,no_root_squash
+</span></span></code></pre></div><p>添加完成以后，重启 NFS服务，使用命令如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">sudo /etc/init.d/nfs-kernel-server restart
+</span></span></code></pre></div><h4 id="ssh-服务开启"><strong>SSH</strong> 服务开启
+</h4><p>Ubuntu下使用如下命令开启 SSH服务：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">sudo apt-get install openssh-server
+</span></span></code></pre></div><p>上述命令安装 ssh服务，ssh的配置文件为/etc/ssh/sshd_config，使用默认配置即可</p>
+<h4 id="交叉编译工具">交叉编译工具
+</h4><p>因为我本身下的就是arm架构的镜像，我估计是不需要用交叉编译的，这一步略过（如果之后需要再说）</p>
 <p>下载gcc</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install gcc
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="vscode安装">vscode安装</h4>
-<p>因为有图形化界面，所以直接浏览器搜索安装就好了，如图
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">sudo apt install gcc
+</span></span></code></pre></div><h4 id="vscode安装">vscode安装
+</h4><p>因为有图形化界面，所以直接浏览器搜索安装就好了，如图
 <img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202403291113389.png"
 	
 	
@@ -505,31 +396,22 @@ NFS 服务开启 首先新建文件夹
 	
 ></p>
 <p>下载好.deb文件后使用如下命令安装（注：注意文件的下载路径）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">然后使用如下命令安装：
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">sudo dpkg -i code 1.87.2-1709911730_arm64.deb
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="安装vscode拓展">安装vscode拓展</h4>
-<p>这是一些推荐的拓展</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">然后使用如下命令安装：
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">sudo dpkg -i code 1.87.2-1709911730_arm64.deb
+</span></span></code></pre></div><h4 id="安装vscode拓展">安装vscode拓展
+</h4><p>这是一些推荐的拓展</p>
 <ol>
 <li>C/C++</li>
 <li>C/C++ Snippets</li>
 <li></li>
 </ol>
-<h2 id="电脑连接板子串行工具安装">电脑连接板子串行工具安装</h2>
-<h3 id="ch340-串口驱动安装"><strong>CH340</strong> 串口驱动安装</h3>
-<h3 id="终端软件安装">终端软件安装</h3>
-<p>建立 Serial连接，也就是串口连接，因为的主要目的就是作为串口终端使用</p>
-<h2 id="板子之间通信">板子之间通信</h2>
-
+<h2 id="电脑连接板子串行工具安装">电脑连接板子串行工具安装
+</h2><h3 id="ch340-串口驱动安装"><strong>CH340</strong> 串口驱动安装
+</h3><h3 id="终端软件安装">终端软件安装
+</h3><p>建立 Serial连接，也就是串口连接，因为的主要目的就是作为串口终端使用</p>
+<h2 id="板子之间通信">板子之间通信
+</h2>
 </section>
 
 
@@ -571,7 +453,8 @@ NFS 服务开启 首先新建文件夹
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -581,13 +464,23 @@ NFS 服务开启 首先新建文件夹
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
     
 
-    
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="no-related-articles">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 17h.01"/>
+                </svg>
+                <span>暂无相关文章</span>
+            </div></div>
+</section>
      
     
         
@@ -602,8 +495,9 @@ NFS 服务开启 首先新建文件夹
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -633,7 +527,7 @@ NFS 服务开启 首先新建文件夹
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -649,25 +543,140 @@ NFS 服务开启 首先新建文件夹
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

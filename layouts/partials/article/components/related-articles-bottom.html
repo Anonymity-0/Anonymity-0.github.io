@@ -1,0 +1,71 @@
+{{- $currentPage := . -}}
+{{- $currentCategories := $currentPage.Params.categories -}}
+
+{{- if $currentCategories -}}
+<section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3>
+        
+        {{- $relatedArticles := slice -}}
+        
+        {{- range $currentPage.Site.RegularPages -}}
+            {{- if and (ne .Permalink $currentPage.Permalink) .Params.categories -}}
+                {{- $hasCommonCategory := false -}}
+                {{- range .Params.categories -}}
+                    {{- if in $currentCategories . -}}
+                        {{- $hasCommonCategory = true -}}
+                    {{- end -}}
+                {{- end -}}
+                
+                {{- if $hasCommonCategory -}}
+                    {{- $relatedArticles = $relatedArticles | append . -}}
+                {{- end -}}
+            {{- end -}}
+        {{- end -}}
+        
+        {{- if $relatedArticles -}}
+            {{- $relatedArticles = $relatedArticles | first 6 -}}
+            <div class="related-articles-grid">
+                {{- range $relatedArticles -}}
+                <article class="related-article-card">
+                    <a href="{{ .Permalink }}" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">{{ .Title }}</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    {{ .Date.Format "2006-01-02" }}
+                                </span>
+                                {{- if .Params.categories -}}
+                                <span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    {{ index .Params.categories 0 }}
+                                </span>
+                                {{- end -}}
+                            </div>
+                            {{- if .Description -}}
+                            <p class="related-article-description">{{ .Description | truncate 100 }}</p>
+                            {{- end -}}
+                        </div>
+                    </a>
+                </article>
+                {{- end -}}
+            </div>
+        {{- else -}}
+            <div class="no-related-articles">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 17h.01"/>
+                </svg>
+                <span>暂无相关文章</span>
+            </div>
+        {{- end -}}
+    </div>
+</section>
+{{- end -}}

@@ -1,0 +1,16 @@
+<!-- Debug: All pages with layout information -->
+{{ warnf "DEBUGGING: Total pages: %d" (len .Site.Pages) }}
+{{ range .Site.Pages }}
+  {{ if or (eq .Layout "search") (eq .Title "Search") }}
+    {{ warnf "DEBUG SEARCH FOUND: Title=%s Layout=%s Type=%s Kind=%s" .Title .Layout .Type .Kind }}
+  {{ end }}
+  {{ if or (eq .Layout "archives") (eq .Title "Archives") }}
+    {{ warnf "DEBUG ARCHIVES FOUND: Title=%s Layout=%s Type=%s Kind=%s" .Title .Layout .Type .Kind }}
+  {{ end }}
+{{ end }}
+
+{{ $searchQuery := where .Site.Pages "Layout" "==" "search" }}
+{{ warnf "SEARCH QUERY RESULT: %d pages found" (len $searchQuery) }}
+
+{{ $archivesQuery := where .Site.Pages "Layout" "==" "archives" }}
+{{ warnf "ARCHIVES QUERY RESULT: %d pages found" (len $archivesQuery) }}

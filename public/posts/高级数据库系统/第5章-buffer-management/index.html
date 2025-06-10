@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='缓冲区结构 frame的参数 Dirty Frame中的块是否已经被修改 Pin-count Frame的块的已经被请求并且还未释放的计数，即当前的用户数 *Others Latch: 是否加锁 当请求块时 当一个程序请求一个不在内存中的数据块时，操作系统需要从磁盘中读取该数据块。 首先，它需要在内存中找到一个帧来存放这个数据块。 如果选中的帧是脏的（即，帧中的数据已被修改但尚未写回磁盘），那么操作系统需要先将这个帧的内容写回磁盘。 然后，操作系统从磁盘中读取请求的数据块，并将其放入选中的帧中。 最后，操作系统会增加该帧的固定计数Pin-count（即，标记该帧正在被使用），并返回该数据块在内存中的地址。这样，程序就可以直接访问内存中的数据，而不需要再次从磁盘中读取。这个过程是操作系统管理内存的重要部分，也是实现虚拟内存的关键。 当释放块时 当程序完成对一个数据块的访问后，它需要取消固定（unpin）包含该数据块的帧，以便操作系统可以在需要时重新使用该帧。 同时，如果程序修改了数据块的内容，它需要设置该帧的脏位（dirty bit）。脏位是用来标记帧中的数据是否已被修改，但尚未写回磁盘。如果脏位被设置，那么在帧被替换之前，操作系统需要先将帧的内容写回磁盘。这样可以确保磁盘中的数据始终是最新的，即使发生了系统崩溃或电源故障。 缓冲区替换策略 当内存中没有空闲的帧来存放新的数据块时，操作系统需要选择一个已经被使用的帧进行替换。选择哪个帧进行替换是由替换策略决定的，常见的替换策略包括最近最少使用（LRU），时钟，先进先出（FIFO），最近最常使用（MRU）等。 只有当帧的固定计数为0时，也就是说，当没有程序正在使用该帧时，该帧才会被考虑作为替换的候选者。 替换策略的选择可以对系统的I/O性能产生重大影响，因为每次替换都可能需要从磁盘中读取数据或将数据写回磁盘。不同的访问模式可能会导致某些替换策略比其他策略表现得更好。 理论最优算法：OPT算法 也称为Belady’s算法
-理论上最佳的页面置换算法。它每次都置换以后永远也用不到的页面，如果没有则淘汰最久以后再用到的页面。
-OPT算法必须预先知道全部的页面访问序列，而这在实际DBMS/OS中是无法实现的，因此仅有理论意义。
-但OPT算法可以在实验中作为算法性能上界加以对比
-LRU LRU (Oracle, Sybase, Informix) 所有frame按照最近一次访问时间排列成一个链表 基于时间局部性(Temporal Locality) 假设：越是最近访问的在未来被访问的概率越高. 总是替换LRU端的frame Pros 适用于满足时间局部性的场景（多次重复请求同一页） 选取frame的时间复杂度是O(1) Cons: 缓存污染(Sequentialflooding)：容易出现被频次少的一次连续大量的请求污染,将之前维护的良好的LRU结构都清洗掉了(最大的问题&amp;mdash;by老师) &amp;ldquo;清洗掉&amp;quot;是指低频请求的数据占据了缓存空间，导致原本频繁访问的数据（即LRU结构中的数据）被挤出缓存。 维护LRU链表代价昂贵：修改链表耗时 如果访问不满足时间局部性，则性能较差 只考虑最近一次访问，不考虑访问频率 LRU-K LRU不考虑frame的访问频率，不合理
-LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不置换 - 维护2个LRU链表 - 1个是访问次数小于K次的 - 1个是访问次数K次以上的
-优先按照LRU策略置换小于K次的链表 保证高频访问的页能够尽量在buffer中 实验表明 K并非越大越好，LRU-2 性能较好 缺点：需要额外记录访问次数 2Q 与LRU-2类似，不同之处在于访问1次的队列采用FIFO，而不是LRU 这题按照题意，其实说的是2Q的变体，并不是LRU-K，将2Q左边FIFO换成LRU，中间控制阈值改为K 根本原因就是：K值只增不减 策略1：根据负载，动态调整K 策略2; 引入老化机制，减少右侧队列累计的访问次数 实际上LRU-K，按上述情况并不会退化成LRU，而是会退化成一个优先队列 LRU-K算法会淘汰那个在所有帧中具有最大向后k距离的帧。向后k距离是指当前时间戳与第k次之前访问的时间戳之间的差值。这意味着，如果一个帧在最近k次访问中没有被访问过，那么它的向后k距离就会很大，因此它有可能被LRU-K算法淘汰。 如果一个帧的历史访问次数少于k次，那么它的向后k距离被赋予&#43;∞。这意味着，这个帧在最近k次访问中从未被访问过，因此它的向后k距离被视为无穷大。 当有多个帧的向后k距离都是&#43;∞时，淘汰器会淘汰那个具有最早时间戳的帧。这实际上是FIFO（先进先出）策略的应用。也就是说，当有多个帧都没有在最近k次访问中被访问过时，LRU-K算法会淘汰最早被加载到内存中的帧。 Second-Chance FIFO 所有frame组成FIFO链表，每个frame附加一个bit位，初始为0。当FO页第一次被选中置换时置为1，并移到FI端。只有bit位为1的FO端的页才被选中置换。'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="缓冲区结构 frame的参数 Dirty Frame中的块是否已经被修改 Pin-count Frame的块的已经被请求并且还未释放的计数，即当前的用户数 *Others Latch: 是否加锁 当请求块时 当一个程序请求一个不在内存中的数据块时，操作系统需要从磁盘中读取该数据块。 首先，它需要在内存中找到一个帧来存放这个数据块。 如果选中的帧是脏的（即，帧中的数据已被修改但尚未写回磁盘），那么操作系统需要先将这个帧的内容写回磁盘。 然后，操作系统从磁盘中读取请求的数据块，并将其放入选中的帧中。 最后，操作系统会增加该帧的固定计数Pin-count（即，标记该帧正在被使用），并返回该数据块在内存中的地址。这样，程序就可以直接访问内存中的数据，而不需要再次从磁盘中读取。这个过程是操作系统管理内存的重要部分，也是实现虚拟内存的关键。 当释放块时 当程序完成对一个数据块的访问后，它需要取消固定（unpin）包含该数据块的帧，以便操作系统可以在需要时重新使用该帧。 同时，如果程序修改了数据块的内容，它需要设置该帧的脏位（dirty bit）。脏位是用来标记帧中的数据是否已被修改，但尚未写回磁盘。如果脏位被设置，那么在帧被替换之前，操作系统需要先将帧的内容写回磁盘。这样可以确保磁盘中的数据始终是最新的，即使发生了系统崩溃或电源故障。 缓冲区替换策略 当内存中没有空闲的帧来存放新的数据块时，操作系统需要选择一个已经被使用的帧进行替换。选择哪个帧进行替换是由替换策略决定的，常见的替换策略包括最近最少使用（LRU），时钟，先进先出（FIFO），最近最常使用（MRU）等。 只有当帧的固定计数为0时，也就是说，当没有程序正在使用该帧时，该帧才会被考虑作为替换的候选者。 替换策略的选择可以对系统的I/O性能产生重大影响，因为每次替换都可能需要从磁盘中读取数据或将数据写回磁盘。不同的访问模式可能会导致某些替换策略比其他策略表现得更好。 理论最优算法：OPT算法 也称为Belady’s算法\n理论上最佳的页面置换算法。它每次都置换以后永远也用不到的页面，如果没有则淘汰最久以后再用到的页面。\nOPT算法必须预先知道全部的页面访问序列，而这在实际DBMS/OS中是无法实现的，因此仅有理论意义。\n但OPT算法可以在实验中作为算法性能上界加以对比\nLRU LRU (Oracle, Sybase, Informix) 所有frame按照最近一次访问时间排列成一个链表 基于时间局部性(Temporal Locality) 假设：越是最近访问的在未来被访问的概率越高. 总是替换LRU端的frame Pros 适用于满足时间局部性的场景（多次重复请求同一页） 选取frame的时间复杂度是O(1) Cons: 缓存污染(Sequentialflooding)：容易出现被频次少的一次连续大量的请求污染,将之前维护的良好的LRU结构都清洗掉了(最大的问题&mdash;by老师) &ldquo;清洗掉&quot;是指低频请求的数据占据了缓存空间，导致原本频繁访问的数据（即LRU结构中的数据）被挤出缓存。 维护LRU链表代价昂贵：修改链表耗时 如果访问不满足时间局部性，则性能较差 只考虑最近一次访问，不考虑访问频率 LRU-K LRU不考虑frame的访问频率，不合理\nLRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不置换 - 维护2个LRU链表 - 1个是访问次数小于K次的 - 1个是访问次数K次以上的\n优先按照LRU策略置换小于K次的链表 保证高频访问的页能够尽量在buffer中 实验表明 K并非越大越好，LRU-2 性能较好 缺点：需要额外记录访问次数 2Q 与LRU-2类似，不同之处在于访问1次的队列采用FIFO，而不是LRU 这题按照题意，其实说的是2Q的变体，并不是LRU-K，将2Q左边FIFO换成LRU，中间控制阈值改为K 根本原因就是：K值只增不减 策略1：根据负载，动态调整K 策略2; 引入老化机制，减少右侧队列累计的访问次数 实际上LRU-K，按上述情况并不会退化成LRU，而是会退化成一个优先队列 LRU-K算法会淘汰那个在所有帧中具有最大向后k距离的帧。向后k距离是指当前时间戳与第k次之前访问的时间戳之间的差值。这意味着，如果一个帧在最近k次访问中没有被访问过，那么它的向后k距离就会很大，因此它有可能被LRU-K算法淘汰。 如果一个帧的历史访问次数少于k次，那么它的向后k距离被赋予+∞。这意味着，这个帧在最近k次访问中从未被访问过，因此它的向后k距离被视为无穷大。 当有多个帧的向后k距离都是+∞时，淘汰器会淘汰那个具有最早时间戳的帧。这实际上是FIFO（先进先出）策略的应用。也就是说，当有多个帧都没有在最近k次访问中被访问过时，LRU-K算法会淘汰最早被加载到内存中的帧。 Second-Chance FIFO 所有frame组成FIFO链表，每个frame附加一个bit位，初始为0。当FO页第一次被选中置换时置为1，并移到FI端。只有bit位为1的FO端的页才被选中置换。\n">
 <title>第5章 缓冲区管理</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC5%E7%AB%A0-buffer-management/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='第5章 缓冲区管理'>
-<meta property='og:description' content='缓冲区结构 frame的参数 Dirty Frame中的块是否已经被修改 Pin-count Frame的块的已经被请求并且还未释放的计数，即当前的用户数 *Others Latch: 是否加锁 当请求块时 当一个程序请求一个不在内存中的数据块时，操作系统需要从磁盘中读取该数据块。 首先，它需要在内存中找到一个帧来存放这个数据块。 如果选中的帧是脏的（即，帧中的数据已被修改但尚未写回磁盘），那么操作系统需要先将这个帧的内容写回磁盘。 然后，操作系统从磁盘中读取请求的数据块，并将其放入选中的帧中。 最后，操作系统会增加该帧的固定计数Pin-count（即，标记该帧正在被使用），并返回该数据块在内存中的地址。这样，程序就可以直接访问内存中的数据，而不需要再次从磁盘中读取。这个过程是操作系统管理内存的重要部分，也是实现虚拟内存的关键。 当释放块时 当程序完成对一个数据块的访问后，它需要取消固定（unpin）包含该数据块的帧，以便操作系统可以在需要时重新使用该帧。 同时，如果程序修改了数据块的内容，它需要设置该帧的脏位（dirty bit）。脏位是用来标记帧中的数据是否已被修改，但尚未写回磁盘。如果脏位被设置，那么在帧被替换之前，操作系统需要先将帧的内容写回磁盘。这样可以确保磁盘中的数据始终是最新的，即使发生了系统崩溃或电源故障。 缓冲区替换策略 当内存中没有空闲的帧来存放新的数据块时，操作系统需要选择一个已经被使用的帧进行替换。选择哪个帧进行替换是由替换策略决定的，常见的替换策略包括最近最少使用（LRU），时钟，先进先出（FIFO），最近最常使用（MRU）等。 只有当帧的固定计数为0时，也就是说，当没有程序正在使用该帧时，该帧才会被考虑作为替换的候选者。 替换策略的选择可以对系统的I/O性能产生重大影响，因为每次替换都可能需要从磁盘中读取数据或将数据写回磁盘。不同的访问模式可能会导致某些替换策略比其他策略表现得更好。 理论最优算法：OPT算法 也称为Belady’s算法
-理论上最佳的页面置换算法。它每次都置换以后永远也用不到的页面，如果没有则淘汰最久以后再用到的页面。
-OPT算法必须预先知道全部的页面访问序列，而这在实际DBMS/OS中是无法实现的，因此仅有理论意义。
-但OPT算法可以在实验中作为算法性能上界加以对比
-LRU LRU (Oracle, Sybase, Informix) 所有frame按照最近一次访问时间排列成一个链表 基于时间局部性(Temporal Locality) 假设：越是最近访问的在未来被访问的概率越高. 总是替换LRU端的frame Pros 适用于满足时间局部性的场景（多次重复请求同一页） 选取frame的时间复杂度是O(1) Cons: 缓存污染(Sequentialflooding)：容易出现被频次少的一次连续大量的请求污染,将之前维护的良好的LRU结构都清洗掉了(最大的问题&amp;mdash;by老师) &amp;ldquo;清洗掉&amp;quot;是指低频请求的数据占据了缓存空间，导致原本频繁访问的数据（即LRU结构中的数据）被挤出缓存。 维护LRU链表代价昂贵：修改链表耗时 如果访问不满足时间局部性，则性能较差 只考虑最近一次访问，不考虑访问频率 LRU-K LRU不考虑frame的访问频率，不合理
-LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不置换 - 维护2个LRU链表 - 1个是访问次数小于K次的 - 1个是访问次数K次以上的
-优先按照LRU策略置换小于K次的链表 保证高频访问的页能够尽量在buffer中 实验表明 K并非越大越好，LRU-2 性能较好 缺点：需要额外记录访问次数 2Q 与LRU-2类似，不同之处在于访问1次的队列采用FIFO，而不是LRU 这题按照题意，其实说的是2Q的变体，并不是LRU-K，将2Q左边FIFO换成LRU，中间控制阈值改为K 根本原因就是：K值只增不减 策略1：根据负载，动态调整K 策略2; 引入老化机制，减少右侧队列累计的访问次数 实际上LRU-K，按上述情况并不会退化成LRU，而是会退化成一个优先队列 LRU-K算法会淘汰那个在所有帧中具有最大向后k距离的帧。向后k距离是指当前时间戳与第k次之前访问的时间戳之间的差值。这意味着，如果一个帧在最近k次访问中没有被访问过，那么它的向后k距离就会很大，因此它有可能被LRU-K算法淘汰。 如果一个帧的历史访问次数少于k次，那么它的向后k距离被赋予&#43;∞。这意味着，这个帧在最近k次访问中从未被访问过，因此它的向后k距离被视为无穷大。 当有多个帧的向后k距离都是&#43;∞时，淘汰器会淘汰那个具有最早时间戳的帧。这实际上是FIFO（先进先出）策略的应用。也就是说，当有多个帧都没有在最近k次访问中被访问过时，LRU-K算法会淘汰最早被加载到内存中的帧。 Second-Chance FIFO 所有frame组成FIFO链表，每个frame附加一个bit位，初始为0。当FO页第一次被选中置换时置为1，并移到FI端。只有bit位为1的FO端的页才被选中置换。'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="第5章 缓冲区管理">
+<meta property='og:description' content="缓冲区结构 frame的参数 Dirty Frame中的块是否已经被修改 Pin-count Frame的块的已经被请求并且还未释放的计数，即当前的用户数 *Others Latch: 是否加锁 当请求块时 当一个程序请求一个不在内存中的数据块时，操作系统需要从磁盘中读取该数据块。 首先，它需要在内存中找到一个帧来存放这个数据块。 如果选中的帧是脏的（即，帧中的数据已被修改但尚未写回磁盘），那么操作系统需要先将这个帧的内容写回磁盘。 然后，操作系统从磁盘中读取请求的数据块，并将其放入选中的帧中。 最后，操作系统会增加该帧的固定计数Pin-count（即，标记该帧正在被使用），并返回该数据块在内存中的地址。这样，程序就可以直接访问内存中的数据，而不需要再次从磁盘中读取。这个过程是操作系统管理内存的重要部分，也是实现虚拟内存的关键。 当释放块时 当程序完成对一个数据块的访问后，它需要取消固定（unpin）包含该数据块的帧，以便操作系统可以在需要时重新使用该帧。 同时，如果程序修改了数据块的内容，它需要设置该帧的脏位（dirty bit）。脏位是用来标记帧中的数据是否已被修改，但尚未写回磁盘。如果脏位被设置，那么在帧被替换之前，操作系统需要先将帧的内容写回磁盘。这样可以确保磁盘中的数据始终是最新的，即使发生了系统崩溃或电源故障。 缓冲区替换策略 当内存中没有空闲的帧来存放新的数据块时，操作系统需要选择一个已经被使用的帧进行替换。选择哪个帧进行替换是由替换策略决定的，常见的替换策略包括最近最少使用（LRU），时钟，先进先出（FIFO），最近最常使用（MRU）等。 只有当帧的固定计数为0时，也就是说，当没有程序正在使用该帧时，该帧才会被考虑作为替换的候选者。 替换策略的选择可以对系统的I/O性能产生重大影响，因为每次替换都可能需要从磁盘中读取数据或将数据写回磁盘。不同的访问模式可能会导致某些替换策略比其他策略表现得更好。 理论最优算法：OPT算法 也称为Belady’s算法\n理论上最佳的页面置换算法。它每次都置换以后永远也用不到的页面，如果没有则淘汰最久以后再用到的页面。\nOPT算法必须预先知道全部的页面访问序列，而这在实际DBMS/OS中是无法实现的，因此仅有理论意义。\n但OPT算法可以在实验中作为算法性能上界加以对比\nLRU LRU (Oracle, Sybase, Informix) 所有frame按照最近一次访问时间排列成一个链表 基于时间局部性(Temporal Locality) 假设：越是最近访问的在未来被访问的概率越高. 总是替换LRU端的frame Pros 适用于满足时间局部性的场景（多次重复请求同一页） 选取frame的时间复杂度是O(1) Cons: 缓存污染(Sequentialflooding)：容易出现被频次少的一次连续大量的请求污染,将之前维护的良好的LRU结构都清洗掉了(最大的问题&mdash;by老师) &ldquo;清洗掉&quot;是指低频请求的数据占据了缓存空间，导致原本频繁访问的数据（即LRU结构中的数据）被挤出缓存。 维护LRU链表代价昂贵：修改链表耗时 如果访问不满足时间局部性，则性能较差 只考虑最近一次访问，不考虑访问频率 LRU-K LRU不考虑frame的访问频率，不合理\nLRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不置换 - 维护2个LRU链表 - 1个是访问次数小于K次的 - 1个是访问次数K次以上的\n优先按照LRU策略置换小于K次的链表 保证高频访问的页能够尽量在buffer中 实验表明 K并非越大越好，LRU-2 性能较好 缺点：需要额外记录访问次数 2Q 与LRU-2类似，不同之处在于访问1次的队列采用FIFO，而不是LRU 这题按照题意，其实说的是2Q的变体，并不是LRU-K，将2Q左边FIFO换成LRU，中间控制阈值改为K 根本原因就是：K值只增不减 策略1：根据负载，动态调整K 策略2; 引入老化机制，减少右侧队列累计的访问次数 实际上LRU-K，按上述情况并不会退化成LRU，而是会退化成一个优先队列 LRU-K算法会淘汰那个在所有帧中具有最大向后k距离的帧。向后k距离是指当前时间戳与第k次之前访问的时间戳之间的差值。这意味着，如果一个帧在最近k次访问中没有被访问过，那么它的向后k距离就会很大，因此它有可能被LRU-K算法淘汰。 如果一个帧的历史访问次数少于k次，那么它的向后k距离被赋予+∞。这意味着，这个帧在最近k次访问中从未被访问过，因此它的向后k距离被视为无穷大。 当有多个帧的向后k距离都是+∞时，淘汰器会淘汰那个具有最早时间戳的帧。这实际上是FIFO（先进先出）策略的应用。也就是说，当有多个帧都没有在最近k次访问中被访问过时，LRU-K算法会淘汰最早被加载到内存中的帧。 Second-Chance FIFO 所有frame组成FIFO链表，每个frame附加一个bit位，初始为0。当FO页第一次被选中置换时置为1，并移到FI端。只有bit位为1的FO端的页才被选中置换。\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC5%E7%AB%A0-buffer-management/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-11T05:27:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-11T05:27:05&#43;08:00'/>
 <meta name="twitter:title" content="第5章 缓冲区管理">
-<meta name="twitter:description" content="缓冲区结构 frame的参数 Dirty Frame中的块是否已经被修改 Pin-count Frame的块的已经被请求并且还未释放的计数，即当前的用户数 *Others Latch: 是否加锁 当请求块时 当一个程序请求一个不在内存中的数据块时，操作系统需要从磁盘中读取该数据块。 首先，它需要在内存中找到一个帧来存放这个数据块。 如果选中的帧是脏的（即，帧中的数据已被修改但尚未写回磁盘），那么操作系统需要先将这个帧的内容写回磁盘。 然后，操作系统从磁盘中读取请求的数据块，并将其放入选中的帧中。 最后，操作系统会增加该帧的固定计数Pin-count（即，标记该帧正在被使用），并返回该数据块在内存中的地址。这样，程序就可以直接访问内存中的数据，而不需要再次从磁盘中读取。这个过程是操作系统管理内存的重要部分，也是实现虚拟内存的关键。 当释放块时 当程序完成对一个数据块的访问后，它需要取消固定（unpin）包含该数据块的帧，以便操作系统可以在需要时重新使用该帧。 同时，如果程序修改了数据块的内容，它需要设置该帧的脏位（dirty bit）。脏位是用来标记帧中的数据是否已被修改，但尚未写回磁盘。如果脏位被设置，那么在帧被替换之前，操作系统需要先将帧的内容写回磁盘。这样可以确保磁盘中的数据始终是最新的，即使发生了系统崩溃或电源故障。 缓冲区替换策略 当内存中没有空闲的帧来存放新的数据块时，操作系统需要选择一个已经被使用的帧进行替换。选择哪个帧进行替换是由替换策略决定的，常见的替换策略包括最近最少使用（LRU），时钟，先进先出（FIFO），最近最常使用（MRU）等。 只有当帧的固定计数为0时，也就是说，当没有程序正在使用该帧时，该帧才会被考虑作为替换的候选者。 替换策略的选择可以对系统的I/O性能产生重大影响，因为每次替换都可能需要从磁盘中读取数据或将数据写回磁盘。不同的访问模式可能会导致某些替换策略比其他策略表现得更好。 理论最优算法：OPT算法 也称为Belady’s算法
-理论上最佳的页面置换算法。它每次都置换以后永远也用不到的页面，如果没有则淘汰最久以后再用到的页面。
-OPT算法必须预先知道全部的页面访问序列，而这在实际DBMS/OS中是无法实现的，因此仅有理论意义。
-但OPT算法可以在实验中作为算法性能上界加以对比
-LRU LRU (Oracle, Sybase, Informix) 所有frame按照最近一次访问时间排列成一个链表 基于时间局部性(Temporal Locality) 假设：越是最近访问的在未来被访问的概率越高. 总是替换LRU端的frame Pros 适用于满足时间局部性的场景（多次重复请求同一页） 选取frame的时间复杂度是O(1) Cons: 缓存污染(Sequentialflooding)：容易出现被频次少的一次连续大量的请求污染,将之前维护的良好的LRU结构都清洗掉了(最大的问题&amp;mdash;by老师) &amp;ldquo;清洗掉&amp;quot;是指低频请求的数据占据了缓存空间，导致原本频繁访问的数据（即LRU结构中的数据）被挤出缓存。 维护LRU链表代价昂贵：修改链表耗时 如果访问不满足时间局部性，则性能较差 只考虑最近一次访问，不考虑访问频率 LRU-K LRU不考虑frame的访问频率，不合理
-LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不置换 - 维护2个LRU链表 - 1个是访问次数小于K次的 - 1个是访问次数K次以上的
-优先按照LRU策略置换小于K次的链表 保证高频访问的页能够尽量在buffer中 实验表明 K并非越大越好，LRU-2 性能较好 缺点：需要额外记录访问次数 2Q 与LRU-2类似，不同之处在于访问1次的队列采用FIFO，而不是LRU 这题按照题意，其实说的是2Q的变体，并不是LRU-K，将2Q左边FIFO换成LRU，中间控制阈值改为K 根本原因就是：K值只增不减 策略1：根据负载，动态调整K 策略2; 引入老化机制，减少右侧队列累计的访问次数 实际上LRU-K，按上述情况并不会退化成LRU，而是会退化成一个优先队列 LRU-K算法会淘汰那个在所有帧中具有最大向后k距离的帧。向后k距离是指当前时间戳与第k次之前访问的时间戳之间的差值。这意味着，如果一个帧在最近k次访问中没有被访问过，那么它的向后k距离就会很大，因此它有可能被LRU-K算法淘汰。 如果一个帧的历史访问次数少于k次，那么它的向后k距离被赋予&#43;∞。这意味着，这个帧在最近k次访问中从未被访问过，因此它的向后k距离被视为无穷大。 当有多个帧的向后k距离都是&#43;∞时，淘汰器会淘汰那个具有最早时间戳的帧。这实际上是FIFO（先进先出）策略的应用。也就是说，当有多个帧都没有在最近k次访问中被访问过时，LRU-K算法会淘汰最早被加载到内存中的帧。 Second-Chance FIFO 所有frame组成FIFO链表，每个frame附加一个bit位，初始为0。当FO页第一次被选中置换时置为1，并移到FI端。只有bit位为1的FO端的页才被选中置换。">
+<meta name="twitter:description" content="缓冲区结构 frame的参数 Dirty Frame中的块是否已经被修改 Pin-count Frame的块的已经被请求并且还未释放的计数，即当前的用户数 *Others Latch: 是否加锁 当请求块时 当一个程序请求一个不在内存中的数据块时，操作系统需要从磁盘中读取该数据块。 首先，它需要在内存中找到一个帧来存放这个数据块。 如果选中的帧是脏的（即，帧中的数据已被修改但尚未写回磁盘），那么操作系统需要先将这个帧的内容写回磁盘。 然后，操作系统从磁盘中读取请求的数据块，并将其放入选中的帧中。 最后，操作系统会增加该帧的固定计数Pin-count（即，标记该帧正在被使用），并返回该数据块在内存中的地址。这样，程序就可以直接访问内存中的数据，而不需要再次从磁盘中读取。这个过程是操作系统管理内存的重要部分，也是实现虚拟内存的关键。 当释放块时 当程序完成对一个数据块的访问后，它需要取消固定（unpin）包含该数据块的帧，以便操作系统可以在需要时重新使用该帧。 同时，如果程序修改了数据块的内容，它需要设置该帧的脏位（dirty bit）。脏位是用来标记帧中的数据是否已被修改，但尚未写回磁盘。如果脏位被设置，那么在帧被替换之前，操作系统需要先将帧的内容写回磁盘。这样可以确保磁盘中的数据始终是最新的，即使发生了系统崩溃或电源故障。 缓冲区替换策略 当内存中没有空闲的帧来存放新的数据块时，操作系统需要选择一个已经被使用的帧进行替换。选择哪个帧进行替换是由替换策略决定的，常见的替换策略包括最近最少使用（LRU），时钟，先进先出（FIFO），最近最常使用（MRU）等。 只有当帧的固定计数为0时，也就是说，当没有程序正在使用该帧时，该帧才会被考虑作为替换的候选者。 替换策略的选择可以对系统的I/O性能产生重大影响，因为每次替换都可能需要从磁盘中读取数据或将数据写回磁盘。不同的访问模式可能会导致某些替换策略比其他策略表现得更好。 理论最优算法：OPT算法 也称为Belady’s算法\n理论上最佳的页面置换算法。它每次都置换以后永远也用不到的页面，如果没有则淘汰最久以后再用到的页面。\nOPT算法必须预先知道全部的页面访问序列，而这在实际DBMS/OS中是无法实现的，因此仅有理论意义。\n但OPT算法可以在实验中作为算法性能上界加以对比\nLRU LRU (Oracle, Sybase, Informix) 所有frame按照最近一次访问时间排列成一个链表 基于时间局部性(Temporal Locality) 假设：越是最近访问的在未来被访问的概率越高. 总是替换LRU端的frame Pros 适用于满足时间局部性的场景（多次重复请求同一页） 选取frame的时间复杂度是O(1) Cons: 缓存污染(Sequentialflooding)：容易出现被频次少的一次连续大量的请求污染,将之前维护的良好的LRU结构都清洗掉了(最大的问题&mdash;by老师) &ldquo;清洗掉&quot;是指低频请求的数据占据了缓存空间，导致原本频繁访问的数据（即LRU结构中的数据）被挤出缓存。 维护LRU链表代价昂贵：修改链表耗时 如果访问不满足时间局部性，则性能较差 只考虑最近一次访问，不考虑访问频率 LRU-K LRU不考虑frame的访问频率，不合理\nLRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不置换 - 维护2个LRU链表 - 1个是访问次数小于K次的 - 1个是访问次数K次以上的\n优先按照LRU策略置换小于K次的链表 保证高频访问的页能够尽量在buffer中 实验表明 K并非越大越好，LRU-2 性能较好 缺点：需要额外记录访问次数 2Q 与LRU-2类似，不同之处在于访问1次的队列采用FIFO，而不是LRU 这题按照题意，其实说的是2Q的变体，并不是LRU-K，将2Q左边FIFO换成LRU，中间控制阈值改为K 根本原因就是：K值只增不减 策略1：根据负载，动态调整K 策略2; 引入老化机制，减少右侧队列累计的访问次数 实际上LRU-K，按上述情况并不会退化成LRU，而是会退化成一个优先队列 LRU-K算法会淘汰那个在所有帧中具有最大向后k距离的帧。向后k距离是指当前时间戳与第k次之前访问的时间戳之间的差值。这意味着，如果一个帧在最近k次访问中没有被访问过，那么它的向后k距离就会很大，因此它有可能被LRU-K算法淘汰。 如果一个帧的历史访问次数少于k次，那么它的向后k距离被赋予+∞。这意味着，这个帧在最近k次访问中从未被访问过，因此它的向后k距离被视为无穷大。 当有多个帧的向后k距离都是+∞时，淘汰器会淘汰那个具有最早时间戳的帧。这实际上是FIFO（先进先出）策略的应用。也就是说，当有多个帧都没有在最近k次访问中被访问过时，LRU-K算法会淘汰最早被加载到内存中的帧。 Second-Chance FIFO 所有frame组成FIFO链表，每个frame附加一个bit位，初始为0。当FO页第一次被选中置换时置为1，并移到FI端。只有bit位为1的FO端的页才被选中置换。\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -64,60 +48,47 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -131,51 +102,16 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -189,37 +125,61 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -227,7 +187,7 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -235,10 +195,11 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -363,9 +324,9 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
     <section class="article-content">
     
     
-    <h2 id="缓冲区结构">缓冲区结构</h2>
-<h3 id="frame的参数">frame的参数</h3>
-<ul>
+    <h2 id="缓冲区结构">缓冲区结构
+</h2><h3 id="frame的参数">frame的参数
+</h3><ul>
 <li>Dirty
 <ul>
 <li><font color="#245bdb">Frame中的块是否已经被修改</font></li>
@@ -382,8 +343,8 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 </ul>
 </li>
 </ul>
-<h3 id="当请求块时">当请求块时</h3>
-<ul>
+<h3 id="当请求块时">当请求块时
+</h3><ul>
 <li>当一个程序请求一个不在内存中的数据块时，操作系统需要从磁盘中读取该数据块。
 <ul>
 <li>首先，它需要在内存中找到一个帧来存放这个数据块。</li>
@@ -393,19 +354,19 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 </li>
 <li>最后，操作系统会增加该<strong>帧的固定计数</strong>Pin-count（即，标记该帧正在被使用），并返回该数据块在内存中的地址。这样，程序就可以直接访问内存中的数据，而不需要再次从磁盘中读取。这个过程是操作系统管理内存的重要部分，也是实现虚拟内存的关键。</li>
 </ul>
-<h3 id="当释放块时">当释放块时</h3>
-<ul>
+<h3 id="当释放块时">当释放块时
+</h3><ul>
 <li>当程序完成对一个数据块的访问后，它需要取消<font color="#ff0000">固定（unpin）</font>包含该数据块的帧，以便操作系统可以在需要时重新使用该帧。</li>
 <li>同时，如果程序修改了数据块的内容，它需要设置该帧的<font color="#ff0000">脏位（dirty bit）</font>。脏位是用来标记帧中的数据是否已被修改，但尚未写回磁盘。如果脏位被设置，那么在帧被替换之前，操作系统需要先将帧的内容写回磁盘。这样可以确保磁盘中的数据始终是最新的，即使发生了系统崩溃或电源故障。</li>
 </ul>
-<h2 id="缓冲区替换策略">缓冲区替换策略</h2>
-<ul>
+<h2 id="缓冲区替换策略">缓冲区替换策略
+</h2><ul>
 <li>当内存中没有空闲的帧来存放新的数据块时，操作系统需要选择一个已经被使用的帧进行替换。选择哪个帧进行替换是由替换策略决定的，常见的替换策略包括最近最少使用（LRU），时钟，先进先出（FIFO），最近最常使用（MRU）等。</li>
 <li>只有当帧的固定计数为0时，也就是说，当没有程序正在使用该帧时，该帧才会被考虑作为替换的候选者。</li>
 <li>替换策略的选择可以对系统的I/O性能产生重大影响，因为每次替换都可能需要从磁盘中读取数据或将数据写回磁盘。不同的访问模式可能会导致某些替换策略比其他策略表现得更好。</li>
 </ul>
-<h3 id="理论最优算法opt算法">理论最优算法：OPT算法</h3>
-<ul>
+<h3 id="理论最优算法opt算法">理论最优算法：OPT算法
+</h3><ul>
 <li>
 <p>也称为Belady’s算法</p>
 </li>
@@ -419,8 +380,8 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 <p>但OPT算法可以在实验中作为算法性能上界加以对比</p>
 </li>
 </ul>
-<h3 id="lru">LRU</h3>
-<ul>
+<h3 id="lru">LRU
+</h3><ul>
 <li>LRU (Oracle, Sybase, Informix)
 <ul>
 <li><font color="#245bdb">所有frame按照最近一次访问时间排列成一个链表</font></li>
@@ -446,8 +407,8 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 </ul>
 </li>
 </ul>
-<h3 id="lru-k">LRU-K</h3>
-<ul>
+<h3 id="lru-k">LRU-K
+</h3><ul>
 <li>
 <p>LRU不考虑frame的访问频率，不合理</p>
 </li>
@@ -468,8 +429,8 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 </ul>
 </li>
 </ul>
-<h3 id="2q">2Q</h3>
-<ul>
+<h3 id="2q">2Q
+</h3><ul>
 <li>与LRU-2类似，不同之处在于访问1次的队列采用FIFO，而不是LRU
 <ul>
 <li><img src="https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/202401111003023.png"
@@ -508,8 +469,8 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 </ul>
 </li>
 </ul>
-<h3 id="second-chance-fifo">Second-Chance FIFO</h3>
-<ul>
+<h3 id="second-chance-fifo">Second-Chance FIFO
+</h3><ul>
 <li>
 <p>所有frame组成FIFO链表，每个frame附加一个bit位，初始为0。当FO页第一次被选中置换时置为1，并移到FI端。只有bit位为1的FO端的页才被选中置换。</p>
 <ul>
@@ -533,14 +494,14 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 <p>缺点：置换时需要移动多个元素，理论性能比LRU差</p>
 </li>
 </ul>
-<h3 id="clock时钟置换算法">Clock(时钟置换算法)</h3>
-<ul>
+<h3 id="clock时钟置换算法">Clock(时钟置换算法)
+</h3><ul>
 <li>把Second-Chance FIFO组织成环形</li>
 <li>N个frame组成环形，current指针指向当前frame；每个frame有一个referenced位，初始为1；</li>
 <li>当需要置换页时按顺序执行下面操作:</li>
 </ul>
-<h3 id="ssd上的置换算法">SSD上的置换算法</h3>
-<ul>
+<h3 id="ssd上的置换算法">SSD上的置换算法
+</h3><ul>
 <li>闪存：读快写慢，写次数有限
 <ul>
 <li><font color="#0070c0">减少缓存置换中对闪存的写是一个重要指标</font></li>
@@ -578,10 +539,10 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 </li>
 <li>DBMS需要强制写回磁盘能力（如WAL），OS的缓冲写回一般通过记录写请求来实现（来自不同应用），实际的磁盘修改推迟，因此不能保证写顺序</li>
 </ul>
-<h2 id="缓冲区管理的实现">缓冲区管理的实现</h2>
-<p>实验 略</p>
-<h2 id="习题">习题</h2>
-<ul>
+<h2 id="缓冲区管理的实现">缓冲区管理的实现
+</h2><p>实验 略</p>
+<h2 id="习题">习题
+</h2><ul>
 <li>
 <p>假 设 我 们 采 ⽤ L R U 作 缓 冲 区 置 换 策 略 ， 当 我 们 向 B u f f e r M a n a g e r 发 出 ⼀ 个 读 页 请 求时 ， 请 讨 论 ⼀ 下 ：</p>
 <ul>
@@ -657,7 +618,8 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -667,74 +629,88 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC4%E7%AB%A0-data-representation/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第4章 数据表达</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第3章 数据存储</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第2章 关系型数据库回顾</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC1%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">第1章 数据库系统概述</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC4%E7%AB%A0-data-representation/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第4章 数据表达</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC3%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第3章 数据存储</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC2%E7%AB%A0-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E9%A1%BE/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第2章 关系型数据库回顾</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/%E7%AC%AC1%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">第1章 数据库系统概述</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    高级数据库系统
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -749,8 +725,9 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -780,7 +757,7 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -796,25 +773,140 @@ LRU-K：如果某个frame的访问次数达到了K次以上，则应当尽量不
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

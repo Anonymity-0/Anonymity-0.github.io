@@ -1,6 +1,6 @@
 ---
 title: gateway文档
-date: "{{data:YYYY-MM-DD-HH:mm}}"
+date: 
 tags:
   - code
 categories:

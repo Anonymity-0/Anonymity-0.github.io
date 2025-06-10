@@ -1,4 +1,4 @@
-{{- $query := first 1 (where .Context.Site.Pages "Layout" "==" "archives") -}}
+{{- $query := first 1 (where .Context.Site.AllPages "Layout" "==" "archives") -}}
 {{- $context := .Context -}}
 {{- $limit := default 5 .Params.limit -}}
 {{- if $query -}}

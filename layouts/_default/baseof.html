@@ -23,6 +23,51 @@
                 {{- block "main" . }}{{- end }}
             </main>
         </div>
+        
+        <!-- 回到顶部按钮 -->
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                // Show/hide button based on scroll position
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                // Smooth scroll to top
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                // Event listeners
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                // Initial check
+                toggleBackToTop();
+            });
+        </script>
+        
+        {{- $menuEffects := resources.Get "ts/menuEffects.ts" | js.Build -}}
+        <script type="text/javascript" src="{{ $menuEffects.RelPermalink }}" defer></script>
+        
+        {{- $forceWhiteBackground := resources.Get "js/force-white-background.js" | resources.Minify -}}
+        <script type="text/javascript" src="{{ $forceWhiteBackground.RelPermalink }}"></script>
+        
         {{ partial "footer/include.html" . }}
     </body>
 </html>

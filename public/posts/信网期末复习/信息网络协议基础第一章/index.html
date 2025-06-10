@@ -1,39 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络
-交换类型 ![[Pasted image 20240101134814.png]]
-交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成
-电路交换 电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程
-（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 电路交换是为话音传输设计的，支持固定的数据速率 电话交换网：传统电话网络中的话音业务采用电路交换技术，除端局到用户的本地回路(Subscriber Loop)是模拟的以外，其它部分都是数字的。 分组交换 分组交换：概念 交换分组，以分组为单元统计复用线路（也称为链路）资源
-统计复用：只有有数据要传输才占用线路 分组大小问题：太小，分组开销大；太大，复用效率低，影响其它分组的发送 现代的电话网络支持话音、数据等综合业务，对于数据采用分组交换技术 数据报交换 数据报交换：直接发送分组
-特征 无连接：直接发送分组，无服务质量保证 健壮性：相同源-目的的分组可能沿不同路径传输，可绕开故障路径 路由表 分组携带的控制信息中包含目的地址 目的地址在传输过程中保持不变 交换机根据路由表来独立地转发分组 使用目的地址来查找 性能 IP网络采用数据报交换，在网络层执行交换，交换的单元为IP分组，执行交换的设备也被称为IP路由器 虚电路交换 虚电路交换：先建立连接，再发送分组
-特征 面向连接：分组发送前在源和目的之间建立连接 与电路交换不同，连接不是占用固定的线路资源，只是告诉网络的资源需求，在每个交换机上建立“连接状态” 建立的连接路径被称为虚电路（Virtual Circuit） 服务质量保证 有序性：同一源和目的的分组沿相同的路径到达目的地 基于虚电路标识执行交换操作，效率高 虚电路 VCI（VC Identifier）：在每条物理线路/链路可以同时运行很多条虚电路，每条虚电路由VCI标识 VCI具有局部意义，只在每条链路上唯一 每个交换机上都维护一个转发表，基于VCI对分组进行转发 从源到目的的虚电路由路径链路上一系列VCI标识 ![[Pasted image 20240101134653.png]] 性能 ATM网络采用虚电路交换，交换的单元为固定长度的ATM 信元，执行交换的设备也被称为ATM交换机 总结 以分组为单元统计复用线路/链路资源 优点：线路利用率高，节点只有在有数据要传输时才占用通信线路，因此多个节点的分组可以共享一条通信线路 缺点：需要资源管理机制来保证数据传输的速率、延时、可靠性和有序性，增加了复杂性 分组交换是为数据传输设计的，支持可变的数据速率 网络体系结构 DTN体系架构 解决的问题 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况 基本思想：走一步看一步，而不像传统路由那样直接找到从源到目的的路径。关键问题：下一步如何确定？ 最简单的策略：把数据交给我当前能通信的所有节点（感染路由），性能最好，开销最大！ 更复杂的策略：根据一些知识来选择数据转发的下一跳（单拷贝/多拷贝路由），例如历史相遇信息，节点运动信息等，这可以减小开销，但是性能会下降。 DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer SDN 当前网络问题 网络缺乏灵活的控制机制 基本思想： 数据面和控制面分离，数据路由传输由控制器控制，赋予外部应用通过控制器控制网络设备的能力 openflow OpenFlow是SDN的一种实现，定义了控制器和交换机/路由器之间的协议，以及交换机/路由器的控制接口、流表格式等 现有Internet存在的问题 可扩展性：流量增加、路由表膨胀 移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持 服务质量：IP网络提供的是尽力投递服务，未考虑数据内容 网络安全：越来越多的应用使用Internet，在设计时并未充分考虑安全性 能耗：互联网耗电量约占全球的5.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络\n交换类型 ![[Pasted image 20240101134814.png]]\n交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成\n电路交换 电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程\n（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 电路交换是为话音传输设计的，支持固定的数据速率 电话交换网：传统电话网络中的话音业务采用电路交换技术，除端局到用户的本地回路(Subscriber Loop)是模拟的以外，其它部分都是数字的。 分组交换 分组交换：概念 交换分组，以分组为单元统计复用线路（也称为链路）资源\n统计复用：只有有数据要传输才占用线路 分组大小问题：太小，分组开销大；太大，复用效率低，影响其它分组的发送 现代的电话网络支持话音、数据等综合业务，对于数据采用分组交换技术 数据报交换 数据报交换：直接发送分组\n特征 无连接：直接发送分组，无服务质量保证 健壮性：相同源-目的的分组可能沿不同路径传输，可绕开故障路径 路由表 分组携带的控制信息中包含目的地址 目的地址在传输过程中保持不变 交换机根据路由表来独立地转发分组 使用目的地址来查找 性能 IP网络采用数据报交换，在网络层执行交换，交换的单元为IP分组，执行交换的设备也被称为IP路由器 虚电路交换 虚电路交换：先建立连接，再发送分组\n特征 面向连接：分组发送前在源和目的之间建立连接 与电路交换不同，连接不是占用固定的线路资源，只是告诉网络的资源需求，在每个交换机上建立“连接状态” 建立的连接路径被称为虚电路（Virtual Circuit） 服务质量保证 有序性：同一源和目的的分组沿相同的路径到达目的地 基于虚电路标识执行交换操作，效率高 虚电路 VCI（VC Identifier）：在每条物理线路/链路可以同时运行很多条虚电路，每条虚电路由VCI标识 VCI具有局部意义，只在每条链路上唯一 每个交换机上都维护一个转发表，基于VCI对分组进行转发 从源到目的的虚电路由路径链路上一系列VCI标识 ![[Pasted image 20240101134653.png]] 性能 ATM网络采用虚电路交换，交换的单元为固定长度的ATM 信元，执行交换的设备也被称为ATM交换机 总结 以分组为单元统计复用线路/链路资源 优点：线路利用率高，节点只有在有数据要传输时才占用通信线路，因此多个节点的分组可以共享一条通信线路 缺点：需要资源管理机制来保证数据传输的速率、延时、可靠性和有序性，增加了复杂性 分组交换是为数据传输设计的，支持可变的数据速率 网络体系结构 DTN体系架构 解决的问题 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况 基本思想：走一步看一步，而不像传统路由那样直接找到从源到目的的路径。关键问题：下一步如何确定？ 最简单的策略：把数据交给我当前能通信的所有节点（感染路由），性能最好，开销最大！ 更复杂的策略：根据一些知识来选择数据转发的下一跳（单拷贝/多拷贝路由），例如历史相遇信息，节点运动信息等，这可以减小开销，但是性能会下降。 DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer SDN 当前网络问题 网络缺乏灵活的控制机制 基本思想： 数据面和控制面分离，数据路由传输由控制器控制，赋予外部应用通过控制器控制网络设备的能力 openflow OpenFlow是SDN的一种实现，定义了控制器和交换机/路由器之间的协议，以及交换机/路由器的控制接口、流表格式等 现有Internet存在的问题 可扩展性：流量增加、路由表膨胀 移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持 服务质量：IP网络提供的是尽力投递服务，未考虑数据内容 网络安全：越来越多的应用使用Internet，在设计时并未充分考虑安全性 能耗：互联网耗电量约占全球的5.4%，我国是4.3%，还在不断增长 Internet体系结构本生存在问题，无法彻底解决这些问题！重新设计Internet体系结构！ NSF Future Internet Architecture Program •Founded in 2010, design for next 15 years\n">
 <title>信息网络协议基础第一章复习</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信息网络协议基础第一章复习'>
-<meta property='og:description' content='交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络
-交换类型 ![[Pasted image 20240101134814.png]]
-交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成
-电路交换 电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程
-（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 电路交换是为话音传输设计的，支持固定的数据速率 电话交换网：传统电话网络中的话音业务采用电路交换技术，除端局到用户的本地回路(Subscriber Loop)是模拟的以外，其它部分都是数字的。 分组交换 分组交换：概念 交换分组，以分组为单元统计复用线路（也称为链路）资源
-统计复用：只有有数据要传输才占用线路 分组大小问题：太小，分组开销大；太大，复用效率低，影响其它分组的发送 现代的电话网络支持话音、数据等综合业务，对于数据采用分组交换技术 数据报交换 数据报交换：直接发送分组
-特征 无连接：直接发送分组，无服务质量保证 健壮性：相同源-目的的分组可能沿不同路径传输，可绕开故障路径 路由表 分组携带的控制信息中包含目的地址 目的地址在传输过程中保持不变 交换机根据路由表来独立地转发分组 使用目的地址来查找 性能 IP网络采用数据报交换，在网络层执行交换，交换的单元为IP分组，执行交换的设备也被称为IP路由器 虚电路交换 虚电路交换：先建立连接，再发送分组
-特征 面向连接：分组发送前在源和目的之间建立连接 与电路交换不同，连接不是占用固定的线路资源，只是告诉网络的资源需求，在每个交换机上建立“连接状态” 建立的连接路径被称为虚电路（Virtual Circuit） 服务质量保证 有序性：同一源和目的的分组沿相同的路径到达目的地 基于虚电路标识执行交换操作，效率高 虚电路 VCI（VC Identifier）：在每条物理线路/链路可以同时运行很多条虚电路，每条虚电路由VCI标识 VCI具有局部意义，只在每条链路上唯一 每个交换机上都维护一个转发表，基于VCI对分组进行转发 从源到目的的虚电路由路径链路上一系列VCI标识 ![[Pasted image 20240101134653.png]] 性能 ATM网络采用虚电路交换，交换的单元为固定长度的ATM 信元，执行交换的设备也被称为ATM交换机 总结 以分组为单元统计复用线路/链路资源 优点：线路利用率高，节点只有在有数据要传输时才占用通信线路，因此多个节点的分组可以共享一条通信线路 缺点：需要资源管理机制来保证数据传输的速率、延时、可靠性和有序性，增加了复杂性 分组交换是为数据传输设计的，支持可变的数据速率 网络体系结构 DTN体系架构 解决的问题 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况 基本思想：走一步看一步，而不像传统路由那样直接找到从源到目的的路径。关键问题：下一步如何确定？ 最简单的策略：把数据交给我当前能通信的所有节点（感染路由），性能最好，开销最大！ 更复杂的策略：根据一些知识来选择数据转发的下一跳（单拷贝/多拷贝路由），例如历史相遇信息，节点运动信息等，这可以减小开销，但是性能会下降。 DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer SDN 当前网络问题 网络缺乏灵活的控制机制 基本思想： 数据面和控制面分离，数据路由传输由控制器控制，赋予外部应用通过控制器控制网络设备的能力 openflow OpenFlow是SDN的一种实现，定义了控制器和交换机/路由器之间的协议，以及交换机/路由器的控制接口、流表格式等 现有Internet存在的问题 可扩展性：流量增加、路由表膨胀 移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持 服务质量：IP网络提供的是尽力投递服务，未考虑数据内容 网络安全：越来越多的应用使用Internet，在设计时并未充分考虑安全性 能耗：互联网耗电量约占全球的5.'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="信息网络协议基础第一章复习">
+<meta property='og:description' content="交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络\n交换类型 ![[Pasted image 20240101134814.png]]\n交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成\n电路交换 电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程\n（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 电路交换是为话音传输设计的，支持固定的数据速率 电话交换网：传统电话网络中的话音业务采用电路交换技术，除端局到用户的本地回路(Subscriber Loop)是模拟的以外，其它部分都是数字的。 分组交换 分组交换：概念 交换分组，以分组为单元统计复用线路（也称为链路）资源\n统计复用：只有有数据要传输才占用线路 分组大小问题：太小，分组开销大；太大，复用效率低，影响其它分组的发送 现代的电话网络支持话音、数据等综合业务，对于数据采用分组交换技术 数据报交换 数据报交换：直接发送分组\n特征 无连接：直接发送分组，无服务质量保证 健壮性：相同源-目的的分组可能沿不同路径传输，可绕开故障路径 路由表 分组携带的控制信息中包含目的地址 目的地址在传输过程中保持不变 交换机根据路由表来独立地转发分组 使用目的地址来查找 性能 IP网络采用数据报交换，在网络层执行交换，交换的单元为IP分组，执行交换的设备也被称为IP路由器 虚电路交换 虚电路交换：先建立连接，再发送分组\n特征 面向连接：分组发送前在源和目的之间建立连接 与电路交换不同，连接不是占用固定的线路资源，只是告诉网络的资源需求，在每个交换机上建立“连接状态” 建立的连接路径被称为虚电路（Virtual Circuit） 服务质量保证 有序性：同一源和目的的分组沿相同的路径到达目的地 基于虚电路标识执行交换操作，效率高 虚电路 VCI（VC Identifier）：在每条物理线路/链路可以同时运行很多条虚电路，每条虚电路由VCI标识 VCI具有局部意义，只在每条链路上唯一 每个交换机上都维护一个转发表，基于VCI对分组进行转发 从源到目的的虚电路由路径链路上一系列VCI标识 ![[Pasted image 20240101134653.png]] 性能 ATM网络采用虚电路交换，交换的单元为固定长度的ATM 信元，执行交换的设备也被称为ATM交换机 总结 以分组为单元统计复用线路/链路资源 优点：线路利用率高，节点只有在有数据要传输时才占用通信线路，因此多个节点的分组可以共享一条通信线路 缺点：需要资源管理机制来保证数据传输的速率、延时、可靠性和有序性，增加了复杂性 分组交换是为数据传输设计的，支持可变的数据速率 网络体系结构 DTN体系架构 解决的问题 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况 基本思想：走一步看一步，而不像传统路由那样直接找到从源到目的的路径。关键问题：下一步如何确定？ 最简单的策略：把数据交给我当前能通信的所有节点（感染路由），性能最好，开销最大！ 更复杂的策略：根据一些知识来选择数据转发的下一跳（单拷贝/多拷贝路由），例如历史相遇信息，节点运动信息等，这可以减小开销，但是性能会下降。 DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer SDN 当前网络问题 网络缺乏灵活的控制机制 基本思想： 数据面和控制面分离，数据路由传输由控制器控制，赋予外部应用通过控制器控制网络设备的能力 openflow OpenFlow是SDN的一种实现，定义了控制器和交换机/路由器之间的协议，以及交换机/路由器的控制接口、流表格式等 现有Internet存在的问题 可扩展性：流量增加、路由表膨胀 移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持 服务质量：IP网络提供的是尽力投递服务，未考虑数据内容 网络安全：越来越多的应用使用Internet，在设计时并未充分考虑安全性 能耗：互联网耗电量约占全球的5.4%，我国是4.3%，还在不断增长 Internet体系结构本生存在问题，无法彻底解决这些问题！重新设计Internet体系结构！ NSF Future Internet Architecture Program •Founded in 2010, design for next 15 years\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-02T08:27:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-02T08:27:05&#43;08:00'/>
 <meta name="twitter:title" content="信息网络协议基础第一章复习">
-<meta name="twitter:description" content="交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络
-交换类型 ![[Pasted image 20240101134814.png]]
-交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成
-电路交换 电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程
-（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 电路交换是为话音传输设计的，支持固定的数据速率 电话交换网：传统电话网络中的话音业务采用电路交换技术，除端局到用户的本地回路(Subscriber Loop)是模拟的以外，其它部分都是数字的。 分组交换 分组交换：概念 交换分组，以分组为单元统计复用线路（也称为链路）资源
-统计复用：只有有数据要传输才占用线路 分组大小问题：太小，分组开销大；太大，复用效率低，影响其它分组的发送 现代的电话网络支持话音、数据等综合业务，对于数据采用分组交换技术 数据报交换 数据报交换：直接发送分组
-特征 无连接：直接发送分组，无服务质量保证 健壮性：相同源-目的的分组可能沿不同路径传输，可绕开故障路径 路由表 分组携带的控制信息中包含目的地址 目的地址在传输过程中保持不变 交换机根据路由表来独立地转发分组 使用目的地址来查找 性能 IP网络采用数据报交换，在网络层执行交换，交换的单元为IP分组，执行交换的设备也被称为IP路由器 虚电路交换 虚电路交换：先建立连接，再发送分组
-特征 面向连接：分组发送前在源和目的之间建立连接 与电路交换不同，连接不是占用固定的线路资源，只是告诉网络的资源需求，在每个交换机上建立“连接状态” 建立的连接路径被称为虚电路（Virtual Circuit） 服务质量保证 有序性：同一源和目的的分组沿相同的路径到达目的地 基于虚电路标识执行交换操作，效率高 虚电路 VCI（VC Identifier）：在每条物理线路/链路可以同时运行很多条虚电路，每条虚电路由VCI标识 VCI具有局部意义，只在每条链路上唯一 每个交换机上都维护一个转发表，基于VCI对分组进行转发 从源到目的的虚电路由路径链路上一系列VCI标识 ![[Pasted image 20240101134653.png]] 性能 ATM网络采用虚电路交换，交换的单元为固定长度的ATM 信元，执行交换的设备也被称为ATM交换机 总结 以分组为单元统计复用线路/链路资源 优点：线路利用率高，节点只有在有数据要传输时才占用通信线路，因此多个节点的分组可以共享一条通信线路 缺点：需要资源管理机制来保证数据传输的速率、延时、可靠性和有序性，增加了复杂性 分组交换是为数据传输设计的，支持可变的数据速率 网络体系结构 DTN体系架构 解决的问题 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况 基本思想：走一步看一步，而不像传统路由那样直接找到从源到目的的路径。关键问题：下一步如何确定？ 最简单的策略：把数据交给我当前能通信的所有节点（感染路由），性能最好，开销最大！ 更复杂的策略：根据一些知识来选择数据转发的下一跳（单拷贝/多拷贝路由），例如历史相遇信息，节点运动信息等，这可以减小开销，但是性能会下降。 DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer SDN 当前网络问题 网络缺乏灵活的控制机制 基本思想： 数据面和控制面分离，数据路由传输由控制器控制，赋予外部应用通过控制器控制网络设备的能力 openflow OpenFlow是SDN的一种实现，定义了控制器和交换机/路由器之间的协议，以及交换机/路由器的控制接口、流表格式等 现有Internet存在的问题 可扩展性：流量增加、路由表膨胀 移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持 服务质量：IP网络提供的是尽力投递服务，未考虑数据内容 网络安全：越来越多的应用使用Internet，在设计时并未充分考虑安全性 能耗：互联网耗电量约占全球的5.">
+<meta name="twitter:description" content="交换技术 交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点 为什么需要交换？ 减少网络中节点之间所需的通信线路 增强可扩展性,构建更大规模网络\n交换类型 ![[Pasted image 20240101134814.png]]\n交换的概念 交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成\n电路交换 电路交换：概念 交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径 传输路径建立后，数据像流一样在路径上传输 空分交换：传输路径由线路组成 时分交换：传输路径由每条线路上的固定时隙组成 电路交换：特征 网络通信包括三个过程\n（发送）端到（接收）端电路连接建立 数据传输 电路连接拆除 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟 电路交换：性能 电路交换是为话音传输设计的，支持固定的数据速率 电话交换网：传统电话网络中的话音业务采用电路交换技术，除端局到用户的本地回路(Subscriber Loop)是模拟的以外，其它部分都是数字的。 分组交换 分组交换：概念 交换分组，以分组为单元统计复用线路（也称为链路）资源\n统计复用：只有有数据要传输才占用线路 分组大小问题：太小，分组开销大；太大，复用效率低，影响其它分组的发送 现代的电话网络支持话音、数据等综合业务，对于数据采用分组交换技术 数据报交换 数据报交换：直接发送分组\n特征 无连接：直接发送分组，无服务质量保证 健壮性：相同源-目的的分组可能沿不同路径传输，可绕开故障路径 路由表 分组携带的控制信息中包含目的地址 目的地址在传输过程中保持不变 交换机根据路由表来独立地转发分组 使用目的地址来查找 性能 IP网络采用数据报交换，在网络层执行交换，交换的单元为IP分组，执行交换的设备也被称为IP路由器 虚电路交换 虚电路交换：先建立连接，再发送分组\n特征 面向连接：分组发送前在源和目的之间建立连接 与电路交换不同，连接不是占用固定的线路资源，只是告诉网络的资源需求，在每个交换机上建立“连接状态” 建立的连接路径被称为虚电路（Virtual Circuit） 服务质量保证 有序性：同一源和目的的分组沿相同的路径到达目的地 基于虚电路标识执行交换操作，效率高 虚电路 VCI（VC Identifier）：在每条物理线路/链路可以同时运行很多条虚电路，每条虚电路由VCI标识 VCI具有局部意义，只在每条链路上唯一 每个交换机上都维护一个转发表，基于VCI对分组进行转发 从源到目的的虚电路由路径链路上一系列VCI标识 ![[Pasted image 20240101134653.png]] 性能 ATM网络采用虚电路交换，交换的单元为固定长度的ATM 信元，执行交换的设备也被称为ATM交换机 总结 以分组为单元统计复用线路/链路资源 优点：线路利用率高，节点只有在有数据要传输时才占用通信线路，因此多个节点的分组可以共享一条通信线路 缺点：需要资源管理机制来保证数据传输的速率、延时、可靠性和有序性，增加了复杂性 分组交换是为数据传输设计的，支持可变的数据速率 网络体系结构 DTN体系架构 解决的问题 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况 基本思想：走一步看一步，而不像传统路由那样直接找到从源到目的的路径。关键问题：下一步如何确定？ 最简单的策略：把数据交给我当前能通信的所有节点（感染路由），性能最好，开销最大！ 更复杂的策略：根据一些知识来选择数据转发的下一跳（单拷贝/多拷贝路由），例如历史相遇信息，节点运动信息等，这可以减小开销，但是性能会下降。 DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer SDN 当前网络问题 网络缺乏灵活的控制机制 基本思想： 数据面和控制面分离，数据路由传输由控制器控制，赋予外部应用通过控制器控制网络设备的能力 openflow OpenFlow是SDN的一种实现，定义了控制器和交换机/路由器之间的协议，以及交换机/路由器的控制接口、流表格式等 现有Internet存在的问题 可扩展性：流量增加、路由表膨胀 移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持 服务质量：IP网络提供的是尽力投递服务，未考虑数据内容 网络安全：越来越多的应用使用Internet，在设计时并未充分考虑安全性 能耗：互联网耗电量约占全球的5.4%，我国是4.3%，还在不断增长 Internet体系结构本生存在问题，无法彻底解决这些问题！重新设计Internet体系结构！ NSF Future Internet Architecture Program •Founded in 2010, design for next 15 years\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -67,60 +48,47 @@
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -134,51 +102,16 @@
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -192,37 +125,61 @@
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -230,7 +187,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -238,10 +195,11 @@
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -378,21 +336,21 @@
     <section class="article-content">
     
     
-    <h2 id="交换技术">交换技术</h2>
-<ul>
+    <h2 id="交换技术">交换技术
+</h2><ul>
 <li>交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点</li>
 </ul>
-<h3 id="为什么需要交换">为什么需要交换？</h3>
-<p>减少网络中节点之间所需的通信线路
+<h3 id="为什么需要交换">为什么需要交换？
+</h3><p>减少网络中节点之间所需的通信线路
 增强可扩展性,构建更大规模网络</p>
-<h3 id="交换类型">交换类型</h3>
-<p>![[Pasted image 20240101134814.png]]</p>
-<h3 id="交换的概念">交换的概念</h3>
-<p>交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上
+<h3 id="交换类型">交换类型
+</h3><p>![[Pasted image 20240101134814.png]]</p>
+<h3 id="交换的概念">交换的概念
+</h3><p>交换操作由一系列过程组成：为输入数据选择输出线路/端口，在输入和输出之间建立连接，通过该连接将数据放到输出线路/端口上
 网络中执行交换操作的设备称为交换机。通过一系列交换机的交换操作，在两个通信节点之间建立一条数据传输路径，这条路径由物理或者逻辑上的链路组成</p>
-<h3 id="电路交换">电路交换</h3>
-<h4 id="电路交换概念">电路交换：概念</h4>
-<ul>
+<h3 id="电路交换">电路交换
+</h3><h4 id="电路交换概念">电路交换：概念
+</h4><ul>
 <li>交换传输线路或者时隙，通过交换机在通信双方之间建立一条专用的传输路径</li>
 <li>传输路径建立后，数据像流一样在路径上传输
 <ul>
@@ -401,8 +359,8 @@
 </ul>
 </li>
 </ul>
-<h4 id="电路交换特征">电路交换：特征</h4>
-<p>网络通信包括三个过程</p>
+<h4 id="电路交换特征">电路交换：特征
+</h4><p>网络通信包括三个过程</p>
 <ul>
 <li>（发送）端到（接收）端电路连接建立</li>
 <li>数据传输</li>
@@ -410,21 +368,21 @@
 优点：占用固定的线路资源，保证数据传输的速率、延时、可靠性及有序性
 缺点：线路资源利用率低，没有有数据传输时也占用线路或者固定时隙；电路连接建立导致延迟</li>
 </ul>
-<h4 id="电路交换性能">电路交换：性能</h4>
-<ul>
+<h4 id="电路交换性能">电路交换：性能
+</h4><ul>
 <li>电路交换是为话音传输设计的，支持固定的数据速率</li>
 <li>电话交换网：传统电话网络中的话音业务采用电路交换技术，除端局到用户的本地回路(Subscriber Loop)是模拟的以外，其它部分都是数字的。</li>
 </ul>
-<h3 id="分组交换">分组交换</h3>
-<h4 id="分组交换概念">分组交换：概念</h4>
-<p>交换分组，以分组为单元统计复用线路（也称为链路）资源</p>
+<h3 id="分组交换">分组交换
+</h3><h4 id="分组交换概念">分组交换：概念
+</h4><p>交换分组，以分组为单元统计复用线路（也称为链路）资源</p>
 <ul>
 <li>统计复用：只有有数据要传输才占用线路</li>
 <li>分组大小问题：太小，分组开销大；太大，复用效率低，影响其它分组的发送
 现代的电话网络支持话音、数据等综合业务，对于数据采用分组交换技术</li>
 </ul>
-<h4 id="数据报交换">数据报交换</h4>
-<p>数据报交换：直接发送分组</p>
+<h4 id="数据报交换">数据报交换
+</h4><p>数据报交换：直接发送分组</p>
 <ul>
 <li>特征
 <ul>
@@ -452,8 +410,8 @@
 </ul>
 </li>
 </ul>
-<h4 id="虚电路交换">虚电路交换</h4>
-<p>虚电路交换：先建立连接，再发送分组</p>
+<h4 id="虚电路交换">虚电路交换
+</h4><p>虚电路交换：先建立连接，再发送分组</p>
 <ul>
 <li>特征
 <ul>
@@ -491,9 +449,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="网络体系结构">网络体系结构</h2>
-<h3 id="dtn体系架构">DTN体系架构</h3>
-<ul>
+<h2 id="网络体系结构">网络体系结构
+</h2><h3 id="dtn体系架构">DTN体系架构
+</h3><ul>
 <li>解决的问题
 传统网络路由假设：在任何时候，总能找到从源到目的的端到端路径。
 DTN网络环境：由于连接的间隙性，可能会出现端到端路径不存在的情况</li>
@@ -505,8 +463,8 @@ DTN网络环境：由于连接的间隙性，可能会出现端到端路径不�
 </li>
 <li>DTN中引入了Bundle Protocol （BP），可以在TCP/IP和非TCP/IP网络中运行，BP实现Custody Transfer</li>
 </ul>
-<h3 id="sdn">SDN</h3>
-<ul>
+<h3 id="sdn">SDN
+</h3><ul>
 <li>当前网络问题
 <ul>
 <li>网络缺乏灵活的控制机制</li>
@@ -523,8 +481,8 @@ DTN网络环境：由于连接的间隙性，可能会出现端到端路径不�
 </ul>
 </li>
 </ul>
-<h3 id="现有internet存在的问题">现有Internet存在的问题</h3>
-<ul>
+<h3 id="现有internet存在的问题">现有Internet存在的问题
+</h3><ul>
 <li>可扩展性：流量增加、路由表膨胀</li>
 <li>移动性：越来越多的移动用户接入到Internet，在设计时未考虑移动性支持</li>
 <li>服务质量：IP网络提供的是尽力投递服务，未考虑数据内容</li>
@@ -532,16 +490,16 @@ DTN网络环境：由于连接的间隙性，可能会出现端到端路径不�
 <li>能耗：互联网耗电量约占全球的5.4%，我国是4.3%，还在不断增长
 Internet体系结构本生存在问题，无法彻底解决这些问题！重新设计Internet体系结构！</li>
 </ul>
-<h3 id="nsf-future-internet-architecture-program">NSF Future Internet Architecture Program</h3>
-<p>•Founded in 2010, design for next 15 years</p>
+<h3 id="nsf-future-internet-architecture-program">NSF Future Internet Architecture Program
+</h3><p>•Founded in 2010, design for next 15 years</p>
 <ul>
 <li>Named Data Networking</li>
 <li>MobilityFirst</li>
 <li>NEBULA/eXpressive Internet Architecture/ChoiceNet
 <strong>基本特征：除了数据传输，网络具有更多的能力，例如内容计算、内容存储等，而且网络更加灵活可变，例如可编程等</strong></li>
 </ul>
-<h3 id="ndn">NDN</h3>
-<p>Named Data Networking</p>
+<h3 id="ndn">NDN
+</h3><p>Named Data Networking</p>
 <ul>
 <li>当前网络问题
 <ul>
@@ -556,8 +514,8 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
 </ul>
 </li>
 </ul>
-<h3 id="mobilityfirst">MobilityFirst</h3>
-<ul>
+<h3 id="mobilityfirst">MobilityFirst
+</h3><ul>
 <li>解决的问题
 <ul>
 <li>网络节点身份和位置标识相同（IP地址）</li>
@@ -582,8 +540,8 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
 </ul>
 </li>
 </ul>
-<h3 id="未来网络应用场景和需求网络50">未来网络应用场景和需求：网络5.0</h3>
-<ul>
+<h3 id="未来网络应用场景和需求网络50">未来网络应用场景和需求：网络5.0
+</h3><ul>
 <li>以物联网、云计算、大数据和人工智能为核心</li>
 <li>工业互联网、车联网、远程医疗、智能电网</li>
 <li>5G网络，解决低延迟、移动性和大连接问题</li>
@@ -631,7 +589,8 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -641,87 +600,124 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第六章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第五章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第三章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第四章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第二章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第六章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-03
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第五章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第三章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第四章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第二章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%8F%90%E7%BA%B2/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络复习提纲</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -736,8 +732,9 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -767,7 +764,7 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -783,25 +780,140 @@ Internet体系结构本生存在问题，无法彻底解决这些问题！重新
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='项目地址 GitHub - binary-husky/gpt_academic: 为ChatGPT/GLM提供实用化交互界面，特别优化论文阅读/润色/写作体验，模块化设计，支持自定义快捷按钮&amp;amp;函数插件，支持Python和C&#43;&#43;等项目剖析&amp;amp;自译解功能，PDF/LaTex论文翻译&amp;amp;总结功能，支持并行问询多种LLM模型，支持chatglm2等本地模型。兼容文心一言, moss, llama2, rwkv, claude2, 通义千问, 书生, 讯飞星火等。
-api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platform上生成一个key就可以了。注意这个key只能看一次。 azure-api 注册 因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。 注册可以参考学生福利白嫖之路——申请Azure学生订阅 - 知乎
-配置 在搜索栏搜索Openai，然后创建 请求访问Azure OpenAI服务 然后填写问卷，第四个问题需要填写订阅ID， 参考： 获取 Azure 门户中的订阅和租户 ID - Azure portal | Microsoft Learn
-填完问卷之后要等一段时间的审核 星火api 登陆：讯飞开放平台 点击免费试用： 实名认证获得更多token 前往控制台-讯飞开放平台获取自己的key 输入到config.py中 注：需在这个列表添加 智谱清言 前往平台智谱AI开放平台登陆后前往 点击右上角查看apikey 复制key输入config.py的这个部分： 其他api不是需要自己部署就是收费，就不捣鼓了。'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="项目地址 GitHub - binary-husky/gpt_academic: 为ChatGPT/GLM提供实用化交互界面，特别优化论文阅读/润色/写作体验，模块化设计，支持自定义快捷按钮&amp;函数插件，支持Python和C++等项目剖析&amp;自译解功能，PDF/LaTex论文翻译&amp;总结功能，支持并行问询多种LLM模型，支持chatglm2等本地模型。兼容文心一言, moss, llama2, rwkv, claude2, 通义千问, 书生, 讯飞星火等。\napi配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platform上生成一个key就可以了。注意这个key只能看一次。 azure-api 注册 因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。 注册可以参考学生福利白嫖之路——申请Azure学生订阅 - 知乎\n配置 在搜索栏搜索Openai，然后创建 请求访问Azure OpenAI服务 然后填写问卷，第四个问题需要填写订阅ID， 参考： 获取 Azure 门户中的订阅和租户 ID - Azure portal | Microsoft Learn\n填完问卷之后要等一段时间的审核 星火api 登陆：讯飞开放平台 点击免费试用： 实名认证获得更多token 前往控制台-讯飞开放平台获取自己的key 输入到config.py中 注：需在这个列表添加 智谱清言 前往平台智谱AI开放平台登陆后前往 点击右上角查看apikey 复制key输入config.py的这个部分： 其他api不是需要自己部署就是收费，就不捣鼓了。\n">
 <title>Gpt Academic本地配置</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/gpt-academic%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Gpt Academic本地配置'>
-<meta property='og:description' content='项目地址 GitHub - binary-husky/gpt_academic: 为ChatGPT/GLM提供实用化交互界面，特别优化论文阅读/润色/写作体验，模块化设计，支持自定义快捷按钮&amp;amp;函数插件，支持Python和C&#43;&#43;等项目剖析&amp;amp;自译解功能，PDF/LaTex论文翻译&amp;amp;总结功能，支持并行问询多种LLM模型，支持chatglm2等本地模型。兼容文心一言, moss, llama2, rwkv, claude2, 通义千问, 书生, 讯飞星火等。
-api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platform上生成一个key就可以了。注意这个key只能看一次。 azure-api 注册 因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。 注册可以参考学生福利白嫖之路——申请Azure学生订阅 - 知乎
-配置 在搜索栏搜索Openai，然后创建 请求访问Azure OpenAI服务 然后填写问卷，第四个问题需要填写订阅ID， 参考： 获取 Azure 门户中的订阅和租户 ID - Azure portal | Microsoft Learn
-填完问卷之后要等一段时间的审核 星火api 登陆：讯飞开放平台 点击免费试用： 实名认证获得更多token 前往控制台-讯飞开放平台获取自己的key 输入到config.py中 注：需在这个列表添加 智谱清言 前往平台智谱AI开放平台登陆后前往 点击右上角查看apikey 复制key输入config.py的这个部分： 其他api不是需要自己部署就是收费，就不捣鼓了。'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="Gpt Academic本地配置">
+<meta property='og:description' content="项目地址 GitHub - binary-husky/gpt_academic: 为ChatGPT/GLM提供实用化交互界面，特别优化论文阅读/润色/写作体验，模块化设计，支持自定义快捷按钮&amp;函数插件，支持Python和C++等项目剖析&amp;自译解功能，PDF/LaTex论文翻译&amp;总结功能，支持并行问询多种LLM模型，支持chatglm2等本地模型。兼容文心一言, moss, llama2, rwkv, claude2, 通义千问, 书生, 讯飞星火等。\napi配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platform上生成一个key就可以了。注意这个key只能看一次。 azure-api 注册 因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。 注册可以参考学生福利白嫖之路——申请Azure学生订阅 - 知乎\n配置 在搜索栏搜索Openai，然后创建 请求访问Azure OpenAI服务 然后填写问卷，第四个问题需要填写订阅ID， 参考： 获取 Azure 门户中的订阅和租户 ID - Azure portal | Microsoft Learn\n填完问卷之后要等一段时间的审核 星火api 登陆：讯飞开放平台 点击免费试用： 实名认证获得更多token 前往控制台-讯飞开放平台获取自己的key 输入到config.py中 注：需在这个列表添加 智谱清言 前往平台智谱AI开放平台登陆后前往 点击右上角查看apikey 复制key输入config.py的这个部分： 其他api不是需要自己部署就是收费，就不捣鼓了。\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/gpt-academic%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2023-11-18T17:09:33&#43;08:00'/><meta property='article:modified_time' content='2023-11-18T17:09:33&#43;08:00'/>
 <meta name="twitter:title" content="Gpt Academic本地配置">
-<meta name="twitter:description" content="项目地址 GitHub - binary-husky/gpt_academic: 为ChatGPT/GLM提供实用化交互界面，特别优化论文阅读/润色/写作体验，模块化设计，支持自定义快捷按钮&amp;amp;函数插件，支持Python和C&#43;&#43;等项目剖析&amp;amp;自译解功能，PDF/LaTex论文翻译&amp;amp;总结功能，支持并行问询多种LLM模型，支持chatglm2等本地模型。兼容文心一言, moss, llama2, rwkv, claude2, 通义千问, 书生, 讯飞星火等。
-api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platform上生成一个key就可以了。注意这个key只能看一次。 azure-api 注册 因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。 注册可以参考学生福利白嫖之路——申请Azure学生订阅 - 知乎
-配置 在搜索栏搜索Openai，然后创建 请求访问Azure OpenAI服务 然后填写问卷，第四个问题需要填写订阅ID， 参考： 获取 Azure 门户中的订阅和租户 ID - Azure portal | Microsoft Learn
-填完问卷之后要等一段时间的审核 星火api 登陆：讯飞开放平台 点击免费试用： 实名认证获得更多token 前往控制台-讯飞开放平台获取自己的key 输入到config.py中 注：需在这个列表添加 智谱清言 前往平台智谱AI开放平台登陆后前往 点击右上角查看apikey 复制key输入config.py的这个部分： 其他api不是需要自己部署就是收费，就不捣鼓了。">
+<meta name="twitter:description" content="项目地址 GitHub - binary-husky/gpt_academic: 为ChatGPT/GLM提供实用化交互界面，特别优化论文阅读/润色/写作体验，模块化设计，支持自定义快捷按钮&amp;函数插件，支持Python和C++等项目剖析&amp;自译解功能，PDF/LaTex论文翻译&amp;总结功能，支持并行问询多种LLM模型，支持chatglm2等本地模型。兼容文心一言, moss, llama2, rwkv, claude2, 通义千问, 书生, 讯飞星火等。\napi配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platform上生成一个key就可以了。注意这个key只能看一次。 azure-api 注册 因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。 注册可以参考学生福利白嫖之路——申请Azure学生订阅 - 知乎\n配置 在搜索栏搜索Openai，然后创建 请求访问Azure OpenAI服务 然后填写问卷，第四个问题需要填写订阅ID， 参考： 获取 Azure 门户中的订阅和租户 ID - Azure portal | Microsoft Learn\n填完问卷之后要等一段时间的审核 星火api 登陆：讯飞开放平台 点击免费试用： 实名认证获得更多token 前往控制台-讯飞开放平台获取自己的key 输入到config.py中 注：需在这个列表添加 智谱清言 前往平台智谱AI开放平台登陆后前往 点击右上角查看apikey 复制key输入config.py的这个部分： 其他api不是需要自己部署就是收费，就不捣鼓了。\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -55,60 +48,47 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -122,51 +102,16 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -180,37 +125,61 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -218,7 +187,7 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -226,10 +195,11 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -349,9 +319,9 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
     
     <p>项目地址 <a class="link" href="https://github.com/binary-husky/gpt_academic"  target="_blank" rel="noopener"
     >GitHub - binary-husky/gpt_academic: 为ChatGPT/GLM提供实用化交互界面，特别优化论文阅读/润色/写作体验，模块化设计，支持自定义快捷按钮&amp;函数插件，支持Python和C++等项目剖析&amp;自译解功能，PDF/LaTex论文翻译&amp;总结功能，支持并行问询多种LLM模型，支持chatglm2等本地模型。兼容文心一言, moss, llama2, rwkv, claude2, 通义千问, 书生, 讯飞星火等。</a></p>
-<h2 id="api配置">api配置</h2>
-<h3 id="openai-api">openai-api</h3>
-<p>因为已经有了gpt账户，所以直接在<a class="link" href="https://platform.openai.com/api-keys"  target="_blank" rel="noopener"
+<h2 id="api配置">api配置
+</h2><h3 id="openai-api">openai-api
+</h3><p>因为已经有了gpt账户，所以直接在<a class="link" href="https://platform.openai.com/api-keys"  target="_blank" rel="noopener"
     >OpenAI Platform</a>上生成一个key就可以了。注意这个key只能看一次。
 <img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.6mcgr8hihls0.webp"
 	
@@ -363,13 +333,13 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 	
 	
 ></p>
-<h3 id="azure-api">azure-api</h3>
-<h4 id="注册">注册</h4>
-<p>因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。
+<h3 id="azure-api">azure-api
+</h3><h4 id="注册">注册
+</h4><p>因为注册azure本身需要信用卡，本来不想注册的，突然看到一个博客说azure学生认证之后可以不需要信用卡，试了一下果然可以。注册之后秒通过，科大邮箱还是靠谱的。
 注册可以参考<a class="link" href="https://zhuanlan.zhihu.com/p/629311513"  target="_blank" rel="noopener"
     >学生福利白嫖之路——申请Azure学生订阅 - 知乎</a></p>
-<h4 id="配置">配置</h4>
-<ol>
+<h4 id="配置">配置
+</h4><ol>
 <li>
 <p>在搜索栏搜索Openai，然后创建
 <img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.1vnx1e5dlh6o.webp"
@@ -422,8 +392,8 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 ></p>
 </li>
 </ol>
-<h3 id="星火api">星火api</h3>
-<ol>
+<h3 id="星火api">星火api
+</h3><ol>
 <li>登陆：<a class="link" href="https://passport.xfyun.cn/login"  target="_blank" rel="noopener"
     >讯飞开放平台</a></li>
 <li>点击免费试用：<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4jxumhrrbg1s.webp"
@@ -470,8 +440,8 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 	
 ></li>
 </ol>
-<h3 id="智谱清言">智谱清言</h3>
-<ol>
+<h3 id="智谱清言">智谱清言
+</h3><ol>
 <li>前往平台<a class="link" href="https://maas.aminer.cn"  target="_blank" rel="noopener"
     >智谱AI开放平台</a>登陆后前往<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.ox0uvcjqk4w.webp"
 	
@@ -541,7 +511,8 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -551,61 +522,70 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/vscode%E9%85%8D%E7%BD%AElatex/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">VScode配置Latex</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/vim/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Vim</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">博客配置</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/vscode%E9%85%8D%E7%BD%AElatex/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">VScode配置Latex</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-15
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    杂七杂八
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/vim/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">Vim</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-10
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    杂七杂八
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">博客配置</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-10-18
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    杂七杂八
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -620,8 +600,9 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -651,7 +632,7 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -667,25 +648,140 @@ api配置 openai-api 因为已经有了gpt账户，所以直接在OpenAI Platfor
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2&#43;: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式
-既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换
-Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要
-业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI&#43;VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 !'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2+: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式\n既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换\nQ.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要\n业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI+VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 ![[图片 1.png]]\n">
 <title>信息网络协议基础第二章复习</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='信息网络协议基础第二章复习'>
-<meta property='og:description' content='接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2&#43;: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式
-既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换
-Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要
-业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI&#43;VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 !'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="信息网络协议基础第二章复习">
+<meta property='og:description' content="接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2+: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式\n既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换\nQ.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要\n业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI+VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 ![[图片 1.png]]\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2024-01-02T11:54:05&#43;08:00'/><meta property='article:modified_time' content='2024-01-02T11:54:05&#43;08:00'/>
 <meta name="twitter:title" content="信息网络协议基础第二章复习">
-<meta name="twitter:description" content="接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2&#43;: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式
-既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换
-Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要
-业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI&#43;VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 !">
+<meta name="twitter:description" content="接入网 用来把用户网络或者设备接入到Internet的网络 也被称为最后1公里接入 宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream) DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile) 常用接入网类型 基于ATM架构类 传统电信网络：点对点 DSL（数字用户线路） 对称DSL 下行和上行速率相同SHDSL(利用了话音带宽） 非对称DSL 下行速率一般大于上行速率 ADSL ADSL2+: 基于IEEE 802参考模型的局域网架构类 新兴IP网络：共享 以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16） 光纤接入类 基于ATM：APON、GPON 基于以太网：EPON ATM 概述 ATM： Asynchronous Transfer Mode，异步传输模式\n既可用于接入网，也可以用于核心网 面向连接的分组交换/虚电路交换\nQ.2931：连接建立信令 信元：基本交换单位，固定长度（5字节头标＋48字节数据） ==为什么选择固定长度（53字节）的信元？== ==1）构建硬件简单== ==2）交换单元并行处理== ==3）队列行为优化：控制延迟、提高队列处理效率== 信元 队列优化举例： 假设：链路带宽100Mbps，队列中的分组具有不同的优先级 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b） ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要\n业务类型 CBR业务 Constant Bit Rate 提供最高程度的服务质量保证，保证带宽、延迟抖动 话音、视频等 VBR业务 Variable Bit Rate 业务产生的数据可能是突发的，要求延迟抖动小 具有突发性，可保证最大延迟，压缩话音、视频 ABR业务 Available Bit Rate 利用剩余带宽，根据网络可用带宽和拥塞状态来调整传输速率 文件传输、email等 UBR业务 Unspecified Bit Rate 利用剩余带宽，对延迟和延迟抖动没有严格要求的业务 文件传输、email等 虚电路 虚电路VPI和VCI来标识 VPI：Virtual Path Identification，虚路径标识 VCI：Virtual Channel Identification，虚通道标识 Why VPI+VCI？ VPI用于网络的主干中进行切换。它在ATM交换机上起到多路复用/解复用的作用，将来自各种源（ATM接口）的虚拟信道（VCs）汇聚到一个接口上的虚拟路径 另一方面，VCI用于在私有网络内标识连接。 Permanent Virtual Circuit (PVC) PVC是一种永久建立的连接，它使得在节点之间的物理连接上创建逻辑连接成为可能，这些节点经常或连续地进行通信 网络设备的VPI/VCI表格可以由管理员进行更新 Switched Virtual Circuit (SVC) Switched Virtual Circuit (SVC) 是一种在数据通信网络中在两个网络设备之间建立的临时逻辑连接 信元格式 ![[图片 1.png]]\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -55,60 +48,47 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -122,51 +102,16 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -180,37 +125,61 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -218,7 +187,7 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -226,10 +195,11 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -405,15 +375,15 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
     <section class="article-content">
     
     
-    <h2 id="接入网">接入网</h2>
-<ul>
+    <h2 id="接入网">接入网
+</h2><ul>
 <li>用来把用户网络或者设备接入到Internet的网络</li>
 <li>也被称为最后1公里接入</li>
 <li>宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream)</li>
 <li>DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile)</li>
 </ul>
-<h3 id="常用接入网类型">常用接入网类型</h3>
-<ul>
+<h3 id="常用接入网类型">常用接入网类型
+</h3><ul>
 <li>基于ATM架构类
 <ul>
 <li>传统电信网络：<font color="#ff0000">点对点</font></li>
@@ -448,9 +418,9 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
 </ul>
 </li>
 </ul>
-<h2 id="atm">ATM</h2>
-<h3 id="概述">概述</h3>
-<ul>
+<h2 id="atm">ATM
+</h2><h3 id="概述">概述
+</h3><ul>
 <li>
 <p>ATM： Asynchronous Transfer Mode，异步传输模式</p>
 <ul>
@@ -472,14 +442,14 @@ Q.2931：连接建立信令 信元：基本交换单位，固定长度（5字节
 </ul>
 </li>
 </ul>
-<h3 id="信元">信元</h3>
-<p>队列优化举例：
+<h3 id="信元">信元
+</h3><p>队列优化举例：
 假设：链路带宽100Mbps，队列中的分组具有不同的优先级
 变长分组网络：最大分组长度为4KB，在交换机开始传输一个4KB的分组之后到达一个高优先级的分组，必须在队列中等待327.68us才能通过输出端口传输（4KB= 32768b）
 ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us，而且这个时间是固定的
 结论：使用固定长度信元具有控制延迟的能力，特别是控制延迟抖动的能力，这对某些应用例如实时应用非常重要</p>
-<h3 id="业务类型">业务类型</h3>
-<ul>
+<h3 id="业务类型">业务类型
+</h3><ul>
 <li>CBR业务  Constant Bit Rate
 <ul>
 <li>提供<font color="#ff0000">最高程度</font>的服务质量保证，保证带宽、延迟抖动</li>
@@ -505,8 +475,8 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h3 id="虚电路">虚电路</h3>
-<ul>
+<h3 id="虚电路">虚电路
+</h3><ul>
 <li>虚电路VPI和VCI来标识
 <ul>
 <li>VPI：Virtual Path Identification，虚路径标识</li>
@@ -531,10 +501,10 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h3 id="信元格式">信元格式</h3>
-<p>![[图片 1.png]]</p>
-<h3 id="aal">AAL</h3>
-<ul>
+<h3 id="信元格式">信元格式
+</h3><p>![[图片 1.png]]</p>
+<h3 id="aal">AAL
+</h3><ul>
 <li>信元载荷的格式由AAL来决定
 <ul>
 <li>AAL：ATM Adaptation Layer，ATM适配层</li>
@@ -555,8 +525,8 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h3 id="atm与点对点链路">ATM与点对点链路</h3>
-<ul>
+<h3 id="atm与点对点链路">ATM与点对点链路
+</h3><ul>
 <li>在电话线接入中
 <ul>
 <li>服务提供商事先给每个客户都事先分配了固定的VPI/VCI，大多使用PVC</li>
@@ -564,9 +534,9 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h2 id="ppp">PPP</h2>
-<h3 id="概述-1">概述</h3>
-<ul>
+<h2 id="ppp">PPP
+</h2><h3 id="概述-1">概述
+</h3><ul>
 <li>PPP是个数据链路层协议 ，通过PPP，完成：
 <ol>
 <li>链路建立、维护和终结</li>
@@ -585,8 +555,8 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h3 id="协议">协议</h3>
-<ul>
+<h3 id="协议">协议
+</h3><ul>
 <li>PPP：Point to Point Protocol
 <ul>
 <li>在点对点链路上传输多种协议数据</li>
@@ -619,8 +589,8 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 <li>
-<h3 id="说明">说明</h3>
-<ul>
+<h3 id="说明">说明
+</h3><ul>
 <li>PPP over ATM缺乏有效的QoS和组播支持能力
 <ul>
 <li>业务均为ATM UBR类型，提供尽力服务</li>
@@ -630,23 +600,23 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h2 id="adsl">ADSL</h2>
-<h3 id="概述-2">概述</h3>
-<ul>
+<h2 id="adsl">ADSL
+</h2><h3 id="概述-2">概述
+</h3><ul>
 <li>早期电话拨号：局端过滤300Hz~ 3.4KHz 范围外的非话音频率</li>
 <li>电话线的带宽&gt; &gt;4kHz（可用带宽2MHz左右。</li>
 <li>ADSL：ADSL将用户线路接到没有滤波器的线路上</li>
 <li>频率在26khz以上的信号被分离到DSLAM(用户数字线访问复用)</li>
 </ul>
-<h3 id="关键技术">关键技术</h3>
-<ul>
+<h3 id="关键技术">关键技术
+</h3><ul>
 <li>调制技术：DMT</li>
 <li>关键设备：DSLAM</li>
 <li>体系结构：ATM、PPPOE</li>
 </ul>
 <p>现在大多使用ADSL Router取代ADSL MODEM，可以由ADSL Router直接进行PPPOE拨号；也可以是ADSL Router+宽带路由器，由宽带路由器执行PPPOE拨号。</p>
-<h3 id="dmt">DMT</h3>
-<ul>
+<h3 id="dmt">DMT
+</h3><ul>
 <li>DMT：离散多音（Discrete Multi-Tone），用于ADSL的调制方法</li>
 <li>利用电话线的1104KHz带宽，划分为256个载波（多音，子信道），每个子信道带宽为4.3125KHz
 <ul>
@@ -659,9 +629,9 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 <li>双向数据传输时，为了避免上行和下行之间的干扰，在31～32附近的信道不被使用（保护频带，位于138KHz左右）</li>
 <li>速率自适应：DMT以自适应的方式分配各个子信道的速率，以达到最佳的传输线路利用率，例如让信噪比较高的信道传送更多的位，关闭被窄频噪声所覆盖的子信道</li>
 </ul>
-<h3 id="adsl带宽分析">ADSL带宽分析</h3>
-<h3 id="dslam">DSLAM</h3>
-<ul>
+<h3 id="adsl带宽分析">ADSL带宽分析
+</h3><h3 id="dslam">DSLAM
+</h3><ul>
 <li>DSLAM：Digital Subscriber Line Access Multiplexer，数字用户线路访问复用器
 <ul>
 <li>将基于各种DSL技术的数字用户线路，包括ADSL，VDSL和SH.DSL，连接到运营商网络</li>
@@ -671,15 +641,15 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h3 id="pppoe">PPPOE</h3>
-<h4 id="why-pppoe">Why PPPOE?</h4>
-<ol>
+<h3 id="pppoe">PPPOE
+</h3><h4 id="why-pppoe">Why PPPOE?
+</h4><ol>
 <li>用户希望能够通过一个CPE设备（用户前端设备，例如ADSL Modem）来接入多台主机</li>
 <li>实际网络运行经验表明，以太网（Ethernet）是一种有效而且成本很低的多主机接入技术，但是以太网不支持认证、计费等功能。运营上同时希望能够实现基于用户的访问控制和计费功能。在传统的拨号网络中，通过PPP可以对用户进行认证、计费</li>
 <li>一个自然的想法就是把以太网和PPP这两种技术结合起来，因此引入了PPPOE（PPP over Ethernet），在以太网上建立PPP连接，本质是在多路访链路上提供一条逻辑的点对点链路，也被称为PPPOE会话。</li>
 </ol>
-<h4 id="pppoe分为两个阶段">PPPOE分为两个阶段</h4>
-<ul>
+<h4 id="pppoe分为两个阶段">PPPOE分为两个阶段
+</h4><ul>
 <li><font color="#ff0000">发现阶段</font>
 <ul>
 <li>为了在以太网上建立PPP会话，通信双方必须知道对方的MAC地址，并且协商一个唯一的会话标识（Session_ID）</li>
@@ -693,22 +663,22 @@ ATM网络：信元固定长度为53B，最长等待时间将是53×8/100=4.24us�
 </ul>
 </li>
 </ul>
-<h4 id="pppoe帧格式">PPPOE帧格式</h4>
-<p>类型: <font color="#ff0000">0x8863  用于Discovery阶段的帧 0x8864 用于PPP会话阶段</font>
+<h4 id="pppoe帧格式">PPPOE帧格式
+</h4><p>类型: <font color="#ff0000">0x8863  用于Discovery阶段的帧 0x8864 用于PPP会话阶段</font>
 Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x19  PADR、0x65 PADS、0xa7 PADT</font></p>
-<h4 id="pppoe的特点">PPPOE的特点</h4>
-<ul>
+<h4 id="pppoe的特点">PPPOE的特点
+</h4><ul>
 <li>通过PPPOE会话的建立和释放进行基于时间或者流量的统计，计费方式灵活方便</li>
 <li>动态IP地址配置和管理</li>
 <li>与传统拨号上网类似，提供基于用户名和密码的认证</li>
 <li>由于存在多层协议封装，开销大</li>
 </ul>
-<h2 id="局域网">局域网</h2>
-<h3 id="定义">定义</h3>
-<p>局域网（LAN：Local Area Network）被定义为一个广播域，即在局域网内目的地址为广播地址的IP分组或者数据链路层帧会被所有的网络节点接收和处理
+<h2 id="局域网">局域网
+</h2><h3 id="定义">定义
+</h3><p>局域网（LAN：Local Area Network）被定义为一个广播域，即在局域网内目的地址为广播地址的IP分组或者数据链路层帧会被所有的网络节点接收和处理
 以太网是应用最广泛的局域网技术，对应着IEEE 802.3</p>
-<h3 id="局域网参考模型">局域网参考模型</h3>
-<ul>
+<h3 id="局域网参考模型">局域网参考模型
+</h3><ul>
 <li>数据链路层被划分为两个子层，即逻辑链路控制(LLC)子层和媒介访问控制(MAC)子层
 <ul>
 <li>在传统的点对点链路控制中没有管理访问共享媒介的逻辑需求 ， MAC子层负责对共享链路访问进行控制</li>
@@ -720,8 +690,8 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h3 id="llc">LLC</h3>
-<ul>
+<h3 id="llc">LLC
+</h3><ul>
 <li>功能：传输服务/ 到上层的服务接口/流量控制等</li>
 <li>LLC是一个对所有LAN都相同的链路层协议，它定义了两个用户之间数据交换的机制，提供了三种可选的服务
 <ul>
@@ -733,8 +703,8 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h3 id="mac">MAC</h3>
-<ul>
+<h3 id="mac">MAC
+</h3><ul>
 <li>
 <p>功能：寻址/访问控制/差错控制/移动管理等</p>
 </li>
@@ -756,8 +726,8 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h3 id="共享链路问题">共享链路问题</h3>
-<ul>
+<h3 id="共享链路问题">共享链路问题
+</h3><ul>
 <li><font color="#ff0000">访问控制问题</font>：在共享链路上，需要一种机制协调所有主机之间的数据发送，以公平竞争访问链路。
 <ul>
 <li>解决方法：每个数据帧都有最大长度限制（数据域部分不超过1500字节），发送完后主机之间要重新使用CSMA/CD机制协调对共享链路的访问</li>
@@ -769,8 +739,8 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h3 id="csmacd">CSMA/CD</h3>
-<ul>
+<h3 id="csmacd">CSMA/CD
+</h3><ul>
 <li>载波侦听（Carrier Sense）：当某台主机想要发送数据时，它首先侦听媒介是否忙，如果是，表示当前有其它主机正在传输数据，因此将继续侦听，直到媒介空闲，然后发送数据</li>
 <li>冲突检测（Collision Detection）：如果主机在数据发送过程中检测到冲突，则发送干扰信号（jamming signal），以确保所有主机都知道发生了冲突，并且取消发送
 <ul>
@@ -779,30 +749,30 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h3 id="分布式协调功能dcfdistributed-coordination-function">分布式协调功能DCF（Distributed Coordination Function）</h3>
-<p><font color="#ff0000">冲突避免CA而不是冲突检测CD，在无线环境下很难检测到冲突</font>
+<h3 id="分布式协调功能dcfdistributed-coordination-function">分布式协调功能DCF（Distributed Coordination Function）
+</h3><p><font color="#ff0000">冲突避免CA而不是冲突检测CD，在无线环境下很难检测到冲突</font>
 两种CSMA/CA操作</p>
 <ul>
 <li>基本CSMA/CA：采用物理信道侦听方法 ，该操作强制要求必须使用</li>
 <li>扩展CSMA/CA：采用虚拟信道侦听方法，使用两个控制帧，即RTS/CTS，可解决隐藏站点问题，该操作是可选的，可以根据需要配置</li>
 </ul>
-<h3 id="基本csmaca">基本CSMA/CA</h3>
-<ul>
+<h3 id="基本csmaca">基本CSMA/CA
+</h3><ul>
 <li>包括载波侦听和冲突避免两个过程</li>
 <li>载波侦听 ：站点在发送帧之前侦听无线信道是否空闲，如果是，则进入冲突避免阶段，如果当前信道忙，说明现在有其它站点正在传输数据，则延迟发送帧直到侦听到信道空闲</li>
 <li>冲突避免：站点在发送帧之前要先等待一个帧间间隔IFS（InterFrame Spacing），并且确保在IFS时间内信道空闲</li>
 <li>为了防止多个站点在等待IFS时间后同时发送而导致冲突，与以太网类似，引入了一个随机退避算法来选择一个退避时间 （backoff time）</li>
 </ul>
-<h4 id="ifs">IFS</h4>
-<p>帧间间隔（IFS）控制了发送帧之前的等待时间，不同类型的帧具有不同的IFS，确定了帧的发送优先级，IFS越短，帧的优先级就越高 。
+<h4 id="ifs">IFS
+</h4><p>帧间间隔（IFS）控制了发送帧之前的等待时间，不同类型的帧具有不同的IFS，确定了帧的发送优先级，IFS越短，帧的优先级就越高 。
 三种IFS</p>
 <ul>
 <li>SIFS：Short IFS，最高优先级，用于CTS、ACK等控制帧</li>
 <li>PIFS：PCF IFS，等于SIFS+1，中等优先级，用于PCF操作模式下的帧</li>
 <li>DIFS：DCF IFS，等于SIFS+2，最低优先级，用于DCF操作模式下的数据帧</li>
 </ul>
-<h4 id="退避时间">退避时间</h4>
-<ul>
+<h4 id="退避时间">退避时间
+</h4><ul>
 <li>站点执行随机退避算法来确定退避时间
 <ul>
 <li>从0到竞争窗口CW之间的随机选择一个值r，则退避时间为r倍的时槽</li>
@@ -816,8 +786,8 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h4 id="判断冲突">判断冲突</h4>
-<ul>
+<h4 id="判断冲突">判断冲突
+</h4><ul>
 <li>.接收方发送ACK帧
 <ul>
 <li>接收方正确接收来自发送方的数据帧后发送ACK帧进行确认</li>
@@ -832,8 +802,8 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h3 id="扩展csmaca">扩展CSMA/CA</h3>
-<ul>
+<h3 id="扩展csmaca">扩展CSMA/CA
+</h3><ul>
 <li>RTS帧：与数据帧发送方式相同</li>
 <li>CTS帧：与控制帧发送方式相同，等待SIFS时间后直接发送</li>
 <li>网络分配向量（NAV：Network Allocation Vector）：设置计数器，当减为0后，其他站点开始竞争信道
@@ -842,26 +812,26 @@ Code：<font color="#ff0000">0x00  PPP会话阶段、0x09 PADI、0x07 PADO、0x1
 </ul>
 </li>
 </ul>
-<h4 id="原理">原理</h4>
-<p>![[Pasted image 20240102111606.png]]</p>
+<h4 id="原理">原理
+</h4><p>![[Pasted image 20240102111606.png]]</p>
 <ul>
 <li>发送方发送RTS帧，其中包含了一个持续时间域，该域的值表明发送方完成帧交换所需要的时间，包括从发送数据帧到接收ACK帧所需要的时间</li>
 <li>收到RTS的站点根据其中的持续时间为自己声明一个虚拟信道，并且该信道正忙，用网络分配向量NAV来表示，在NAV时间内，该站点不会尝试发送帧</li>
 <li>接收方响应CTS帧中也包含一个持续时间域，该域的值足够大，以保证发送方能够完成数据帧交换</li>
 <li>收到CTS的站点根据其中的持续时间为自己声明一个虚拟信道，并且该信道正忙，用网络分配向量NAV来表示，在NAV时间内，该站点不会尝试发送帧</li>
 </ul>
-<h4 id="为什么要拓展">为什么要拓展</h4>
-<p>基本CSMA/CA存在：</p>
+<h4 id="为什么要拓展">为什么要拓展
+</h4><p>基本CSMA/CA存在：</p>
 <ul>
 <li><font color="#ff0000"> 隐藏站点问题</font>：B给C发，D无法侦听到</li>
 <li><font color="#ff0000">暴露站点问题</font>：B给A发，C侦听到忙，无法给D发
 扩展CSMA/CA可解决隐藏站点问题
 B和D在彼此通信范围之外，他们互为隐藏站点，当B往C发送时，D CD失败，反过来D往C发送时，B CD失败。基本的CSMA/CA机制无法解决隐藏站点问题</li>
 </ul>
-<h3 id="切换">切换</h3>
-<p>•站点移出一个AP的信号覆盖范围外，进入另一个AP的信号覆盖范围内，这时它需要关联到一个新的AP上。这个过程被称为切换（Handoff）</p>
-<h4 id="切换过程">切换过程</h4>
-<ul>
+<h3 id="切换">切换
+</h3><p>•站点移出一个AP的信号覆盖范围外，进入另一个AP的信号覆盖范围内，这时它需要关联到一个新的AP上。这个过程被称为切换（Handoff）</p>
+<h4 id="切换过程">切换过程
+</h4><ul>
 <li>首先，站点决定何时开始切换过程
 <ul>
 <li>信号强度减弱</li>
@@ -887,15 +857,15 @@ B和D在彼此通信范围之外，他们互为隐藏站点，当B往C发送时�
 </ul>
 </li>
 </ul>
-<h3 id="pon关键技术">PON关键技术</h3>
-<ul>
+<h3 id="pon关键技术">PON关键技术
+</h3><ul>
 <li>下行采用广播方式传输，为保证安全性，需要对数据进行加密</li>
 <li>上行需要考虑TDMA同步问题</li>
 <li>实现动态带宽分配，提高带宽使用率，保证多业务服务质量
 PON要解决的关键问题就是如何控制多个ONU/ONT对共享馈线光纤的高效访问</li>
 </ul>
-<h3 id="gpon-vs-epon">GPON vs EPON</h3>
-<p>EPON直接将变长IP分组封装成以太帧，效率高，实现简单
+<h3 id="gpon-vs-epon">GPON vs EPON
+</h3><p>EPON直接将变长IP分组封装成以太帧，效率高，实现简单
 GPON帧长为125us，无缝支持TDM业务
 GPON继承了ATM的多业务支持，以业务类型为单位分配带宽
 动态带宽分配属于GPON标准的一部分，但是在EPON中没有明确定义
@@ -942,7 +912,8 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -952,87 +923,124 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第六章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第五章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第三章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第四章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第一章复习</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第六章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-03
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第五章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第三章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第四章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络协议基础第一章复习</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%8F%90%E7%BA%B2/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">信息网络复习提纲</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2024-01-02
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    信息网络协议基础
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -1047,8 +1055,9 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -1078,7 +1087,7 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -1094,25 +1103,140 @@ GPON能够提供更高的速率，接入更多的ONU/ONT（最多128个）</p>
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

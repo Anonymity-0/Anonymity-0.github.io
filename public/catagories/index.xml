@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Catagories on AGA&#39;s Blog</title>
+        <title>Catagories on </title>
         <link>https://anonymity-0.github.io/catagories/</link>
-        <description>Recent content in Catagories on AGA&#39;s Blog</description>
+        <description>Recent content in Catagories on </description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
-        <copyright>AGA</copyright><atom:link href="https://anonymity-0.github.io/catagories/index.xml" rel="self" type="application/rss+xml" />
+        <language>zh-cn</language><atom:link href="https://anonymity-0.github.io/catagories/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>

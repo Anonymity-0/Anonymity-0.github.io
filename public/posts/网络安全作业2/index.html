@@ -1,45 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='得分：10/10
-路由配置 配置路由器Router 安装远程访问“角色和功能” 设置IP地址和默认网关的IP地址。 启用“路由和远程访问服务” 关闭防火墙 ![[Pasted image 20231024224258.png|300]]
-配置VPN Server 路由远程访问服务器设置 ![[Pasted image 20231023164229.png|400]]
-新建用户 ![[Pasted image 20231024224417.png|400]]
-VPN server的ip地址配置 ![[Pasted image 20231024223002.png|400]]
-配置客户端 client B的ip地址 将ip地址设置为192.168.86.24 24为学号末2位 client A的ip地址 将ip地址设置为55.0.0.24 ![[Pasted image 20231024211518.png|400]]
-VPN连接 进行VPN连接 ![[Pasted image 20231024223124.png|400]]
-连接后的IP变化 clientA ![[Pasted image 20231024221917.png|400]]
-VPN Server ![[Pasted image 20231024223749.png|400]]
-wireshark抓包 '>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="得分：10/10\n路由配置 配置路由器Router 安装远程访问“角色和功能” 设置IP地址和默认网关的IP地址。 启用“路由和远程访问服务” 关闭防火墙 ![[Pasted image 20231024224258.png|300]]\n配置VPN Server 路由远程访问服务器设置 ![[Pasted image 20231023164229.png|400]]\n新建用户 ![[Pasted image 20231024224417.png|400]]\nVPN server的ip地址配置 ![[Pasted image 20231024223002.png|400]]\n配置客户端 client B的ip地址 将ip地址设置为192.168.86.24 24为学号末2位 client A的ip地址 将ip地址设置为55.0.0.24 ![[Pasted image 20231024211518.png|400]]\nVPN连接 进行VPN连接 ![[Pasted image 20231024223124.png|400]]\n连接后的IP变化 clientA ![[Pasted image 20231024221917.png|400]]\nVPN Server ![[Pasted image 20231024223749.png|400]]\nwireshark抓包 ">
 <title>网络安全作业2</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='网络安全作业2'>
-<meta property='og:description' content='得分：10/10
-路由配置 配置路由器Router 安装远程访问“角色和功能” 设置IP地址和默认网关的IP地址。 启用“路由和远程访问服务” 关闭防火墙 ![[Pasted image 20231024224258.png|300]]
-配置VPN Server 路由远程访问服务器设置 ![[Pasted image 20231023164229.png|400]]
-新建用户 ![[Pasted image 20231024224417.png|400]]
-VPN server的ip地址配置 ![[Pasted image 20231024223002.png|400]]
-配置客户端 client B的ip地址 将ip地址设置为192.168.86.24 24为学号末2位 client A的ip地址 将ip地址设置为55.0.0.24 ![[Pasted image 20231024211518.png|400]]
-VPN连接 进行VPN连接 ![[Pasted image 20231024223124.png|400]]
-连接后的IP变化 clientA ![[Pasted image 20231024221917.png|400]]
-VPN Server ![[Pasted image 20231024223749.png|400]]
-wireshark抓包 '>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="网络安全作业2">
+<meta property='og:description' content="得分：10/10\n路由配置 配置路由器Router 安装远程访问“角色和功能” 设置IP地址和默认网关的IP地址。 启用“路由和远程访问服务” 关闭防火墙 ![[Pasted image 20231024224258.png|300]]\n配置VPN Server 路由远程访问服务器设置 ![[Pasted image 20231023164229.png|400]]\n新建用户 ![[Pasted image 20231024224417.png|400]]\nVPN server的ip地址配置 ![[Pasted image 20231024223002.png|400]]\n配置客户端 client B的ip地址 将ip地址设置为192.168.86.24 24为学号末2位 client A的ip地址 将ip地址设置为55.0.0.24 ![[Pasted image 20231024211518.png|400]]\nVPN连接 进行VPN连接 ![[Pasted image 20231024223124.png|400]]\n连接后的IP变化 clientA ![[Pasted image 20231024221917.png|400]]\nVPN Server ![[Pasted image 20231024223749.png|400]]\nwireshark抓包 ">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A2/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='学习笔记' /><meta property='article:published_time' content='2023-10-26T15:51:26&#43;08:00'/><meta property='article:modified_time' content='2023-10-26T15:51:26&#43;08:00'/>
 <meta name="twitter:title" content="网络安全作业2">
-<meta name="twitter:description" content="得分：10/10
-路由配置 配置路由器Router 安装远程访问“角色和功能” 设置IP地址和默认网关的IP地址。 启用“路由和远程访问服务” 关闭防火墙 ![[Pasted image 20231024224258.png|300]]
-配置VPN Server 路由远程访问服务器设置 ![[Pasted image 20231023164229.png|400]]
-新建用户 ![[Pasted image 20231024224417.png|400]]
-VPN server的ip地址配置 ![[Pasted image 20231024223002.png|400]]
-配置客户端 client B的ip地址 将ip地址设置为192.168.86.24 24为学号末2位 client A的ip地址 将ip地址设置为55.0.0.24 ![[Pasted image 20231024211518.png|400]]
-VPN连接 进行VPN连接 ![[Pasted image 20231024223124.png|400]]
-连接后的IP变化 clientA ![[Pasted image 20231024221917.png|400]]
-VPN Server ![[Pasted image 20231024223749.png|400]]
-wireshark抓包 ">
+<meta name="twitter:description" content="得分：10/10\n路由配置 配置路由器Router 安装远程访问“角色和功能” 设置IP地址和默认网关的IP地址。 启用“路由和远程访问服务” 关闭防火墙 ![[Pasted image 20231024224258.png|300]]\n配置VPN Server 路由远程访问服务器设置 ![[Pasted image 20231023164229.png|400]]\n新建用户 ![[Pasted image 20231024224417.png|400]]\nVPN server的ip地址配置 ![[Pasted image 20231024223002.png|400]]\n配置客户端 client B的ip地址 将ip地址设置为192.168.86.24 24为学号末2位 client A的ip地址 将ip地址设置为55.0.0.24 ![[Pasted image 20231024211518.png|400]]\nVPN连接 进行VPN连接 ![[Pasted image 20231024223124.png|400]]\n连接后的IP变化 clientA ![[Pasted image 20231024221917.png|400]]\nVPN Server ![[Pasted image 20231024223749.png|400]]\nwireshark抓包 ">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -73,60 +48,47 @@ wireshark抓包 ">
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -140,51 +102,16 @@ wireshark抓包 ">
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -198,37 +125,61 @@ wireshark抓包 ">
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -236,7 +187,7 @@ wireshark抓包 ">
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -244,10 +195,11 @@ wireshark抓包 ">
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -380,9 +332,9 @@ wireshark抓包 ">
     
     
     <p>得分：10/10</p>
-<h2 id="路由配置">路由配置</h2>
-<h3 id="配置路由器router">配置路由器Router</h3>
-<ol>
+<h2 id="路由配置">路由配置
+</h2><h3 id="配置路由器router">配置路由器Router
+</h3><ol>
 <li>
 <p>安装远程访问“角色和功能”
 <img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.e2wqle6p7a8.png"
@@ -427,16 +379,16 @@ wireshark抓包 ">
 ![[Pasted image 20231024224258.png|300]]</p>
 </li>
 </ol>
-<h3 id="配置vpn-server">配置VPN Server</h3>
-<h4 id="路由远程访问服务器设置">路由远程访问服务器设置</h4>
-<p>![[Pasted image 20231023164229.png|400]]</p>
-<h4 id="新建用户">新建用户</h4>
-<p>![[Pasted image 20231024224417.png|400]]</p>
-<h4 id="vpn-server的ip地址配置">VPN server的ip地址配置</h4>
-<p>![[Pasted image 20231024223002.png|400]]</p>
-<h3 id="配置客户端">配置客户端</h3>
-<h4 id="client-b的ip地址">client B的ip地址</h4>
-<p>将ip地址设置为192.168.86.<font color="#ff0000">24</font>
+<h3 id="配置vpn-server">配置VPN Server
+</h3><h4 id="路由远程访问服务器设置">路由远程访问服务器设置
+</h4><p>![[Pasted image 20231023164229.png|400]]</p>
+<h4 id="新建用户">新建用户
+</h4><p>![[Pasted image 20231024224417.png|400]]</p>
+<h4 id="vpn-server的ip地址配置">VPN server的ip地址配置
+</h4><p>![[Pasted image 20231024223002.png|400]]</p>
+<h3 id="配置客户端">配置客户端
+</h3><h4 id="client-b的ip地址">client B的ip地址
+</h4><p>将ip地址设置为192.168.86.<font color="#ff0000">24</font>
 24为学号末2位
 <img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.7c8179hqfkhs.png"
 	
@@ -448,19 +400,19 @@ wireshark抓包 ">
 	
 	
 ></p>
-<h2 id="client-a的ip地址">client A的ip地址</h2>
-<p>将ip地址设置为55.0.0.<font color="#ff0000">24</font>
+<h2 id="client-a的ip地址">client A的ip地址
+</h2><p>将ip地址设置为55.0.0.<font color="#ff0000">24</font>
 ![[Pasted image 20231024211518.png|400]]</p>
-<h3 id="vpn连接">VPN连接</h3>
-<p>进行VPN连接
+<h3 id="vpn连接">VPN连接
+</h3><p>进行VPN连接
 ![[Pasted image 20231024223124.png|400]]</p>
-<h4 id="连接后的ip变化">连接后的IP变化</h4>
-<h5 id="clienta">clientA</h5>
-<p>![[Pasted image 20231024221917.png|400]]</p>
-<h5 id="vpn-server">VPN Server</h5>
-<p>![[Pasted image 20231024223749.png|400]]</p>
-<h4 id="wireshark抓包">wireshark抓包</h4>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4okcpvjoj37k.webp"
+<h4 id="连接后的ip变化">连接后的IP变化
+</h4><h5 id="clienta">clientA
+</h5><p>![[Pasted image 20231024221917.png|400]]</p>
+<h5 id="vpn-server">VPN Server
+</h5><p>![[Pasted image 20231024223749.png|400]]</p>
+<h4 id="wireshark抓包">wireshark抓包
+</h4><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4okcpvjoj37k.webp"
 	
 	
 	
@@ -522,7 +474,8 @@ wireshark抓包 ">
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -532,87 +485,124 @@ wireshark抓包 ">
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A7/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业7</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A8/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业8</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业6</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业5</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">网络安全作业4</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A7/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业7</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-12-23
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A8/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业8</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-12-18
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A6/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业6</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-12-13
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A5/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业5</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-24
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A4/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业4</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-15
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BD%9C%E4%B8%9A3/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">网络安全作业3</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-10-26
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    网络安全
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -627,8 +617,9 @@ wireshark抓包 ">
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -658,7 +649,7 @@ wireshark抓包 ">
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -674,25 +665,140 @@ wireshark抓包 ">
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

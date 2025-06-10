@@ -1,51 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='尝试学习一下vim
-vim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入
-insert 转normal esc/jj 变回普通模式
-normal转visual v变成可视模式（无法编辑）
-visual转nomal esc或者v变回普通模式
-普通模式转命令模式 ：转成命令模式
-命令模式转普通模式 esc
-光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销
-大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl&#43;数字 command&#43;0 到文件夹 o打开 回车修改名字
-easymotion 空格空格s &#43; 要查询的字幕 空格空格&#43;e 空格空格&#43;w
-vim surround 光标转移到终端 leader &#43; t
-切换tab gt或gT'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="尝试学习一下vim\nvim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入\ninsert 转normal esc/jj 变回普通模式\nnormal转visual v变成可视模式（无法编辑）\nvisual转nomal esc或者v变回普通模式\n普通模式转命令模式 ：转成命令模式\n命令模式转普通模式 esc\n光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销\n大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl+数字 command+0 到文件夹 o打开 回车修改名字\neasymotion 空格空格s + 要查询的字幕 空格空格+e 空格空格+w\nvim surround 光标转移到终端 leader + t\n切换tab gt或gT\n">
 <title>Vim</title>
 
 <link rel='canonical' href='https://anonymity-0.github.io/posts/vim/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Vim'>
-<meta property='og:description' content='尝试学习一下vim
-vim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入
-insert 转normal esc/jj 变回普通模式
-normal转visual v变成可视模式（无法编辑）
-visual转nomal esc或者v变回普通模式
-普通模式转命令模式 ：转成命令模式
-命令模式转普通模式 esc
-光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销
-大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl&#43;数字 command&#43;0 到文件夹 o打开 回车修改名字
-easymotion 空格空格s &#43; 要查询的字幕 空格空格&#43;e 空格空格&#43;w
-vim surround 光标转移到终端 leader &#43; t
-切换tab gt或gT'>
+<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="Vim">
+<meta property='og:description' content="尝试学习一下vim\nvim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入\ninsert 转normal esc/jj 变回普通模式\nnormal转visual v变成可视模式（无法编辑）\nvisual转nomal esc或者v变回普通模式\n普通模式转命令模式 ：转成命令模式\n命令模式转普通模式 esc\n光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销\n大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl+数字 command+0 到文件夹 o打开 回车修改名字\neasymotion 空格空格s + 要查询的字幕 空格空格+e 空格空格+w\nvim surround 光标转移到终端 leader + t\n切换tab gt或gT\n">
 <meta property='og:url' content='https://anonymity-0.github.io/posts/vim/'>
-<meta property='og:site_name' content='AGA&#39;s Blog'>
+<meta property='og:site_name' content=''>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2023-11-10T12:43:42&#43;08:00'/><meta property='article:modified_time' content='2023-11-10T12:43:42&#43;08:00'/>
 <meta name="twitter:title" content="Vim">
-<meta name="twitter:description" content="尝试学习一下vim
-vim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入
-insert 转normal esc/jj 变回普通模式
-normal转visual v变成可视模式（无法编辑）
-visual转nomal esc或者v变回普通模式
-普通模式转命令模式 ：转成命令模式
-命令模式转普通模式 esc
-光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销
-大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl&#43;数字 command&#43;0 到文件夹 o打开 回车修改名字
-easymotion 空格空格s &#43; 要查询的字幕 空格空格&#43;e 空格空格&#43;w
-vim surround 光标转移到终端 leader &#43; t
-切换tab gt或gT">
+<meta name="twitter:description" content="尝试学习一下vim\nvim模式切换 normal转insert i 光标前插入 I行首插入 o进入下一行输入 O上一行插入 a光标之后输入 A行末尾插入\ninsert 转normal esc/jj 变回普通模式\nnormal转visual v变成可视模式（无法编辑）\nvisual转nomal esc或者v变回普通模式\n普通模式转命令模式 ：转成命令模式\n命令模式转普通模式 esc\n光标移动 普通模式下光标移动 动作 motion 操作符 删除全部 die 复制全部 yie u 撤销\n大小写 常用 gd 查看函数定义 ^O返回 g数字 切换标签/ctrl+数字 command+0 到文件夹 o打开 回车修改名字\neasymotion 空格空格s + 要查询的字幕 空格空格+e 空格空格+w\nvim surround 光标转移到终端 leader + t\n切换tab gt或gT\n">
+
+<script src="/js/code-block-enhancer.min.js" defer></script>
     </head>
     <body class="
     article-page
@@ -79,60 +48,47 @@ vim surround 光标转移到终端 leader &#43; t
         </span>
     </button>
 
-    <header>
+    <header class="sidebar-header">
         
+        <div class="avatar-section">
             
-            <figure class="site-avatar">
-                <a href="/">
                 
-                    
-                    
+                <figure class="site-avatar">
+                    <a href="/about" class="avatar-link">
                     
                         
-                        <img src="/img/avatar_hu6c25cd778f8db4d2cb962eb2998a0673_130812_300x0_resize_box_3.png" width="300"
-                            height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
+                        
+                            
+                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
+                                height="271" class="site-logo" loading="lazy" alt="Avatar">
+                        
                     
+                    </a>
+                    
+                        <span class="emoji">🍚</span>
+                    
+                </figure>
                 
-                </a>
-                
-                    <span class="emoji">🍚</span>
-                
-            </figure>
             
+        </div>
         
+        <div class="blog-title">
+            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
+        </div>
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
             <h2 class="site-description">Hello World!</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        
             
-                <li>
-                    <a 
-                        href='https://github.com/Anonymity-0'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
         
-        
-        
-        <li >
-            <a href='/' >
+        <li  data-menu-item="首页">
+            <a href='/'  class="menu-link">
                 
                 
                 
@@ -146,51 +102,16 @@ vim surround 光标转移到终端 leader &#43; t
 
 
                 
-                <span>Home</span>
+                <span>首页</span>
             </a>
         </li>
         
         
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>About</span>
-            </a>
-        </li>
         
+            
         
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
+        <li  data-menu-item="归档">
+            <a href='/archives/'  class="menu-link">
                 
                 
                 
@@ -204,37 +125,61 @@ vim surround 光标转移到终端 leader &#43; t
 
 
                 
-                <span>Archives</span>
+                <span>归档</span>
             </a>
         </li>
         
-
-        <div class="menu-bottom-section">
-                <li id="i18n-switch">  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
+        
+        
+            
+        
+        <li  data-menu-item="分类">
+            <a href='/categories/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
 </svg>
 
 
 
-                    <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
-                        
-                            <option value="https://anonymity-0.github.io/" selected>English</option>
-                        
-                            <option value="https://anonymity-0.github.io/zh-cn/" >中文</option>
-                        
-                    </select>
-                </li>
+                
+                <span>分类</span>
+            </a>
+        </li>
+        
+        
+        
             
-            
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        
+        <li  data-menu-item="搜索">
+            <a href='/search/'  class="menu-link">
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -242,7 +187,7 @@ vim surround 光标转移到终端 leader &#43; t
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -250,10 +195,11 @@ vim surround 光标转移到终端 leader &#43; t
 
 
 
-                    <span>Dark Mode</span>
-                </li>
-            
-        </div>
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -382,27 +328,27 @@ vim surround 光标转移到终端 leader &#43; t
     
     
     <p>尝试学习一下vim</p>
-<h2 id="vim模式切换">vim模式切换</h2>
-<h3 id="normal转insert">normal转insert</h3>
-<p>i 光标前插入
+<h2 id="vim模式切换">vim模式切换
+</h2><h3 id="normal转insert">normal转insert
+</h3><p>i 光标前插入
 I行首插入
 o进入下一行输入
 O上一行插入
 a光标之后输入
 A行末尾插入</p>
-<h3 id="insert-转normal">insert 转normal</h3>
-<p>esc/jj 变回普通模式</p>
-<h3 id="normal转visual">normal转visual</h3>
-<p>v变成可视模式（无法编辑）</p>
-<h3 id="visual转nomal">visual转nomal</h3>
-<p>esc或者v变回普通模式</p>
-<h3 id="普通模式转命令模式">普通模式转命令模式</h3>
-<p>：转成命令模式</p>
-<h3 id="命令模式转普通模式">命令模式转普通模式</h3>
-<p>esc</p>
-<h2 id="光标移动">光标移动</h2>
-<h3 id="普通模式下光标移动">普通模式下光标移动</h3>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.361dhwguy24g.webp"
+<h3 id="insert-转normal">insert 转normal
+</h3><p>esc/jj 变回普通模式</p>
+<h3 id="normal转visual">normal转visual
+</h3><p>v变成可视模式（无法编辑）</p>
+<h3 id="visual转nomal">visual转nomal
+</h3><p>esc或者v变回普通模式</p>
+<h3 id="普通模式转命令模式">普通模式转命令模式
+</h3><p>：转成命令模式</p>
+<h3 id="命令模式转普通模式">命令模式转普通模式
+</h3><p>esc</p>
+<h2 id="光标移动">光标移动
+</h2><h3 id="普通模式下光标移动">普通模式下光标移动
+</h3><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.361dhwguy24g.webp"
 	
 	
 	
@@ -442,8 +388,8 @@ A行末尾插入</p>
 	
 	
 ></p>
-<h2 id="动作-motion">动作 motion</h2>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.3l3imza42lts.webp"
+<h2 id="动作-motion">动作 motion
+</h2><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.3l3imza42lts.webp"
 	
 	
 	
@@ -453,8 +399,8 @@ A行末尾插入</p>
 	
 	
 ></p>
-<h2 id="操作符">操作符</h2>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4zwaffdpozk0.webp"
+<h2 id="操作符">操作符
+</h2><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.4zwaffdpozk0.webp"
 	
 	
 	
@@ -467,8 +413,8 @@ A行末尾插入</p>
 <p>删除全部 die
 复制全部 yie
 u 撤销</p>
-<h2 id="大小写">大小写</h2>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.6dgggu7lgdxc.webp"
+<h2 id="大小写">大小写
+</h2><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.6dgggu7lgdxc.webp"
 	
 	
 	
@@ -478,17 +424,17 @@ u 撤销</p>
 	
 	
 ></p>
-<h2 id="常用">常用</h2>
-<p>gd 查看函数定义
+<h2 id="常用">常用
+</h2><p>gd 查看函数定义
 ^O返回
 g数字 切换标签/ctrl+数字
 command+0 到文件夹 o打开 回车修改名字</p>
-<h2 id="easymotion">easymotion</h2>
-<p>空格空格s + 要查询的字幕
+<h2 id="easymotion">easymotion
+</h2><p>空格空格s + 要查询的字幕
 空格空格+e
 空格空格+w</p>
-<h2 id="vim-surround">vim surround</h2>
-<p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2d1gjkuofvls.webp"
+<h2 id="vim-surround">vim surround
+</h2><p><img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2d1gjkuofvls.webp"
 	
 	
 	
@@ -498,10 +444,10 @@ command+0 到文件夹 o打开 回车修改名字</p>
 	
 	
 ></p>
-<h2 id="光标转移到终端">光标转移到终端</h2>
-<p>leader + t</p>
-<h2 id="切换tab">切换tab</h2>
-<p>gt或gT</p>
+<h2 id="光标转移到终端">光标转移到终端
+</h2><p>leader + t</p>
+<h2 id="切换tab">切换tab
+</h2><p>gt或gT</p>
 
 </section>
 
@@ -538,7 +484,8 @@ command+0 到文件夹 o打开 回车修改名字</p>
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -548,61 +495,70 @@ command+0 到文件夹 o打开 回车修改名字</p>
             ignoredClasses: ["gist"]
         });})
 </script>
-    
-</article>
 
     
+</article>
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/posts/gpt-academic%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Gpt Academic本地配置</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/vscode%E9%85%8D%E7%BD%AElatex/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">VScode配置Latex</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">博客配置</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
+    <section class="related-articles-bottom">
+    <div class="related-articles-container">
+        <h3 class="related-articles-title">相关文章</h3><div class="related-articles-grid"><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/gpt-academic%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">Gpt Academic本地配置</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-18
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    杂七杂八
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/vscode%E9%85%8D%E7%BD%AElatex/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">VScode配置Latex</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-11-15
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    杂七杂八
+                                </span></div></div>
+                    </a>
+                </article><article class="related-article-card">
+                    <a href="https://anonymity-0.github.io/posts/%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE/" class="related-article-link">
+                        <div class="related-article-content">
+                            <h4 class="related-article-title">博客配置</h4>
+                            <div class="related-article-meta">
+                                <span class="related-article-date">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+                                    </svg>
+                                    2023-10-18
+                                </span><span class="related-article-category">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2-2z"/>
+                                        <path d="M8 5v6m8-6v6m-8-2h8"/>
+                                    </svg>
+                                    杂七杂八
+                                </span></div></div>
+                    </a>
+                </article></div></div>
+</section>
      
     
         
@@ -617,8 +573,9 @@ command+0 到文件夹 o打开 回车修改名字</p>
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="bottom"
-    data-theme="dark_high_contrast"
+    data-theme="noborder_light"
     data-lang="en"
+    data-loading=""
     crossorigin="anonymous"
     async
 ></script>
@@ -648,7 +605,7 @@ command+0 到文件夹 o打开 回车修改名字</p>
 
         function handler() {
             if (document.documentElement.dataset.scheme === "light") {
-                setGiscusTheme('dark_high_contrast');
+                setGiscusTheme('noborder_light');
             } else {
                 setGiscusTheme('0');
             }
@@ -664,25 +621,140 @@ command+0 到文件夹 o打开 回车修改名字</p>
         
             2020 - 
         
-        2024 AGA
+        2025 
     </section>
     
     <section class="powerby">
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
 
     
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
 
             </main>
         </div>
+        
+        
+        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        </button>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+
+                
+                const toggleBackToTop = function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                };
+
+                
+                const scrollToTop = function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                };
+
+                
+                window.addEventListener('scroll', toggleBackToTop);
+                backToTopButton.addEventListener('click', scrollToTop);
+
+                
+                toggleBackToTop();
+            });
+        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
+        
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
