@@ -13,10 +13,9 @@ math: false
 hidden: false
 comments: true
 categories:
-  - redis源码解析
+  - Kubernetes
 tags:
-  - 中间件源码学习
-  - redis
+  - 中间件学习
 ---
 
 
