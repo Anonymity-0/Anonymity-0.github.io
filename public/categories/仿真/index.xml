@@ -1,29 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>仿真 on </title>
-        <link>https://anonymity-0.github.io/categories/%E4%BB%BF%E7%9C%9F/</link>
-        <description>Recent content in 仿真 on </description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Mon, 18 Dec 2023 15:38:41 +0800</lastBuildDate><atom:link href="https://anonymity-0.github.io/categories/%E4%BB%BF%E7%9C%9F/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>NS 3初上手</title>
-        <link>https://anonymity-0.github.io/posts/ns-3%E5%88%9D%E4%B8%8A%E6%89%8B/</link>
-        <pubDate>Mon, 18 Dec 2023 15:38:41 +0800</pubDate>
+  <channel>
+    <title>GAGA – 仿真</title>
+    <link>http://localhost:1313/categories/%E4%BB%BF%E7%9C%9F/</link>
+    <description>Recent content in 仿真 on GAGA</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 18 Dec 2023 15:38:41 +0800</lastBuildDate>
+    
+	  <atom:link href="http://localhost:1313/categories/%E4%BB%BF%E7%9C%9F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
         
-        <guid>https://anonymity-0.github.io/posts/ns-3%E5%88%9D%E4%B8%8A%E6%89%8B/</guid>
-        <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍
-&lt;/h2&gt;&lt;p&gt;ns3是用来进行网络仿真的一个平台&lt;/p&gt;
-&lt;h2 id=&#34;学习资源&#34;&gt;学习资源
-&lt;/h2&gt;&lt;p&gt;略&lt;/p&gt;
-&lt;h2 id=&#34;安装&#34;&gt;安装
-&lt;/h2&gt;&lt;h3 id=&#34;源码安装&#34;&gt;源码安装
-&lt;/h3&gt;&lt;p&gt;详情可参考&lt;a class=&#34;link&#34; href=&#34;https://www.nsnam.org/docs/release/3.40/installation/html/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;ns-3 Installation Guide — Installation guide&lt;/a&gt;&lt;/p&gt;
+      
+    
+    
+    <item>
+      <title>NS 3初上手</title>
+      <link>http://localhost:1313/posts/ns-3%E5%88%9D%E4%B8%8A%E6%89%8B/</link>
+      <pubDate>Mon, 18 Dec 2023 15:38:41 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/ns-3%E5%88%9D%E4%B8%8A%E6%89%8B/</guid>
+      <description>
+        
+        
+        &lt;h2&gt;介绍&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;介绍&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;ns3是用来进行网络仿真的一个平台&lt;/p&gt;
+&lt;h2&gt;学习资源&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;学习资源&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%ad%a6%e4%b9%a0%e8%b5%84%e6%ba%90&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;略&lt;/p&gt;
+&lt;h2&gt;安装&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;安装&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%ae%89%e8%a3%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;源码安装&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;源码安装&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%ba%90%e7%a0%81%e5%ae%89%e8%a3%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;详情可参考&lt;a href=&#34;https://www.nsnam.org/docs/release/3.40/installation/html/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ns-3 Installation Guide — Installation guide&lt;/a&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;下载源码
-[Releases | ns-3](&lt;a class=&#34;link&#34; href=&#34;https://www.nsnam.org/releases/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://www.nsnam.org/releases/&lt;/a&gt;
+[Releases | ns-3](&lt;a href=&#34;https://www.nsnam.org/releases/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.nsnam.org/releases/&lt;/a&gt;
 进入网站选择版本下载&lt;/li&gt;
 &lt;li&gt;编译源码
 解压进入文件夹
@@ -35,12 +45,24 @@
 &lt;/ol&gt;
 &lt;p&gt;安装完成以后&lt;code&gt;cd ns-3.40&lt;/code&gt;可以通过ls查看文件内容&lt;/p&gt;
 &lt;p&gt;在ns-3.36版本之后，ns-3的构建系统从waf更改为CMake，并引入了一个名为ns3的Python脚本来替代waf&lt;/p&gt;
-&lt;h3 id=&#34;运行第一个模拟仿真脚本&#34;&gt;运行第一个模拟仿真脚本
-&lt;/h3&gt;&lt;p&gt;通过 &lt;code&gt;./ns3 run hello-simulator&lt;/code&gt; 运行&lt;/p&gt;
-&lt;h3 id=&#34;测试的安装&#34;&gt;测试的安装
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;agq@AGdeMacBook-Air ns-3.40 % ./test.py
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-        </item>
-        
-    </channel>
+&lt;h3&gt;运行第一个模拟仿真脚本&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;运行第一个模拟仿真脚本&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e8%bf%90%e8%a1%8c%e7%ac%ac%e4%b8%80%e4%b8%aa%e6%a8%a1%e6%8b%9f%e4%bb%bf%e7%9c%9f%e8%84%9a%e6%9c%ac&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;通过 &lt;code&gt;./ns3 run hello-simulator&lt;/code&gt; 运行&lt;/p&gt;
+&lt;h3&gt;测试的安装&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;测试的安装&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%b5%8b%e8%af%95%e7%9a%84%e5%ae%89%e8%a3%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;agq@AGdeMacBook-Air ns-3.40 % ./test.py&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+  </channel>
 </rss>

@@ -1,0 +1,642 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GAGA – Kubernetes</title>
+    <link>http://localhost:1313/categories/kubernetes/</link>
+    <description>Recent content in Kubernetes on GAGA</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 29 Jun 2025 15:02:11 +0800</lastBuildDate>
+    
+	  <atom:link href="http://localhost:1313/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>告别单节点：使用 Multipass &#43; k3s 搭建本地多节点 K8s 集群</title>
+      <link>http://localhost:1313/post/say-goodbye-to-single-node-use-multipass-k3s-to-build-a-local-multinode-k8s-cluster-1gako2.html</link>
+      <pubDate>Sun, 29 Jun 2025 15:02:11 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/say-goodbye-to-single-node-use-multipass-k3s-to-build-a-local-multinode-k8s-cluster-1gako2.html</guid>
+      <description>
+        
+        
+        &lt;h1&gt;告别单节点：使用 Multipass + k3s 搭建本地多节点 K8s 集群&lt;/h1&gt;&lt;p&gt;在上一篇文章中，我们介绍了如何使用 Minikube 快速搭建一个单节点的 Kubernetes 环境。Minikube 无疑是入门学习和简单应用测试的绝佳工具，但当我们需要模拟更真实的生产场景，例如测试高可用性、网络策略或多节点调度时，单节点的局限性就显现出来了。&lt;/p&gt;
+&lt;p&gt;这一次，我们将探索一种更强大的本地集群搭建方案：使用 &lt;strong&gt;Multipass&lt;/strong&gt; 和 &lt;strong&gt;k3s&lt;/strong&gt;，从零开始构建一个功能完备的&lt;strong&gt;多节点&lt;/strong&gt; Kubernetes 集群。&lt;/p&gt;
+&lt;h3&gt;主角介绍：Multipass 与 k3s&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;主角介绍multipass-与-k3s&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%b8%bb%e8%a7%92%e4%bb%8b%e7%bb%8dmultipass-%e4%b8%8e-k3s&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;**&lt;a href=&#34;https://multipass.run/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Multipass&lt;/a&gt;**​ &lt;strong&gt;:&lt;/strong&gt;  由 Canonical (Ubuntu 的母公司) 出品的一款轻量级虚拟机管理器。你可以把它想象成一个命令行版的 VirtualBox 或 VMware，但更加轻巧、快捷，专为开发者设计，能让你在数秒内启动一个全新的 Ubuntu 虚拟机。&lt;/li&gt;
+&lt;li&gt;**&lt;a href=&#34;https://k3s.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;k3s&lt;/a&gt;**​ &lt;strong&gt;:&lt;/strong&gt;  一个经过 CNCF (云原生计算基金会) 认证的轻量级 Kubernetes 发行版。它由 Rancher Labs（现为 SUSE 的一部分）推出，通过移除和替换一些非核心组件，极大地简化了 K8s 的安装和运维，同时保持了完全的兼容性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;强强联合，我们将使用 Multipass 快速创建所需的虚拟机，然后用 k3s 在这些虚拟机上轻松部署一个多节点 K8s 集群。&lt;/p&gt;
+&lt;h3&gt;第一步：安装和熟悉 Multipass&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;第一步安装和熟悉-multipass&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%ae%89%e8%a3%85%e5%92%8c%e7%86%9f%e6%82%89-multipass&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Multipass 是我们创建“服务器”的基础。让我们先安装并掌握它的基本用法。&lt;/p&gt;
+&lt;h4&gt;1.1 安装 Multipass&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;11-安装-multipass&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#11-%e5%ae%89%e8%a3%85-multipass&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;根据你的操作系统，选择对应的安装方式：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# macOS (使用 Homebrew)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install multipass
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Windows (使用 Chocolatey)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;choco install multipass
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Linux (使用 Snap)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap install multipass&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h4&gt;1.2 Multipass 常用命令&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;12-multipass-常用命令&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#12-multipass-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;你不需要记住所有命令，但以下这些是日常使用中的必备法宝。可以通过 &lt;code&gt;multipass help &amp;lt;command&amp;gt;&lt;/code&gt;​ 查看具体用法。&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看虚拟机列表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建一个名为 k3s-master 的虚拟机&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass launch --name k3s-master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看虚拟机详细信息 (包括 IP 地址)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass info k3s-master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 进入虚拟机的 shell 环境&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass shell k3s-master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在虚拟机内执行单个命令&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; k3s-master -- ls -l /home/ubuntu
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 挂载本地目录到虚拟机&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 将本地的 ~/k8s-data 目录挂载到虚拟机的 /data 目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass mount ~/k8s-data k3s-master:/data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 停止、启动、删除虚拟机&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass stop k3s-master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass start k3s-master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass delete k3s-master
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 彻底清理已删除的虚拟机（释放磁盘空间）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass purge&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;💡 经验分享：关于 M1/M2 Mac 的一个坑&lt;/strong&gt;&lt;br&gt;
+有用户反馈，在搭载 Apple Silicon 芯片的 Mac 上，每次 macOS 系统大版本升级后，Multipass 创建的虚拟机可能会丢失。这是一个需要注意的问题，建议在系统升级前做好数据备份。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;镜像位置&lt;/strong&gt;: &lt;code&gt;/var/root/Library/Application Support/multipassd/qemu/vault/instances&lt;/code&gt;​&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;配置文件&lt;/strong&gt;: &lt;code&gt;/var/root/Library/Application Support/multipassd/qemu/multipassd-vm-instances.json&lt;/code&gt;​&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;第二步：实战！搭建多节点 k3s 集群&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;第二步实战搭建多节点-k3s-集群&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%ba%8c%e6%ad%a5%e5%ae%9e%e6%88%98%e6%90%ad%e5%bb%ba%e5%a4%9a%e8%8a%82%e7%82%b9-k3s-%e9%9b%86%e7%be%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;基础工具准备就绪，现在开始搭建我们的 &lt;code&gt;1 Master + 2 Worker&lt;/code&gt;​ 集群。&lt;/p&gt;
+&lt;h4&gt;2.1 创建和配置 Master 节点&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;21-创建和配置-master-节点&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#21-%e5%88%9b%e5%bb%ba%e5%92%8c%e9%85%8d%e7%bd%ae-master-%e8%8a%82%e7%82%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;首先，我们用 Multipass 创建一个配置稍高一些的虚拟机作为 Master 节点。&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建一个名为 k3s-master 的虚拟机，分配 2 核 CPU, 8GB 内存, 10GB 磁盘&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass launch --name k3s-master --cpus &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; --memory 8G --disk 10G&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;虚拟机创建成功后，我们就可以在其中安装 k3s 了。k3s 的安装过程极其简单，只需一条命令即可将当前节点设置为 Master。&lt;/p&gt;
+&lt;p&gt;进入 Master 节点的 shell 环境：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass shell k3s-master&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;在 &lt;code&gt;k3s-master&lt;/code&gt;​ 的 shell 中，执行以下安装命令：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 推荐国内用户使用 mirror 源加速安装&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;INSTALL_K3S_MIRROR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;cn sh -
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 或者使用官方源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# curl -sfL https://get.k3s.io | sh -&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;安装完成后，k3s 会自动启动，并内置了 &lt;code&gt;kubectl&lt;/code&gt;​。我们可以立即验证 Master 节点的状态：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 注意：k3s 的 kubectl 需要 sudo 权限&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo kubectl get nodes&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;你应该能看到一个名为 &lt;code&gt;k3s-master&lt;/code&gt;​ 的节点，状态为 &lt;code&gt;Ready&lt;/code&gt;​。&lt;/p&gt;
+&lt;h4&gt;2.2 创建和配置 Worker 节点&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;22-创建和配置-worker-节点&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#22-%e5%88%9b%e5%bb%ba%e5%92%8c%e9%85%8d%e7%bd%ae-worker-%e8%8a%82%e7%82%b9&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;要让 Worker 节点加入集群，它们需要两样东西：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Master 节点的 IP 地址&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一个安全的加入凭证 (Token)&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;让我们来获取它们。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;首先，获取 Master 节点的 Token。&lt;/strong&gt;  这个 Token 存储在 Master 节点的一个文件里。&lt;br&gt;
+在 &lt;code&gt;k3s-master&lt;/code&gt;​ 的 shell 中执行：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cat /var/lib/rancher/k3s/server/node-token&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;复制这个 Token，我们稍后会用到。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;然后，获取 Master 节点的 IP 地址。&lt;/strong&gt;  退出 &lt;code&gt;k3s-master&lt;/code&gt;​ 的 shell (输入 &lt;code&gt;exit&lt;/code&gt;​)，在&lt;strong&gt;你自己的电脑终端&lt;/strong&gt;上执行：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass info k3s-master &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep IPv4 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; awk &lt;span class=&#34;s1&#34;&gt;&amp;#39;{print $2}&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;记下这个 IP 地址。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;现在，我们来创建并加入 Worker 节点。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为了方便操作，我们可以将刚刚获取的 Token 和 IP 存为本地终端的环境变量：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在你自己的电脑终端上执行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 将 &amp;lt;YOUR_TOKEN&amp;gt; 替换为你刚刚从 Master 节点复制的 Token&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;K3S_TOKEN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;YOUR_TOKEN&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 将 &amp;lt;MASTER_IP&amp;gt; 替换为你刚刚获取的 IP 地址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;MASTER_IP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;MASTER_IP&amp;gt;&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;接下来，创建两个 Worker 虚拟机：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass launch --name k3s-worker1 --cpus &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; --memory 8G --disk 10G
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass launch --name k3s-worker2 --cpus &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; --memory 8G --disk 10G&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;最后，使用一个 &lt;code&gt;for&lt;/code&gt;​ 循环，批量让这两个 Worker 节点安装 k3s 并加入集群。这个命令会在每个 Worker 虚拟机上执行安装脚本，并通过环境变量 &lt;code&gt;K3S_URL&lt;/code&gt;​ 和 &lt;code&gt;K3S_TOKEN&lt;/code&gt;​ 告诉它们如何找到并加入 Master。&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在你自己的电脑终端上执行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; 2&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  multipass &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; k3s-worker&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; -- bash -c &lt;span class=&#34;s2&#34;&gt;&amp;#34;curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn K3S_URL=\&amp;#34;https://&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MASTER_IP&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:6443\&amp;#34; K3S_TOKEN=\&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$K3S_TOKEN&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;\&amp;#34; sh -&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;这个过程会自动完成，稍等片刻即可。&lt;/p&gt;
+&lt;h3&gt;第三步：验证集群&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;第三步验证集群&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%b8%89%e6%ad%a5%e9%aa%8c%e8%af%81%e9%9b%86%e7%be%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;所有节点都已配置完毕。让我们回到 Master 节点来验证整个集群的状态。&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 在你自己的电脑终端上执行，直接在 master 节点上运行 kubectl&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;multipass &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; k3s-master -- sudo kubectl get nodes -o wide&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;如果一切顺利，你将看到如下输出，包含一个 Master 节点和两个 Worker 节点，并且它们的状态都为 &lt;code&gt;Ready&lt;/code&gt;​：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;NAME          STATUS   ROLES                  AGE   VERSION        INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+k3s-master    Ready    control-plane,master   10m   v1.28.x&amp;#43;k3s1   192.168.64.2   &amp;lt;none&amp;gt;        Ubuntu 22.04.3 LTS   5.15.0-88-generic   containerd://1.7.x
+k3s-worker1   Ready    &amp;lt;none&amp;gt;                 2m    v1.28.x&amp;#43;k3s1   192.168.64.3   &amp;lt;none&amp;gt;        Ubuntu 22.04.3 LTS   5.15.0-88-generic   containerd://1.7.x
+k3s-worker2   Ready    &amp;lt;none&amp;gt;                 2m    v1.28.x&amp;#43;k3s1   192.168.64.4   &amp;lt;none&amp;gt;        Ubuntu 22.04.3 LTS   5.15.0-88-generic   containerd://1.7.x&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;‍&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Minikube 入门指南：在本地轻松搭建你的第一个 Kubernetes 集群</title>
+      <link>http://localhost:1313/post/minikube-getting-started-guide-easily-build-your-first-kubernetes-cluster-locally-1wa8ot.html</link>
+      <pubDate>Sun, 29 Jun 2025 01:44:30 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/minikube-getting-started-guide-easily-build-your-first-kubernetes-cluster-locally-1wa8ot.html</guid>
+      <description>
+        
+        
+        &lt;h1&gt;Minikube 入门指南：在本地轻松搭建你的第一个 Kubernetes 集群&lt;/h1&gt;&lt;p&gt;想要学习和使用 Kubernetes (K8s)，但被生产环境复杂的集群搭建流程劝退？别担心，对于开发者和学习者来说，我们有一个完美的工具——&lt;strong&gt;Minikube&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Minikube 是一个轻量级的 Kubernetes 发行版，它能让在你的个人电脑上，轻松运行一个功能完备的单节点 K8s 集群。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629014530-3wyht32.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h3&gt;为什么我们需要 Minikube？生产环境 vs. 本地开发&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;为什么我们需要-minikube生产环境-vs-本地开发&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%b8%ba%e4%bb%80%e4%b9%88%e6%88%91%e4%bb%ac%e9%9c%80%e8%a6%81-minikube%e7%94%9f%e4%ba%a7%e7%8e%af%e5%a2%83-vs-%e6%9c%ac%e5%9c%b0%e5%bc%80%e5%8f%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在生产环境中，一个典型的 Kubernetes 集群为了保证高可用性和负载均衡，通常由多个节点（物理服务器或虚拟机）组成。例如，一个包含两个 Master 节点和三个 Worker 节点的集群，就需要五台独立的服务器。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629021347-3dqqgmd.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;然而，在个人电脑上复刻这样一套环境，不仅对硬件资源是巨大的考验，其网络和存储的配置过程也相当复杂，有时甚至是不可能完成的任务。&lt;/p&gt;
+&lt;p&gt;这时，&lt;strong&gt;Minikube&lt;/strong&gt; 就闪亮登场了。它为我们解决了以下痛点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;简化部署&lt;/strong&gt;：一键启动一个运行在虚拟机或容器内的单节点 K8s 集群。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;资源友好&lt;/strong&gt;：对本地硬件资源要求低，非常适合日常开发和学习。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;环境隔离&lt;/strong&gt;：所有组件都运行在隔离环境中，不影响本地系统。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;功能完备&lt;/strong&gt;：可以模拟生产环境，进行应用开发、测试和部署验证。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;除了 Minikube，还有哪些选择？&lt;/strong&gt;&lt;br&gt;
+社区中还有其他优秀的本地 K8s 工具，如 &lt;strong&gt;k3s/k3d&lt;/strong&gt;, &lt;strong&gt;Kind&lt;/strong&gt; 等。它们各有特点，但 Minikube 因其稳定性和易用性，成为了许多人入门的首选。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629022536-opk9f28.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h3&gt;Minikube 与 kubectl：管理集群的黄金搭档&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;minikube-与-kubectl管理集群的黄金搭档&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#minikube-%e4%b8%8e-kubectl%e7%ae%a1%e7%90%86%e9%9b%86%e7%be%a4%e7%9a%84%e9%bb%84%e9%87%91%e6%90%ad%e6%a1%a3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;搭建好集群只是第一步，我们还需要一个工具来与它“对话”。这个工具就是 &lt;code&gt;kubectl&lt;/code&gt;​。&lt;/p&gt;
+&lt;p&gt;还记得我们在&lt;a href=&#34;%e4%bd%a0%e7%9a%84%e4%b8%8a%e4%b8%80%e7%af%87%e6%96%87%e7%ab%a0%e9%93%be%e6%8e%a5&#34; &gt;上一篇文章&lt;/a&gt;中提到的 K8s 架构吗？Master 节点上的 &lt;strong&gt;API Server&lt;/strong&gt; 是整个集群的统一入口和控制中心。我们可以通过多种方式与 API Server 交互：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Dashboard&lt;/strong&gt;：图形化界面。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;kubectl&lt;/strong&gt;：命令行工具。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;API 调用&lt;/strong&gt;：通过程序代码直接调用其接口。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629143202-exwxiuf.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在这几种方式中，&lt;code&gt;kubectl&lt;/code&gt;​ 是功能最强大、使用最广泛的工具。它允许你通过命令行输入指令，来管理集群中的所有资源（如 Pod, Service, Deployment 等）。更棒的是，&lt;code&gt;kubectl&lt;/code&gt;​ 不仅可以管理本地的 Minikube 集群，只要配置好访问凭证，你就可以用它与&lt;strong&gt;任何地方&lt;/strong&gt;的 Kubernetes 集群进行交互。&lt;/p&gt;
+&lt;h3&gt;实战演练：安装并启动你的第一个 Minikube 集群&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;实战演练安装并启动你的第一个-minikube-集群&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e5%ae%9e%e6%88%98%e6%bc%94%e7%bb%83%e5%ae%89%e8%a3%85%e5%b9%b6%e5%90%af%e5%8a%a8%e4%bd%a0%e7%9a%84%e7%ac%ac%e4%b8%80%e4%b8%aa-minikube-%e9%9b%86%e7%be%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;下面，让我们动手实践，从零到一启动你的 Minikube 集群。&lt;/p&gt;
+&lt;h4&gt;第一步：安装 Minikube&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;第一步安装-minikube&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%ae%89%e8%a3%85-minikube&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;如果你使用的是 macOS 并安装了 Homebrew，可以直接使用以下命令安装：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install minikube&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;提示&lt;/strong&gt;：Minikube 依赖 &lt;code&gt;kubectl&lt;/code&gt;​ 来进行交互。使用 Homebrew 安装 Minikube 时，它会自动将 &lt;code&gt;kubectl&lt;/code&gt;​ 作为依赖项一并安装，非常方便。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;安装完成后，通过以下命令验证是否成功：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;minikube version&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;如果能看到版本号输出，说明 Minikube 已经成功安装。你也可以输入 &lt;code&gt;minikube&lt;/code&gt;​ 查看所有可用的命令。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629143858-o3taitj.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h4&gt;第二步：启动 Minikube 集群&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;第二步启动-minikube-集群&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%ba%8c%e6%ad%a5%e5%90%af%e5%8a%a8-minikube-%e9%9b%86%e7%be%a4&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;准备就绪后，执行 &lt;code&gt;start&lt;/code&gt;​ 命令来启动你的本地 K8s 集群：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;minikube start&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;这个过程可能需要几分钟，因为它需要从网络上下载所需的镜像和组件。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;💡 小贴士：加速下载&lt;/strong&gt;&lt;br&gt;
+如果你发现下载速度很慢，可以指定使用国内的镜像源来加速：&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;minikube start --image-mirror-country&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;cn&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;第三步：验证集群状态&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;第三步验证集群状态&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%b8%89%e6%ad%a5%e9%aa%8c%e8%af%81%e9%9b%86%e7%be%a4%e7%8a%b6%e6%80%81&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;当 &lt;code&gt;start&lt;/code&gt;​ 命令成功结束后，你的单节点 K8s 集群就已经在后台运行了。我们可以用两个命令来验证它的状态：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;查看集群节点&lt;/strong&gt;：使用 &lt;code&gt;kubectl&lt;/code&gt;​ 来看看我们的集群里有哪些节点。&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl get nodes&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;你会看到一个名为 &lt;code&gt;minikube&lt;/code&gt;​ 的节点，其状态为 &lt;code&gt;Ready&lt;/code&gt;​。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;查看 Minikube 状态&lt;/strong&gt;：使用 &lt;code&gt;minikube&lt;/code&gt;​ 自带的 &lt;code&gt;status&lt;/code&gt;​ 命令。&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;minikube status&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;它会清晰地展示出 Minikube 各个组件（如 host, kubelet, apiserver）的运行状态。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;‍&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes 架构深度解析：Master 与 Worker 节点全景</title>
+      <link>http://localhost:1313/post/kubernetes-architecture-indepth-analysis-panoramic-view-of-master-and-worker-nodes-zeh0mz.html</link>
+      <pubDate>Sun, 29 Jun 2025 00:15:40 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/kubernetes-architecture-indepth-analysis-panoramic-view-of-master-and-worker-nodes-zeh0mz.html</guid>
+      <description>
+        
+        
+        &lt;h1&gt;Kubernetes 架构深度解析：Master 与 Worker 节点全景&lt;/h1&gt;&lt;p&gt;Kubernetes (K8s) 采用经典的 &lt;strong&gt;Master-Worker&lt;/strong&gt; 架构。其中，&lt;strong&gt;Master 节点&lt;/strong&gt;（主节点）负责管理和控制整个集群，而 &lt;strong&gt;Worker 节点&lt;/strong&gt;（工作节点）则负责运行实际的应用程序和服务。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629001658-jwl5bb7.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;一、Worker 节点：集群的动力核心&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;一worker-节点集群的动力核心&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%b8%80worker-%e8%8a%82%e7%82%b9%e9%9b%86%e7%be%a4%e7%9a%84%e5%8a%a8%e5%8a%9b%e6%a0%b8%e5%bf%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;我们先从真正承载业务的 Worker 节点开始。&lt;/p&gt;
+&lt;p&gt;官方定义言简意赅：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 来执行你的工作负载。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;简单来说，Node 就是 K8s 集群中真正“干活”的机器，是承载业务应用的实体，因此它也被形象地称为 &lt;strong&gt;Worker Node&lt;/strong&gt;（工作节点）。&lt;/p&gt;
+&lt;p&gt;为了能正常工作并对外提供服务，每个 Worker 节点都必须包含三个核心组件：&lt;code&gt;kubelet&lt;/code&gt;​、&lt;code&gt;kube-proxy&lt;/code&gt;​ 和容器运行时（Container Runtime）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629002329-9euo72p.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h4&gt;1. 容器运行时 (Container Runtime)&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-容器运行时-container-runtime&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-%e5%ae%b9%e5%99%a8%e8%bf%90%e8%a1%8c%e6%97%b6-container-runtime&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;容器运行时的概念可能有些抽象，你可以把它理解为&lt;strong&gt;一个专门用于运行容器的底层软件&lt;/strong&gt;。它负责所有与容器生命周期相关的操作，例如拉取容器镜像、创建和销毁容器、启动或停止容器等。&lt;/p&gt;
+&lt;p&gt;正如所有程序都需要操作系统来运行一样，所有容器也都需要容器运行时来运行。因此，每个 Worker 节点上都必须安装容器运行时。&lt;/p&gt;
+&lt;p&gt;在 K8s 中，你可以根据需求选择不同的容器运行时。虽然 Docker Engine 曾是主流，但现在 K8s 生态支持多种符合 CRI (Container Runtime Interface) 标准的运行时，常见的包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;containerd&lt;/strong&gt; (目前最主流的选择)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CRI-O&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Docker Engine (通过 &lt;code&gt;cri-dockerd&lt;/code&gt;​ 适配)&lt;/li&gt;
+&lt;li&gt;Mirantis Container Runtime&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2. &lt;code&gt;kubelet&lt;/code&gt;​：节点的“大管家”&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-kubelet节点的大管家&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-kubelet%e8%8a%82%e7%82%b9%e7%9a%84%e5%a4%a7%e7%ae%a1%e5%ae%b6&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;​&lt;code&gt;kubelet&lt;/code&gt;​ 是运行在每个 Worker 节点上的代理程序，是 Master 节点在 Worker 节点上的“代言人”。它的核心职责是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;管理 Pod 生命周期&lt;/strong&gt;：确保节点上的 Pod 和其中的容器按照预期状态运行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;接收指令&lt;/strong&gt;：定期从 Master 节点的 &lt;code&gt;api-server&lt;/code&gt;​ 组件接收新的或修改后的 Pod 规范（PodSpec）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;状态汇报&lt;/strong&gt;：监控本节点的运行状况（如 CPU、内存使用率）和 Pod 的状态，并将这些信息汇报给 &lt;code&gt;api-server&lt;/code&gt;​。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;3. &lt;code&gt;kube-proxy&lt;/code&gt;​：集群网络代理&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-kube-proxy集群网络代理&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-kube-proxy%e9%9b%86%e7%be%a4%e7%bd%91%e7%bb%9c%e4%bb%a3%e7%90%86&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;​&lt;code&gt;kube-proxy&lt;/code&gt;​ 是每个 Worker 节点上的网络代理和负载均衡器，负责实现 Kubernetes 的 Service 通信。它的主要工作是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;维护网络规则&lt;/strong&gt;：在节点上维护网络规则，允许从集群内部或外部与 Pod 进行网络通信。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;服务发现与负载均衡&lt;/strong&gt;：当流量发往一个 Service 时，&lt;code&gt;kube-proxy&lt;/code&gt;​ 会将这些流量高效地路由到正确的后端 Pod 中，实现负载均衡。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它能实现一个重要的优化：当一个 Pod 需要访问同一个节点上的另一个 Pod（例如，应用访问本地数据库）时，&lt;code&gt;kube-proxy&lt;/code&gt;​ 会智能地将流量直接路由到目标 Pod，避免了不必要的跨节点网络开销，提升了通信效率。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629010914-y5abx9m.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;二、Master 节点：集群的智慧大脑&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;二master-节点集群的智慧大脑&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%ba%8cmaster-%e8%8a%82%e7%82%b9%e9%9b%86%e7%be%a4%e7%9a%84%e6%99%ba%e6%85%a7%e5%a4%a7%e8%84%91&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;既然 Worker 节点负责执行任务，那么谁来管理和协调这些节点呢？例如，如何将 Pod 调度到最合适的节点？如何监控节点状态？如何处理节点的增删？&lt;/p&gt;
+&lt;p&gt;这便是 &lt;strong&gt;Master 节点&lt;/strong&gt; 的核心职责。Master 节点是集群的控制平面，由四个基本组件构成：&lt;code&gt;kube-apiserver&lt;/code&gt;​、&lt;code&gt;etcd&lt;/code&gt;​、&lt;code&gt;kube-controller-manager&lt;/code&gt;​ 和 &lt;code&gt;kube-scheduler&lt;/code&gt;​。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629011215-fe6yf6l.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h4&gt;1. &lt;code&gt;kube-apiserver&lt;/code&gt;​：集群的统一入口&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-kube-apiserver集群的统一入口&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-kube-apiserver%e9%9b%86%e7%be%a4%e7%9a%84%e7%bb%9f%e4%b8%80%e5%85%a5%e5%8f%a3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;​&lt;code&gt;apiserver&lt;/code&gt;​ 是 Kubernetes 控制平面的&lt;strong&gt;唯一入口和数据交互中心&lt;/strong&gt;。所有组件，无论是外部用户还是内部组件，都只能通过这个 API 接口进行通信。&lt;/p&gt;
+&lt;p&gt;当你作为用户，希望在集群中部署应用时，就需要通过客户端与 &lt;code&gt;apiserver&lt;/code&gt;​ 交互。这个客户端可以是 &lt;code&gt;kubectl&lt;/code&gt;​ 命令行工具，也可以是 Dashboard 等图形化 UI 工具。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629011939-frcwpl8.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;​&lt;code&gt;apiserver&lt;/code&gt;​ 就像是集群的“网关”，它承担两大核心功能：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;API 服务&lt;/strong&gt;：提供 RESTful API，处理所有资源的增、删、改、查请求，并将它们分发给其他组件处理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;访问控制&lt;/strong&gt;：负责认证、授权和准入控制，确保只有合法的用户才能对集群资源进行操作，保障了整个集群的安全性。例如，当你使用 &lt;code&gt;kubectl&lt;/code&gt;​ 创建一个 Pod 时，请求首先到达 &lt;code&gt;apiserver&lt;/code&gt;​，它会验证你的身份和权限，通过后才会执行后续流程。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;2. &lt;code&gt;etcd&lt;/code&gt;​：集群的状态存储&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-etcd集群的状态存储&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-etcd%e9%9b%86%e7%be%a4%e7%9a%84%e7%8a%b6%e6%80%81%e5%ad%98%e5%82%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;​&lt;code&gt;etcd&lt;/code&gt;​ 是一个高可用的分布式键值存储系统，被誉为&lt;strong&gt;集群的“大脑”或“真理之源”&lt;/strong&gt; 。它负责存储整个集群所有资源对象的状态信息，例如 Pod 的定义、Node 的状态、Service 的配置等等。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据中心&lt;/strong&gt;：集群中任何状态的变更（如一个 Pod 崩溃、一个新 Pod 被创建）都会被记录在 &lt;code&gt;etcd&lt;/code&gt;​ 中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可靠性基石&lt;/strong&gt;：其他组件（如 &lt;code&gt;controller-manager&lt;/code&gt;​）通过监视 &lt;code&gt;etcd&lt;/code&gt;​ 中的数据变化来做出响应，从而实现集群的自愈和自动化管理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;查询来源&lt;/strong&gt;：我们通过 &lt;code&gt;kubectl&lt;/code&gt;​ 或 UI 查询到的集群状态，其数据都源自 &lt;code&gt;etcd&lt;/code&gt;​。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;code&gt;etcd&lt;/code&gt;​ 只存储集群的元数据和状态信息，不存储应用程序的业务数据（例如数据库中的数据）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;3. &lt;code&gt;kube-scheduler&lt;/code&gt;​：智能的“调度员”&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-kube-scheduler智能的调度员&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-kube-scheduler%e6%99%ba%e8%83%bd%e7%9a%84%e8%b0%83%e5%ba%a6%e5%91%98&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;​&lt;code&gt;scheduler&lt;/code&gt;​（调度器）的工作非常专一：&lt;strong&gt;为新创建的 Pod 寻找最合适的 Worker 节点&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;它会持续监控集群中所有节点的资源使用情况，并根据一系列预设的调度策略（如资源需求、亲和性/反亲和性规则、污点和容忍等），将 Pod “分配”到最合适的节点上运行。&lt;/p&gt;
+&lt;p&gt;举个例子：当一个新 Pod 需要被调度时，如果节点 A 资源占用 80%，节点 B 占用 20%，节点 C 占用 40%，那么 &lt;code&gt;scheduler&lt;/code&gt;​ 极有可能将这个 Pod 智能地调度到资源最充裕的节点 B 上，从而实现资源的合理利用。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250629012408-5h3e5qn.png&#34; alt=&#34;image&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h4&gt;4. &lt;code&gt;kube-controller-manager&lt;/code&gt;​：状态的“维护者”&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-kube-controller-manager状态的维护者&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-kube-controller-manager%e7%8a%b6%e6%80%81%e7%9a%84%e7%bb%b4%e6%8a%a4%e8%80%85&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;​&lt;code&gt;controller-manager&lt;/code&gt;​（控制器管理器）是&lt;strong&gt;确保集群状态与用户期望状态一致&lt;/strong&gt;的核心组件。它内部包含多种控制器，每种控制器负责管理一类特定的资源。&lt;/p&gt;
+&lt;p&gt;它的工作模式可以理解为一个持续运行的“调节循环”（Reconciliation Loop）：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;监控&lt;/strong&gt;：通过 &lt;code&gt;apiserver&lt;/code&gt;​ 监控集群的当前状态（例如，运行中的 Pod 数量）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;比较&lt;/strong&gt;：将当前状态与 &lt;code&gt;etcd&lt;/code&gt;​ 中存储的期望状态进行比较。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调节&lt;/strong&gt;：如果两者不一致，控制器会采取行动来修复差异。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;例如，当某个节点上的 Pod 意外崩溃时，&lt;code&gt;controller-manager&lt;/code&gt;​ 中的 &lt;code&gt;ReplicaSet&lt;/code&gt;​ 控制器会检测到这一变化，并立即创建一个新的 Pod 来替代它，从而确保运行的 Pod 数量始终符合用户的设定。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;三、一个特殊的云端组件：Cloud Controller Manager&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;三一个特殊的云端组件cloud-controller-manager&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e4%b8%89%e4%b8%80%e4%b8%aa%e7%89%b9%e6%ae%8a%e7%9a%84%e4%ba%91%e7%ab%af%e7%bb%84%e4%bb%b6cloud-controller-manager&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;如果你使用的是云服务商（如 AWS、GCP、Azure）提供的托管 K8s 集群，还会有一个额外的组件：&lt;code&gt;cloud-controller-manager&lt;/code&gt;​（云控制器管理器）。&lt;/p&gt;
+&lt;p&gt;它是一个与特定云平台相关的控制器，负责与云平台的 API 进行交互，管理云端的特有资源，如负载均衡器、存储卷等，为用户提供跨云平台的一致性管理体验。&lt;/p&gt;
+&lt;p&gt;‍&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>从 Pod 到 StatefulSet：一文读懂 Kubernetes 核心组件</title>
+      <link>http://localhost:1313/post/from-pod-to-statefulset-understanding-kubernetes-core-components-in-one-article-zadm4x.html</link>
+      <pubDate>Sun, 29 Jun 2025 00:13:38 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/from-pod-to-statefulset-understanding-kubernetes-core-components-in-one-article-zadm4x.html</guid>
+      <description>
+        
+        
+        &lt;h1&gt;从 Pod 到 StatefulSet：一文读懂 Kubernetes 核心组件&lt;/h1&gt;&lt;p&gt;刚接触 Kubernetes (K8s) 时，你可能会被其众多的组件和概念搞得眼花缭乱。但别担心，只要理解了其核心设计思想，一切都会变得清晰起来。本文将带你从最基本的计算单元开始，层层递进，逐步揭开 K8s 的神秘面纱。&lt;/p&gt;
+&lt;h2&gt;1. Node &amp;amp; Pod：Kubernetes 的基本计算单元&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-node--podkubernetes-的基本计算单元&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-node--podkubernetes-%e7%9a%84%e5%9f%ba%e6%9c%ac%e8%ae%a1%e7%ae%97%e5%8d%95%e5%85%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;Node：集群的基石&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;node集群的基石&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#node%e9%9b%86%e7%be%a4%e7%9a%84%e5%9f%ba%e7%9f%b3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在 K8s 的世界里，&lt;strong&gt;Node&lt;/strong&gt; 是最基础的计算资源。你可以简单地将一个 Node 理解为一台服务器，无论它是物理机还是虚拟机。整个 K8s 集群就是由一个或多个这样的 Node 组成的。&lt;/p&gt;
+&lt;h3&gt;Pod：最小的调度单元&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;pod最小的调度单元&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#pod%e6%9c%80%e5%b0%8f%e7%9a%84%e8%b0%83%e5%ba%a6%e5%8d%95%e5%85%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;K8s 并不直接调度单个容器，而是调度一个更高层次的抽象——&lt;strong&gt;Pod&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Pod 是 K8s 中最小的部署和调度单元&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;一个 Pod 包含一个或多个紧密协作的容器。这些容器共享同一个网络命名空间（即共享同一个 IP 地址和端口空间）、存储卷以及运行配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628214006-z18s8il.png&#34; alt=&#34;Node 与 Pod 的关系&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;虽然一个 Pod 可以运行多个容器，但最佳实践是 &lt;strong&gt;“一个 Pod，一个主容器”&lt;/strong&gt; 。只有当容器之间高度耦合，需要共享资源才能完成特定功能时，才考虑将它们放在同一个 Pod 中。一个典型的例子就是 &lt;strong&gt;Sidecar（边车）模式&lt;/strong&gt;：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Sidecar 模式&lt;/strong&gt;：将一个辅助容器（Sidecar）与主应用容器部署在同一个 Pod 中。Sidecar 负责处理日志收集、监控、网络代理等辅助任务，从而让主应用容器更专注于核心业务逻辑。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628214423-s8n3hab.png&#34; alt=&#34;Sidecar 模式示意图&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h2&gt;2. Service：为 Pod 提供稳定的访问入口&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-service为-pod-提供稳定的访问入口&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-service%e4%b8%ba-pod-%e6%8f%90%e4%be%9b%e7%a8%b3%e5%ae%9a%e7%9a%84%e8%ae%bf%e9%97%ae%e5%85%a5%e5%8f%a3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Pod 在创建时会被 K8s 自动分配一个集群内部的 IP 地址。Pod 之间可以通过这个 IP 直接通信。然而，这带来了两个棘手的问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;访问性问题&lt;/strong&gt;：Pod 的 IP 是集群内部地址，集群外部无法直接访问。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;稳定性问题&lt;/strong&gt;：Pod 是“脆弱”的。当 Pod 发生故障或进行更新时，K8s 会销毁旧 Pod 并创建新 Pod。新 Pod 的 IP 地址会发生变化，导致依赖旧 IP 的服务调用失败。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;为了解决这些问题，K8s 引入了 &lt;strong&gt;Service (svc)&lt;/strong&gt;  资源。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Service&lt;/strong&gt; 为一组功能相同的 Pod 提供了一个统一、稳定的访问入口。它拥有一个固定的虚拟 IP（ClusterIP），并将所有发往该 IP 的请求，通过内置的负载均衡机制，智能地转发到其后端健康的 Pod 上。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628215514-n0io8bq.png&#34; alt=&#34;Service 封装 Pod&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;即使后端的 Pod 因故障被重建，IP 地址发生了变化，Service 的地址依然保持不变。它会自动发现新的健康 Pod，确保服务不中断。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628215719-6s63vvr.png&#34; alt=&#34;Service 自动转发请求&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h2&gt;3. Ingress：集群的智能流量网关&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-ingress集群的智能流量网关&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-ingress%e9%9b%86%e7%be%a4%e7%9a%84%e6%99%ba%e8%83%bd%e6%b5%81%e9%87%8f%e7%bd%91%e5%85%b3&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Service 解决了集群内部的访问问题，但如果想让外部用户访问我们的应用（例如网站前端或 API 接口），又该怎么办呢？&lt;/p&gt;
+&lt;p&gt;一种方法是使用 &lt;code&gt;NodePort&lt;/code&gt;​ 类型的 Service，它会在每个 Node 上开放一个指定的端口，并将流量转发到 Service。这样，我们就可以通过 &lt;code&gt;[Node IP]:[NodePort]&lt;/code&gt;​ 来访问服务。&lt;/p&gt;
+&lt;p&gt;这种方式在开发测试阶段尚可接受，但在生产环境中，我们更希望通过域名（如 &lt;code&gt;api.example.com&lt;/code&gt;​）来访问服务。这时，&lt;strong&gt;Ingress&lt;/strong&gt; 就派上用场了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ingress&lt;/strong&gt; 是 K8s 集群的流量入口管理器。它像一个智能的七层（HTTP/HTTPS）网关，可以根据不同的域名或 URL 路径，将外部流量转发到集群内不同的 Service。&lt;/p&gt;
+&lt;p&gt;通过 Ingress，我们可以实现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;域名路由&lt;/strong&gt;：将 &lt;code&gt;app1.example.com&lt;/code&gt;​ 指向 &lt;code&gt;service-a&lt;/code&gt;​，将 &lt;code&gt;app2.example.com&lt;/code&gt;​ 指向 &lt;code&gt;service-b&lt;/code&gt;​。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;路径路由&lt;/strong&gt;：将 &lt;code&gt;example.com/api&lt;/code&gt;​ 指向 &lt;code&gt;api-service&lt;/code&gt;​，将 &lt;code&gt;example.com/web&lt;/code&gt;​ 指向 &lt;code&gt;web-service&lt;/code&gt;​。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SSL/TLS 终止&lt;/strong&gt;：集中管理 HTTPS 证书，为服务提供加密。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;负载均衡&lt;/strong&gt;：在多个 Service 之间分配流量。&lt;/p&gt;
+&lt;p&gt;‍&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628223820-1ncd6et.png&#34; alt=&#34;Ingress 流量分发&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h2&gt;4. ConfigMap &amp;amp; Secret：解耦配置与敏感数据&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-configmap--secret解耦配置与敏感数据&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-configmap--secret%e8%a7%a3%e8%80%a6%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%95%8f%e6%84%9f%e6%95%b0%e6%8d%ae&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;为了保持应用程序的可移植性，我们应该将&lt;strong&gt;配置信息&lt;/strong&gt;与&lt;strong&gt;应用程序镜像&lt;/strong&gt;分离开。K8s 提供了两种资源来帮助我们实现这一点。&lt;/p&gt;
+&lt;h3&gt;ConfigMap：管理普通配置&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;configmap管理普通配置&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#configmap%e7%ae%a1%e7%90%86%e6%99%ae%e9%80%9a%e9%85%8d%e7%bd%ae&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;​&lt;code&gt;ConfigMap&lt;/code&gt;​ 用于存储非敏感的配置数据，如数据库地址、端口号、功能开关等。应用程序可以在运行时动态读取这些配置。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;当配置需要变更时，我们只需修改 &lt;code&gt;ConfigMap&lt;/code&gt;​ 对象并重启 Pod 即可，无需重新构建和部署整个应用程序镜像。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;Secret：管理敏感信息&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;secret管理敏感信息&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#secret%e7%ae%a1%e7%90%86%e6%95%8f%e6%84%9f%e4%bf%a1%e6%81%af&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;​&lt;code&gt;ConfigMap&lt;/code&gt;​ 中的数据是明文存储的，不适合存放密码、API 密钥等敏感信息。为此，K8s 提供了 &lt;code&gt;Secret&lt;/code&gt;​。&lt;/p&gt;
+&lt;p&gt;​&lt;code&gt;Secret&lt;/code&gt;​ 的用途和 &lt;code&gt;ConfigMap&lt;/code&gt;​ 类似，但它是专门为存储敏感数据而设计的。需要注意的是，&lt;code&gt;Secret&lt;/code&gt;​ 默认只对数据进行 Base64 编码，并非强加密。它真正的安全性来自于 K8s 的访问控制（RBAC）和网络策略，确保只有授权的 Pod 才能访问到特定的 &lt;code&gt;Secret&lt;/code&gt;​。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628230455-roq18nq.png&#34; alt=&#34;ConfigMap 与 Secret&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h2&gt;5. Volume：让容器数据不再“昙花一现”&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;5-volume让容器数据不再昙花一现&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#5-volume%e8%ae%a9%e5%ae%b9%e5%99%a8%e6%95%b0%e6%8d%ae%e4%b8%8d%e5%86%8d%e6%98%99%e8%8a%b1%e4%b8%80%e7%8e%b0&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;容器的文件系统是临时的。当容器被销毁或重启时，其中的数据也会随之丢失。这对于需要持久化数据的应用（如数据库、文件上传服务）是不可接受的。&lt;/p&gt;
+&lt;p&gt;K8s 的 &lt;strong&gt;Volume&lt;/strong&gt; 机制解决了这个问题。它允许我们将一个存储卷（Volume）挂载到 Pod 的一个或多个容器中。这个存储卷的生命周期独立于容器，可以是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;节点本地磁盘&lt;/strong&gt; (&lt;code&gt;hostPath&lt;/code&gt;​)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;云存储&lt;/strong&gt; (如 AWS EBS, GCE Persistent Disk)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络存储&lt;/strong&gt; (如 NFS, Ceph)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样，即使 Pod 被销毁重建，只要新的 Pod 挂载回同一个 Volume，数据就能得以保留。&lt;/p&gt;
+&lt;h2&gt;6. Deployment：轻松管理无状态应用&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;6-deployment轻松管理无状态应用&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#6-deployment%e8%bd%bb%e6%9d%be%e7%ae%a1%e7%90%86%e6%97%a0%e7%8a%b6%e6%80%81%e5%ba%94%e7%94%a8&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;单个 Pod 无法保证高可用。如果 Pod 所在的 Node 宕机，或者我们需要对应用进行升级，服务就会中断。&lt;/p&gt;
+&lt;p&gt;解决方案很简单：&lt;strong&gt;运行多个副本&lt;/strong&gt;。当一个副本失效时，流量可以无缝切换到其他健康副本上。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Deployment&lt;/strong&gt; 是 K8s 中用于管理&lt;strong&gt;无状态应用&lt;/strong&gt;（如 Web 服务器、API 网关）的核心控制器。它在 Pod 的基础上增加了一层强大的管理能力：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;副本控制&lt;/strong&gt;：定义并维护指定数量的 Pod 副本。如果某个 Pod 挂了，Deployment 会自动创建一个新的来替代它，始终确保运行的副本数符合预期。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;滚动更新&lt;/strong&gt;：支持平滑地升级应用版本。它会逐个用新版 Pod 替换旧版 Pod，确保在整个更新过程中服务不中断。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;回滚操作&lt;/strong&gt;：如果新版本出现问题，可以一键回滚到之前的稳定版本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628231940-8wkrdsc.png&#34; alt=&#34;Deployment 管理多个 Pod 副本&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;可以说，Deployment 是在 Pod 之上的一层抽象，它赋予了我们对应用进行生命周期管理、扩缩容和版本控制的能力。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;7. StatefulSet：有状态应用的守护神&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;7-statefulset有状态应用的守护神&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#7-statefulset%e6%9c%89%e7%8a%b6%e6%80%81%e5%ba%94%e7%94%a8%e7%9a%84%e5%ae%88%e6%8a%a4%e7%a5%9e&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;对于数据库、消息队列这类&lt;strong&gt;有状态应用&lt;/strong&gt;，Deployment 就不太适用了。因为这类应用的每个副本通常不是完全对等的，它们有自己独特的身份和持久化数据。&lt;/p&gt;
+&lt;p&gt;例如，一个主从数据库集群，主节点和从节点承担的角色不同，每个节点都有自己独立的数据存储。&lt;/p&gt;
+&lt;p&gt;为了管理这类应用，K8s 提供了 &lt;strong&gt;StatefulSet&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;StatefulSet&lt;/strong&gt; 和 Deployment 类似，也能管理 Pod 副本。但它为有状态应用提供了额外的保障：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;稳定的网络标识&lt;/strong&gt;：每个 Pod 都有一个固定的、可预测的主机名（如 &lt;code&gt;db-0&lt;/code&gt;​, &lt;code&gt;db-1&lt;/code&gt;​）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;稳定的持久化存储&lt;/strong&gt;：每个 Pod 都关联一个独立的、持久的存储卷。即使 Pod 重启，它也会被重新挂载到原来的存储卷上。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;有序的部署和伸缩&lt;/strong&gt;：Pod 会按照顺序（0, 1, 2&amp;hellip;）创建和销毁，这对于需要依赖启动顺序的集群应用至关重要。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/image-20250628235851-rho2le5.png&#34; alt=&#34;StatefulSet 管理有状态应用&#34;  loading=&#34;lazy&#34; /&gt;&lt;/p&gt;
+&lt;h2&gt;总结与思考&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;总结与思考&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#%e6%80%bb%e7%bb%93%e4%b8%8e%e6%80%9d%e8%80%83&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;我们从最基础的 &lt;strong&gt;Pod&lt;/strong&gt; 和 &lt;strong&gt;Node&lt;/strong&gt; 出发，通过 &lt;strong&gt;Service&lt;/strong&gt; 实现了稳定的服务访问，利用 &lt;strong&gt;Ingress&lt;/strong&gt; 对外暴露服务并进行流量管理。接着，我们用 &lt;strong&gt;ConfigMap&lt;/strong&gt; 和 &lt;strong&gt;Secret&lt;/strong&gt; 解耦了配置，用 &lt;strong&gt;Volume&lt;/strong&gt; 实现了数据持久化。最后，我们学习了如何用 &lt;strong&gt;Deployment&lt;/strong&gt; 管理无状态应用，以及用 &lt;strong&gt;StatefulSet&lt;/strong&gt; 驾驭复杂的有状态应用。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;一个实用的建议&lt;/strong&gt;：StatefulSet 虽然强大，但管理起来也相对复杂。在许多场景下，一种更简单、更通用的做法是将数据库这类核心有状态服务部署在 K8s 集群之外（例如使用云厂商提供的 RDS 服务），让 K8s 专注于管理无状态应用。这可以大大简化集群的架构和维护成本。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;‍&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

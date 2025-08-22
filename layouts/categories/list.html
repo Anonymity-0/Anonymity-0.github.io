@@ -1,0 +1,58 @@
+{{ define "main" }}
+<div class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+  <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+    <!-- 页面标题 -->
+    <div class="hx:mb-8">
+      <h1 class="hx:text-3xl hx:font-bold hx:text-gray-900 hx:dark:text-gray-100">分类</h1>
+    </div>
+
+    <!-- 分类网格 -->
+    <div class="hx:grid hx:grid-cols-1 hx:md:grid-cols-2 hx:lg:grid-cols-3 hx:gap-4">
+      {{ range .Site.Taxonomies.categories.ByCount }}
+      <a href="{{ .Page.Permalink }}" class="category-card hx:block hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-4 hx:hover:bg-gray-50 hx:dark:hover:bg-gray-750 hx:transition-all hx:duration-200 hx:hover:shadow-md hx:hover:border-blue-300 hx:dark:hover:border-blue-600">
+        <div class="hx:flex hx:items-center hx:gap-3 hx:mb-2">
+          <!-- 分类图标 -->
+          <div class="hx:w-8 hx:h-8 hx:bg-blue-100 hx:dark:bg-blue-900 hx:rounded hx:flex hx:items-center hx:justify-center hx:flex-shrink-0">
+            {{ if eq .Page.Title "网络安全" }}
+              <svg class="hx:w-4 hx:h-4 hx:text-red-600 hx:dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            {{ else if eq .Page.Title "高级数据库系统" }}
+              <svg class="hx:w-4 hx:h-4 hx:text-green-600 hx:dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+              </svg>
+            {{ else if eq .Page.Title "嵌入式" }}
+              <svg class="hx:w-4 hx:h-4 hx:text-purple-600 hx:dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+              </svg>
+            {{ else if eq .Page.Title "Kubernetes" }}
+              <svg class="hx:w-4 hx:h-4 hx:text-blue-600 hx:dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+              </svg>
+            {{ else if eq .Page.Title "前端开发" }}
+              <svg class="hx:w-4 hx:h-4 hx:text-yellow-600 hx:dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            {{ else }}
+              <svg class="hx:w-4 hx:h-4 hx:text-gray-600 hx:dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+              </svg>
+            {{ end }}
+          </div>
+
+          <!-- 分类名称 -->
+          <h3 class="hx:text-base hx:font-medium hx:text-gray-900 hx:dark:text-gray-100 hx:flex-1 hx:truncate">
+            {{ .Page.Title }}
+          </h3>
+
+          <!-- 文章数量 -->
+          <span class="hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:bg-gray-100 hx:dark:bg-gray-700 hx:px-2 hx:py-1 hx:rounded-full">
+            {{ .Count }}
+          </span>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </main>
+</div>
+{{ end }}

@@ -2,66 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:55783/zh-cn/</loc>
-    <lastmod>2023-10-18T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/zh-cn/</loc>
+    <lastmod>2025-06-10T18:41:31+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:55783/"
+                href="http://localhost:1313/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:55783/zh-cn/"
+                hreflang="fa"
+                href="http://localhost:1313/fa/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="http://localhost:1313/ja/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="http://localhost:1313/zh-cn/"
                 />
   </url><url>
-    <loc>http://localhost:55783/zh-cn/archives/</loc>
-    <lastmod>2023-10-18T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/zh-cn/archives/</loc>
+    <lastmod>2025-06-10T18:41:31+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:55783/archives/"
+                href="http://localhost:1313/archives/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:55783/zh-cn/archives/"
+                hreflang="zh-CN"
+                href="http://localhost:1313/zh-cn/archives/"
                 />
   </url><url>
-    <loc>http://localhost:55783/zh-cn/categories/</loc>
+    <loc>http://localhost:1313/zh-cn/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:55783/categories/"
+                href="http://localhost:1313/categories/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:55783/zh-cn/categories/"
+                hreflang="fa"
+                href="http://localhost:1313/fa/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="http://localhost:1313/ja/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="http://localhost:1313/zh-cn/categories/"
                 />
   </url><url>
-    <loc>http://localhost:55783/zh-cn/tags/</loc>
+    <loc>http://localhost:1313/zh-cn/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:55783/tags/"
+                href="http://localhost:1313/tags/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:55783/zh-cn/tags/"
+                hreflang="fa"
+                href="http://localhost:1313/fa/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="http://localhost:1313/ja/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="http://localhost:1313/zh-cn/tags/"
                 />
   </url><url>
-    <loc>http://localhost:55783/zh-cn/search/</loc>
+    <loc>http://localhost:1313/zh-cn/search/</loc>
+    <lastmod>2025-06-10T18:41:31+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:55783/search/"
+                href="http://localhost:1313/search/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
-                href="http://localhost:55783/zh-cn/search/"
+                hreflang="zh-CN"
+                href="http://localhost:1313/zh-cn/search/"
                 />
   </url>
 </urlset>

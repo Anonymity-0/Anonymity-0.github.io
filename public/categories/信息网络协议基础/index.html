@@ -1,594 +1,909 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Hello World!">
-<title>Category: 信息网络协议基础 - </title>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" />
+  <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" id="favicon-svg" />
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link fetchpriority="low" href="/site.webmanifest" rel="manifest" />
+<title>信息网络协议基础 – GAGA</title>
+  <meta name="description" content="" /><link rel="canonical" href="http://localhost:1313/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" itemprop="url" />
 
-<link rel='canonical' href='https://anonymity-0.github.io/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/'>
+<meta property="og:title" content="信息网络协议基础" />
+<meta property="og:description" content="Modern, responsive, batteries-included Hugo theme for creating beautiful static websites." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://localhost:1313/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" />
 
-<link rel="stylesheet" href="/scss/style.min.f422e1b5411823880f5c414ca9b2da02907d0b11d5abfbd5d77b8eb1433fbdd3.css"><meta property='og:title' content="Category: 信息网络协议基础 - ">
-<meta property='og:description' content="Hello World!">
-<meta property='og:url' content='https://anonymity-0.github.io/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/'>
-<meta property='og:site_name' content=''>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-05-25T14:32:17&#43;08:00 '/>
-<meta name="twitter:title" content="Category: 信息网络协议基础 - ">
-<meta name="twitter:description" content="Hello World!"><link rel="alternate" type="application/rss&#43;xml" href="https://anonymity-0.github.io/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/index.xml">
+  <meta itemprop="name" content="信息网络协议基础">
+  <meta itemprop="description" content="Modern, responsive, batteries-included Hugo theme for creating beautiful static websites.">
+  <meta itemprop="datePublished" content="2024-01-03T18:27:05+08:00">
+  <meta itemprop="dateModified" content="2024-01-03T18:27:05+08:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="信息网络协议基础">
+  <meta name="twitter:description" content="Modern, responsive, batteries-included Hugo theme for creating beautiful static websites.">
+<link href="/css/compiled/main.css" rel="stylesheet" />
+    <link href="/css/variables.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
 
-<script src="/js/code-block-enhancer.min.js" defer></script>
-    </head>
-    <body class="">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+  
 
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
+  <script>
+     
+    const defaultTheme = 'system';
 
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
+    const setDarkTheme = () => {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+    const setLightTheme = () => {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+
+    if ("color-theme" in localStorage) {
+      localStorage.getItem("color-theme") === "dark" ? setDarkTheme() : setLightTheme();
+    } else {
+      defaultTheme === "dark" ? setDarkTheme() : setLightTheme();
+      if (defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkTheme() : setLightTheme();
+      }
+    }
+  </script>
+
+  
+  
+  </head>
+<body dir="ltr"><div class="hextra-nav-container hx:sticky hx:top-0 hx:z-20 hx:w-full hx:bg-transparent hx:print:hidden">
+  <div
+    class="hextra-nav-container-blur hx:pointer-events-none hx:absolute hx:z-[-1] hx:h-full hx:w-full hx:bg-white hx:dark:bg-dark hx:shadow-[0_2px_4px_rgba(0,0,0,.02),0_1px_0_rgba(0,0,0,.06)] hx:contrast-more:shadow-[0_0_0_1px_#000] hx:dark:shadow-[0_-1px_0_rgba(255,255,255,.1)_inset] hx:contrast-more:dark:shadow-[0_0_0_1px_#fff]"
+  ></div>
+
+  <nav class="hextra-max-navbar-width hx:mx-auto hx:flex hx:items-center hx:justify-end hx:gap-2 hx:h-16 hx:px-6">
+    <a class="hx:flex hx:items-center hx:hover:opacity-75 hx:ltr:mr-auto hx:rtl:ml-auto" href="/">
+    <img class="hx:mr-2 hx:block hx:dark:hidden" src="/images/duck-logo.svg" alt="Logo" height="40" width="40" />
+    <img class="hx:mr-2 hx:hidden hx:dark:block" src="/images/duck-logo.svg" alt="Dark Logo" height="40" width="40" />
+    <span class="hx:mr-2 hx:font-extrabold hx:inline hx:select-none" title="GAGA">GAGA</span>
+</a>
+
+            <a
+              title="Documentation"
+              href="/posts"
+              
+              class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-block hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+            >
+              <span class="hx:text-center">Documentation</span>
+            </a>
+            <a
+              title="分类"
+              href="/categories"
+              
+              class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-block hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+            >
+              <span class="hx:text-center">分类</span>
+            </a>
+            <a
+              title="关于"
+              href="/about"
+              
+              class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-block hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+            >
+              <span class="hx:text-center">关于</span>
+            </a>
+            <a
+              title="归档"
+              href="/archives"
+              
+              class="hx:text-sm hx:contrast-more:text-gray-700 hx:contrast-more:dark:text-gray-100 hx:relative hx:-ml-2 hx:hidden hx:whitespace-nowrap hx:p-2 hx:md:inline-block hx:text-gray-600 hx:hover:text-gray-800 hx:dark:text-gray-400 hx:dark:hover:text-gray-200"
+            >
+              <span class="hx:text-center">归档</span>
+            </a><div class="hextra-search-wrapper hx:relative hx:md:w-64">
+  <div class="hx:relative hx:flex hx:items-center hx:text-gray-900 hx:contrast-more:text-gray-800 hx:dark:text-gray-300 hx:contrast-more:dark:text-gray-300">
+    <input
+      placeholder="Search..."
+      class="hextra-search-input hx:focus:hextra-focus hx:block hx:w-full hx:appearance-none hx:rounded-lg hx:px-3 hx:py-2 hx:transition-colors hx:text-base hx:leading-tight hx:md:text-sm hx:bg-black/[.05] hx:dark:bg-gray-50/10 hx:focus:bg-white hx:dark:focus:bg-dark hx:placeholder:text-gray-500 hx:dark:placeholder:text-gray-400 hx:contrast-more:border hx:contrast-more:border-current"
+      type="search"
+      value=""
+      spellcheck="false"
+    />
+    <kbd
+      class="hx:absolute hx:my-1.5 hx:select-none hx:ltr:right-1.5 hx:rtl:left-1.5 hx:h-5 hx:rounded-sm hx:bg-white hx:px-1.5 hx:font-mono hx:text-[10px] hx:font-medium hx:text-gray-500 hx:border hx:border-gray-200 hx:dark:border-gray-100/20 hx:dark:bg-dark/50 hx:contrast-more:border-current hx:contrast-more:text-current hx:contrast-more:dark:border-current hx:items-center hx:gap-1 hx:transition-opacity hx:pointer-events-none hx:hidden hx:sm:flex"
+    >
+      CTRL K
+    </kbd>
+  </div>
+
+  <div>
+    <ul
+      class="hextra-search-results hextra-scrollbar hx:hidden hx:border hx:border-gray-200 hx:bg-white hx:text-gray-100 hx:dark:border-neutral-800 hx:dark:bg-neutral-900 hx:absolute hx:top-full hx:z-20 hx:mt-2 hx:overflow-auto hx:overscroll-contain hx:rounded-xl hx:py-2.5 hx:shadow-xl hx:max-h-[min(calc(50vh-11rem-env(safe-area-inset-bottom)),400px)] hx:md:max-h-[min(calc(100vh-5rem-env(safe-area-inset-bottom)),400px)] hx:inset-x-0 hx:ltr:md:left-auto hx:rtl:md:right-auto hx:contrast-more:border hx:contrast-more:border-gray-900 hx:contrast-more:dark:border-gray-50 hx:w-screen hx:min-h-[100px] hx:max-w-[min(calc(100vw-2rem),calc(100%+20rem))]"
+      style="transition: max-height 0.2s ease 0s;"
+    ></ul>
+  </div>
+</div>
+
+          <a class="hx:p-2 hx:text-current" target="_blank" rel="noreferrer" href="https://github.com/imfing/hextra" title="GitHub"><svg height=24 fill="currentColor" viewBox="3 3 18 18">
+  <path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path>
+</svg>
+<span class="hx:sr-only">GitHub</span>
+          </a><button type="button" aria-label="Menu" class="hextra-hamburger-menu hx:cursor-pointer hx:-mr-2 hx:rounded-sm hx:p-2 hx:active:bg-gray-400/20 hx:md:hidden"><svg height=24 fill="none" viewBox="0 0 24 24" stroke="currentColor"><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8H20"></path></g><g><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16H20"></path></g></svg></button>
+  </nav>
+</div>
+
+<div class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+  <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+    
+    <div class="hx:mb-8">
+      <div class="hx:flex hx:items-center hx:gap-3 hx:mb-4">
+        <a href="/categories/" class="hx:text-blue-600 hx:dark:text-blue-400 hx:hover:text-blue-800 hx:dark:hover:text-blue-300 hx:transition-colors">
+          <svg class="hx:w-5 hx:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </a>
+        <h1 class="hx:text-3xl hx:font-bold hx:text-gray-900 hx:dark:text-gray-100">信息网络协议基础</h1>
+        <span class="hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:bg-gray-100 hx:dark:bg-gray-700 hx:px-3 hx:py-1 hx:rounded-full">
+          9 篇文章
         </span>
-    </button>
-
-    <header class="sidebar-header">
-        
-        <div class="avatar-section">
-            
-                
-                <figure class="site-avatar">
-                    <a href="/about" class="avatar-link">
-                    
-                        
-                        
-                        
-                            
-                            <img src="/img/avatar_hu_ef61da91681fc5f7.png" width="300"
-                                height="271" class="site-logo" loading="lazy" alt="Avatar">
-                        
-                    
-                    </a>
-                    
-                        <span class="emoji">🍚</span>
-                    
-                </figure>
-                
-            
-        </div>
-        
-        <div class="blog-title">
-            <h1 class="site-name"><a href="/">AGA&#39;s Blog</a></h1>
-        </div>
-        
-        <div class="site-meta">
-            <h2 class="site-description">Hello World!</h2>
-        </div>
-    </header><ol class="menu" id="main-menu">
-        
-        
-        
-        
-            
-        
-        <li  data-menu-item="首页">
-            <a href='/'  class="menu-link">
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="5 12 3 12 12 3 21 12 19 12" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>
-
-
-
-                
-                <span>首页</span>
-            </a>
-        </li>
-        
-        
-        
-            
-        
-        <li  data-menu-item="归档">
-            <a href='/archives/'  class="menu-link">
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>归档</span>
-            </a>
-        </li>
-        
-        
-        
-            
-        
-        <li  class='current'  data-menu-item="分类">
-            <a href='/categories/'  class="menu-link">
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-                
-                <span>分类</span>
-            </a>
-        </li>
-        
-        
-        
-            
-        
-        <li  data-menu-item="搜索">
-            <a href='/search/'  class="menu-link">
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>搜索</span>
-            </a>
-        </li>
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                <form action="/search/" class="search-form widget" >
-        <p>
-            <label>Search</label>
-            <input name="keyword" required placeholder="Type something..." />
-        
-            <button title="Search">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-            </button>
-        </p>
-    </form>
-            
-        
-            
-                <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">Archives</h2>
-
-        
-        
-        
-        
-        
-        <div class="widget-archive--list">
-            <div class="archives-year">
-                    <a href="/archives/#2025">
-                        
-                            <span class="year">2025</span>
-                            <span class="count">1</span>
-                        
-                    </a> 
-                </div>
-            <div class="archives-year">
-                    <a href="/archives/#2024">
-                        
-                            <span class="year">2024</span>
-                            <span class="count">16</span>
-                        
-                    </a> 
-                </div>
-            <div class="archives-year">
-                    <a href="/archives/#2023">
-                        
-                            <span class="year">2023</span>
-                            <span class="count">24</span>
-                        
-                    </a> 
-                </div>
-            <div class="archives-year">
-                    <a href="/archives/#0001">
-                        
-                            <span class="year">0001</span>
-                            <span class="count">1</span>
-                        
-                    </a> 
-                </div>
-            
-        </div>
-    </section>
-            
-        
-            
-                <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
+      </div>
+      
+      
     </div>
-    <h2 class="widget-title section-title">Categories</h2>
 
-    <div class="tagCloud-tags">
-        
-            <a href="/categories/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/" class="font_size_9">
-                信息网络协议基础
-            </a>
-        
-            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="font_size_9">
-                网络安全
-            </a>
-        
-            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="font_size_6">
-                计算机网络基础知识
-            </a>
-        
-            <a href="/categories/%E9%AB%98%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="font_size_5">
-                高级数据库系统
-            </a>
-        
-            <a href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" class="font_size_4">
-                杂七杂八
-            </a>
-        
-            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" class="font_size_2">
-                技术分享
-            </a>
-        
-            <a href="/categories/%E9%AB%98%E7%BA%A7%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="font_size_2">
-                高级计算机网络
-            </a>
-        
-            <a href="/categories/%E4%BB%BF%E7%9C%9F/" class="font_size_1">
-                仿真
-            </a>
-        
-            <a href="/categories/%E5%88%86%E7%B1%BB/" class="font_size_1">
-                分类
-            </a>
-        
-            <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="font_size_1">
-                嵌入式
-            </a>
-        
-    </div>
-</section>
-
+    
+    <div class="hx:space-y-6">
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信息网络协议基础第六章复习
+              </a>
+            </h2>
             
-        
             
-                <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
-
-
-
-    </div>
-    <h2 class="widget-title section-title">Tags</h2>
-
-    <div class="tagCloud-tags">
-        
-            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="font_size_30">
-                学习笔记
-            </a>
-        
-            <a href="/tags/hugo/" class="font_size_2">
-                Hugo
-            </a>
-        
-            <a href="/tags/%E5%89%8D%E7%AB%AF/" class="font_size_2">
-                前端
-            </a>
-        
-            <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" class="font_size_2">
-                论文笔记
-            </a>
-        
-            <a href="/tags/code/" class="font_size_1">
-                Code
-            </a>
-        
-            <a href="/tags/lab/" class="font_size_1">
-                Lab
-            </a>
-        
-            <a href="/tags/%E4%BC%98%E5%8C%96/" class="font_size_1">
-                优化
-            </a>
-        
-            <a href="/tags/%E6%B5%8B%E8%AF%95/" class="font_size_1">
-                测试
-            </a>
-        
-    </div>
-</section>
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <h2>路由器功能与架构<span class="hx:absolute hx:-mt-20" id="路由器功能与架构"></span>
+    <a href="#%e8%b7%af%e7%94%b1%e5%99%a8%e5%8a%9f%e8%83%bd%e4%b8%8e%e6%9e%b6%e6%9e%84" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>数据路径功能
+<ul>
+<li>根据分组目的IP地址查找转发表</li>
+<li>通过交换结构转发到输出端口</li>
+<li>输出端口调度和队列管理</li>
+</ul>
+</li>
+<li>控制面功能
+<ul>
+<li>运行路由协议，构建路由表</li>
+<li>系统配置和管理</li>
+</ul>
+</li>
+</ul>
+<h2>路由查找算法<span class="hx:absolute hx:-mt-20" id="路由查找算法"></span>
+    <a href="#%e8%b7%af%e7%94%b1%e6%9f%a5%e6%89%be%e7%ae%97%e6%b3%95" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>Binary Trie<span class="hx:absolute hx:-mt-20" id="binary-trie"></span>
+    <a href="#binary-trie" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>![[Pasted image 20240102174052.png]]
+![[Pasted image 20240102174131.png]]</p>
+            </p>
             
-        
-    </aside>
-
-
-            <main class="main full-width">
-    <header>
-        <h3 class="section-title">
             
-                Categories
             
-        </h3>
-
-        <div class="section-card">
-            <div class="section-details">
-                <h3 class="section-count">9 pages</h3>
-                <h1 class="section-term">信息网络协议基础</h1>
-                
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2024-01-03">
+                  2024年01月03日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>4 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>1825 字</span>
+              </div>
+              
             </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
         </div>
-    </header>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信息网络协议基础第五章复习
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <p>•基本概念</p>
+<p>–QoS度量参数；流、行为集合、服务等级协议</p>
+<h2>基本概念<span class="hx:absolute hx:-mt-20" id="基本概念"></span>
+    <a href="#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>QoS度量参数<span class="hx:absolute hx:-mt-20" id="qos度量参数"></span>
+    <a href="#qos%e5%ba%a6%e9%87%8f%e5%8f%82%e6%95%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>常用的描述QoS需求的参数包括：带宽、延迟、延迟抖动、突发（峰值）速率、最大突发长度、丢包率</p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2024-01-02">
+                  2024年01月02日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>5 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>2294 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信息网络协议基础第三章复习
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <h2><span class="hx:absolute hx:-mt-20" id=""></span>
+    <a href="#" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>CIDR<span class="hx:absolute hx:-mt-20" id="cidr"></span>
+    <a href="#cidr" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>•CIDR：Classless Inter-Domain Routing，无类别域间寻路</p>
+<ul>
+<li>目前Internet采用的IP地址分配方式，1990年代由IETF提出，取代早期的有类别的地址分配方式</li>
+<li>
+<ul>
+<li>采用可变长度的网络前缀(network prefix)来取代地址分类中网络号长度固定的做法</li>
+</ul>
+</li>
+<li>具有相同前缀的IP地址组成CIDR Block，表示为A.B.C.D/N，其中N为前缀长度</li>
+<li>例如202.38.208.0/20</li>
+</ul>
+<h4>前缀汇聚(Supernetting)<span class="hx:absolute hx:-mt-20" id="前缀汇聚supernetting"></span>
+    <a href="#%e5%89%8d%e7%bc%80%e6%b1%87%e8%81%9asupernetting" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>前缀汇聚举例
+8个连续的/24的CIDR Block可以用一个/21的CIDR Block来表示，因此对外汇聚成一条/21的路由
+200.25.16.0/24<del>200.25.23.0/24&ndash;〉<br>
+(0001 0000</del>0001 0111)<br>
+200.25.16.0/21</p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2024-01-02">
+                  2024年01月02日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>9 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>4223 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信息网络协议基础第四章复习
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <h2>移动切换<span class="hx:absolute hx:-mt-20" id="移动切换"></span>
+    <a href="#%e7%a7%bb%e5%8a%a8%e5%88%87%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>两种切换情况
+<ul>
+<li>切换涉及的AP在同一个网络中-链路层切换
+<ul>
+<li>链路层切换不改变IP地址，执行链路层操作</li>
+<li><font color="#ff0000">不改变五元组，对应用会话无影响</font></li>
+</ul>
+</li>
+<li>切换涉及的AP在不同的网络中-网络层切换
+<ul>
+<li>不同网络不同AP之间的切换首先执行链路层切换，再执行网络层切换，进行网络相关参数配置</li>
+<li><font color="#ff0000">移动节点IP地址发生变化</font></li>
+<li>如何消除切换对应用会话的影响？
+<ul>
+<li>应用层解决方案：需要应用支持，本质上是重新建立IP会话</li>
+<li>网络层解决方案：需要增强网络协议，对应用透明</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>应用会话大多通过五元组来标识
+<ul>
+<li>&lt;源/目的IP地址、协议、源/目的端口号&gt;</li>
+<li>不同的五元组对应着不同的应用会话</li>
+</ul>
+</li>
+</ul>
+<h2>移动IPv6<span class="hx:absolute hx:-mt-20" id="移动ipv6"></span>
+    <a href="#%e7%a7%bb%e5%8a%a8ipv6" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><p>– 基本原理、如何对上层应用屏蔽移动性？</p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2024-01-02">
+                  2024年01月02日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>2 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>777 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信息网络协议基础第二章复习
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <h2>接入网<span class="hx:absolute hx:-mt-20" id="接入网"></span>
+    <a href="#%e6%8e%a5%e5%85%a5%e7%bd%91" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>用来把用户网络或者设备接入到Internet的网络</li>
+<li>也被称为最后1公里接入</li>
+<li>宽带接入成为主流（FCC [2010]: 4Mbps downstream/1Mbps upstream)</li>
+<li>DSL、Cable、Fibre、Wireless Broadband (Fixed/Mobile)</li>
+</ul>
+<h3>常用接入网类型<span class="hx:absolute hx:-mt-20" id="常用接入网类型"></span>
+    <a href="#%e5%b8%b8%e7%94%a8%e6%8e%a5%e5%85%a5%e7%bd%91%e7%b1%bb%e5%9e%8b" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<li>基于ATM架构类
+<ul>
+<li>传统电信网络：<font color="#ff0000">点对点</font></li>
+<li>DSL（数字用户线路）
+<ul>
+<li>对称DSL
+<ul>
+<li>下行和上行速率相同SHDSL(利用了话音带宽）</li>
+</ul>
+</li>
+<li>非对称DSL
+<ul>
+<li>下行速率一般大于上行速率</li>
+<li>ADSL</li>
+<li>ADSL2+:</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于IEEE 802参考模型的局域网架构类
+<ul>
+<li>新兴IP网络：<font color="#ff0000">共享</font></li>
+<li>以太网（802.3）、无线局域网（802.11）、甚至包括无线城域网（802.16）</li>
+</ul>
+</li>
+<li>光纤接入类
+<ul>
+<li>基于ATM：APON、GPON</li>
+<li>基于以太网：EPON</li>
+</ul>
+</li>
+</ul>
+<h2>ATM<span class="hx:absolute hx:-mt-20" id="atm"></span>
+    <a href="#atm" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>概述<span class="hx:absolute hx:-mt-20" id="概述"></span>
+    <a href="#%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<li>
+<p>ATM： Asynchronous Transfer Mode，异步传输模式</p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2024-01-02">
+                  2024年01月02日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>14 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>6824 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信息网络协议基础第一章复习
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <h2>交换技术<span class="hx:absolute hx:-mt-20" id="交换技术"></span>
+    <a href="#%e4%ba%a4%e6%8d%a2%e6%8a%80%e6%9c%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ul>
+<li>交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）- 原理 特点</li>
+</ul>
+<h3>为什么需要交换？<span class="hx:absolute hx:-mt-20" id="为什么需要交换"></span>
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e4%ba%a4%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>减少网络中节点之间所需的通信线路
+增强可扩展性,构建更大规模网络</p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2024-01-02">
+                  2024年01月02日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>5 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>2315 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%8F%90%E7%BA%B2/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信息网络复习提纲
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <ul>
+<li>
+<p>题型：简答题问答题</p>
+</li>
+<li>
+<p>往年题合集： <a href="https://github.com/Anonymity-0/Anonymity-0.github.io/blob/main/content/posts/%e4%bf%a1%e7%bd%91%e6%9c%9f%e6%9c%ab%e5%a4%8d%e4%b9%a0/2021%e4%bf%a1%e7%bd%91%e5%a4%8d%e4%b9%a0%281%29.zip" target="_blank" rel="noopener">试卷合集</a></p>
+</li>
+<li>
+<p>整理的小抄：<a href="https://github.com/Anonymity-0/Anonymity-0.github.io/blob/main/content/posts/%e4%bf%a1%e7%bd%91%e6%9c%9f%e6%9c%ab%e5%a4%8d%e4%b9%a0/%e4%bf%a1%e7%bd%91%e5%b0%8f%e6%8a%84.docx" target="_blank" rel="noopener">A4小抄</a></p>
+</li>
+</ul>
+<h2>第一章 信息网络概述<span class="hx:absolute hx:-mt-20" id="第一章-信息网络概述"></span>
+    <a href="#%e7%ac%ac%e4%b8%80%e7%ab%a0-%e4%bf%a1%e6%81%af%e7%bd%91%e7%bb%9c%e6%a6%82%e8%bf%b0" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>﻿交换技术<span class="hx:absolute hx:-mt-20" id="交换技术"></span>
+    <a href="#%e4%ba%a4%e6%8d%a2%e6%8a%80%e6%9c%af" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><ul>
+<li>交换、电路交换、分组交换（虚电路交换ATM、数据报交换IP）
+<ul>
+<li>原理 特点</li>
+</ul>
+</li>
+</ul>
+<h4>为什么需要交换？<span class="hx:absolute hx:-mt-20" id="为什么需要交换"></span>
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e4%ba%a4%e6%8d%a2" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p>减少网络中节点之间所需的通信线路
+增强可扩展性,构建更大规模网络</p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2024-01-02">
+                  2024年01月02日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>3 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>1289 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信网实验2
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <h2>基本操作<span class="hx:absolute hx:-mt-20" id="基本操作"></span>
+    <a href="#%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><h3>查看并记录 HostA 和 S 的 IPv6(ens5 scope:link) 地址<span class="hx:absolute hx:-mt-20" id="查看并记录-hosta-和-s-的-ipv6ens5-scopelink-地址"></span>
+    <a href="#%e6%9f%a5%e7%9c%8b%e5%b9%b6%e8%ae%b0%e5%bd%95-hosta-%e5%92%8c-s-%e7%9a%84-ipv6ens5-scopelink-%e5%9c%b0%e5%9d%80" class="subheading-anchor" aria-label="Permalink for this section"></a></h3><p>命令 <code>ifconfig ens5</code>。
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.ldpjzb9l5jk.webp" alt="image"  loading="lazy" />
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.1xxjljjl8azk.webp" alt="image"  loading="lazy" /></p>
+<h4>命令解释<span class="hx:absolute hx:-mt-20" id="命令解释"></span>
+    <a href="#%e5%91%bd%e4%bb%a4%e8%a7%a3%e9%87%8a" class="subheading-anchor" aria-label="Permalink for this section"></a></h4><p><code>ifconfig</code>是一个用于配置和显示Linux操作系统网络接口信息的命令。当执行<code>ifconfig ens5</code>命令时，它会显示ens5网络接口的配置信息，包括IP地址、子网掩码、MAC地址、数据包统计等。</p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2023-11-20">
+                  2023年11月20日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>10 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>4936 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="http://localhost:1313/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                信网实验1
+              </a>
+            </h2>
+            
+            
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              <h1>实验内容</h1><h2>arp<span class="hx:absolute hx:-mt-20" id="arp"></span>
+    <a href="#arp" class="subheading-anchor" aria-label="Permalink for this section"></a></h2><ol>
+<li>
+<p><strong>在 HostA 和 HostB 中分别打开一个终端用于本实验。</strong></p>
+</li>
+<li>
+<p><strong>在 HostA 和 HostB 中分别执行命令<code>ifconfig ens5</code>，查看并记录它们各自的IPv4 地址。执行命令 <code>ifconfig ens6</code> 查看 IPv6 地址 (global 和 link 两种) 以及以太网接口的物理地址。</strong>
+<strong>截图：</strong>
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2dh0lur8qhkw.png" alt="image"  loading="lazy" />
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.5s8kni5d7b7k.webp" alt="image"  loading="lazy" />
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.2i1qwanl02dc.webp" alt="image"  loading="lazy" />
+<img src="https://cdn.statically.io/gh/Anonymity-0/Picgo@note_picture/img/image.37tkn71qiu4g.webp" alt="image"  loading="lazy" /></p>
+            </p>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="2023-11-07">
+                  2023年11月07日
+                </time>
+              </div>
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>7 分钟阅读</span>
+              </div>
+              
+              
+              
+              
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>3119 字</span>
+              </div>
+              
+            </div>
+            
+            
+            
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                学习笔记
+              </a>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+      
+    </div>
     
-    <section class="article-list--compact">
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%85%AD%E7%AB%A0/">
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第六章复习</h2>
-            <footer class="article-time">
-                <time datetime='2024-01-03T18:27:05&#43;08:00'>Jan 03, 2024</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E7%AB%A0/">
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第五章复习</h2>
-            <footer class="article-time">
-                <time datetime='2024-01-02T18:27:05&#43;08:00'>Jan 02, 2024</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E7%AB%A0/">
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第三章复习</h2>
-            <footer class="article-time">
-                <time datetime='2024-01-02T16:12:05&#43;08:00'>Jan 02, 2024</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0-ip%E7%BD%91%E7%BB%9C%E7%A7%BB%E5%8A%A8%E7%AE%A1%E7%90%86/">
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第四章复习</h2>
-            <footer class="article-time">
-                <time datetime='2024-01-02T13:27:05&#43;08:00'>Jan 02, 2024</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E7%AB%A0/">
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第二章复习</h2>
-            <footer class="article-time">
-                <time datetime='2024-01-02T11:54:05&#43;08:00'>Jan 02, 2024</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E7%AB%A0/">
-        <div class="article-details">
-            <h2 class="article-title">信息网络协议基础第一章复习</h2>
-            <footer class="article-time">
-                <time datetime='2024-01-02T08:27:05&#43;08:00'>Jan 02, 2024</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/%E4%BF%A1%E6%81%AF%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A0%E6%8F%90%E7%BA%B2/">
-        <div class="article-details">
-            <h2 class="article-title">信息网络复习提纲</h2>
-            <footer class="article-time">
-                <time datetime='2024-01-02T00:27:05&#43;08:00'>Jan 02, 2024</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C2/">
-        <div class="article-details">
-            <h2 class="article-title">信网实验2</h2>
-            <footer class="article-time">
-                <time datetime='2023-11-20T10:27:05&#43;08:00'>Nov 20, 2023</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-            <article>
-    <a href="/posts/%E4%BF%A1%E7%BD%91%E5%AE%9E%E9%AA%8C1/">
-        <div class="article-details">
-            <h2 class="article-title">信网实验1</h2>
-            <footer class="article-time">
-                <time datetime='2023-11-07T12:46:21&#43;08:00'>Nov 07, 2023</time>
-            </footer>
-        </div>
-    </a>
-</article>
-        
-    </section>
-<footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-            2020 - 
-        
-        2025 
-    </section>
     
-    <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
-    </section>
-</footer>
+    
+  </main>
+</div>
 
 
-            </main>
-        </div>
-        
-        
-        <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m18 15-6-6-6 6"/>
-            </svg>
-        </button>
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const backToTopButton = document.getElementById('back-to-top');
-                if (!backToTopButton) return;
+<script src="/js/navbar-enhancement.js"></script>
 
-                
-                const toggleBackToTop = function() {
-                    if (window.pageYOffset > 300) {
-                        backToTopButton.classList.add('show');
-                    } else {
-                        backToTopButton.classList.remove('show');
-                    }
-                };
-
-                
-                const scrollToTop = function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                };
-
-                
-                window.addEventListener('scroll', toggleBackToTop);
-                backToTopButton.addEventListener('click', scrollToTop);
-
-                
-                toggleBackToTop();
-            });
-        </script><script type="text/javascript" src="/ts/menuEffects.js" defer></script><script type="text/javascript" src="/js/force-white-background.min.js"></script>
-        
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.87d72694fb97c84cb5cbf9b1a64d476a38e04a5706618a6ffe5b89c7db00488f.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-    }());
-</script>
-
-    </body>
+      <footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent"><div class="hextra-custom-footer hextra-max-footer-width hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400"></div><div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-center hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-start"
+    >
+      <div class="hx:flex hx:w-full hx:flex-col hx:items-center hx:sm:items-start"><div class="hx:font-semibold"><a class="hx:flex hx:text-sm hx:items-center hx:gap-1 hx:text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+    <span>Powered by Hextra<svg height=1em class="hx:inline-block hx:ltr:ml-1 hx:rtl:mr-1 hx:align-[-2.5px]" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="m 105.50024,22.224647 c -9.59169,-5.537563 -21.40871,-5.537563 -31.000093,0 L 39.054693,42.689119 C 29.463353,48.226675 23.55484,58.460531 23.55484,69.535642 v 40.928918 c 0,11.07542 5.908513,21.3092 15.499853,26.84652 l 35.445453,20.46446 c 9.591313,5.53732 21.408404,5.53732 31.000094,0 l 35.44507,-20.46446 c 9.59131,-5.53732 15.49985,-15.7711 15.49985,-26.84652 V 69.535642 c 0,-11.075111 -5.90854,-21.308967 -15.49985,-26.846523 z M 34.112797,85.737639 c -1.384445,2.397827 -1.384445,5.352099 0,7.749927 l 24.781554,42.922974 c 1.38437,2.39783 3.942853,3.87496 6.711592,3.87496 h 49.563107 c 2.76905,0 5.3273,-1.47713 6.71144,-3.87496 l 24.78194,-42.922974 c 1.38414,-2.397828 1.38414,-5.3521 0,-7.749927 L 121.88049,42.814746 c -1.38414,-2.397828 -3.94239,-3.874964 -6.71144,-3.874964 H 65.605944 c -2.768739,0 -5.327223,1.477059 -6.711592,3.874964 z" style="stroke-width:0.774993" /></svg></span>
+  </a></div><div class="hx:mt-6 hx:text-xs">© 2025 Hextra Project.</div></div>
+    </div></footer>
+    
+    <script defer src="/js/main.js" integrity=""></script>
+<script defer src="/js/flexsearch.9f5b5908f93ae86f1ecd4b043b799f580c2d1654e703dd9357d568ac41b2547a.js" integrity="sha256-n1tZCPk66G8ezUsEO3mfWAwtFlTnA92TV9VorEGyVHo=" crossorigin="anonymous"></script>
+        <script defer src="/en.search.js" integrity=""></script>
+  </body>
 </html>

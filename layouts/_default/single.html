@@ -1,46 +1,151 @@
-{{ define "body-class" }}
-    article-page
-    {{/* 
-        Enable the right sidebar if
-            - Widget different from 'TOC' is enabled
-            - TOC is enabled and not empty
-    */}}
-    {{- $HasWidgetNotTOC := false -}}
-    {{- $TOCWidgetEnabled := false -}}
-    {{- range .Site.Params.widgets.page -}}
-        {{- if ne .type "toc" -}}
-            {{ $HasWidgetNotTOC = true -}}
-        {{- else -}}
-            {{ $TOCWidgetEnabled = true -}}
-        {{- end -}}
-    {{- end -}}
-
-    {{- $TOCManuallyDisabled := eq .Params.toc false -}}
-    {{- $TOCEnabled := and (not $TOCManuallyDisabled) $TOCWidgetEnabled -}}
-    {{- $hasTOC := ge (len .TableOfContents) 100 -}}
-    {{- .Scratch.Set "TOCEnabled" (and $TOCEnabled $hasTOC) -}}
-    
-    {{- .Scratch.Set "hasWidget" (or $HasWidgetNotTOC (and $TOCEnabled $hasTOC)) -}}
-{{ end }}
-
 {{ define "main" }}
-    {{ partial "article/article.html" . }}
-
-    {{ if .Params.links }}
-        {{ partial "article/components/links" . }}
+<div class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+  <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+    <br class="hx:mt-1.5 hx:text-sm" />
+    
+    <!-- 文章标题 -->
+    <h1 class="hx:text-center hx:mt-2 hx:text-4xl hx:font-bold hx:tracking-tight hx:text-slate-900 hx:dark:text-slate-100">{{ .Title }}</h1>
+    
+    <!-- 文章元信息 -->
+    <div class="hx:flex hx:justify-center hx:mt-6 hx:mb-8">
+      <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-600 hx:dark:text-gray-400">
+        <!-- 发布日期 -->
+        <div class="hx:flex hx:items-center hx:gap-1">
+          <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">
+            {{ .Date.Format "2006年01月02日" }}
+          </time>
+        </div>
+        
+        <!-- 分类 -->
+        {{ if .Params.categories }}
+        <div class="hx:flex hx:items-center hx:gap-1">
+          <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+          </svg>
+          <a href="/categories/{{ index .Params.categories 0 | urlize }}/" class="hx:hover:text-blue-600 hx:dark:hover:text-blue-400">
+            {{ index .Params.categories 0 }}
+          </a>
+        </div>
+        {{ end }}
+        
+        <!-- 字数统计 -->
+        {{ if .WordCount }}
+        <div class="hx:flex hx:items-center hx:gap-1">
+          <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span>{{ .WordCount }} 字</span>
+        </div>
+        {{ end }}
+        
+        <!-- 阅读时间 -->
+        {{ if .ReadingTime }}
+        <div class="hx:flex hx:items-center hx:gap-1">
+          <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>{{ .ReadingTime }} 分钟阅读</span>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    
+    <!-- 标签 -->
+    {{ if .Params.tags }}
+    <div class="hx:flex hx:justify-center hx:mb-8">
+      <div class="hx:flex hx:flex-wrap hx:gap-2">
+        {{ range .Params.tags }}
+        <a href="/tags/{{ . | urlize }}/" class="hx:inline-flex hx:items-center hx:px-3 hx:py-1 hx:rounded-full hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+          {{ . }}
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+    
+    <div class="hx:mb-16"></div>
+    
+    <!-- 文章内容 -->
+    <div class="content article-content">
+      {{ .Content }}
+    </div>
+    
+    <!-- 相关文章 -->
+    {{ if .Params.categories }}
+    {{ $currentCategory := index .Params.categories 0 }}
+    {{ $relatedPosts := where .Site.RegularPages "Params.categories" "intersect" (slice $currentCategory) }}
+    {{ $relatedPosts := where $relatedPosts "Permalink" "!=" .Permalink }}
+    {{ if gt (len $relatedPosts) 0 }}
+    <div class="hx:mt-16 hx:pt-8 hx:border-t hx:border-gray-200 hx:dark:border-gray-700">
+      <h3 class="hx:text-xl hx:font-semibold hx:text-gray-900 hx:dark:text-gray-100 hx:mb-6">相关文章</h3>
+      <div class="hx:grid hx:gap-4 hx:md:grid-cols-2 hx:lg:grid-cols-3">
+        {{ range first 6 $relatedPosts }}
+        <article class="hx:group hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-4 hx:hover:shadow-md hx:hover:border-blue-300 hx:dark:hover:border-blue-600 hx:transition-all hx:duration-200">
+          <h4 class="hx:text-base hx:font-medium hx:mb-2">
+            <a href="{{ .Permalink }}" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors hx:duration-200 hx:line-clamp-2">
+              {{ .Title }}
+            </a>
+          </h4>
+          <div class="hx:flex hx:items-center hx:gap-3 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+            <div class="hx:flex hx:items-center hx:gap-1">
+              <svg class="hx:w-3.5 hx:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <time datetime="{{ .Date.Format "2006-01-02" }}">
+                {{ .Date.Format "01月02日" }}
+              </time>
+            </div>
+            {{ if .WordCount }}
+            <div class="hx:flex hx:items-center hx:gap-1">
+              <svg class="hx:w-3.5 hx:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <span>{{ .WordCount }} 字</span>
+            </div>
+            {{ end }}
+          </div>
+        </article>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
     {{ end }}
 
-    {{ partial "article/components/related-articles-bottom" . }}
-     
-    {{ if not (eq .Params.comments false) }}
-        {{ partial "comments/include" . }}
-    {{ end }}
+    <!-- 文章底部信息 -->
+    <div class="hx:mt-16 hx:pt-8 hx:border-t hx:border-gray-200 hx:dark:border-gray-700">
+      <div class="hx:flex hx:flex-wrap hx:justify-between hx:items-center hx:gap-4">
+        <!-- 更新时间 -->
+        {{ if .Lastmod }}
+        <div class="hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+          最后更新：{{ .Lastmod.Format "2006年01月02日" }}
+        </div>
+        {{ end }}
 
-    {{ partialCached "footer/footer" . }}
+        <!-- 分享按钮 -->
+        <div class="hx:flex hx:items-center hx:gap-2">
+          <span class="hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">分享：</span>
+          <a href="https://twitter.com/intent/tweet?text={{ .Title }}&url={{ .Permalink }}" target="_blank" rel="noopener" class="hx:p-2 hx:text-gray-500 hx:hover:text-blue-500 hx:transition-colors hx:duration-200">
+            <svg class="hx:w-5 hx:h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+          <button onclick="navigator.share ? navigator.share({title: '{{ .Title }}', url: '{{ .Permalink }}'}) : navigator.clipboard.writeText('{{ .Permalink }}')" class="hx:p-2 hx:text-gray-500 hx:hover:text-green-500 hx:transition-colors hx:duration-200">
+            <svg class="hx:w-5 hx:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
 
-    {{ partialCached "article/components/photoswipe" . }}
-{{ end }}
+<!-- 悬浮目录 -->
+{{ partial "toc-floating.html" . }}
 
-{{ define "right-sidebar" }}
-    {{ if .Scratch.Get "hasWidget" }}{{ partial "sidebar/right.html" (dict "Context" . "Scope" "page") }}{{ end}}
+<!-- 导航栏增强脚本 -->
+<script src="/js/navbar-enhancement.js"></script>
 {{ end }}

@@ -1,0 +1,54 @@
+baseurl: "https://anonymity-0.github.io"
+languageCode: "zh-cn" 
+title: "AGA's Blog"
+DefaultContentLanguage: "zh-cn"
+
+params:
+  description: "Hello World!"
+  
+  # 导航菜单
+  navbar:
+    displayTitle: true
+    displayLogo: false
+
+  footer:
+    displayCopyright: true
+    displayPoweredBy: false
+
+  editPage:
+    enable: false
+
+  search:
+    enable: true
+    type: flexsearch
+
+  blog:
+    list:
+      displayTags: true
+      displayDate: true
+      
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+menu:
+  main:
+    - name: "首页"
+      url: "/"
+      weight: 1
+    - name: "归档"  
+      url: "/posts/"
+      weight: 2
+    - name: "分类"
+      url: "/categories/"
+      weight: 3

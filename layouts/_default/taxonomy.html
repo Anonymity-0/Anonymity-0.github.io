@@ -1,0 +1,108 @@
+{{- define "main" -}}
+<div class="hx:w-full hx:break-words hx:flex hx:min-h-[calc(100vh-var(--navbar-height))] hx:min-w-0 hx:justify-center hx:pb-8 hx:pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+  <main class="hx:w-full hx:min-w-0 hx:max-w-6xl hx:px-6 hx:pt-4 hx:md:px-12">
+    <!-- 分类标题 -->
+    <div class="hx:mb-8">
+      <div class="hx:flex hx:items-center hx:gap-3 hx:mb-4">
+        <a href="/categories/" class="hx:text-blue-600 hx:dark:text-blue-400 hx:hover:text-blue-800 hx:dark:hover:text-blue-300 hx:transition-colors">
+          <svg class="hx:w-5 hx:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </a>
+        <h1 class="hx:text-3xl hx:font-bold hx:text-gray-900 hx:dark:text-gray-100">{{ .Title }}</h1>
+        <span class="hx:text-sm hx:text-gray-500 hx:dark:text-gray-400 hx:bg-gray-100 hx:dark:bg-gray-700 hx:px-3 hx:py-1 hx:rounded-full">
+          {{ len .Pages }} 篇文章
+        </span>
+      </div>
+      
+      {{ if .Params.description }}
+      <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:text-lg">{{ .Params.description }}</p>
+      {{ end }}
+    </div>
+
+    <!-- 文章列表 -->
+    <div class="hx:space-y-6">
+      {{ range .Pages }}
+      <article class="hx:bg-white hx:dark:bg-gray-800 hx:border hx:border-gray-200 hx:dark:border-gray-700 hx:rounded-lg hx:p-6 hx:hover:shadow-md hx:transition-all hx:duration-200">
+        <div class="hx:flex hx:flex-col hx:md:flex-row hx:gap-4">
+          <!-- 文章内容 -->
+          <div class="hx:flex-1">
+            <h2 class="hx:text-xl hx:font-semibold hx:mb-2">
+              <a href="{{ .Permalink }}" class="hx:text-gray-900 hx:dark:text-gray-100 hx:hover:text-blue-600 hx:dark:hover:text-blue-400 hx:transition-colors">
+                {{ .Title }}
+              </a>
+            </h2>
+            
+            {{ if .Summary }}
+            <p class="hx:text-gray-600 hx:dark:text-gray-400 hx:mb-3 hx:line-clamp-2">
+              {{ .Summary }}
+            </p>
+            {{ end }}
+            
+            <!-- 文章元信息 -->
+            <div class="hx:flex hx:flex-wrap hx:items-center hx:gap-4 hx:text-sm hx:text-gray-500 hx:dark:text-gray-400">
+              <!-- 发布日期 -->
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <time datetime="{{ .Date.Format "2006-01-02" }}">
+                  {{ .Date.Format "2006年01月02日" }}
+                </time>
+              </div>
+              
+              <!-- 阅读时间 -->
+              {{ if .ReadingTime }}
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>{{ .ReadingTime }} 分钟阅读</span>
+              </div>
+              {{ end }}
+              
+              <!-- 字数统计 -->
+              {{ if .WordCount }}
+              <div class="hx:flex hx:items-center hx:gap-1">
+                <svg class="hx:w-4 hx:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <span>{{ .WordCount }} 字</span>
+              </div>
+              {{ end }}
+            </div>
+            
+            <!-- 标签 -->
+            {{ if .Params.tags }}
+            <div class="hx:flex hx:flex-wrap hx:gap-2 hx:mt-3">
+              {{ range .Params.tags }}
+              <a href="/tags/{{ . | urlize }}/" class="hx:inline-flex hx:items-center hx:px-2 hx:py-1 hx:rounded hx:text-xs hx:font-medium hx:bg-blue-100 hx:text-blue-800 hx:dark:bg-blue-900 hx:dark:text-blue-200 hx:hover:bg-blue-200 hx:dark:hover:bg-blue-800 hx:transition-colors hx:duration-200">
+                {{ . }}
+              </a>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    
+    <!-- 如果没有文章 -->
+    {{ if eq (len .Pages) 0 }}
+    <div class="hx:text-center hx:py-12">
+      <div class="hx:text-gray-400 hx:dark:text-gray-600 hx:mb-4">
+        <svg class="hx:w-16 hx:h-16 hx:mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+      </div>
+      <h3 class="hx:text-lg hx:font-medium hx:text-gray-900 hx:dark:text-gray-100 hx:mb-2">暂无文章</h3>
+      <p class="hx:text-gray-500 hx:dark:text-gray-400">该分类下还没有发布任何文章。</p>
+    </div>
+    {{ end }}
+  </main>
+</div>
+
+<!-- 导航栏增强脚本 -->
+<script src="/js/navbar-enhancement.js"></script>
+{{- end -}}

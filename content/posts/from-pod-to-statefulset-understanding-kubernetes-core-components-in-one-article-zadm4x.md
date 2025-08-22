@@ -4,7 +4,7 @@ slug: >-
   from-pod-to-statefulset-understanding-kubernetes-core-components-in-one-article-zadm4x
 url: >-
   /post/from-pod-to-statefulset-understanding-kubernetes-core-components-in-one-article-zadm4x.html
-date: '{{ now.Format "2006-01-02T15:04:05Z07:00" }}'
+date: '2025-06-29T00:13:38+08:00'
 lastmod: '2025-06-29 00:13:38+08:00'
 draft: false
 params:
