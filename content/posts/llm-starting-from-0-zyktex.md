@@ -2,8 +2,8 @@
 title: 从0开始的LLM
 slug: llm-starting-from-0-zyktex
 url: /post/llm-starting-from-0-zyktex.html
-date: '2025-08-21 21:11:40+08:00'
-lastmod: '2025-08-21 21:12:43+08:00'
+date: '2025-08-18 21:11:40+08:00'
+lastmod: '2025-08-18 21:12:43+08:00'
 categories:
   - LLM
 toc: true
@@ -537,7 +537,7 @@ $$
 所谓注意力机制运算就是QK矩阵相乘，经过缩放
 
 $$
-{\sqrt{d_k}
+{\sqrt{d_k}}
 $$
 
 ，再经过softmax乘处理，最后和V相乘
@@ -550,13 +550,7 @@ $$
 where\text{ head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)
 $$
 
-对于多头情况，就是先将q、k、v矩阵经过多个权重矩阵，拆分到多个头中。分别经过注意力机制的计算，最后合并起来，再经过一次
-
-$$
-W^
-$$
-
-矩阵运算得到输出。回过头看看transformer的图，左边的部分叫**编码器**，右边的部分叫做**解码器**
+对于多头情况，就是先将q、k、v矩阵经过多个权重矩阵，拆分到多个头中。分别经过注意力机制的计算，最后合并起来，再经过一次矩阵运算得到输出。回过头看看transformer的图，左边的部分叫**编码器**，右边的部分叫做**解码器**
 
 ![](https://d9rfv1jkdq.feishu.cn/space/api/box/stream/download/asynccode/?code=N2E5YzY3ZTVkOTVjMjQzMGViMjU1MTU4OTk5YjViYzBfa1BDUGZINXh3bGxWdUZsYTZ2UjlZTmhobjRCeHhZYTJfVG9rZW46R2YyT2JhVDNEb29HVmx4SlhHQmM0MTZvbkRoXzE3NTU3ODE5NDQ6MTc1NTc4NTU0NF9WNA)
 
