@@ -188,3 +188,11 @@ OK
 Redis之所以能成为一个高性能、多功能的内存数据库，其成功的秘诀并不仅仅是“快”，更在于其内部设计的精巧与智能。通过`dictEntry`构建KV骨架，再利用`redisObject`这一统一的包装器，将数据的**逻辑类型**与**物理编码**解耦，使得Redis能够在不同场景下自动选择最优的数据结构，实现了极致的内存和性能优化。
 
 ‍
+
+‍
+
+### redis数据类型以及数据结构的时间复杂度
+
+‍
+
+![image](https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/20250927225937.png)
