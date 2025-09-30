@@ -164,7 +164,7 @@ redisObject
 
 ![zlentry节点结构](https://raw.githubusercontent.com/Anonymity-0/Picgo/main/img/20250926144032.png)
 
-通过`previous_entry_length`，`ziplist`可以从当前节点指针减去该长度，从而找到前一个节点的起始地址，实现了O(1)复杂度的反向跳转。这是一种典型的“**时间换空间**”设计。
+通过`previous_entry_length`，`ziplist`可以从当前节点指针减去该长度，从而找到前一个节点的起始地址，实现了O(1)复杂度的反向跳转。
 
  **“ziplist 不是有** **​`len`​** **吗？为什么还要** **​`prev_length`​**​ **？”**
 
