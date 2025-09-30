@@ -196,26 +196,27 @@ OK
 
 ```mermaid
 graph TD
-    A[开始] --> B{是 embstr 或 raw 字符串吗？}
-    
-    B -- 是 --> C{字符串长度 ≤ 20<br>且可转换为 long？}
-    B -- 否 --> H[直接返回原始对象]
-    
-    C -- 是 --> D{是否配置 maxmemory<br>并且整数值在 0 到 10000 之间？}
-    C -- 否 --> E{字符串长度 < 44？}
-    
-    D -- 是 --> F[从共享对象池获取]
-    D -- 否 --> G[根据 embstr 或 raw 再分别处理]
-    
-    E -- 是 --> I[编码为 embstr]
-    E -- 否 --> J[使用 raw 编码]
-    
-    F --> K[结束]
-    G --> K
-    I --> K
-    J --> K
-    H --> K
+    A[开始: 创建一个新的 String Object] --> B{"输入的值能否解析为 long 类型整数?"}
+
+    subgraph "整数路径"
+        B -- 能 --> C{"该整数是否在共享对象池范围内?<br>(默认 0-9999)"}
+        C -- 是 --> D["<b>编码: 共享对象</b><br>直接引用共享池中的对象<br>(无新内存分配)"]
+        C -- 否 --> E["<b>编码: int</b><br>创建新对象 (OBJ_ENCODING_INT)<br>直接存储long值"]
+    end
+
+    subgraph "字符串路径"
+        B -- 不能 --> F{"字符串长度是否 ≤ 44 字节?<br>(redis-ver >= 3.2)"}
+        F -- 是 --> G["<b>编码: embstr</b><br>创建新对象 (OBJ_ENCODING_EMBSTR)<br>对象头和数据连续存放"]
+        F -- 否 --> H["<b>编码: raw</b><br>创建新对象 (OBJ_ENCODING_RAW)<br>对象头和数据分开存放"]
+    end
+
+    D --> Z[结束]
+    E --> Z[结束]
+    G --> Z[结束]
+    H --> Z[结束]
 ```
+
+‍
 
 ### 结论
 
